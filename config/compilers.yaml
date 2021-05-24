@@ -1,0 +1,15 @@
+compilers:
+- compiler:
+    environment:
+      prepend_path:
+        PATH: /cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/gcc/9.3.0/bin
+        LD_LIBRARY_PATH: /cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/gcc/9.3.0/lib64:/cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/gcc/9.3.0/lib
+    modules: []
+    operating_system: centos7
+    spec: gcc@9.3.0
+    paths:
+      cc: /build/razumov/my_spack/opt/spack/linux-centos7-haswell/gcc-4.8.5/gcc-9.3.0-q7464qkk2bx77ft6rs673prupnzokprc/bin/gcc
+      cxx: /build/razumov/my_spack/opt/spack/linux-centos7-haswell/gcc-4.8.5/gcc-9.3.0-q7464qkk2bx77ft6rs673prupnzokprc/bin/g++
+      f77: /build/razumov/my_spack/opt/spack/linux-centos7-haswell/gcc-4.8.5/gcc-9.3.0-q7464qkk2bx77ft6rs673prupnzokprc/bin/gfortran
+      fc: /build/razumov/my_spack/opt/spack/linux-centos7-haswell/gcc-4.8.5/gcc-9.3.0-q7464qkk2bx77ft6rs673prupnzokprc/bin/gfortran
+    target: x86_64
