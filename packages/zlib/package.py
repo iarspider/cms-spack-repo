@@ -19,7 +19,7 @@ class Zlib(Package):
         version('1.2.11', tag='v1.2.11')
     else:
         git = "git://github.com/cms-externals/zlib.git"
-        version('1.2.11', commit='c822f7f5a8c57802faf8bbfe16266be02eff8c2e2')
+        version('1.2.11', commit='822f7f5a8c57802faf8bbfe16266be02eff8c2e2')
 
     variant('pic', default=True,
             description='Produce position-independent code (for shared libs)')
@@ -44,7 +44,7 @@ class Zlib(Package):
         env.append_flags('CFLAGS', '-DUSE_MMAP')
         env.append_flags('CFLAGS', '-DUNALIGNED_OK')
         env.append_flags('CFLAGS', '-D_LARGEFILE64_SOURCE=1')
-        if spec.target.family == 'x86_64':
+        if self.spec.target.family == 'x86_64':
             env.append_flags('CFLAGS', '-msse3')
 
     def install(self, spec, prefix):
