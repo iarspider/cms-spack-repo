@@ -15,7 +15,7 @@ spack:
       version: []
   view: false
   specs:
-    - root@v6-22-00-patches-cms-0c7eac6+root7+rootfit~vdt+tmva~postgres~sqlite~mysql~opengl+fftw+tbb+minuit+math+ssl+python+xrootd~graphviz~pythia6~pythia8~fits+davix+x
+    - root@6.22.00.patches_cms_0c7eac6 +root7+rootfit~vdt+tmva~postgres~sqlite~mysql~opengl+fftw+tbb+minuit+math+ssl+python+xrootd~graphviz~pythia6~pythia8~fits+davix+x
     - dcap@2.47.8
     - zlib@1.2.11
     - autoconf@2.69
