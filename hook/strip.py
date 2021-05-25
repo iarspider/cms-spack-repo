@@ -1,5 +1,7 @@
 import glob
 import os
+from spack.util.executable import which
+from llnl.util.filesystem import join_path, find, is_exe
 
 def post_install(spec): 
     pkg = spec.package
