@@ -6,7 +6,7 @@
 from spack import *
 
 
-class CMSConfig(BundlePackage):
+class CmsConfig(BundlePackage):
     """Bundle package for full CMS release"""
 
     homepage = ""
