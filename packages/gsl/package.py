@@ -39,7 +39,7 @@ class Gsl(AutotoolsPackage, GNUMirrorPackage):
     depends_on('blas', when='+external-cblas')
 
     strip_files = ['lib']
-    drop_files = ['lib/*.la', 'share', 'lib/pkgconfig']  # -- CMS hook, not sure about the last one
+    drop_files = ['lib/*.la', 'share']
 
     @property
     def force_autoreconf(self):

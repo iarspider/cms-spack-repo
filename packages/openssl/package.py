@@ -80,6 +80,8 @@ class Openssl(Package):   # Uses Fake Autotools, should subclass Package
     depends_on('perl@5.14.0:', type=('build', 'test'))
 
     # -- CMS
+    depends_on('imake', type='build')
+
     # https://rt.openssl.org/Ticket/Display.html?id=3979&user=guest&pass=guest
     patch('openssl-1.0.2d-pr3979.patch', when='@1.0.2d')
     # We want to pick CA certificates from /etc/pki/tls (openssldir), but we
@@ -126,18 +128,18 @@ class Openssl(Package):   # Uses Fake Autotools, should subclass Package
             'no-idea', 'no-mdc2', 'no-rc5', 'shared']
 
         if self.spec.satisfies('platform=darwin'):
-            options.append('target=darwin64-x86_64-cc')
+            options.append('darwin64-x86_64-cc')
             options.append('-DOPENSSL_USE_NEW_FUNCTIONS')
         elif self.spec.satisfies('platform=aarch64'):
-            options.append('target=linux-aarch64')
+            options.append('linux-aarch64')
         elif self.spec.satisfies('platform=ppc64le'):
-            options.append('target=linux-ppc64le')
+            options.append('linux-ppc64le')
         elif self.spec.satisfies('platform=ppc64'):
-            options.append('target=linux-ppc64')
-        elif self.spec.satisfies('platform=x86_64'):
-            options.append('target=linux-x86_64')
+            options.append('linux-ppc64')
+        elif self.spec.satisfies('platform=linux'):
+            options.append('linux-x86_64')
         else:
-            options.append('target=linux-generic64')
+            options.append('linux-generic64')
 
         if not self.spec.satisfies('platform=darwin'):
             options.extend(['--with-krb5-flavor=MIT',
@@ -160,7 +162,7 @@ class Openssl(Package):   # Uses Fake Autotools, should subclass Package
             options.append('-D__STDC_NO_ATOMICS__')
 
         perl = which('perl')
-        perl('./Configure', '--prefix=%s' % prefix, target, *options)
+        perl('./Configure', '--prefix=%s' % prefix, *options)
 
         # -- Spack original recipe
         # config = Executable('./config')
@@ -178,7 +180,11 @@ class Openssl(Package):   # Uses Fake Autotools, should subclass Package
                     # 'Makefile.org')
         filter_file('install: all install_docs install_sw', 'install: all install_sw',
                     'Makefile')
+        filter_file('makedepend', 'ccmakedep', join_path('crypto', 'Makefile'))
+        filter_file('makedepend', 'ccmakedep', 'Makefile')
+        filter_file('makedepend', 'ccmakedep', join_path('util', 'domd'))
 
+        make('depend')
         make()
         # if self.run_tests:
             # make('test', parallel=False)  # 'VERBOSE=1'
