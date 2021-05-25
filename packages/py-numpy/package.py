@@ -329,6 +329,7 @@ class PyNumpy(PythonPackage):
         with working_dir('spack-test', create=True):
             python('-c', 'import numpy; numpy.test("full", verbose=2)')
 
+    #TODO
     @run_after('install')
     def symlink_numpy_core(self):
-        
+        pass
