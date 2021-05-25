@@ -241,7 +241,7 @@ class Openblas(MakefilePackage):
         if self.spec.target.family == 'x86_64':
             make_defs.extend(['BINARY=64', 'TARGET=CORE2', 
                               'NUM_THREADS=256', 'DYNAMIC_ARCH=0'])
-        eilf self.spec.target.family == 'aarch64':
+        elif self.spec.target.family == 'aarch64':
             make_defs.extend(['BINARY=64', 'TARGET=ARMV8', 
                               'NUM_THREADS=256', 'DYNAMIC_ARCH=0'])
         elif self.spec.target.family == 'ppc64le':
