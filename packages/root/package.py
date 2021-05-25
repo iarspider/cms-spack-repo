@@ -22,7 +22,7 @@ class Root(CMakePackage):
     # Master branch
     version('master', branch='master')
 
-    version('v6-22-00-patches-cms-0c7eac6', branch='cms/v6-22-00-patches/0c7eac6')
+    version('6.22.00.patches_cms_0c7eac6', branch='cms/v6-22-00-patches/0c7eac6')
 
     # ###################### Variants ##########################
     # See README.md for specific notes about what ROOT configuration
