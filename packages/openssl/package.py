@@ -88,6 +88,7 @@ class Openssl(Package):   # Uses Fake Autotools, should subclass Package
     # cannot install to a standard system location
     # ? covered by +systemcerts ?
     # patch('openssl-1.0.2d-disable-install-openssldir.patch', when='@1.0.2d')
+    patch('openssl-1.1.0-pr9873.patch', when='@1.1.0l')
 
     # -- CMS hook
     drop_files = ['lib/*.a']
@@ -124,7 +125,8 @@ class Openssl(Package):   # Uses Fake Autotools, should subclass Package
         # This requires passing target platform name
         # and type/path to Keberos
         options = ['no-zlib', 'shared', 'enable-seed',
-            'enable-tlsext', 'enable-rfc3779', 'no-asm',
+            #'enable-tlsext',  -- not in 1.1.0l
+            'enable-rfc3779', 'no-asm',
             'no-idea', 'no-mdc2', 'no-rc5', 'shared']
 
         if self.spec.satisfies('platform=darwin'):
@@ -142,9 +144,12 @@ class Openssl(Package):   # Uses Fake Autotools, should subclass Package
             options.append('linux-generic64')
 
         if not self.spec.satisfies('platform=darwin'):
-            options.extend(['--with-krb5-flavor=MIT',
-                            '--with-krb5-dir=/usr',
-                            'enable-krb5', 'no-zlib',
+            options.extend([
+                            # -- Not in 1.1.0l --
+                            # '--with-krb5-flavor=MIT',
+                            # '--with-krb5-dir=/usr',
+                            # 'enable-krb5', 
+                            'no-zlib',
                             '--openssldir=/etc/pki/tls',
                             'fips', 'no-ec2m', 'no-gost',
                             'no-srp'])
