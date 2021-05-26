@@ -52,7 +52,7 @@ spack:
     - ninja@1.10.0
     - numactl@2.0.14
     - openblas@0.3.9
-    - openssl@1.0.2d
+    - openssl@1.1.0l
     - pcre@8.43~jit~multibyte+utf
     - py-cython@0.29.22
     - py-numpy@1.17.5
