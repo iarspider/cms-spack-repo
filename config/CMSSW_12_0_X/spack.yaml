@@ -4,6 +4,8 @@
 # It describes a set of packages to be installed, along with
 # configuration settings.
 # NOTICE: intel-tbb should not be replaced with intel-oneapi-tbb, the latter one is pre-built and not configurable
+# NOTICE: there is no FIPS for new openssl (1.2.x), and we need it for... reasons
+# NOTICE: py-pip@20.3.3 hwloc@2.4.0
 spack:
   concretization: together
   packages:
