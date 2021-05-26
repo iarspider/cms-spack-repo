@@ -185,9 +185,9 @@ class Openssl(Package):   # Uses Fake Autotools, should subclass Package
                     # 'Makefile.org')
         filter_file('install: all install_docs install_sw', 'install: all install_sw',
                     'Makefile')
-        filter_file('makedepend', 'ccmakedep', join_path('crypto', 'Makefile'))
-        filter_file('makedepend', 'ccmakedep', 'Makefile')
-        filter_file('makedepend', 'ccmakedep', join_path('util', 'domd'))
+        # filter_file('makedepend', 'ccmakedep', join_path('crypto', 'Makefile'))
+        # filter_file('makedepend', 'ccmakedep', 'Makefile')
+        # filter_file('makedepend', 'ccmakedep', join_path('util', 'domd'))
 
         make('depend')
         make()
