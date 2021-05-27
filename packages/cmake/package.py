@@ -3,6 +3,7 @@
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
+import os
 import re
 
 
@@ -236,7 +237,8 @@ class Cmake(Package):
             'CXXFLAGS=-O3',
             '--prefix={0}'.format(self.prefix),
             '--parallel={0}'.format(make_jobs),
-            '--init=build-flags.cmake' # -- CMS
+            '--init=build-flags.cmake', # -- CMS
+            '--no-system-librhash'  # -- CMS, to check
         ]
 
         if '+ownlibs' in spec:

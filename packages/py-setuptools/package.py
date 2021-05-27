@@ -45,7 +45,10 @@ class PySetuptools(PythonPackage):
         url = url.format(version)
 
         if version > Version('32.1.2'):
-            url += '.zip'
+            if version < Version('51.3.3'):
+                url += '.zip'
+            else:
+                url += '.tar.gz'
         else:
             url += '.tar.gz'
 

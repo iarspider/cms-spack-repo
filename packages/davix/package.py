@@ -26,7 +26,7 @@ class Davix(CMakePackage):
 
     depends_on('pkgconfig', type='build')
     depends_on('libxml2')
-    depends_on('uuid')
+    # depends_on('uuid')
     depends_on('openssl')
 
     def cmake_args(self):

@@ -1,4 +1,4 @@
-# Copyright 2013-2021 Lawrence Livermore National Security, LLC and other
+# Copyright 2013-2020 Lawrence Livermore National Security, LLC and other
 # Spack Project Developers. See the top-level COPYRIGHT file for details.
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
@@ -10,7 +10,7 @@ class PyPip(PythonPackage):
     """The PyPA recommended tool for installing Python packages."""
 
     homepage = "https://pip.pypa.io/"
-    pypi = "pip/pip-20.2.tar.gz"
+    url      = "https://pypi.io/packages/source/p/pip/pip-20.2.tar.gz"
 
     version('20.3.3', sha256='79c1ac8a9dccbec8752761cb5a2df833224263ca661477a2a9ed03ddf4e0e3ba')
     version('20.2',   sha256='912935eb20ea6a3b5ed5810dde9754fde5563f5ca9be44a8a6e5da806ade970b')
