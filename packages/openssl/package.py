@@ -195,7 +195,7 @@ class Openssl(Package):   # Uses Fake Autotools, should subclass Package
             # make('test', parallel=False)  # 'VERBOSE=1'
 
         # # See https://github.com/openssl/openssl/issues/7466#issuecomment-432148137
-        make('install', parallel=False)
+        make('install_sw', parallel=False)
 
     @run_after('install')
     def link_system_certs(self):
@@ -218,6 +218,7 @@ class Openssl(Package):   # Uses Fake Autotools, should subclass Package
             pkg_cert = join_path(pkg_dir, 'cert.pem')
             # If a bundle exists, use it. This is the preferred way on Fedora,
             # where the certs directory does not work.
+            mkdirp(pkg_dir) # create directory - otherwise os.symlink will fail
             if os.path.exists(sys_cert) and not os.path.exists(pkg_cert):
                 os.symlink(sys_cert, pkg_cert)
 
@@ -227,7 +228,8 @@ class Openssl(Package):   # Uses Fake Autotools, should subclass Package
             # We symlink the whole directory instead of all files because
             # the directory contents might change without Spack noticing.
             if os.path.isdir(sys_certs) and not os.path.islink(pkg_certs):
-                os.rmdir(pkg_certs)
+                if os.path.isdir(pkg_certs):
+                    os.rmdir(pkg_certs)
                 os.symlink(sys_certs, pkg_certs)
 
     def setup_build_environment(self, env):

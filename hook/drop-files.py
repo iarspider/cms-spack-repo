@@ -1,7 +1,7 @@
 import glob
 import os
 import shutil
-from llnl.util.filesystem import join_path
+from llnl.util.filesystem import join_path, force_remove
 
 def rm_rf(path):
     if os.path.isdir(path):

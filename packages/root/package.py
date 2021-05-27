@@ -299,7 +299,7 @@ class Root(CMakePackage):
             define_from_variant('dcache'),
             define_from_variant('fftw3', 'fftw'),
             define_from_variant('fitsio', 'fits'),
-            define_from_variant('ftgl', False),
+            define('ftgl', False),
             define_from_variant('gdml'),
             define_from_variant('genvector', 'math'),
             define('geocad', False),

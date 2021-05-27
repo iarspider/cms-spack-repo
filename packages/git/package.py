@@ -4,6 +4,7 @@
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
 import sys
+import shutil
 import re
 import os
 from spack import *
@@ -51,6 +52,11 @@ class Git(AutotoolsPackage):
             'version': '2.25.0',
             'sha256': 'a98c9b96d91544b130f13bf846ff080dda2867e77fe08700b793ab14ba5346f6',
             'sha256_manpages': '22b2380842ef75e9006c0358de250ead449e1376d7e5138070b9a3073ef61d44'
+        },
+        {
+            'version': '2.23.0',
+            'sha256': 'e3396c90888111a01bf607346db09b0fbf49a95bc83faf9506b61195936f0cfe',
+            'sha256_manpages': 'a5b0998f95c2290386d191d34780d145ea67e527fac98541e0350749bf76be75'
         },
         {
             'version': '2.21.0',
@@ -199,7 +205,8 @@ class Git(AutotoolsPackage):
 
     depends_on('curl')
     depends_on('expat')
-    depends_on('gettext')
+    # -- CMS
+    # depends_on('gettext')
     depends_on('iconv')
     depends_on('libidn2')
     depends_on('openssl')
@@ -255,8 +262,9 @@ class Git(AutotoolsPackage):
         # In that case the node in the DAG gets truncated and git DOES NOT
         # have a gettext dependency.
         if 'gettext' in self.spec:
-            env.append_flags('EXTLIBS', '-L{0} -lintl'.format(
-                self.spec['gettext'].prefix.lib))
+            # -- CMS: disable gettext
+            # env.append_flags('EXTLIBS', '-L{0} -lintl'.format(
+            #     self.spec['gettext'].prefix.lib))
             env.append_flags('CFLAGS', '-I{0}'.format(
                 self.spec['gettext'].prefix.include))
 
@@ -316,7 +324,7 @@ class Git(AutotoolsPackage):
     def build(self, spec, prefix):
         make('NO_GETTEXT=1', 'NO_R_TO_GCC_LINKER=1', 'RUNTIME_PREFIX=1', 'V=1', 'NO_CROSS_DIRECTORY_HARDLINK=1', 'NO_INSTALL_HARDLINKS=1', 'all')
         mkdirp(join_path(self.stage.source_path, 'ca-bundle'))
-        shutil.copy(join_path(os.path.dirname('__file__'), 'mk-ca-bundle.pl'), join_path(self.stage.source_path, 'ca-bundle'))
+        shutil.copy(join_path(os.path.dirname(__file__), 'mk-ca-bundle.pl'), join_path(self.stage.source_path, 'ca-bundle'))
         perl = which('perl')
         with working_dir(join_path(self.stage.source_path, 'ca-bundle')):
             perl('mk-ca-bundle.pl')

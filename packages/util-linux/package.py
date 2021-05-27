@@ -93,9 +93,9 @@ class UtilLinux(AutotoolsPackage):
     def install(self, spec, prefix):
         # make('install', parallel=False)
         mkdirp(prefix.lib64)
-        for fn in glob(join_path(spec.stage.source_path, '.libs', 'libuuid.a*')):
-            install(join_path(spec.stage.source_path, '.libs', fn), prefix.lib64)
-        for fn in glob(join_path(spec.stage.source_path, '.libs', 'libuuid.so*')):
-            install(join_path(spec.stage.source_path, '.libs', fn), prefix.lib64)
+        for fn in glob(join_path(self.stage.source_path, '.libs', 'libuuid.a*')):
+            install(join_path(self.stage.source_path, '.libs', fn), prefix.lib64)
+        for fn in glob(join_path(self.stage.source_path, '.libs', 'libuuid.so*')):
+            install(join_path(self.stage.source_path, '.libs', fn), prefix.lib64)
         mkdirp(prefix.include)
         make('install-uuidincHEADERS')
