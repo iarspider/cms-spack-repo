@@ -8,7 +8,7 @@ import re
 from spack import *
 
 
-class Bzip2(Package, SourcewarePackage, ToolfilePackage):
+class Bzip2(Package, SourcewarePackage):
     """bzip2 is a freely available, patent free high-quality data
     compressor. It typically compresses files to within 10% to 15%
     of the best available techniques (the PPM family of statistical
@@ -114,22 +114,3 @@ class Bzip2(Package, SourcewarePackage, ToolfilePackage):
             force_remove('bunzip2', 'bzcat')
             symlink('bzip2', 'bunzip2')
             symlink('bzip2', 'bzcat')
-
-    @run_after('install')
-    def write_scram_toolfile(self):
-        values = {}
-        values['VER'] = self.spec.version
-        values['PFX'] = self.prefix
-
-        fname = 'bz2lib.xml'
-        contents = str("""<tool name="bz2lib" version="$VER">
-  <lib name="bz2"/>
-  <client>
-    <environment name="BZ2LIB_BASE" default="$PFX"/>
-    <environment name="LIBDIR" default="$$BZ2LIB_BASE/lib"/>
-    <environment name="INCLUDE" default="$$BZ2LIB_BASE/include"/>
-  </client>
-  <runtime name="ROOT_INCLUDE_PATH" value="$$INCLUDE" type="path"/>
-  <use name="root_cxxdefaults"/>
-</tool>""")
-        self.create_scram_toolfile(contents, values, fname, prefix)
