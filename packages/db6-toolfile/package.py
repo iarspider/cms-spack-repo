@@ -7,12 +7,12 @@ from scrampackage import write_scram_toolfile
 class Db6Toolfile(Package):
     url = 'file://' + os.path.dirname(__file__) + '../ToolfilePackage/junk.xml'
     version('1.0', '68841b7dcbd130afd7d236afe8fd5b949f017615', expand=False)
-    depends_on('berkely-db')
+    depends_on('berkeley-db')
 
     def install(self,spec,prefix):
         values = {}
-        values['VER'] = spec['berkley-db'].version
-        values['PFX'] = spec['berkley-db'].prefix
+        values['VER'] = spec['berkeley-db'].version
+        values['PFX'] = spec['berkeley-db'].prefix
 
         fname = 'db6.xml'
         contents = str("""

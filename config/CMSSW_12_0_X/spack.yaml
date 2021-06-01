@@ -40,7 +40,7 @@ spack:
   - expat@2.1.0~libbsd
   - expat-toolfile
   - fftw@3.3.8~mpi~openmp precision=double
-  - fftw-toolfile
+  - fftw3-toolfile
   - freetype@2.10.0
   - freetype-toolfile
   - gdbm@1.10
