@@ -12,8 +12,8 @@ class XrootdToolfile(Package):
     def install(self, spec, prefix):
 
         values = {}
-        values['VER'] = spec['xrootd-cms'].version
-        values['PFX'] = spec['xrootd-cms'].prefix
+        values['VER'] = spec['xrootd'].version
+        values['PFX'] = spec['xrootd'].prefix
 
         fname = 'xrootd.xml'
         contents = str("""<tool name="xrootd" version="$VER">
