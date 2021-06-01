@@ -430,9 +430,9 @@ class RootToolfile(Package):
   <info url="http://root.cern.ch/root/"/>
   <lib name="RooFitCore"/>
   <client>
-    <environment name="ROOFIT_BASE" default="$TOOL_ROOT"/>
+    <environment name="ROOFIT_BASE" default="$$TOOL_ROOT"/>
   </client>
-  <runtime name="ROOFITSYS" value="$ROOFIT_BASE/"/>
+  <runtime name="ROOFITSYS" value="$$ROOFIT_BASE/"/>
   <use name="rootcore"/>
   <use name="roothistmatrix"/>
   <use name="rootgpad"/>
