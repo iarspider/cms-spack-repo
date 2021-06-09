@@ -10,6 +10,8 @@ cd spack
 source spack/share/setup-env.sh
 echo Adding CMS repository
 spack repo add --scope=site ${SCRIPT_DIR}
+echo Configuring spack
+cp ${SCRIPT_DIR}/config/config.yaml etc/spack/
 echo Adding external gcc 9.3.0
 mkdir -p etc/spack/linux
 cp ${SCRIPT_DIR}/config/compilers.yaml etc/spack/linux/compilers.yaml
@@ -17,4 +19,5 @@ echo Adding CMS hooks
 cp ${SCRIPT_DIR}/hook/* lib/spack/spack/hooks/
 echo Creating environment
 spack env create CMSSW_12_0_X ${SCRIPT_DIR}/config/CMSSW_12_0_X/spack.yaml
+spack env activate CMSSW_12_0_X
 echo Done

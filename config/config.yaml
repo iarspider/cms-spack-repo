@@ -1,0 +1,3 @@
+config:
+  concretizer: clingo
+  allow_sgid: false
