@@ -25,7 +25,6 @@ class Automake(AutotoolsPackage, GNUMirrorPackage):
 
     build_directory = 'spack-build'
 
-'
     executables = ['^automake$']
 
     # -- CMS hook
