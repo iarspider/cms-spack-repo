@@ -53,8 +53,8 @@ class Autoconf(AutotoolsPackage, GNUMirrorPackage):
         # We save and restore the modification timestamp of the file to prevent
         # regeneration of the respective man page:
         with keep_modification_time(patched_file):
-        filter_file('^#! @PERL@ -w',
-                    '#! /usr/bin/env perl',
+            filter_file('^#! @PERL@ -w',
+                        '#! /usr/bin/env perl',
                         patched_file)
 
     @run_after('install')
