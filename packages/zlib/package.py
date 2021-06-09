@@ -28,6 +28,8 @@ class Zlib(Package):
     variant('optimize', default=True,
             description='Enable -O2 for a more optimized lib')
 
+    patch('w_patch.patch', when="@1.2.11%cce")
+
     @property
     def libs(self):
         shared = '+shared' in self.spec
