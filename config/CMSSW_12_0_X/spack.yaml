@@ -20,7 +20,7 @@ spack:
   - root-toolfile
   - dcap@2.47.8
   - dcap-toolfile
-  - zlib@1.2.11
+  - zlib@1.2.11+optimize
   - zlib-toolfile
   - autoconf@2.69
   - automake@1.16.1
@@ -86,4 +86,4 @@ spack:
   - xrootd-toolfile
   - xz@5.2.4 libs=shared
   - xz-toolfile
-  - zstd@1.4.5+shared~static~programs~legacy+optimize
+  - zstd@1.4.5+shared~static~programs~legacy
