@@ -1,7 +1,7 @@
 #!/bin/bash
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 cd ${SCRIPT_DIR}
-SPACK_VERSION=v0.16.1
+SPACK_VERSION="729d66a3f8"
 echo This script will install Spack and configure it for CMS needs
 echo Cloning spack...
 git clone https://github.com/spack/spack.git -b ${SPACK_VERSION}
