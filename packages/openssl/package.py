@@ -42,7 +42,7 @@ class Openssl(Package):   # Uses Fake Autotools, should subclass Package
     version('1.1.1',  sha256='2836875a0f89c03d0fdf483941512613a50cfb421d6fd94b9f41d7279d586a3d', deprecated=True)
 
     # The 1.1.0 series is out of support and should not be used.
-    version('1.1.0l', sha256='74a2f756c64fd7386a29184dc0344f4831192d61dc2481a93a4c5dd727f41148', deprecated=True)
+    version('1.1.0l', sha256='74a2f756c64fd7386a29184dc0344f4831192d61dc2481a93a4c5dd727f41148')
     version('1.1.0k', sha256='efa4965f4f773574d6cbda1cf874dbbe455ab1c0d4f906115f867d30444470b1', deprecated=True)
     version('1.1.0j', sha256='31bec6c203ce1a8e93d5994f4ed304c63ccf07676118b6634edded12ad1b3246', deprecated=True)
     version('1.1.0i', sha256='ebbfc844a8c8cc0ea5dc10b86c9ce97f401837f3fa08c17b2cdadc118253cf99', deprecated=True)
