@@ -18,6 +18,5 @@ cp ${SCRIPT_DIR}/config/compilers.yaml etc/spack/linux/compilers.yaml
 echo Adding CMS hooks
 cp ${SCRIPT_DIR}/hook/* lib/spack/spack/hooks/
 echo Creating environment
-spack env create CMSSW_12_0_X ${SCRIPT_DIR}/config/CMSSW_12_0_X/spack.yaml
-spack env activate CMSSW_12_0_X
+spack env create CMSSW_12_0_X ${SCRIPT_DIR}/environments/CMSSW_12_0_X/spack.yaml
 echo Done
