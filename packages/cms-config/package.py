@@ -16,3 +16,4 @@ class CmsConfig(BundlePackage):
     version('12_0_X')
 
     depends_on('root')
+    depends_on('coral')
