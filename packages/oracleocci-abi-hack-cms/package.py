@@ -23,5 +23,5 @@ class OracleocciAbiHackCms(Package):
             shutil.copytree('include',prefix.include)
 
     def setup_environment(self, spack_env, run_env):
-        spack_env.set('INCLUDE_DIR','%s' % self.spec['oracle'].prefix.include)
-        spack_env.set('LIB_DIR', '%s' % self.spec['oracle'].prefix.lib)
+        spack_env.set('INCLUDE_DIR','%s' % self.spec['oracle-instant-client'].prefix.include)
+        spack_env.set('LIB_DIR', '%s' % self.spec['oracle-instant-client'].prefix.lib)
