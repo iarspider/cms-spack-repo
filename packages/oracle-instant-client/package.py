@@ -79,7 +79,7 @@ class OracleInstantClient(Package):
     key = "{0}-{1}".format(platform.system(), platform.machine()) 
     for release in releases:
         oracle_version = release['version']
-        packages = release.get('key', None)
+        packages = release.get(key, None)
         if packages is None:
             continue
             
