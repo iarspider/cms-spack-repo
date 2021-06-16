@@ -14,10 +14,15 @@ class Scram(Package):
 
     homepage = "https://github.com/cms-sw/SCRAM"
     url = "https://github.com/cms-sw/SCRAM/archive/V2_2_6.tar.gz"
+    git = "https://github.com/cms-sw/SCRAM.git"
 
+    version('3_0_23', commit='9794c2f7b7f2690687c41eb67778023d5c2a6e1b')
     version('2_2_8_pre7', '8675ba547d471632d288b2e1c327a35c')
     version('2_2_8_pre6', '94b626646228f19ad7104b7de2cd22bb')
     version('2_2_8_pre1', 'b5992a1d94ba5f87517e9a5b5941a7fb')
+
+    def url_for_version(self, version):
+        return "https://github.com/cms-sw/SCRAM/archive/V" + version.underscored
 
     depends_on('gmake')
 
