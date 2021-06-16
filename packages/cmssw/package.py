@@ -6,7 +6,7 @@ import fnmatch
 import shutil
 from spack.util.executable import Executable
 import sys,os
-sys.path.append(os.path.join(os.path.dirname(__file__), '../../common'))
+sys.path.append(os.path.join(os.path.dirname(__file__), '../ToolfilePackage'))
 from scrampackage import relrelink
 
 

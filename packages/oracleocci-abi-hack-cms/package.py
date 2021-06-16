@@ -1,7 +1,7 @@
 from spack import *
 import shutil
 import sys,os
-sys.path.append(os.path.join(os.path.dirname(__file__), '../../common'))
+sys.path.append(os.path.join(os.path.dirname(__file__), '../ToolfilePackage'))
 from scrampackage import write_scram_toolfile
 
 
