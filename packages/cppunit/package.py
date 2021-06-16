@@ -16,6 +16,11 @@ class Cppunit(AutotoolsPackage):
     version('1.15.x', commit='78e64f0edb4f3271a6ddbcdf9cba05138597bfca') # -- CMS
     version('1.14.0', sha256='3d569869d27b48860210c758c4f313082103a5e58219a7669b52bfd29d674780')
     version('1.13.2', sha256='3f47d246e3346f2ba4d7c9e882db3ad9ebd3fcbd2e8b732f946e0e3eeb9f429f')
+
+    depends_on('m4', type='build')
+    depends_on('autoconf', type='build')
+    depends_on('automake', type='build')
+    depends_on('libtool', type='build')
     
     patch('cppunit-1.14-defaulted-function-deleted.patch', when='@1.15.x')
     drop_files = ['share', 'lib/*.a', 'lib/*.la']
