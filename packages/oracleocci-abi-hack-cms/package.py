@@ -14,7 +14,7 @@ class OracleocciAbiHackCms(Package):
     version('1.0.0', git = "https://github.com/cms-sw/cms_oracleocci_abi_hack.git", 
              commit='88b2a965305226df1822a14af8fe7174ee5f1614')
 
-    depends_on('oracle')
+    depends_on('oracle-instant-client')
 
     def install(self, spec, prefix):
         make()
