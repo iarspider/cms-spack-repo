@@ -39,7 +39,7 @@ spack:
   - fftw3-toolfile
   - freetype@2.10.0
   - freetype-toolfile
-  - frontier-client@2_9_1 
+  - frontier-client@2_8_20_cms
   - frontier-client-toolfile
   - gcc-compiler-toolfile
   - gdbm@1.10
