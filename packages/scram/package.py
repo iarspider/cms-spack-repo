@@ -43,12 +43,12 @@ class Scram(Package):
         # %post
         mkdirp(join_path(prefix, 'etc', 'profile.d'))
         with open(join_path(prefix, 'etc', 'profile.d', 'init.sh'), 'w') as f:
-            write("SCRAMV1_ROOT='"+prefix+"'\n")
-            write("SCRAMV1_VERSION='"+self.spec.version+"'\n")
+            f.write("SCRAMV1_ROOT='"+prefix+"'\n")
+            f.write("SCRAMV1_VERSION='"+self.spec.version+"'\n")
 
         with open(join_path(prefix, 'etc', 'profile.d', 'init.csh'), 'w') as f:
-            write("set SCRAMV1_ROOT='"+prefix+"'\n")
-            write("set SCRAMV1_VERSION='"+self.spec.version+"'\n")
+            f.write("set SCRAMV1_ROOT='"+prefix+"'\n")
+            f.write("set SCRAMV1_VERSION='"+self.spec.version+"'\n")
 
         with working_dir(prefix.etc.scramrc, create=True):
             touch('links.db')
