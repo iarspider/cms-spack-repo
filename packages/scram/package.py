@@ -41,6 +41,7 @@ class Scram(Package):
         install(join_path('cli', 'scram.py'), prefix.bin)
 
         # %post
+        mkdirp(join_path(prefix, 'etc', 'profile.d'))
         with open(join_path(prefix, 'etc', 'profile.d', 'init.sh'), 'w') as f:
             write("SCRAMV1_ROOT='"+prefix+"'\n")
             write("SCRAMV1_VERSION='"+self.spec.version+"'\n")
