@@ -53,13 +53,13 @@ class Scram(Package):
         with working_dir(prefix.etc.scramrc, create=True):
             touch('links.db')
             with open('cmssw.map', 'w') as f:
-                f.write('CMSSW='+scram_arch+'/cms/cmssw/CMSSW_*\n')
+                f.write('CMSSW='+self.scram_arch+'/cms/cmssw/CMSSW_*\n')
 
             with open('cmssw-patch.map', 'w') as f:
-                f.write('CMSSW='+scram_arch+'/cms/cmssw-patch/CMSSW_*\n')
+                f.write('CMSSW='+self.scram_arch+'/cms/cmssw-patch/CMSSW_*\n')
 
             with open('coral.map', 'w') as f:
-                f.write('CORAL='+scram_arch+'/cms/coral/CORAL_*\n')
+                f.write('CORAL='+self.scram_arch+'/cms/coral/CORAL_*\n')
 
             # TODO: OldDB
             touch('site.cfg')
