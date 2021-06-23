@@ -78,7 +78,7 @@ class ScramPackage(PackageBase):
         if self.ucprojtype is None:
             self.ucprojtype = __name__.replace('-patch', '').upper()
 
-        self.lcprojtype = ucprojtype.lower()
+        self.lcprojtype = self.ucprojtype.lower()
         self.toolconf = __name__.replace('-', '_').upper() + '_TOOL_CONF_ROOT'
 
     def edit(self, spec, prefix):
