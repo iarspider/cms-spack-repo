@@ -1,6 +1,9 @@
 from spack.package import PackageBase
+from spack.directives import depends_on, run_after
+
 import platform
 import os
+import shutil
 
 class ScramPackage(PackageBase):
     subpackageDebug = True
@@ -31,9 +34,9 @@ class ScramPackage(PackageBase):
 
     depends_on('scram', type='build')
     depends_on('cmssw-config', type='build')
+    # NOTICE: maybe dwz, once I figure it out
 
     self.subpackageDebug = self.subpackageDebug and (platform.system() == 'linux')
-    # NOTICE: maybe dwz, once I figure it out
 
     @property
     def build_directory(self):
@@ -303,3 +306,9 @@ class ScramPackage(PackageBase):
 
     def post_(self, spec, prefix):
         return
+        
+    run_after('build')(PackageBase._run_default_build_time_test_callbacks)
+
+    # Check that self.prefix is there after installation
+    # TODO: uncomment
+    # run_after('install')(PackageBase.sanity_check_prefix)     

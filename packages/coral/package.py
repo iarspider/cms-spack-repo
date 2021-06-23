@@ -36,12 +36,11 @@ class Coral(ScramPackage):
 
     def patch(self):
         if self.spec.satisfies('platform=darwin'):
-            perl = which('perl')
-            perl('-p', '-i', '-e', "'s!(<classpath.*/tests\\+.*>)!!;'", 'config/BuildFile.xml')
+            filter_file('(<classpath.*/tests\\+.*>)', '', 'config/BuildFile.xml')
             
         if self.spec.satisfies('target=aarch64:') or self.spec.satisfies('target=ppc64') or self.spec.satisfies('target=ppc64le'):
             shutil.rmtree(join_path(self.stage.source_path, 'src', 'OracleAccess'))
-        
+       
 
     # def install(self, spec, prefix):
         # coral_version = 'CORAL.' + str(self.version)
