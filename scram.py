@@ -3,6 +3,7 @@ from llnl.util.filesystem import *
 
 from spack.package import PackageBase, run_after
 from spack.directives import depends_on
+from spack.util.executable import which, Executable
 
 import platform
 import os
