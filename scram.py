@@ -147,12 +147,12 @@ class ScramPackage(PackageBase):
             lines.extend(['export SCRAM_NOLOADCHECK=true', 'export SCRAM_NOSYMCHECK=true'])
 
         if getattr(self, 'preBuildCommand', None):
-            lines.extend(self.preBuildCommand.split('\n'))
+            lines.extend(self.preBuildCommand)
 
         lines.append('$scramcmd b -r echo_CXX </dev/null')
 
         if getattr(self, 'PatchReleasePythonSymlinks', None):
-            lines.except(self.PatchReleasePythonSymlinks.split('\n')
+            lines.extend(self.PatchReleasePythonSymlinks)
 
         if self.prebuildtarget is not None:
             lines.append('${scramcmd} b --verbose -f ' + self.prebuildtarget + ' </dev/null')
@@ -185,7 +185,7 @@ class ScramPackage(PackageBase):
             lines.extend(['mkdir -p $i/etc/dependencies',
                           'SCRAM_TOOL_HOME=' + self.spec['scram'].prefix + ' $i/config/SCRAM/findDependencies.py -rel $i -arch $cmsplatf'])
             if getattr(self, 'PatchReleaseDependencyInfo', None):
-                lines.extend(self.PatchReleaseDependencyInfo.split('\n'))
+                lines.extend(self.PatchReleaseDependencyInfo)
 
             lines.append('gzip -f %i/etc/dependencies/*.out')
 
