@@ -42,8 +42,8 @@ class ScramPackage(PackageBase):
         self.bootstrapfile = 'config/bootsrc.xml'
 
         self.build_system_class = 'ScramPackage'
-
-
+        
+        
     @property
     def build_directory(self):
         """Returns the directory containing the main Makefile
@@ -87,7 +87,7 @@ class ScramPackage(PackageBase):
             self.ucprojtype = __name__.replace('-patch', '').upper()
 
         self.lcprojtype = self.ucprojtype.lower()
-        self.toolconf = __name__.replace('-', '_').upper() + '_TOOL_CONF_ROOT'
+
 
     def edit(self, spec, prefix):
         self.setup(spec, prefix)
