@@ -1,3 +1,6 @@
+import llnl.util.filesystem
+from llnl.util.filesystem import * 
+
 from spack.package import PackageBase, run_after
 from spack.directives import depends_on
 
