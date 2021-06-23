@@ -1,5 +1,5 @@
 import llnl.util.filesystem
-from llnl.util.filesystem import * 
+from llnl.util.filesystem import *
 
 from spack.package import PackageBase, run_after
 from spack.directives import depends_on
@@ -10,35 +10,39 @@ import os
 import shutil
 
 class ScramPackage(PackageBase):
-    subpackageDebug = True
-    vectorized_build = None # at buildtime
-    package_vectorization = ""
-    cmsplatf = 'slc7_amd64'
-    buildtarget = 'release-build'
-    cvstag = None # at buildtime
-    scram_compiler = 'gcc' # at buildtime
-    usercxxflags = None
-    configtag = None
-    nolibchecks = False
-    prebuildtarget = None
-    saveDeps = False
-    runGlimpse = False
-
-    extraOptions = None
-    cvssrc = None
-    buildarch = None
-    ucprojtype = None
-    lcprojtype = None
-    toolconf = None
-
-    bootstrapfile = 'config/bootsrc.xml'
-
-    build_system_class = 'ScramPackage'
     phases = ['edit', 'build', 'install']
 
     depends_on('scram', type='build')
     depends_on('cmssw-config', type='build')
-    # NOTICE: maybe dwz, once I figure it out    
+    # NOTICE: maybe dwz, once I figure it out
+
+    def __init__(self, spec):
+        super().__init__(spec)
+        self.subpackageDebug = True
+        self.vectorized_build = None # at buildtime
+        self.package_vectorization = ""
+        self.cmsplatf = 'slc7_amd64'
+        self.buildtarget = 'release-build'
+        self.cvstag = None # at buildtime
+        self.scram_compiler = 'gcc' # at buildtime
+        self.usercxxflags = None
+        self.configtag = None
+        self.nolibchecks = False
+        self.prebuildtarget = None
+        self.saveDeps = False
+        self.runGlimpse = False
+
+        self.extraOptions = None
+        self.cvssrc = None
+        self.buildarch = None
+        self.ucprojtype = None
+        self.lcprojtype = None
+        self.toolconf = None
+
+        self.bootstrapfile = 'config/bootsrc.xml'
+
+        self.build_system_class = 'ScramPackage'
+
 
     @property
     def build_directory(self):
@@ -63,7 +67,7 @@ class ScramPackage(PackageBase):
         %endif
         """
         self.subpackageDebug = self.subpackageDebug and (platform.system() == 'linux')
-        
+
         if self.subpackageDebug:
             self.usercxxflags = '-g ' + (self.usercxxflags or '')
 
@@ -310,9 +314,9 @@ class ScramPackage(PackageBase):
 
     def post_(self, spec, prefix):
         return
-        
+
     run_after('build')(PackageBase._run_default_build_time_test_callbacks)
 
     # Check that self.prefix is there after installation
     # TODO: uncomment
-    # run_after('install')(PackageBase.sanity_check_prefix)     
+    # run_after('install')(PackageBase.sanity_check_prefix)

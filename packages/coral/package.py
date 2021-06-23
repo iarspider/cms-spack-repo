@@ -28,15 +28,19 @@ class Coral(ScramPackage):
     depends_on('perl')
     # depends_on('python', type='build') -- check
 
-    scram_arch = 'slc_amd64_gcc'
-    if sys.platform == 'darwin':
-        scram_arch = 'osx10_amd64_clang'
+    def __init__(self, spec):
+        super().__init__(spec)
 
-    cvssrc = 'coral'
-    subpackageDebug = True
+        self.scram_arch = 'slc_amd64_gcc'
+        if sys.platform == 'darwin':
+            self.scram_arch = 'osx10_amd64_clang'
 
-    # custom
-    toolconf = 'coral-tool-conf'
+        self.cvssrc = 'coral'
+        self.subpackageDebug = True
+
+        # custom
+        self.toolconf = 'coral-tool-conf'
+
 
     def patch(self):
         if self.spec.satisfies('platform=darwin'):
