@@ -253,7 +253,7 @@ class ScramPackage(PackageBase):
                           '  pushd $DIR',
                           '  mkdir -p .debug',
                           '  # ELF binaries',
-                          '  ELF_BINS=$(file * | grep ELF | cut -d':' -f1)',
+                          "  ELF_BINS=$(file * | grep ELF | cut -d':' -f1)",
                           '  if [ ! -z "$ELF_BINS" ]; then',
                           '    if [ $(echo $ELF_BINS | wc -w) -gt 1 ] ; then',
                           '      ' + self.spec['dwz'].prefix.bin.dwz +' -m .debug/common-symbols.debug -M common-symbols.debug $ELF_BINS || true',
