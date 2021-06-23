@@ -7,4 +7,4 @@ class CmsswConfig(Package):
 
 
     def install(self, spec, prefix):
-        install_tree(self.stage.source_path,prefix.bin)
+        install_tree(self.stage.source_path, prefix)

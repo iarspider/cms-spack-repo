@@ -24,38 +24,40 @@ class Coral(Package):
     depends_on('gmake')
     depends_on('cmssw-config')
     depends_on('coral-tool-conf')
+    # depends_on('python', type='build') -- check
 
     scram_arch = 'slc_amd64_gcc'
     if sys.platform == 'darwin':
         scram_arch = 'osx10_amd64_clang'
- 
+
     def install(self, spec, prefix):
         coral_version = 'CORAL.' + str(self.version)
         coral_u_version = coral_version.replace('.', '_')
 
-        scram = Executable(spec['scram'].prefix.bin+'/scram')        
+        scram = Executable(spec['scram'].prefix.cli+'/scram')
         source_directory = self.stage.source_path
         scram_version = 'V%s' % spec['scram'].version
 
-        config_tag = '%s' % spec['cmssw-config'].version.underscored 
+        config_tag = '%s' % spec['cmssw-config'].version.underscored
         with working_dir(self.stage.path):
-            install_tree(source_directory,'src')
-            install_tree(spec['cmssw-config'].prefix.bin, 'config')
+            mkdirp('config')
+            install_tree(source_directory, 'src')
+            install_tree(join_path(spec['cmssw-config'].prefix), 'config')
+
             with open('config/config_tag', 'w') as f:
                 f.write(config_tag+'\n' )
-                f.close()
 
-            uc=Executable('config/updateConfig.pl')
+            uc=Executable('config/updateConfig.py')
             uc(  '-p', 'CORAL',
                  '-v', '%s' % coral_u_version,
                  '-s', '%s' % scram_version,
                  '-t', '%s' % spec['coral-tool-conf'].prefix,
                  '--keys', 'SCRAM_COMPILER=gcc',
-                 '--keys', 'PROJECT_GIT_HASH=' + coral_u_version,
-                 '--arch', '%s' % self.scram_arch)
-            scram('project', '-d', os.path.realpath(self.stage.path), '-b', 'config/bootsrc.xml')
+                 '--keys', 'PROJECT_GIT_HASH=' + coral_u_version)
 
-        project_dir = os.path.realpath(self.stage.path+'/'+coral_u_version)
+            scram('--arch', '%s' % self.scram_arch, 'project', '-d', os.path.realpath(self.stage.path), '-b', 'config/bootsrc.xml')
+
+        project_dir = os.path.realpath(join_path(self.stage.path, coral_u_version))
         with working_dir(project_dir, create=False):
             matches = []
 

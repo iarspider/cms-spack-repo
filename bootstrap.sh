@@ -17,6 +17,8 @@ mkdir -p etc/spack/linux
 cp ${SCRIPT_DIR}/config/compilers.yaml etc/spack/linux/compilers.yaml
 echo Adding CMS hooks
 cp ${SCRIPT_DIR}/hook/* lib/spack/spack/hooks/
+echo Adding SCRAM build system support
+cp ${SCRIPT_DIR}/scram.py lib/spack/spack/build_systems/
 echo Creating environment
 spack env create CMSSW_12_0_X ${SCRIPT_DIR}/environments/CMSSW_12_0_X/spack.yaml
 echo Done
