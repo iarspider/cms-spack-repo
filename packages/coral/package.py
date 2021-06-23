@@ -5,8 +5,8 @@ import re
 import fnmatch
 import shutil
 import sys,os
-sys.path.append(os.path.join(os.path.dirname(__file__), '../ToolfilePackage'))
-from scrampackage import relrelink, write_scram_toolfile
+#sys.path.append(os.path.join(os.path.dirname(__file__), '../ToolfilePackage'))
+#from scrampackage import relrelink, write_scram_toolfile
 
 class Coral(ScramPackage):
     """CORAL built as a scram project"""
