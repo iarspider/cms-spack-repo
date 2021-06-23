@@ -99,7 +99,7 @@ class ScramPackage(PackageBase):
 
             uc = Executable('config/bin/updateConfig.py')
             uc('-p', self.ucprojtype, '-v', str(self.spec.version),
-               '-s', str(self.spec['scram'].version), '-t', '${' + self.toolconf + '}',
+               '-s', str(self.spec['scram'].version), '-t', self.spec[self.toolconf].prefix,
                '--keys', 'PROJECT_GIT_HASH=' + str(self.spec.version))
 
             if self.vectorized_build:

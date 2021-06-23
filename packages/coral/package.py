@@ -35,6 +35,9 @@ class Coral(ScramPackage):
     cvssrc = 'coral'
     subpackageDebug = True
 
+    # custom
+    toolconf = 'coral-tool-conf'
+
     def patch(self):
         if self.spec.satisfies('platform=darwin'):
             filter_file('(<classpath.*/tests\\+.*>)', '', 'config/BuildFile.xml')
