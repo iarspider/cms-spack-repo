@@ -97,7 +97,7 @@ class ScramPackage(PackageBase):
             with open("config/config_tag", "w") as f:
                 f.write(self.configtag+'\n')
 
-            uc = Executable('config/updateConfig.py')
+            uc = Executable('config/bin/updateConfig.py')
             uc('-p', self.ucprojtype, '-v', str(self.spec.version),
                '-s', str(self.spec['scram'].version), '-t', '${' + self.toolconf + '}',
                '--keys', 'PROJECT_GIT_HASH=' + str(self.spec.version))
