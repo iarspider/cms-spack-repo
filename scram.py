@@ -135,7 +135,7 @@ class ScramPackage(PackageBase):
 
         lines.extend(['export BUILD_LOG=yes',
                       'export SCRAM_NOPLUGINREFRESH=yes',
-                      'scram b clean'',
+                      'scram b clean',
                       'if [ $(uname) = Darwin ]; then',
                       '  # %scramcmd doesn\'t know the rpath variable on darwin...',
                       '  $scramcmd b echo_null # ensure lib, bin exist',
