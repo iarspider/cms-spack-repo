@@ -111,7 +111,13 @@ class ScramPackage(PackageBase):
                 filter_file('</tool>', '<runtime name="SCRAM_TARGET" value="auto"/><runtime name="USER_TARGETS_ALL" value="1"/></tool>', 'config/Self.xml')
 
             if getattr(self, 'PartialBootstrapPatch', None):
-                self.PartialBootstrapPatch()
+                with working_dir(self.stage.path):
+                    with open('edit.sh', 'w') as f:
+                        f.write('#!/bin/bash\n')
+                        f.write('\n'.join(self.PartialBootstrapPatch))
+                
+                    bash = which('bash')
+                    bash('./edit.sh')
 
             scram = Executable(self.spec['scram'].cli.scram)
             scram('--arch', self.cmsplatf, 'project', '-d', self.stage.path, '-b', 'config/bootsrc.xml')
