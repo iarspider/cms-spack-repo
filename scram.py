@@ -1,4 +1,4 @@
-import spack.package
+from spack.package import PackageBase
 import platform
 import os
 
