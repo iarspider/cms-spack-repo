@@ -6,8 +6,6 @@ import fnmatch
 import shutil
 import sys,os
 
-#sys.path.append(os.path.join(os.path.dirname(__file__), '../../../../../../lib/spack/spack/build_systems'))
-from scram import ScramPackage
 #sys.path.append(os.path.join(os.path.dirname(__file__), '../ToolfilePackage'))
 #from scrampackage import relrelink, write_scram_toolfile
 

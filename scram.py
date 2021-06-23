@@ -1,5 +1,5 @@
-from spack.package import PackageBase
-from spack.directives import depends_on, run_after
+from spack.package import PackageBase, run_after
+from spack.directives import depends_on
 
 import platform
 import os
