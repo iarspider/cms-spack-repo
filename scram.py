@@ -34,9 +34,7 @@ class ScramPackage(PackageBase):
 
     depends_on('scram', type='build')
     depends_on('cmssw-config', type='build')
-    # NOTICE: maybe dwz, once I figure it out
-
-    self.subpackageDebug = self.subpackageDebug and (platform.system() == 'linux')
+    # NOTICE: maybe dwz, once I figure it out    
 
     @property
     def build_directory(self):
@@ -48,7 +46,7 @@ class ScramPackage(PackageBase):
 
     def setup(self, spec, prefix):
         """
-        # TODO: figure out what each of these variables are set to: cmsroot, installroot, instroot
+        # TODO: figure this out.
         %if "%{?subpackageDebug:set}" == "set"
         # note: do not change the order of the -fdebug-prefix-map options, they seem to be use in reverse order
         %define extraOptions USER_CXXFLAGS='-fdebug-prefix-map=%{cmsroot}=%{installroot} -fdebug-prefix-map=%{instroot}=%{installroot} -g %{?usercxxflags}'
@@ -60,6 +58,8 @@ class ScramPackage(PackageBase):
         %endif
         %endif
         """
+        self.subpackageDebug = self.subpackageDebug and (platform.system() == 'linux')
+        
         if self.subpackageDebug:
             self.usercxxflags = '-g ' + (self.usercxxflags or '')
 
