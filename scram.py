@@ -32,7 +32,7 @@ class ScramPackage(PackageBase):
         self.saveDeps = False
         self.runGlimpse = False
 
-        self.extraOptions = None
+        self.extraOptions = ''
         self.cvssrc = None
         self.buildarch = None
         self.ucprojtype = None
