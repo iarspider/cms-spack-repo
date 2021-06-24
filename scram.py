@@ -78,13 +78,13 @@ class ScramPackage(PackageBase):
             self.configtag = 'V06-02-13'
 
         if self.cvssrc is None:
-            self.cvssrc = __name__.replace('-patch', '').upper()
+            self.cvssrc = self.toolname.replace('-patch', '').upper()
 
         if self.buildarch is None:
             self.buildarch = ':'
 
         if self.ucprojtype is None:
-            self.ucprojtype = __name__.replace('-patch', '').upper()
+            self.ucprojtype = self.toolname.replace('-patch', '').upper()
 
         self.lcprojtype = self.ucprojtype.lower()
 
@@ -174,7 +174,7 @@ class ScramPackage(PackageBase):
         if self.prebuildtarget is not None:
             lines.append('${scramcmd} b --verbose -f ' + self.prebuildtarget + ' </dev/null')
 
-        if __name__ == 'cmssw' or __name__ == 'cmssw-patch':
+        if self.toolname == 'cmssw' or self.toolname == 'cmssw-patch':
             lines.append('${scramcmd} b -f -k ' + make_jobs + ' llvm-ccdb </dev/null || true')
 
         if self.vectorized_build:
@@ -259,7 +259,7 @@ class ScramPackage(PackageBase):
 
         if self.subpackageDebug:
             lines.append('touch $i/.SCRAM/$cmsplatf/subpackage-debug')
-            if __name__ == 'coral':
+            if self.toolname == 'coral':
                 lines.append('ELF_DIRS="$i/$cmsplatf/lib $i/$cmsplatf/tests/bin"')
                 lines.append('DROP_SYMBOLS_DIRS=""')
             else:

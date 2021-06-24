@@ -39,6 +39,7 @@ class Coral(ScramPackage):
         self.subpackageDebug = True
 
         # custom
+        self.toolname = 'coral'
         self.toolconf = 'coral-tool-conf'
 
 
