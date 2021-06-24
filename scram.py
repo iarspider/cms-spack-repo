@@ -90,18 +90,24 @@ class ScramPackage(PackageBase):
 
 
     def edit(self, spec, prefix):
+        bash = which('bash')
+        
         self.setup(spec, prefix)
         config_dir = join_path(self.stage.path, 'config')
         mkdirp(config_dir)
         install_tree(spec['cmssw-config'].prefix, join_path(self.stage.path, 'config'))
         if getattr(self, 'PatchReleaseAdditionalPackages', None) is not None:
-            self.PatchReleaseAdditionalPackages()
+            with open('edit0.sh', 'w') as f:
+                f.write('#!/bin/bash\n')
+                f.write('\n'.join(self.PatchReleaseAdditionalPackages))
+                
+            bash('./edit0.sh')
 
         with working_dir(self.stage.path):
             with open("config/config_tag", "w") as f:
                 f.write(self.configtag+'\n')
 
-            uc = Executable('config/bin/updateConfig.py')
+            uc = Executable('config/updateConfig.py')
             uc('-p', self.ucprojtype, '-v', str(self.spec.version),
                '-s', str(self.spec['scram'].version), '-t', self.spec[self.toolconf].prefix,
                '--keys', 'PROJECT_GIT_HASH=' + str(self.spec.version))
@@ -112,12 +118,12 @@ class ScramPackage(PackageBase):
 
             if getattr(self, 'PartialBootstrapPatch', None):
                 with working_dir(self.stage.path):
-                    with open('edit.sh', 'w') as f:
+                    with open('edit1.sh', 'w') as f:
                         f.write('#!/bin/bash\n')
                         f.write('\n'.join(self.PartialBootstrapPatch))
                 
                     bash = which('bash')
-                    bash('./edit.sh')
+                    bash('./edit1.sh')
 
             scram = Executable(self.spec['scram'].prefix.bin.scram)
             scram('--arch', self.cmsplatf, 'project', '-d', self.stage.path, '-b', 'config/bootsrc.xml')
