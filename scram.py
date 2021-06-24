@@ -154,7 +154,7 @@ class ScramPackage(PackageBase):
                 '${scramcmd} arch',
                 'cd $i/${srctree}'])
 
-        extra_tools_ = getattr(self, extra_tools, [])
+        extra_tools_ = getattr(self, 'extra_tools', [])
         for t in extra_tools_:
             lines.append('$scramcmd setup ' + t)
 
