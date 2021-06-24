@@ -87,6 +87,7 @@ class ScramPackage(PackageBase):
             self.ucprojtype = self.toolname.replace('-patch', '').upper()
 
         self.lcprojtype = self.ucprojtype.lower()
+        self.ignore_compile_errors = False
 
 
     def edit(self, spec, prefix):
@@ -142,7 +143,7 @@ class ScramPackage(PackageBase):
                 'cmsroot=' + self.prefix
             ]
 
-        if getattr(self, ignore_compile_errors, None):
+        if self.ignore_compile_errors:
             lines.append('ignore_compile_errors=/bin/true')
         else:
             lines.append('ignore_compile_errors=/bin/false')
