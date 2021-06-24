@@ -119,7 +119,7 @@ class ScramPackage(PackageBase):
                     bash = which('bash')
                     bash('./edit.sh')
 
-            scram = Executable(self.spec['scram'].prefix.cli.scram)
+            scram = Executable(self.spec['scram'].prefix.bin.scram)
             scram('--arch', self.cmsplatf, 'project', '-d', self.stage.path, '-b', 'config/bootsrc.xml')
 
 
@@ -128,7 +128,7 @@ class ScramPackage(PackageBase):
                 '#!/bin/bash -xe\n',
                 'i=' + str(self.stage.path),
                 'srctree=spack-src',
-                'scramcmd=' + self.spec['scram'].cli.scram + ' --arch' + cmsplatf,
+                'scramcmd=' + self.spec['scram'].bin.scram + ' --arch' + cmsplatf,
                 'compileOptions=' + self.compileOptions,
                 'extraOptions=' + self.extraOptions,
                 'buildtarget=' + self.buildtarget,
@@ -231,7 +231,7 @@ class ScramPackage(PackageBase):
             '#!/bin/bash -xe\n',
             'i=' + str(self.stage.path),
             'srctree=spack-src',
-            'scramcmd=' + self.spec['scram'].cli.scram + ' --arch' + cmsplatf,
+            'scramcmd=' + self.spec['scram'].bin.scram + ' --arch' + cmsplatf,
             'compileOptions=' + self.compileOptions,
             'extraOptions=' + self.extraOptions,
             'buildtarget=' + self.buildtarget,
