@@ -32,7 +32,7 @@ class Scram(Package):
         filter_file('@SCRAM_VERSION@', str(self.spec.version),
                     join_path(self.stage.source_path, 'SCRAM', '__init__.py'))
 
-        filter_file('BASEPATH = .*', 'BASEPATH = ' + prefix,
+        filter_file('BASEPATH = .*', 'BASEPATH = "' + prefix + '"',
                     join_path(self.stage.source_path, 'SCRAM', '__init__.py'))
         # %install
         mkdirp(prefix.bin)
