@@ -119,7 +119,7 @@ class ScramPackage(PackageBase):
                     bash = which('bash')
                     bash('./edit.sh')
 
-            scram = Executable(self.spec['scram'].cli.scram)
+            scram = Executable(self.spec['scram'].prefix.cli.scram)
             scram('--arch', self.cmsplatf, 'project', '-d', self.stage.path, '-b', 'config/bootsrc.xml')
 
 
