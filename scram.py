@@ -136,7 +136,7 @@ class ScramPackage(PackageBase):
                 '#!/bin/bash -xe\n',
                 'i=' + str(self.stage.path),
                 'srctree=src',
-                'scramcmd=' + self.spec['scram'].prefix.bin.scram + ' --arch' + self.cmsplatf,
+                'scramcmd=' + self.spec['scram'].prefix.bin.scram + ' --arch ' + self.cmsplatf,
                 'compileOptions=' + '-k' if self.ignore_compile_errors else '',
                 'extraOptions=' + self.extraOptions,
                 'buildtarget=' + self.buildtarget,
@@ -149,8 +149,8 @@ class ScramPackage(PackageBase):
             lines.append('ignore_compile_errors=/bin/false')
 
         lines.extend([
-                'rm -rf `find %{i}/%{srctree} -type d -name cmt`',
-                'grep -r -l -e "^#!.*perl.*" %{i}/%{srctree} | xargs perl -p -i -e "s|^#!.*perl(.*)|#!/usr/bin/env perl\$1|"',
+                'rm -rf `find ${i}/${srctree} -type d -name cmt`',
+                'grep -r -l -e "^#!.*perl.*" ${i}/${srctree} | xargs perl -p -i -e "s|^#!.*perl(.*)|#!/usr/bin/env perl\$1|"',
                 '${scramcmd} arch',
                 'cd $i/${srctree}'])
 
@@ -212,7 +212,7 @@ class ScramPackage(PackageBase):
             if getattr(self, 'PatchReleaseDependencyInfo', None):
                 lines.extend(self.PatchReleaseDependencyInfo)
 
-            lines.append('gzip -f %i/etc/dependencies/*.out')
+            lines.append('gzip -f $i/etc/dependencies/*.out')
 
 
         lines.extend(['eval `$scramcmd run -sh`',
@@ -239,7 +239,7 @@ class ScramPackage(PackageBase):
             '#!/bin/bash -xe\n',
             'i=' + str(self.stage.path),
             'srctree=src',
-            'scramcmd=' + self.spec['scram'].prefix.bin.scram + ' --arch' + self.cmsplatf,
+            'scramcmd=' + self.spec['scram'].prefix.bin.scram + ' --arch ' + self.cmsplatf,
             'compileOptions=' + self.compileOptions,
             'extraOptions=' + self.extraOptions,
             'buildtarget=' + self.buildtarget,
@@ -263,7 +263,7 @@ class ScramPackage(PackageBase):
             lines.extend(self.RelocatePatchReleaseSymlinks)
 
         lines.append("tar czf src.tar.gz ${srctree}")
-        lines.append("rm -fR %{srctree} tmp")
+        lines.append("rm -fR ${srctree} tmp")
 
         if self.subpackageDebug:
             lines.append('touch $i/.SCRAM/$cmsplatf/subpackage-debug')
