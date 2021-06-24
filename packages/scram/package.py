@@ -70,4 +70,4 @@ class Scram(Package):
     def setup_dependent_environment(self, spack_env, run_env, dspec):
         spack_env.set('SCRAM_ARCH', self.scram_arch)
         spack_env.set('SCRAMV1_ROOT', self.spec.prefix)
-        spack_env.set("SCRAMV1_VERSION', str(self.spec.version))
+        spack_env.set('SCRAMV1_VERSION', str(self.spec.version))
