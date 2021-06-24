@@ -188,7 +188,7 @@ class ScramPackage(PackageBase):
         if self.vectorized_build:
             lines.append('touch ${i}/.SCRAM/${cmsplatf}/multi-targets')
 
-        lines.append('$scramcmd b --verbose -f ${compileOptions} ${extraOptions} ' + str(make_jobs) + '${buildtarget} </dev/null || { touch ../build-errors && $scramcmd b -f outputlog && $ignore_compile_errors ' }')
+        lines.append('$scramcmd b --verbose -f ${compileOptions} ${extraOptions} ' + str(make_jobs) + '${buildtarget} </dev/null || { touch ../build-errors && $scramcmd b -f outputlog && $ignore_compile_errors }')
 
         if getattr(self, 'additionalBuildTarget0', None):
             lines.append('$scramcmd b --verbose -f ' + self.additionalBuildTarget0 + ' < /dev/null')
