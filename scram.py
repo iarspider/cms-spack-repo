@@ -132,12 +132,12 @@ class ScramPackage(PackageBase):
 
 
     def build(self, spec, prefix):
+        scramcmd = self.spec['scram'].prefix.bin.scram + ' --arch ' + self.cmsplatf
         lines = [
                 '#!/bin/bash -xe\n',
                 'i=' + str(self.stage.path),
                 'srctree=src',
-                'scramcmd=' + self.spec['scram'].prefix.bin.scram + ' --arch ' + self.cmsplatf,
-                'compileOptions=' + '-k' if self.ignore_compile_errors else '',
+                'compileOptions=' + ('-k' if self.ignore_compile_errors else ''),
                 'extraOptions=' + self.extraOptions,
                 'buildtarget=' + self.buildtarget,
                 'cmsroot=' + self.prefix
@@ -151,20 +151,20 @@ class ScramPackage(PackageBase):
         lines.extend([
                 'rm -rf `find ${i}/${srctree} -type d -name cmt`',
                 'grep -r -l -e "^#!.*perl.*" ${i}/${srctree} | xargs perl -p -i -e "s|^#!.*perl(.*)|#!/usr/bin/env perl\$1|"',
-                '${scramcmd} arch',
+                scramcmd + ' arch',
                 'cd $i/${srctree}'])
 
         extra_tools_ = getattr(self, 'extra_tools', [])
         for t in extra_tools_:
-            lines.append('$scramcmd setup ' + t)
+            lines.append(scramcmd + ' setup ' + t)
 
         lines.extend(['export BUILD_LOG=yes',
                       'export SCRAM_NOPLUGINREFRESH=yes',
                       'scram b clean',
                       'if [ $(uname) = Darwin ]; then',
                       '  # %scramcmd doesn\'t know the rpath variable on darwin...',
-                      '  $scramcmd b echo_null # ensure lib, bin exist',
-                      '  eval `$scramcmd runtime -sh`',
+                      '  ' + scramcmd + ' b echo_null # ensure lib, bin exist',
+                      '  eval `' + scramcmd +' runtime -sh`',
                       '  export DYLD_LIBRARY_PATH=$LD_LIBRARY_PATH',
                       'fi'])
 
@@ -174,27 +174,27 @@ class ScramPackage(PackageBase):
         if getattr(self, 'preBuildCommand', None):
             lines.extend(self.preBuildCommand)
 
-        lines.append('$scramcmd b -r echo_CXX </dev/null')
+        lines.append(scramcmd + ' b -r echo_CXX </dev/null')
 
         if getattr(self, 'PatchReleasePythonSymlinks', None):
             lines.extend(self.PatchReleasePythonSymlinks)
 
         if self.prebuildtarget is not None:
-            lines.append('${scramcmd} b --verbose -f ' + self.prebuildtarget + ' </dev/null')
+            lines.append(scramcmd + ' b --verbose -f ' + self.prebuildtarget + ' </dev/null')
 
         if self.toolname == 'cmssw' or self.toolname == 'cmssw-patch':
-            lines.append('${scramcmd} b -f -k ' + make_jobs + ' llvm-ccdb </dev/null || true')
+            lines.append(scramcmd + ' b -f -k ' + make_jobs + ' llvm-ccdb </dev/null || true')
 
         if self.vectorized_build:
             lines.append('touch ${i}/.SCRAM/${cmsplatf}/multi-targets')
 
-        lines.append('$scramcmd b --verbose -f ${compileOptions} ${extraOptions} ' + str(make_jobs) + '${buildtarget} </dev/null || { touch ../build-errors && $scramcmd b -f outputlog && $ignore_compile_errors }')
+        lines.append(scramcmd + ' b --verbose -f ${compileOptions} ${extraOptions} ' + str(make_jobs) + '${buildtarget} </dev/null || { touch ../build-errors && ' + scramcmd + ' b -f outputlog && `$ignore_compile_errors` }')
 
         if getattr(self, 'additionalBuildTarget0', None):
-            lines.append('$scramcmd b --verbose -f ' + self.additionalBuildTarget0 + ' < /dev/null')
+            lines.append(scramcmd + ' b --verbose -f ' + self.additionalBuildTarget0 + ' < /dev/null')
 
         if getattr(self, 'postbuildtarget', None):
-            lines.append('$scramcmd b --verbose -f ' + self.postbuildtarget + ' < /dev/null')
+            lines.append(scramcmd + ' b --verbose -f ' + self.postbuildtarget + ' < /dev/null')
 
         lines.extend(['LOG_WEB_DIR=$cmsroot/WEB/build-logs/${cmsplatf}/${v}',
                       'rm -rf ${LOG_WEB_DIR}',
@@ -215,7 +215,7 @@ class ScramPackage(PackageBase):
             lines.append('gzip -f $i/etc/dependencies/*.out')
 
 
-        lines.extend(['eval `$scramcmd run -sh`',
+        lines.extend(['eval `' + scramcmd + ' run -sh`',
                       'for cmd in edmPluginRefresh ; do',
                       '  cmdpath=`which $cmd 2> /dev/null || echo ""`',
                       '  if [ "X$cmdpath" != X ] ; then',
@@ -235,18 +235,18 @@ class ScramPackage(PackageBase):
         bash('./build.sh')
 
     def install(self, spec, prefix):
+        scramcmd = self.spec['scram'].prefix.bin.scram + ' --arch ' + self.cmsplatf
         lines = [
             '#!/bin/bash -xe\n',
             'i=' + str(self.stage.path),
-            'srctree=src',
-            'scramcmd=' + self.spec['scram'].prefix.bin.scram + ' --arch ' + self.cmsplatf,
-            'compileOptions=' + self.compileOptions,
+            'srctree=src',            
+            'compileOptions=' + ('-k' if self.ignore_compile_errors else ''),
             'extraOptions=' + self.extraOptions,
             'buildtarget=' + self.buildtarget,
             'cmsroot=' + self.prefix,
             'SCRAM_ARCH=$cmsplatf ; export SCRAM_ARCH',
             'cd $i',
-            '$scramcmd install -f',
+            scramcmd + ' install -f',
             'rm -rf external/$cmsplatf; SCRAM_TOOL_HOME= ' + self.spec['scram'].prefix + ' ./config/SCRAM/linkexternal.py --arch $cmsplatf'
         ]
 
@@ -257,7 +257,7 @@ class ScramPackage(PackageBase):
             lines.extend(self.PatchReleaseSourceSymlinks)
 
         if self.runGlimpse:
-            lines.append('$scramcmd b --verbose -f gindices </dev/null')
+            lines.append(scramcmd + ' b --verbose -f gindices </dev/null')
 
         if getattr(self, 'RelocatePatchReleaseSymlinks', None):
             lines.extend(self.RelocatePatchReleaseSymlinks)
