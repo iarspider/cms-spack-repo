@@ -96,6 +96,7 @@ class ScramPackage(PackageBase):
         config_dir = join_path(self.stage.path, 'config')
         mkdirp(config_dir)
         install_tree(spec['cmssw-config'].prefix, join_path(self.stage.path, 'config'))
+        shutil.move(self.stage.source_path, join_path(self.stage.path, 'src'))
         if getattr(self, 'PatchReleaseAdditionalPackages', None) is not None:
             with open('edit0.sh', 'w') as f:
                 f.write('#!/bin/bash\n')
@@ -133,7 +134,7 @@ class ScramPackage(PackageBase):
         lines = [
                 '#!/bin/bash -xe\n',
                 'i=' + str(self.stage.path),
-                'srctree=spack-src',
+                'srctree=src',
                 'scramcmd=' + self.spec['scram'].bin.scram + ' --arch' + cmsplatf,
                 'compileOptions=' + self.compileOptions,
                 'extraOptions=' + self.extraOptions,
@@ -236,7 +237,7 @@ class ScramPackage(PackageBase):
         lines = [
             '#!/bin/bash -xe\n',
             'i=' + str(self.stage.path),
-            'srctree=spack-src',
+            'srctree=src',
             'scramcmd=' + self.spec['scram'].bin.scram + ' --arch' + cmsplatf,
             'compileOptions=' + self.compileOptions,
             'extraOptions=' + self.extraOptions,
