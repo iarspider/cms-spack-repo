@@ -136,7 +136,7 @@ class ScramPackage(PackageBase):
                 'i=' + str(self.stage.path),
                 'srctree=src',
                 'scramcmd=' + self.spec['scram'].prefix.bin.scram + ' --arch' + self.cmsplatf,
-                'compileOptions=' + self.compileOptions,
+                'compileOptions=' + '-k' if self.ignore_compile_errors else '',
                 'extraOptions=' + self.extraOptions,
                 'buildtarget=' + self.buildtarget,
                 'cmsroot=' + self.prefix
