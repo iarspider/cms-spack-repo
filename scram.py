@@ -1,3 +1,4 @@
+#  pacparser-1.3.5
 import llnl.util.filesystem
 from llnl.util.filesystem import *
 
@@ -72,7 +73,7 @@ class ScramPackage(PackageBase):
             self.usercxxflags = '-g ' + (self.usercxxflags or '')
 
         if self.usercxxflags is not None:
-            extraOptions = "USER_CXXFLAGS='%s'" % self.usercxxflags
+            self.extraOptions = "USER_CXXFLAGS='%s'" % self.usercxxflags
 
         if self.configtag is None:
             self.configtag = 'V06-02-13'
