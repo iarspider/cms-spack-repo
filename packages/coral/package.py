@@ -49,7 +49,10 @@ class Coral(ScramPackage):
             
         if self.spec.satisfies('target=aarch64:') or self.spec.satisfies('target=ppc64') or self.spec.satisfies('target=ppc64le'):
             shutil.rmtree(join_path(self.stage.source_path, 'src', 'OracleAccess'))
-       
+
+    def install(self, spec, prefix):
+        super().install(self, prefix)
+        raise RuntimeError('STOP')       
 
     # def install(self, spec, prefix):
         # coral_version = 'CORAL.' + str(self.version)

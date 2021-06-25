@@ -103,7 +103,7 @@ class ScramPackage(PackageBase):
                 f.write('#!/bin/bash\n')
                 f.write('\n'.join(self.PatchReleaseAdditionalPackages))
                 
-            bash('./edit0.sh')
+            bash('-xe', './edit0.sh')
 
         with working_dir(self.stage.path):
             with open("config/config_tag", "w") as f:
@@ -128,13 +128,14 @@ class ScramPackage(PackageBase):
                     bash('./edit1.sh')
 
             scram = Executable(self.spec['scram'].prefix.bin.scram)
-            scram('--arch', self.cmsplatf, 'project', '-d', self.stage.path, '-b', 'config/bootsrc.xml')
+            scram('--verbose', '--debug', '--arch', self.cmsplatf, 'project', '-d', self.stage.path, '-b', 'config/bootsrc.xml')
 
 
     def build(self, spec, prefix):
-        scramcmd = self.spec['scram'].prefix.bin.scram + ' --arch ' + self.cmsplatf
+        # raise RuntimeError("STOP")
+        scramcmd = self.spec['scram'].prefix.bin.scram + ' --verbose --debug --arch ' + self.cmsplatf
         lines = [
-                '#!/bin/bash -xe\n',
+                '#!/bin/bash -xe',
                 'i=' + str(self.stage.path),
                 'srctree=src',
                 'compileOptions=' + ('-k' if self.ignore_compile_errors else ''),
@@ -152,7 +153,7 @@ class ScramPackage(PackageBase):
                 'rm -rf `find ${i}/${srctree} -type d -name cmt`',
                 'grep -r -l -e "^#!.*perl.*" ${i}/${srctree} | xargs perl -p -i -e "s|^#!.*perl(.*)|#!/usr/bin/env perl\$1|"',
                 scramcmd + ' arch',
-                'cd $i/${srctree}'])
+                'cd $i/' + str(self.spec.version)])
 
         extra_tools_ = getattr(self, 'extra_tools', [])
         for t in extra_tools_:
@@ -188,7 +189,7 @@ class ScramPackage(PackageBase):
         if self.vectorized_build:
             lines.append('touch ${i}/.SCRAM/${cmsplatf}/multi-targets')
 
-        lines.append(scramcmd + ' b --verbose -f ${compileOptions} ${extraOptions} ' + str(make_jobs) + '${buildtarget} </dev/null || { touch ../build-errors && ' + scramcmd + ' b -f outputlog && `$ignore_compile_errors` }')
+        lines.append(scramcmd + ' b --verbose -f ${compileOptions} ${extraOptions} ' + str(make_jobs) + '${buildtarget} </dev/null || { touch ../build-errors && ' + scramcmd + ' b -f outputlog && /bin/' + str(self.ignore_compile_errors).lower() + ' ; }')
 
         if getattr(self, 'additionalBuildTarget0', None):
             lines.append(scramcmd + ' b --verbose -f ' + self.additionalBuildTarget0 + ' < /dev/null')
@@ -232,7 +233,7 @@ class ScramPackage(PackageBase):
             f.write('\n'.join(lines))
 
         bash = which('bash')
-        bash('./build.sh')
+        bash('-xe', './build.sh')
 
     def install(self, spec, prefix):
         scramcmd = self.spec['scram'].prefix.bin.scram + ' --arch ' + self.cmsplatf

@@ -37,5 +37,5 @@ class Cppunit(AutotoolsPackage):
                      getattr(self.compiler, 'cxx{0}_flag'.format(cxxstd))
         env.append_flags('CXXFLAGS', cxxstdflag)
         
-    def configure_args(self, spec, prefix):
+    def configure_args(self):
         return ['--disable-static'] # -- CMS
