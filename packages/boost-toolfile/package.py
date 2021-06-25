@@ -19,7 +19,6 @@ class BoostToolfile(Package):
         contents = str("""<tool name="boost" version="$VER">
   <info url="http://www.boost.org"/>
   <lib name="boost_thread"/>
-  <lib name="boost_signals"/>
   <lib name="boost_date_time"/>
   <client>
     <environment name="BOOST_BASE" default="$PFX"/>
@@ -105,15 +104,6 @@ class BoostToolfile(Package):
 </tool>""")
         write_scram_toolfile(contents, values, fname, prefix)
 
-
-# boost_signals toolfile
-        fname = 'boost_signals.xml'
-        contents = str("""<tool name="boost_signals" version="$VER">
-  <info url="http://www.boost.org"/>
-  <lib name="boost_signals"/>
-  <use name="boost"/>
-</tool>""")
-        write_scram_toolfile(contents, values, fname, prefix)
 
         fname = 'boost_serialization.xml'
         contents = str("""<tool name="boost_serialization" version="$VER">
