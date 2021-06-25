@@ -15,8 +15,8 @@ class Coral(ScramPackage):
     homepage = "http://cms-sw.github.io"
     url = "https://github.com/cms-externals/coral.tgz"
 
-    version('2.3.21', git='https://github.com/cms-externals/coral',
-            commit='03471dd59bed93d6e20ad6c4b6258d3f65821066')
+    version('2.3.21py3', git='https://github.com/cms-externals/coral',
+            branch='python3')
 
     patch('coral-2_3_21-gcc8.patch')
     patch('coral-2_3_20-macosx.patch', when='platform=darwin')
@@ -26,7 +26,6 @@ class Coral(ScramPackage):
     depends_on('cmssw-config')
     depends_on('coral-tool-conf')
     depends_on('perl')
-    # depends_on('python', type='build') -- check
 
     def __init__(self, spec):
         super().__init__(spec)
@@ -41,6 +40,7 @@ class Coral(ScramPackage):
         # custom
         self.toolname = 'coral'
         self.toolconf = 'coral-tool-conf'
+        self.usercxxflags = '-fpermissive'
 
 
     def patch(self):

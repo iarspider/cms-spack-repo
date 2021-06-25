@@ -104,7 +104,7 @@ class ScramPackage(PackageBase):
                 f.write('#!/bin/bash\n')
                 f.write('\n'.join(self.PatchReleaseAdditionalPackages))
                 
-            bash('-xe', './edit0.sh')
+            bash('-xe', './edit_PatchReleaseAdditionalPackages.sh')
 
         with working_dir(self.stage.path):
             with open("config/config_tag", "w") as f:
@@ -126,7 +126,7 @@ class ScramPackage(PackageBase):
                         f.write('\n'.join(self.PartialBootstrapPatch))
                 
                     bash = which('bash')
-                    bash('./edit1.sh')
+                    bash('./edit_PartialBootstrapPatch.sh')
 
             scram = Executable(self.spec['scram'].prefix.bin.scram)
             scram('--verbose', '--debug', '--arch', self.cmsplatf, 'project', '-d', self.stage.path, '-b', 'config/bootsrc.xml')
@@ -138,7 +138,7 @@ class ScramPackage(PackageBase):
         lines = [
                 '#!/bin/bash -xe',
                 'i=' + str(self.stage.path),
-                'srctree=src',
+                'srctree=' + join_path(str(self.spec.version), 'src'),
                 'compileOptions=' + ('-k' if self.ignore_compile_errors else ''),
                 'extraOptions=' + self.extraOptions,
                 'buildtarget=' + self.buildtarget,
@@ -185,12 +185,12 @@ class ScramPackage(PackageBase):
             lines.append(scramcmd + ' b --verbose -f ' + self.prebuildtarget + ' </dev/null')
 
         if self.toolname == 'cmssw' or self.toolname == 'cmssw-patch':
-            lines.append(scramcmd + ' b -f -k ' + make_jobs + ' llvm-ccdb </dev/null || true')
+            lines.append(scramcmd + ' b -f -k -j' + str(make_jobs) + ' llvm-ccdb </dev/null || true')
 
         if self.vectorized_build:
             lines.append('touch ${i}/.SCRAM/${cmsplatf}/multi-targets')
 
-        lines.append(scramcmd + ' b --verbose -f ${compileOptions} ${extraOptions} ' + str(make_jobs) + '${buildtarget} </dev/null || { touch ../build-errors && ' + scramcmd + ' b -f outputlog && /bin/' + str(self.ignore_compile_errors).lower() + ' ; }')
+        lines.append(scramcmd + ' b --verbose -f ${compileOptions} ${extraOptions} -j' + str(make_jobs) + ' ${buildtarget} </dev/null || { touch ../build-errors && ' + scramcmd + ' b -f outputlog && /bin/' + str(self.ignore_compile_errors).lower() + ' ; }')
 
         if getattr(self, 'additionalBuildTarget0', None):
             lines.append(scramcmd + ' b --verbose -f ' + self.additionalBuildTarget0 + ' < /dev/null')
