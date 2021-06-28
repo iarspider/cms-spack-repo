@@ -13,7 +13,7 @@ class Systemtools(Package):
         # Sockets
         values = {}
         fname = 'sockets.xml'
-        contents = str("""<tool name="sockets" version="1.0">$FOO</tool>""")
+        contents = str("""<tool name="sockets" version="1.0">$foo</tool>""")
         if spec.satisfies('platform=darwin'):
             values['foo'] = '<lib name="dl"/>'
         elif spec.satisfies('platform=linux'):
