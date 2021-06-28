@@ -28,6 +28,6 @@ class FrontierClientToolfile(Package):
   <use name="openssl"/>
   <use name="expat"/>
   <runtime name="PYTHONPATH" value="$$FRONTIER_CLIENT_BASE/python/lib" type="path"/>
-  <use name="python"/>
+  <use name="python3"/>
 </tool>""")
         write_scram_toolfile(contents, values, fname, prefix)

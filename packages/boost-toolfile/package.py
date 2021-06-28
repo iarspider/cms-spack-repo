@@ -90,7 +90,7 @@ class BoostToolfile(Package):
   </client>
   <runtime name="ROOT_INCLUDE_PATH" value="$$INCLUDE" type="path"/>
   <use name="root_cxxdefaults"/>
-  <use name="python"/>
+  <use name="python3"/>
 </tool>""")
         write_scram_toolfile(contents, values, fname, prefix)
 
