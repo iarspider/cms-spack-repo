@@ -101,7 +101,7 @@ class ScramPackage(PackageBase):
         install_tree(spec['cmssw-config'].prefix, join_path(self.stage.path, 'config'))
         shutil.move(self.stage.source_path, join_path(self.stage.path, 'src'))
         if getattr(self, 'PatchReleaseAdditionalPackages', None) is not None:
-            with open('edit0.sh', 'w') as f:
+            with open('edit_PatchReleaseAdditionalPackages.sh', 'w') as f:
                 f.write('#!/bin/bash\n')
                 f.write('\n'.join(self.PatchReleaseAdditionalPackages))
 
@@ -122,7 +122,7 @@ class ScramPackage(PackageBase):
 
             if getattr(self, 'PartialBootstrapPatch', None):
                 with working_dir(self.stage.path):
-                    with open('edit1.sh', 'w') as f:
+                    with open('edit_PartialBootstrapPatch.sh', 'w') as f:
                         f.write('#!/bin/bash\n')
                         f.write('\n'.join(self.PartialBootstrapPatch))
 
@@ -130,7 +130,7 @@ class ScramPackage(PackageBase):
                     bash('./edit_PartialBootstrapPatch.sh')
 
             scram = Executable(self.spec['scram'].prefix.bin.scram)
-            scram('--verbose', '--debug', '--arch', self.cmsplatf, 'project', '-d', self.stage.path, '-b', 'config/bootsrc.xml')
+            scram('--arch', self.cmsplatf, 'project', '-d', prefix, '-b', 'config/bootsrc.xml')
 
 
     def build(self, spec, prefix):
@@ -138,8 +138,8 @@ class ScramPackage(PackageBase):
         scramcmd = self.spec['scram'].prefix.bin.scram + ' --verbose --debug --arch ' + self.cmsplatf
         lines = [
                 '#!/bin/bash -xe',
-                'i=' + str(self.stage.path),
-                'srctree=' + join_path(str(self.spec.version), 'src'),
+                'i=' + str(prefix),
+                'srctree=src', #+ join_path(str(self.spec.version), 'src'),
                 'compileOptions=' + ('-k' if self.ignore_compile_errors else ''),
                 'extraOptions=' + self.extraOptions,
                 'buildtarget=' + self.buildtarget,
@@ -241,8 +241,8 @@ class ScramPackage(PackageBase):
         scramcmd = self.spec['scram'].prefix.bin.scram + ' --arch ' + self.cmsplatf
         lines = [
             '#!/bin/bash -xe\n',
-            'i=' + str(self.stage.path),
-            'srctree=' + join_path(str(self.spec.version), 'src'),
+            'i=' + prefix, #+ join_path(self.stage.path, str(self.spec.version)),
+            'srctree=src',
             'compileOptions=' + ('-k' if self.ignore_compile_errors else ''),
             'extraOptions=' + self.extraOptions,
             'buildtarget=' + self.buildtarget,
