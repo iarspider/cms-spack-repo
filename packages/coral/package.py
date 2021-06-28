@@ -16,7 +16,7 @@ class Coral(ScramPackage):
     url = "https://github.com/cms-externals/coral.tgz"
 
     version('2.3.21py3', git='https://github.com/cms-externals/coral',
-            branch='python3')
+            branch='flags_in_buildfile') # TODO: reset to python3
 
     patch('coral-2_3_21-gcc8.patch')
     patch('coral-2_3_20-macosx.patch', when='platform=darwin')
@@ -40,7 +40,7 @@ class Coral(ScramPackage):
         # custom
         self.toolname = 'coral'
         self.toolconf = 'coral-tool-conf'
-        self.usercxxflags = '-fpermissive'
+        # self.usercxxflags = '-fpermissive'
 
 
     def patch(self):
