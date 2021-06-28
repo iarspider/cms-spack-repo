@@ -139,7 +139,7 @@ class ScramPackage(PackageBase):
         lines = [
                 '#!/bin/bash -xe',
                 'i=' + str(prefix),
-                'srctree=src', #+ join_path(str(self.spec.version), 'src'),
+                'srctree=' + join_path(str(self.spec.version), 'src'),
                 'compileOptions=' + ('-k' if self.ignore_compile_errors else ''),
                 'extraOptions=' + self.extraOptions,
                 'buildtarget=' + self.buildtarget,
@@ -241,8 +241,8 @@ class ScramPackage(PackageBase):
         scramcmd = self.spec['scram'].prefix.bin.scram + ' --arch ' + self.cmsplatf
         lines = [
             '#!/bin/bash -xe\n',
-            'i=' + prefix, #+ join_path(self.stage.path, str(self.spec.version)),
-            'srctree=src',
+            'i=' + str(prefix), #join_path(self.stage.path, str(self.spec.version)),
+            'srctree=' + join_path(str(self.spec.version), 'src'),
             'compileOptions=' + ('-k' if self.ignore_compile_errors else ''),
             'extraOptions=' + self.extraOptions,
             'buildtarget=' + self.buildtarget,
