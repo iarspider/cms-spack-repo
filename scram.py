@@ -81,6 +81,7 @@ class ScramPackage(PackageBase):
         if self.cvssrc is None:
             self.cvssrc = self.toolname.replace('-patch', '').upper()
 
+        # placeholder, should be executed - see original spec
         if self.buildarch is None:
             self.buildarch = ':'
 
