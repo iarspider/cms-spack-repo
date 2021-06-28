@@ -16,7 +16,7 @@ class Coral(ScramPackage):
     url = "https://github.com/cms-externals/coral.tgz"
 
     version('2.3.21py3', git='https://github.com/cms-externals/coral',
-            branch='flags_in_buildfile') # TODO: reset to python3
+            branch='cms/CORAL_2_3_21py3')
 
     patch('coral-2_3_21-gcc8.patch')
     patch('coral-2_3_20-macosx.patch', when='platform=darwin')

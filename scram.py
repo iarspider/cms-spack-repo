@@ -43,8 +43,8 @@ class ScramPackage(PackageBase):
         self.bootstrapfile = 'config/bootsrc.xml'
 
         self.build_system_class = 'ScramPackage'
-        
-        
+
+
     @property
     def build_directory(self):
         """Returns the directory containing the main Makefile
@@ -94,7 +94,7 @@ class ScramPackage(PackageBase):
 
     def edit(self, spec, prefix):
         bash = which('bash')
-        
+
         self.setup(spec, prefix)
         config_dir = join_path(self.stage.path, 'config')
         mkdirp(config_dir)
@@ -104,7 +104,7 @@ class ScramPackage(PackageBase):
             with open('edit0.sh', 'w') as f:
                 f.write('#!/bin/bash\n')
                 f.write('\n'.join(self.PatchReleaseAdditionalPackages))
-                
+
             bash('-xe', './edit_PatchReleaseAdditionalPackages.sh')
 
         with working_dir(self.stage.path):
@@ -125,7 +125,7 @@ class ScramPackage(PackageBase):
                     with open('edit1.sh', 'w') as f:
                         f.write('#!/bin/bash\n')
                         f.write('\n'.join(self.PartialBootstrapPatch))
-                
+
                     bash = which('bash')
                     bash('./edit_PartialBootstrapPatch.sh')
 
@@ -242,7 +242,7 @@ class ScramPackage(PackageBase):
         lines = [
             '#!/bin/bash -xe\n',
             'i=' + str(self.stage.path),
-            'srctree=src',            
+            'srctree=' + join_path(str(self.spec.version), 'src'),
             'compileOptions=' + ('-k' if self.ignore_compile_errors else ''),
             'extraOptions=' + self.extraOptions,
             'buildtarget=' + self.buildtarget,
@@ -321,11 +321,11 @@ class ScramPackage(PackageBase):
             lines.extend(self.PatchReleaseSymlinkRelocate)
 
         lines.append('echo "${cmsroot}" > ${i}/config/scram_basedir')
-        with open('build.sh', 'w') as f:
+        with open('install.sh', 'w') as f:
             f.write('\n'.join(lines))
 
         bash = which('bash')
-        bash('./build.sh')
+        bash('./install.sh')
 
         self.post_(spec, prefix)
 
