@@ -228,7 +228,9 @@ class ScramPackage(PackageBase):
                       '      fi',
                       '    done',
                       '  fi',
-                      'done'])
+                      'done',
+                      '',
+                      'rm -rf ' + join_path(self.stage.path, str(self.spec.version), 'tmp'])
 
         with open('build.sh', 'w') as f:
             f.write('\n'.join(lines))
@@ -237,20 +239,21 @@ class ScramPackage(PackageBase):
         bash('-xe', './build.sh')
 
     def install(self, spec, prefix):
-        raise RuntimeError('STOP-INSTALL')
         scramcmd = self.spec['scram'].prefix.bin.scram + ' --arch ' + self.cmsplatf
+        install_tree(join_path(self.stage.path, str(self.spec.version)), prefix)
 
         lines = [
             '#!/bin/bash -xe',
-            'i=' + join_path(self.stage.path, str(self.spec.version)),
-            'srctree=' + join_path(self.stage.path, str(self.spec.version), 'src'),
+            'i=' + prefix,
+            '_builddir=$i',
+            'srctree=' + join_path(prefix, 'src'),
             'compileOptions=' + ('-k' if self.ignore_compile_errors else ''),
             'extraOptions=' + self.extraOptions,
             'buildtarget=' + self.buildtarget,
-            'cmsroot=' + self.stage.path,
+            'cmsroot=' + prefix,
             'cmsplatf=' + self.cmsplatf,
             'SCRAM_ARCH=$cmsplatf ; export SCRAM_ARCH',
-            'cd ' + join_path(self.stage.path, str(self.spec.version)),
+            'cd ' + prefix,
             scramcmd + ' install -f',
             'rm -rf external/$cmsplatf; SCRAM_TOOL_HOME=' + self.spec[
                 'scram'].prefix + ' ./config/SCRAM/linkexternal.py --arch $cmsplatf'
@@ -269,7 +272,7 @@ class ScramPackage(PackageBase):
             lines.extend(self.RelocatePatchReleaseSymlinks)
 
         lines.append("tar czf src.tar.gz ${srctree}")
-        lines.append("rm -fR ${srctree} tmp")
+        lines.append("rm -fR ${srctree}")
 
         if self.subpackageDebug:
             lines.append('touch $i/.SCRAM/$cmsplatf/subpackage-debug')
@@ -280,6 +283,7 @@ class ScramPackage(PackageBase):
                 lines.append('ELF_DIRS="$i/lib/$cmsplatf $i/biglib/$cmsplatf $i/bin/$cmsplatf $i/test/$cmsplatf"')
                 lines.append('DROP_SYMBOLS_DIRS="$i/objs/$cmsplatf"')
 
+            # TODO: recipe for DWZ
             lines.extend(['for DIR in $ELF_DIRS $DROP_SYMBOLS_DIRS; do',
                           '  pushd $DIR',
                           '  mkdir -p .debug',
@@ -287,9 +291,8 @@ class ScramPackage(PackageBase):
                           "  ELF_BINS=$(file * | grep ELF | cut -d':' -f1)",
                           '  if [ ! -z "$ELF_BINS" ]; then',
                           '    if [ $(echo $ELF_BINS | wc -w) -gt 1 ] ; then',
-                          '      ' + self.spec[
-                              'dwz'].prefix.bin.dwz + ' -m .debug/common-symbols.debug -M common-symbols.debug '
-                                                      '$ELF_BINS || true',
+                          '      dwz -m .debug/common-symbols.debug -M common-symbols.debug '
+                          '$ELF_BINS || true',
                           '    fi',
                           "    echo \"$ELF_BINS\" | xargs -t -n1 -P${compiling_processes} -I$ sh -c 'objcopy "
                           "--compress-debug-sections --only-keep-debug $ .debug/$.debug; objcopy --strip-debug "
