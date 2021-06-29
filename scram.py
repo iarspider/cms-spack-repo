@@ -238,14 +238,15 @@ class ScramPackage(PackageBase):
 
     def install(self, spec, prefix):
         scramcmd = self.spec['scram'].prefix.bin.scram + ' --arch ' + self.cmsplatf
+
         lines = [
-            '#!/bin/bash -xe\n',
-            'i=' join_path(prefix, str(self.spec.version)),
+            '#!/bin/bash -xe',
+            'i=' + join_path(self.stage.path, str(self.spec.version)),
             'srctree=' + join_path(str(self.spec.version), 'src'),
             'compileOptions=' + ('-k' if self.ignore_compile_errors else ''),
             'extraOptions=' + self.extraOptions,
             'buildtarget=' + self.buildtarget,
-            'cmsroot=' + self.prefix,
+            'cmsroot=' + self.stage.path
             'SCRAM_ARCH=$cmsplatf ; export SCRAM_ARCH',
             'cd $i',
             scramcmd + ' install -f',
