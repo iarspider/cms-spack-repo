@@ -1,5 +1,4 @@
 #  pacparser-1.3.5
-import llnl.util.filesystem
 from llnl.util.filesystem import *
 
 from spack.package import PackageBase, run_after
@@ -10,28 +9,32 @@ import platform
 import os
 import shutil
 
+
 class ScramPackage(PackageBase):
     phases = ['edit', 'build', 'install']
 
     depends_on('scram', type='build')
     depends_on('cmssw-config', type='build')
+
     # NOTICE: maybe dwz, once I figure it out
 
     def __init__(self, spec):
         super().__init__(spec)
+        self.toolname = ''
         self.subpackageDebug = True
-        self.vectorized_build = None # at buildtime
+        self.vectorized_build = None  # at buildtime
         self.package_vectorization = ""
         self.cmsplatf = 'slc7_amd64'
         self.buildtarget = 'release-build'
-        self.cvstag = None # at buildtime
-        self.scram_compiler = 'gcc' # at buildtime
-        self.usercxxflags = None
+        self.cvstag = None  # at buildtime
+        self.scram_compiler = 'gcc'  # at buildtime
+        self.usercxxflags = ''
         self.configtag = None
         self.nolibchecks = False
         self.prebuildtarget = None
         self.saveDeps = False
         self.runGlimpse = False
+        self.ignore_compile_errors = False
 
         self.extraOptions = ''
         self.cvssrc = None
@@ -44,7 +47,6 @@ class ScramPackage(PackageBase):
 
         self.build_system_class = 'ScramPackage'
 
-
     @property
     def build_directory(self):
         """Returns the directory containing the main Makefile
@@ -55,25 +57,19 @@ class ScramPackage(PackageBase):
 
     def setup(self, spec, prefix):
         """
-        # TODO: figure this out.
-        %if "%{?subpackageDebug:set}" == "set"
-        # note: do not change the order of the -fdebug-prefix-map options, they seem to be use in reverse order
-        %define extraOptions USER_CXXFLAGS='-fdebug-prefix-map=%{cmsroot}=%{installroot} -fdebug-prefix-map=%{instroot}=%{installroot} -g %{?usercxxflags}'
-        %else
-        %if "%{?usercxxflags:set}" == "set"
-        %define extraOptions USER_CXXFLAGS='%{usercxxflags}'
-        %else
-        %define extraOptions %{nil}
-        %endif
-        %endif
         """
         self.subpackageDebug = self.subpackageDebug and (platform.system() == 'linux')
 
         if self.subpackageDebug:
-            self.usercxxflags = '-g ' + (self.usercxxflags or '')
+            # HACK: hardcoded `/opt/cmssw`
+            debugflags = '-fdebug-prefix-map={0}={1} -fdebug-prefix-map={2}={1} -g'.format(str(self.stage.path),
+                                                                                           '/opt/cmssw',
+                                                                                           str(self.prefix))
+        else:
+            debugflags = ''
 
         if self.usercxxflags is not None:
-            self.extraOptions = "USER_CXXFLAGS='%s'" % self.usercxxflags
+            self.extraOptions = "USER_CXXFLAGS='%s'" % (self.usercxxflags + debugflags)
 
         if self.configtag is None:
             self.configtag = 'V06-02-13'
@@ -89,8 +85,6 @@ class ScramPackage(PackageBase):
             self.ucprojtype = self.toolname.replace('-patch', '').upper()
 
         self.lcprojtype = self.ucprojtype.lower()
-        self.ignore_compile_errors = False
-
 
     def edit(self, spec, prefix):
         bash = which('bash')
@@ -109,7 +103,7 @@ class ScramPackage(PackageBase):
 
         with working_dir(self.stage.path):
             with open("config/config_tag", "w") as f:
-                f.write(self.configtag+'\n')
+                f.write(self.configtag + '\n')
 
             uc = Executable('config/updateConfig.py')
             uc('-p', self.ucprojtype, '-v', str(self.spec.version),
@@ -118,7 +112,10 @@ class ScramPackage(PackageBase):
 
             if self.vectorized_build:
                 filter_file(' SCRAM_TARGETS=.*', ' SCRAM_TARGETS="%s"' % self.package_vectorization, 'config/Self.xml')
-                filter_file('</tool>', '<runtime name="SCRAM_TARGET" value="auto"/><runtime name="USER_TARGETS_ALL" value="1"/></tool>', 'config/Self.xml')
+                filter_file('</tool>',
+                            '<runtime name="SCRAM_TARGET" value="auto"/><runtime name="USER_TARGETS_ALL" '
+                            'value="1"/></tool>',
+                            'config/Self.xml')
 
             if getattr(self, 'PartialBootstrapPatch', None):
                 with working_dir(self.stage.path):
@@ -132,18 +129,17 @@ class ScramPackage(PackageBase):
             scram = Executable(self.spec['scram'].prefix.bin.scram)
             scram('--arch', self.cmsplatf, 'project', '-d', prefix, '-b', 'config/bootsrc.xml')
 
-
     def build(self, spec, prefix):
         scramcmd = self.spec['scram'].prefix.bin.scram + ' --arch ' + self.cmsplatf
         lines = [
-                '#!/bin/bash -xe',
-                'i=' + join_path(self.stage.path, str(self.spec.version)),
-                'srctree=' + join_path(str(self.spec.version), 'src'),
-                'compileOptions=' + ('-k' if self.ignore_compile_errors else ''),
-                'extraOptions=' + self.extraOptions,
-                'buildtarget=' + self.buildtarget,
-                'cmsroot=' + self.stage.path
-            ]
+            '#!/bin/bash -xe',
+            'i=' + join_path(self.stage.path, str(self.spec.version)),
+            'srctree=' + join_path(str(self.spec.version), 'src'),
+            'compileOptions=' + ('-k' if self.ignore_compile_errors else ''),
+            'extraOptions=' + self.extraOptions,
+            'buildtarget=' + self.buildtarget,
+            'cmsroot=' + self.stage.path
+        ]
 
         if self.ignore_compile_errors:
             lines.append('ignore_compile_errors=/bin/true')
@@ -151,10 +147,11 @@ class ScramPackage(PackageBase):
             lines.append('ignore_compile_errors=/bin/false')
 
         lines.extend([
-                'rm -rf `find ${i}/${srctree} -type d -name cmt`',
-                'grep -r -l -e "^#!.*perl.*" ${i}/${srctree} | xargs perl -p -i -e "s|^#!.*perl(.*)|#!/usr/bin/env perl\$1|"',
-                scramcmd + ' arch',
-                'cd $i/' + str(self.spec.version)])
+            'rm -rf `find ${i}/${srctree} -type d -name cmt`',
+            r'grep -r -l -e "^#!.*perl.*" ${i}/${srctree} | xargs perl -p -i -e "s|^#!.*perl(.*)|#!/usr/bin/env '
+            r'perl\$1|"',
+            scramcmd + ' arch',
+            'cd $i/' + str(self.spec.version)])
 
         extra_tools_ = getattr(self, 'extra_tools', [])
         for t in extra_tools_:
@@ -166,7 +163,7 @@ class ScramPackage(PackageBase):
                       'if [ $(uname) = Darwin ]; then',
                       '  # %scramcmd doesn\'t know the rpath variable on darwin...',
                       '  ' + scramcmd + ' b echo_null # ensure lib, bin exist',
-                      '  eval `' + scramcmd +' runtime -sh`',
+                      '  eval `' + scramcmd + ' runtime -sh`',
                       '  export DYLD_LIBRARY_PATH=$LD_LIBRARY_PATH',
                       'fi'])
 
@@ -190,7 +187,10 @@ class ScramPackage(PackageBase):
         if self.vectorized_build:
             lines.append('touch ${i}/.SCRAM/${cmsplatf}/multi-targets')
 
-        lines.append(scramcmd + ' b --verbose -f ${compileOptions} ${extraOptions} -j' + str(make_jobs) + ' ${buildtarget} </dev/null || { touch ../build-errors && ' + scramcmd + ' b -f outputlog && /bin/' + str(self.ignore_compile_errors).lower() + ' ; }')
+        lines.append(scramcmd + ' b --verbose -f ${compileOptions} ${extraOptions} -j' + str(
+            make_jobs) + ' ${buildtarget} </dev/null || { touch ../build-errors && ' + scramcmd + ' b -f outputlog && '
+                                                                                                  '/bin/' + str(
+            self.ignore_compile_errors).lower() + ' ; }')
 
         if getattr(self, 'additionalBuildTarget0', None):
             lines.append(scramcmd + ' b --verbose -f ' + self.additionalBuildTarget0 + ' < /dev/null')
@@ -206,16 +206,16 @@ class ScramPackage(PackageBase):
                       '    tar czf ${LOG_WEB_DIR}/logs/src/src-logs.tgz ./',
                       '  popd',
                       'fi'
-                    ])
+                      ])
 
         if self.saveDeps:
             lines.extend(['mkdir -p $i/etc/dependencies',
-                          'SCRAM_TOOL_HOME=' + self.spec['scram'].prefix + ' $i/config/SCRAM/findDependencies.py -rel $i -arch $cmsplatf'])
+                          'SCRAM_TOOL_HOME=' + self.spec[
+                              'scram'].prefix + ' $i/config/SCRAM/findDependencies.py -rel $i -arch $cmsplatf'])
             if getattr(self, 'PatchReleaseDependencyInfo', None):
                 lines.extend(self.PatchReleaseDependencyInfo)
 
             lines.append('gzip -f $i/etc/dependencies/*.out')
-
 
         lines.extend(['eval `' + scramcmd + ' run -sh`',
                       'for cmd in edmPluginRefresh ; do',
@@ -250,7 +250,8 @@ class ScramPackage(PackageBase):
             'SCRAM_ARCH=$cmsplatf ; export SCRAM_ARCH',
             'cd $i',
             scramcmd + ' install -f',
-            'rm -rf external/$cmsplatf; SCRAM_TOOL_HOME=' + self.spec['scram'].prefix + ' ./config/SCRAM/linkexternal.py --arch $cmsplatf'
+            'rm -rf external/$cmsplatf; SCRAM_TOOL_HOME=' + self.spec[
+                'scram'].prefix + ' ./config/SCRAM/linkexternal.py --arch $cmsplatf'
         ]
 
         if getattr(self, 'PartialReleasePackageList', None):
@@ -284,9 +285,13 @@ class ScramPackage(PackageBase):
                           "  ELF_BINS=$(file * | grep ELF | cut -d':' -f1)",
                           '  if [ ! -z "$ELF_BINS" ]; then',
                           '    if [ $(echo $ELF_BINS | wc -w) -gt 1 ] ; then',
-                          '      ' + self.spec['dwz'].prefix.bin.dwz +' -m .debug/common-symbols.debug -M common-symbols.debug $ELF_BINS || true',
+                          '      ' + self.spec[
+                              'dwz'].prefix.bin.dwz + ' -m .debug/common-symbols.debug -M common-symbols.debug '
+                                                      '$ELF_BINS || true',
                           '    fi',
-                          "    echo \"$ELF_BINS\" | xargs -t -n1 -P${compiling_processes} -I$ sh -c 'objcopy --compress-debug-sections --only-keep-debug $ .debug/$.debug; objcopy --strip-debug --add-gnu-debuglink=.debug/$.debug $'",
+                          "    echo \"$ELF_BINS\" | xargs -t -n1 -P${compiling_processes} -I$ sh -c 'objcopy "
+                          "--compress-debug-sections --only-keep-debug $ .debug/$.debug; objcopy --strip-debug "
+                          "--add-gnu-debuglink=.debug/$.debug $'",
                           '  fi',
                           '  popd',
                           'done',
