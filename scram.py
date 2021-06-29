@@ -246,7 +246,7 @@ class ScramPackage(PackageBase):
             'compileOptions=' + ('-k' if self.ignore_compile_errors else ''),
             'extraOptions=' + self.extraOptions,
             'buildtarget=' + self.buildtarget,
-            'cmsroot=' + self.stage.path
+            'cmsroot=' + self.stage.path,
             'SCRAM_ARCH=$cmsplatf ; export SCRAM_ARCH',
             'cd $i',
             scramcmd + ' install -f',
