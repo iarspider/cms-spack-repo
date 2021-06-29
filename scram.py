@@ -271,8 +271,7 @@ class ScramPackage(PackageBase):
         if getattr(self, 'RelocatePatchReleaseSymlinks', None):
             lines.extend(self.RelocatePatchReleaseSymlinks)
 
-        lines.append("tar czf src.tar.gz ${srctree}")
-        lines.append("rm -fR ${srctree}")
+        # lines.append("tar czf src.tar.gz src")
 
         if self.subpackageDebug:
             lines.append('touch $i/.SCRAM/$cmsplatf/subpackage-debug')
@@ -315,18 +314,19 @@ class ScramPackage(PackageBase):
                           'done',
                           ''])
 
-        lines.extend(['for L in `find external/$cmsplatf -type l`; do',
-                      '  lnk=`readlink -n $L 2>&1`',
-                      '  case $lnk in',
-                      '     ${cmsroot}/*)',
-                      "       rl=`echo $L | sed -e 's|[^/]*/|../|g;' | xargs dirname`",
-                      '       al=`echo $lnk | sed -e "s|^${cmsroot}/|../../../../$rl/|"`',
-                      '       rm -f $L',
-                      '       ln -sf  $al $L',
-                      '       ;;',
-                      '   esac',
-                      'done',
-                      'find external/$cmsplatf -type l | xargs ls -l'])
+        # Done by spack, as far as I can tell
+        # lines.extend(['for L in `find external/$cmsplatf -type l`; do',
+        #               '  lnk=`readlink -n $L 2>&1`',
+        #               '  case $lnk in',
+        #               '     ${cmsroot}/*)',
+        #               "       rl=`echo $L | sed -e 's|[^/]*/|../|g;' | xargs dirname`",
+        #               '       al=`echo $lnk | sed -e "s|^${cmsroot}/|../../../../$rl/|"`',
+        #               '       rm -f $L',
+        #               '       ln -sf  $al $L',
+        #               '       ;;',
+        #               '   esac',
+        #               'done',
+        #               'find external/$cmsplatf -type l | xargs ls -l'])
         if getattr(self, 'PatchReleaseSymlinkRelocate', None):
             lines.extend(self.PatchReleaseSymlinkRelocate)
 
@@ -340,10 +340,10 @@ class ScramPackage(PackageBase):
         self.post_(spec, prefix)
 
     def post_(self, spec, prefix):
+        # %post part of scram-project-build.file; probably not needed for spack
         return
 
     run_after('build')(PackageBase._run_default_build_time_test_callbacks)
 
     # Check that self.prefix is there after installation
-    # TODO: uncomment
-    # run_after('install')(PackageBase.sanity_check_prefix)
+    run_after('install')(PackageBase.sanity_check_prefix)

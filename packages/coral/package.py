@@ -4,10 +4,11 @@ from string import Template
 import re
 import fnmatch
 import shutil
-import sys,os
+import sys, os
 
-#sys.path.append(os.path.join(os.path.dirname(__file__), '../ToolfilePackage'))
-#from scrampackage import relrelink, write_scram_toolfile
+
+# sys.path.append(os.path.join(os.path.dirname(__file__), '../ToolfilePackage'))
+# from scrampackage import relrelink, write_scram_toolfile
 
 class Coral(ScramPackage):
     """CORAL built as a scram project"""
@@ -25,7 +26,7 @@ class Coral(ScramPackage):
     depends_on('gmake')
     depends_on('cmssw-config')
     depends_on('coral-tool-conf')
-    depends_on('perl')
+    # depends_on('perl')
 
     def __init__(self, spec):
         super().__init__(spec)
@@ -42,19 +43,40 @@ class Coral(ScramPackage):
         self.toolconf = 'coral-tool-conf'
         # self.usercxxflags = '-fpermissive'
 
-
     def patch(self):
         if self.spec.satisfies('platform=darwin'):
             filter_file('(<classpath.*/tests\\+.*>)', '', 'config/BuildFile.xml')
-            
-        if self.spec.satisfies('target=aarch64:') or self.spec.satisfies('target=ppc64') or self.spec.satisfies('target=ppc64le'):
+
+        if self.spec.satisfies('target=aarch64:') or self.spec.satisfies('target=ppc64') or self.spec.satisfies(
+                'target=ppc64le'):
             shutil.rmtree(join_path(self.stage.source_path, 'src', 'OracleAccess'))
 
     def install(self, spec, prefix):
         super().install(self, prefix)
-        raise RuntimeError('STOP')       
+        # raise RuntimeError('STOP')
+        if self.spec.satisfies('platform=darwin'):
+            dynamic_path_var = 'DYLD_FALLBACK_LIBRARY_PATH'
+        else:
+            dynamic_path_var = 'LD_LIBRARY_PATH'
 
-    # def install(self, spec, prefix):
+        initsh = open(join_path(os.path.dirname(__file__), 'init.sh.in')).read()
+        initcsh = open(join_path(os.path.dirname(__file__), 'init.csh.in')).read()
+
+        mkdirp(join_path(prefix, 'etc', 'profile.d'))
+        with open(join_path(prefix, 'etc', 'profile.d', 'init.sh'), 'w') as f:
+            f.write(initsh.format(pkginstroot=prefix, dynamic_path_var=dynamic_path_var, pkgversion=str(
+                self.spec.version)))
+
+        with open(join_path(prefix, 'etc', 'profile.d', 'init.csh'), 'w') as f:
+            f.write(initcsh.format(pkginstroot=prefix, dynamic_path_var=dynamic_path_var, pkgversion=str(
+                self.spec.version)))
+
+        if not os.path.exists(join_path(prefix.etc.scramrc, 'coral.map')):
+            mkdirp(prefix.etc.scramrc)
+            with open(join_path(prefix.etc.scramrc, 'coral.map'), 'w') as f:
+                f.write('{ucprojtype}=$SCRAM_ARCH/{pkgcategory}/{pkgname}/{ucprojtype}_*'.format(
+                    ucprojtype=self.ucprojtype, pkgcategory='cms', pkgname='coral'))
+        # def install(self, spec, prefix):
         # coral_version = 'CORAL.' + str(self.version)
         # coral_u_version = coral_version.replace('.', '_')
 
@@ -64,41 +86,42 @@ class Coral(ScramPackage):
 
         # config_tag = '%s' % spec['cmssw-config'].version.underscored
         # with working_dir(self.stage.path):
-            # mkdirp('config')
-            # install_tree(source_directory, 'src')
-            # install_tree(join_path(spec['cmssw-config'].prefix), 'config')
+        # mkdirp('config')
+        # install_tree(source_directory, 'src')
+        # install_tree(join_path(spec['cmssw-config'].prefix), 'config')
 
-            # with open('config/config_tag', 'w') as f:
-                # f.write(config_tag+'\n' )
+        # with open('config/config_tag', 'w') as f:
+        # f.write(config_tag+'\n' )
 
-            # uc=Executable('config/updateConfig.py')
-            # uc(  '-p', 'CORAL',
-                 # '-v', '%s' % coral_u_version,
-                 # '-s', '%s' % scram_version,
-                 # '-t', '%s' % spec['coral-tool-conf'].prefix,
-                 # '--keys', 'SCRAM_COMPILER=gcc',
-                 # '--keys', 'PROJECT_GIT_HASH=' + coral_u_version)
+        # uc=Executable('config/updateConfig.py')
+        # uc(  '-p', 'CORAL',
+        # '-v', '%s' % coral_u_version,
+        # '-s', '%s' % scram_version,
+        # '-t', '%s' % spec['coral-tool-conf'].prefix,
+        # '--keys', 'SCRAM_COMPILER=gcc',
+        # '--keys', 'PROJECT_GIT_HASH=' + coral_u_version)
 
-            # scram('--arch', '%s' % self.scram_arch, 'project', '-d', os.path.realpath(self.stage.path), '-b', 'config/bootsrc.xml')
+        # scram('--arch', '%s' % self.scram_arch, 'project', '-d', os.path.realpath(self.stage.path), '-b',
+        # 'config/bootsrc.xml')
 
         # project_dir = os.path.realpath(join_path(self.stage.path, coral_u_version))
         # with working_dir(project_dir, create=False):
-            # matches = []
+        # matches = []
 
-            # for f in glob('src/*/*/test/BuildFile*'):
-                # matches.append(f)
-            # for m in matches:
-                # if os.path.exists(m):
-                    # os.remove(m)
+        # for f in glob('src/*/*/test/BuildFile*'):
+        # matches.append(f)
+        # for m in matches:
+        # if os.path.exists(m):
+        # os.remove(m)
 
-            # scram.add_default_env('LOCALTOP', project_dir)
-            # scram.add_default_env('CORAL_BASE', project_dir)
-            # scram.add_default_env('LD_LIBRARY_PATH', '%s/lib/%s' %
-                                  # (project_dir, self.scram_arch))
-            # scram('build', '-v', '-j8')
-            # shutil.rmtree('external')
-            # shutil.rmtree('tmp')
-            # os.remove('slc_amd64_gcc/python/LCG/PyCoral')
+        # scram.add_default_env('LOCALTOP', project_dir)
+        # scram.add_default_env('CORAL_BASE', project_dir)
+        # scram.add_default_env('LD_LIBRARY_PATH', '%s/lib/%s' %
+        # (project_dir, self.scram_arch))
+        # scram('build', '-v', '-j8')
+        # shutil.rmtree('external')
+        # shutil.rmtree('tmp')
+        # os.remove('slc_amd64_gcc/python/LCG/PyCoral')
         # install_tree(project_dir, prefix+'/'+coral_u_version)
 
     def setup_dependent_environment(self, spack_env, run_env, dspec):
@@ -115,6 +138,6 @@ class Coral(ScramPackage):
 
     # @run_after('install')
     # def make_links(self):
-        # with working_dir(self.spec.prefix):
-            # os.symlink('CORAL_%s/include/LCG' % self.version.underscored, 'include')
-            # os.symlink('CORAL_%s/%s/lib' % (self.version.underscored, self.scram_arch), 'lib')
+    # with working_dir(self.spec.prefix):
+    # os.symlink('CORAL_%s/include/LCG' % self.version.underscored, 'include')
+    # os.symlink('CORAL_%s/%s/lib' % (self.version.underscored, self.scram_arch), 'lib')
