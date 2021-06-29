@@ -133,7 +133,7 @@ class ScramPackage(PackageBase):
         scramcmd = self.spec['scram'].prefix.bin.scram + ' --arch ' + self.cmsplatf
         lines = [
             '#!/bin/bash -xe',
-            'i=' + join_path(self.stage.path, str(self.spec.version)),
+            'i=' + self.stage.path,
             'srctree=' + join_path(str(self.spec.version), 'src'),
             'compileOptions=' + ('-k' if self.ignore_compile_errors else ''),
             'extraOptions=' + self.extraOptions,
@@ -248,7 +248,7 @@ class ScramPackage(PackageBase):
             'buildtarget=' + self.buildtarget,
             'cmsroot=' + self.stage.path,
             'SCRAM_ARCH=$cmsplatf ; export SCRAM_ARCH',
-            'cd $i',
+            'cd ' + join_path(self.stage.path, str(self.spec.version)),
             scramcmd + ' install -f',
             'rm -rf external/$cmsplatf; SCRAM_TOOL_HOME=' + self.spec[
                 'scram'].prefix + ' ./config/SCRAM/linkexternal.py --arch $cmsplatf'
