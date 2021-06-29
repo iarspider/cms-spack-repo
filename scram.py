@@ -230,7 +230,7 @@ class ScramPackage(PackageBase):
                       '  fi',
                       'done',
                       '',
-                      'rm -rf ' + join_path(self.stage.path, str(self.spec.version), 'tmp'])
+                      'rm -rf ' + join_path(self.stage.path, str(self.spec.version), 'tmp')])
 
         with open('build.sh', 'w') as f:
             f.write('\n'.join(lines))
