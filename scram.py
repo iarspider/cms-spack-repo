@@ -147,7 +147,7 @@ class ScramPackage(PackageBase):
             lines.append('ignore_compile_errors=/bin/false')
 
         lines.extend([
-            'rm -rf `find src -type d -name cmt`',
+            'rm -rf `find $i/$srctree -type d -name cmt`',
             r'grep -r -l -e "^#!.*perl.*" ${i}/${srctree} | xargs perl -p -i -e "s|^#!.*perl(.*)|#!/usr/bin/env '
             r'perl\$1|"',
             scramcmd + ' arch',
@@ -237,16 +237,18 @@ class ScramPackage(PackageBase):
         bash('-xe', './build.sh')
 
     def install(self, spec, prefix):
+        raise RuntimeError('STOP-INSTALL')
         scramcmd = self.spec['scram'].prefix.bin.scram + ' --arch ' + self.cmsplatf
 
         lines = [
             '#!/bin/bash -xe',
             'i=' + join_path(self.stage.path, str(self.spec.version)),
-            'srctree=' + join_path(str(self.spec.version), 'src'),
+            'srctree=' + join_path(self.stage.path, str(self.spec.version), 'src'),
             'compileOptions=' + ('-k' if self.ignore_compile_errors else ''),
             'extraOptions=' + self.extraOptions,
             'buildtarget=' + self.buildtarget,
             'cmsroot=' + self.stage.path,
+            'cmsplatf=' + self.cmsplatf,
             'SCRAM_ARCH=$cmsplatf ; export SCRAM_ARCH',
             'cd ' + join_path(self.stage.path, str(self.spec.version)),
             scramcmd + ' install -f',
@@ -330,7 +332,7 @@ class ScramPackage(PackageBase):
             f.write('\n'.join(lines))
 
         bash = which('bash')
-        bash('./install.sh')
+        bash('-xe', './install.sh')
 
         self.post_(spec, prefix)
 
