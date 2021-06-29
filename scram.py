@@ -22,7 +22,7 @@ class ScramPackage(PackageBase):
         super().__init__(spec)
         self.toolname = ''
         self.subpackageDebug = True
-        self.vectorized_build = None  # at buildtime
+        self.vectorized_build = False  # at buildtime
         self.package_vectorization = ""
         self.cmsplatf = 'slc7_amd64'
         self.buildtarget = 'release-build'
@@ -127,7 +127,7 @@ class ScramPackage(PackageBase):
                     bash('./edit_PartialBootstrapPatch.sh')
 
             scram = Executable(self.spec['scram'].prefix.bin.scram)
-            scram('--arch', self.cmsplatf, 'project', '-d', prefix, '-b', 'config/bootsrc.xml')
+            scram('--arch', self.cmsplatf, 'project', '-d', self.stage.path, '-b', 'config/bootsrc.xml')
 
     def build(self, spec, prefix):
         scramcmd = self.spec['scram'].prefix.bin.scram + ' --arch ' + self.cmsplatf
@@ -147,7 +147,7 @@ class ScramPackage(PackageBase):
             lines.append('ignore_compile_errors=/bin/false')
 
         lines.extend([
-            'rm -rf `find ${i}/${srctree} -type d -name cmt`',
+            'rm -rf `find src -type d -name cmt`',
             r'grep -r -l -e "^#!.*perl.*" ${i}/${srctree} | xargs perl -p -i -e "s|^#!.*perl(.*)|#!/usr/bin/env '
             r'perl\$1|"',
             scramcmd + ' arch',
