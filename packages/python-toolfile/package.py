@@ -16,18 +16,15 @@ class PythonToolfile(Package):
         values['PFX']=spec['python'].prefix
         values['PYVER']=pyver
         fname='python.xml'
-        contents = str("""<tool name="python" version="$VER">
+        contents = str("""<tool name="python3" version="$VER">
   <lib name="python${PYVER}"/>
   <client>
-    <environment name="PYTHON_BASE" default="$PFX"/>
+    <environment name="PYTHON3_BASE" default="$PFX"/>
     <environment name="LIBDIR" default="$PFX/lib"/>
     <environment name="INCLUDE" default="$PFX/include/python${PYVER}"/>
-    <environment name="PYTHON_COMPILE" default="$PFX/lib/python${PYVER}/compileall.py"/>
+    <environment name="PYTHON3_COMPILE" default="$PFX/lib/python${PYVER}/compileall.py"/>
   </client>
   <runtime name="PATH" value="$PFX/bin" type="path"/>
-  <runtime name="ROOT_INCLUDE_PATH" value="$PFX/include/python${PYVER}" type="path"/>
-  <runtime name="PYTHON_VALGRIND_SUPP" value="$$PYTHON_BASE/share/valgrind/valgrind-python.supp" type="path"/>
-  <use name="root_cxxdefaults"/>
   <use name="sockets"/>
 </tool>""")
         write_scram_toolfile(contents, values, fname, prefix)

@@ -1,0 +1,7 @@
+if [ -f {pkginstroot}/etc/profile.d/dependencies-setup.sh ]; then . {pkginstroot}/etc/profile.d/dependencies-setup.sh; fi
+CORAL_ROOT="{pkginstroot}"
+CORAL_VERSION="{pkgversion}"
+CORAL_REVISION="1"
+CORAL_CATEGORY="cms"
+[ ! -d {pkginstroot}/bin ] || export PATH="{pkginstroot}/bin${{PATH:+:$PATH}}";
+[ ! -d {pkginstroot}/lib ] || export {dynamic_path_var}="{pkginstroot}/lib${{{dynamic_path_var}:+:${dynamic_path_var}}}"; 
