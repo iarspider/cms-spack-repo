@@ -11,7 +11,7 @@ source share/spack/setup-env.sh
 echo Adding CMS repository
 spack repo add --scope=site ${SCRIPT_DIR}
 echo Adding CMS mirror
-spack mirror add cms https://test-cms-spack.web.cern.ch/test-cms-spack/CMS/
+spack mirror add --scope=site cms https://test-cms-spack.web.cern.ch/test-cms-spack/CMS/
 echo Configuring spack
 cp ${SCRIPT_DIR}/config/config.yaml etc/spack/
 echo Adding external gcc 9.3.0
