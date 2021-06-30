@@ -3,11 +3,11 @@ echo Setup Spack for CMS
 cd $WORKSPACE/cms-spack-repo
 bash -xe ./bootstrap.sh
 cd spack
+source share/spack/setup-env.sh 
 echo Add signing key
 spack gpg trust $SPACK_GPG_KEY
-source spack/share/setup-env.sh 
-spack env activate CMSSW_12_0_X
 echo Start the installation
+spack env activate CMSSW_12_0_X
 spack install --fail-fast
 echo Prepare mirror and buildcache
 spack mirror create -d $WORKSPACE/mirror --all --dependencies
