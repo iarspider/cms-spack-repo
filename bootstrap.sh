@@ -7,7 +7,7 @@ echo Cloning spack...
 git clone https://github.com/spack/spack.git
 cd spack; git checkout ${SPACK_VERSION}
 echo Initializing Spack
-source spack/share/setup-env.sh
+source share/spack/setup-env.sh
 echo Adding CMS repository
 spack repo add --scope=site ${SCRIPT_DIR}
 echo Adding CMS mirror
