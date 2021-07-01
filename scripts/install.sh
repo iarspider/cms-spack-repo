@@ -1,7 +1,7 @@
 #!/bin/bash
-if [ "$UNAME" == "Darwin" ]; then
+if [ `uname` == "Darwin" ]; then
 	CORES=`sysctl -n hw.ncpu`
-elif [ "$UNAME" == "Linux" ]; then
+elif [ `uname` == "Linux" ]; then
 	CORES=`awk '/^processor/ { N++} END { print N }' /proc/cpuinfo`
 fi
 export CORES
