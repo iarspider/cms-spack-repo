@@ -14,7 +14,8 @@ echo Add signing key
 spack gpg trust $SPACK_GPG_KEY
 echo Start the installation
 spack env activate CMSSW_12_0_X
-spack install -j$CORES --fail-fast
+# TODO: re-enable cache
+spack install --no-cache -j$CORES --fail-fast
 echo Prepare mirror and buildcache
 spack mirror create -d $WORKSPACE/mirror --all --dependencies
 spack buildcache create -r -f -a -d $WORKSPACE/mirror
