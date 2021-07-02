@@ -31,5 +31,5 @@ cd $WORKSPACE
 #ssh lxplus.cern.ch tar -C /eos/user/r/razumov/CMS/stage-$mirrordate -xf /eos/user/r/razumov/CMS/$mirrorfile
 #ssh lxplus.cern.ch rsync --recursive --links --ignore-times --ignore-existing --size-only /eos/user/r/razumov/www/CMS/stage-$mirrordate/ /eos/user/r/razumov/CMS/mirror
 echo Upload mirror
-rsync -e "ssh -o StrictHostKeyChecking=no" --recursive --links --ignore-existing mirror/ lxplus:/eos/user/r/razumov/www/CMS/mirror
+rsync -e "ssh -o StrictHostKeyChecking=no -o GSSAPIAuthentication=yes -o GSSAPIDelegateCredentials=yes" --recursive --links --ignore-existing mirror/ cmsbuild@lxplus:/eos/user/r/razumov/www/CMS/mirror
 echo Done
