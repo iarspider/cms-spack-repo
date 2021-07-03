@@ -1,4 +1,4 @@
-#!/bin/bash -xe
+#!/bin/bash
 if [ `uname` == "Darwin" ]; then
 	CORES=`sysctl -n hw.ncpu`
 elif [ `uname` == "Linux" ]; then

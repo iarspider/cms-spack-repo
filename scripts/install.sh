@@ -12,7 +12,9 @@ cd spack
 source share/spack/setup-env.sh 
 echo Add signing key
 spack buildcache keys --force --install --trust 
-# spack gpg trust $SPACK_GPG_KEY
+echo Set install root
+mkdir -p $WORKSPACE/install
+spack config add "config:install_tree:root:$WORKSPACE/install"
 echo Start the installation
 spack env activate CMSSW_12_0_X
 spack install -j$CORES --fail-fast --cache-only
