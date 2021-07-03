@@ -10,7 +10,8 @@ cd $WORKSPACE/cms-spack-repo
 bash -xe ./bootstrap.sh
 cd spack
 source share/spack/setup-env.sh 
-# echo Add signing key
+echo Add signing key
+spack buildcache keys --force --install --trust 
 # spack gpg trust $SPACK_GPG_KEY
 echo Start the installation
 spack env activate CMSSW_12_0_X

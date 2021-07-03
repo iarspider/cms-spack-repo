@@ -18,6 +18,7 @@ spack install -j$CORES --fail-fast
 echo Prepare mirror and buildcache
 spack mirror create -d $WORKSPACE/mirror --all --dependencies
 spack buildcache create -r -f -a -d $WORKSPACE/mirror
+spack gpg publish -d $WORKSPACE/mirror --rebuild-index
 cd $WORKSPACE
 echo Upload mirror
 rsync -e "ssh -o StrictHostKeyChecking=no -o GSSAPIAuthentication=yes -o GSSAPIDelegateCredentials=yes" --recursive --links --ignore-existing mirror/ cmsbuild@lxplus:/eos/user/r/razumov/www/CMS/mirror
