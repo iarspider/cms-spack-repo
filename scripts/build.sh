@@ -12,6 +12,8 @@ cd spack
 source share/spack/setup-env.sh 
 echo Add signing key
 spack gpg trust $SPACK_GPG_KEY
+echo Add padding to install_tree
+spack config add "config:install_tree:padded_length:128"
 echo Start the installation
 spack env activate CMSSW_12_0_X
 spack install -j$CORES --fail-fast
