@@ -18,7 +18,9 @@ spack config add "config:install_tree:root:$WORKSPACE/install"
 echo Start the installation
 spack env activate CMSSW_12_0_X
 spack install -j$CORES --fail-fast --cache-only
-spack load coral
+spack load root
 # Tests
 root --version
+spack unload root
+spack load coral
 python -c "import LCG"
