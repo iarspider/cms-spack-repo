@@ -4,8 +4,8 @@ cd ${SCRIPT_DIR}
 SPACK_VERSION="729d66a3f8"
 echo This script will install Spack and configure it for CMS needs
 echo Cloning spack...
-git clone https://github.com/spack/spack.git
-cd spack; git checkout ${SPACK_VERSION}
+git clone --quiet https://github.com/spack/spack.git
+cd spack; git checkout --quiet ${SPACK_VERSION}
 echo Initializing Spack
 source share/spack/setup-env.sh
 echo Adding CMS repository
