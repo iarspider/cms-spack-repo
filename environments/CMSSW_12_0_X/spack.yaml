@@ -22,6 +22,7 @@ spack:
   - autoconf@2.69
   - automake@1.16.1
   - pkg-config@0.29.2+internal_glib
+  - bison@3.5
   - boost@1.75.0~icu~atomic~container~context~coroutine~exception~graph~locale~log~math~random~wave+shared+multithreaded~debug+mpi+python+iostreams
   - bzip2@1.0.6
   - bzip2-toolfile
