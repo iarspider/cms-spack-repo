@@ -1,3 +1,14 @@
+# Copyright 2013-2021 Lawrence Livermore National Security, LLC and other
+# Spack Project Developers. See the top-level COPYRIGHT file for details.
+#
+# SPDX-License-Identifier: (Apache-2.0 OR MIT)
+
+
+from spack import *
+from spack.operating_systems.mac_os import macos_version
+import sys
+import re
+
 class Bison(AutotoolsPackage, GNUMirrorPackage):
     homepage = "https://www.gnu.org/software/bison/"
     gnu_mirror_path = "bison/bison-3.6.4.tar.gz"
@@ -25,8 +36,8 @@ class Bison(AutotoolsPackage, GNUMirrorPackage):
     version('3.3.2', sha256='0fda1d034185397430eb7b0c9e140fb37e02fbfc53b90252fa5575e382b6dbd1')
     version('3.0.5', sha256='cd399d2bee33afa712bac4b1f4434e20379e9b4099bce47189e09a7675a2d566')
     version('3.0.4', sha256='b67fd2daae7a64b5ba862c66c07c1addb9e6b1b05c5f2049392cfd8a2172952e')
-    version('2.7',   sha256='19bbe7374fd602f7a6654c131c21a15aebdc06cc89493e8ff250cb7f9ed0a831') 
-    
+    version('2.7',   sha256='19bbe7374fd602f7a6654c131c21a15aebdc06cc89493e8ff250cb7f9ed0a831')
+
     # https://lists.gnu.org/archive/html/bug-bison/2019-08/msg00008.html
     patch('parallel.patch', when='@3.4.2')
 
@@ -49,10 +60,10 @@ class Bison(AutotoolsPackage, GNUMirrorPackage):
         patch('secure_snprintf.patch', level=0, when='@3.0.4')
 
     build_directory = 'spack-build'
-    
+
     # -- CMS
     drop_files = ['share/man', 'share/locale', 'share/info']
-    
+
     def configure_args(self):
         return ['--disable-nls', '--enable-dependency-tracking']
 
