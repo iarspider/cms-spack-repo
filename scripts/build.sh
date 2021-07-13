@@ -16,7 +16,7 @@ echo Add padding to install_tree
 spack config add "config:install_tree:padded_length:128"
 echo Start the installation
 spack env activate CMSSW_12_0_X
-spack install -j$CORES --fail-fast
+spack -d install -j$CORES --fail-fast
 echo Prepare mirror and buildcache
 spack mirror create -d $WORKSPACE/mirror --all --dependencies
 spack buildcache create -r -f -a -d $WORKSPACE/mirror
