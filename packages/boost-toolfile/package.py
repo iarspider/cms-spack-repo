@@ -14,7 +14,9 @@ class BoostToolfile(Package):
         values = {}
         values['VER'] = spec['boost'].version
         values['PFX'] = spec['boost'].prefix
+        values['PVER'] = spec['python'].version.upto(2).joined
 
+# boost toolfile
         fname = 'boost.xml'
         contents = str("""<tool name="boost" version="$VER">
   <info url="http://www.boost.org"/>
@@ -23,14 +25,8 @@ class BoostToolfile(Package):
   <client>
     <environment name="BOOST_BASE" default="$PFX"/>
     <environment name="LIBDIR" default="$$BOOST_BASE/lib"/>
-    <environment name="INCLUDE" default="$$BOOST_BASE/include"/>
   </client>
-  <runtime name="CMSSW_FWLITE_INCLUDE_PATH" value="$$BOOST_BASE/include" type="path"/>
-  <runtime name="ROOT_INCLUDE_PATH" value="$$INCLUDE" type="path"/>
-  <use name="root_cxxdefaults"/>
-  <flags CPPDEFINES="BOOST_SPIRIT_THREADSAFE PHOENIX_THREADSAFE"/>
-  <flags CXXFLAGS="-Wno-error=unused-variable"/>
-  <use name="sockets"/>
+  <use name="boost_header"/>
 </tool>""")
         write_scram_toolfile(contents, values, fname, prefix)
 
@@ -82,14 +78,13 @@ class BoostToolfile(Package):
         contents = str("""
 <tool name="boost_python" version="$VER">
   <info url="http://www.boost.org"/>
-  <lib name="boost_python27"/>
+  <lib name="boost_python$PVER"/>
   <client>
     <environment name="BOOST_PYTHON_BASE" default="$PFX"/>
     <environment name="LIBDIR" default="$$BOOST_PYTHON_BASE/lib"/>
-    <environment name="INCLUDE" default="$$BOOST_PYTHON_BASE/include"/>
   </client>
   <runtime name="ROOT_INCLUDE_PATH" value="$$INCLUDE" type="path"/>
-  <use name="root_cxxdefaults"/>
+  <use name="boost_header"/>
   <use name="python3"/>
 </tool>""")
         write_scram_toolfile(contents, values, fname, prefix)
@@ -140,5 +135,10 @@ class BoostToolfile(Package):
   </client>
   <runtime name="ROOT_INCLUDE_PATH" value="$$INCLUDE" type="path"/>
   <use name="root_cxxdefaults"/>
+  <flags CPPDEFINES="BOOST_SPIRIT_THREADSAFE PHOENIX_THREADSAFE"/>
+  <flags CPPDEFINES="BOOST_MATH_DISABLE_STD_FPCLASSIFY"/>
+  <flags CPPDEFINES="BOOST_UUID_RANDOM_PROVIDER_FORCE_POSIX"/>
+  <flags CXXFLAGS="-Wno-error=unused-variable"/>
+  <flags SYSTEM_INCLUDE="1"/>
 </tool>""")
         write_scram_toolfile(contents, values, fname, prefix)

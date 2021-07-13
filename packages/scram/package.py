@@ -14,7 +14,8 @@ class Scram(Package):
     url = "https://github.com/cms-sw/SCRAM/archive/V2_2_6.tar.gz"
     git = "https://github.com/cms-sw/SCRAM.git"
 
-    version('3_0_23', commit='9794c2f7b7f2690687c41eb67778023d5c2a6e1b')
+    version('3.0.29', commit='4489bd56104394c247b7cfcb64376257772e23c3')
+    version('3.0.23', commit='9794c2f7b7f2690687c41eb67778023d5c2a6e1b')
 
     def url_for_version(self, version):
         return "https://github.com/cms-sw/SCRAM/archive/V" + version.underscored
