@@ -14,7 +14,7 @@ class BoostToolfile(Package):
         values = {}
         values['VER'] = spec['boost'].version
         values['PFX'] = spec['boost'].prefix
-        values['PVER'] = spec['python'].version.upto(2).joined
+        values['PVER'] = spec['python'].version.up_to(2).joined
 
 # boost toolfile
         fname = 'boost.xml'
