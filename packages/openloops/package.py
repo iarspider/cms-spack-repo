@@ -21,7 +21,7 @@ class Openloops(Package):
 
     tags = ['hep']
 
-    version('2.1.2', sha256='f52575cae3d70b6b51a5d423e9cd0e076ed5961afcc015eec00987e64529a6ae')
+    version('2.1.2', branch='cms/v2.1.2')
 
     variant('compile_extra', default=False,
             description='Compile real radiation tree amplitudes')
