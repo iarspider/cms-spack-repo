@@ -76,12 +76,11 @@ class Openloops(Package):
         if os.path.exists('process_src'):
             shutil.rmtree('process_src')
 
-        install_tree(self.spec['openloops'].prefix.process_src, '.')
-        install_tree(self.spec['openloops'].prefix.proclib, '.')
-        install(join_path(self.spec['openloops'].prefix, 'cms.coll'), 'cms.coll')
+        install_tree(self.spec['openloops-process'].prefix.process_src, '.')
+        install_tree(self.spec['openloops-process'].prefix.proclib, '.')
+        install(join_path(self.spec['openloops-process'].prefix, 'cms.coll'), 'cms.coll')
 
         ol = Executable('./openloops')
-        processes = self.spec.variants['processes'].value
         if '+compile_extra' in self.spec:
             ce = 'compile_extra=1'
         else:
