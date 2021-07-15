@@ -59,11 +59,11 @@ class Openloops(Package):
             else:
                 f.write('-mcmodel=medium\n')
 
-            f.write('generic_optimisation = -O2')
-            f.write('born_optimisation = -O2')
-            f.write('loop_optimisation = -O0')
-            f.write('link_optimisation = -O2')
-            f.write('process_download_script = download_dummy.py')
+            f.write('generic_optimisation = -O2\n')
+            f.write('born_optimisation = -O2\n')
+            f.write('loop_optimisation = -O0\n')
+            f.write('link_optimisation = -O2\n')
+            f.write('process_download_script = download_dummy.py\n')
 
         copy(join_path(spec['openloops-process'].prefix, 'cms.coll'), 'cms.coll')
 
