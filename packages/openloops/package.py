@@ -65,7 +65,7 @@ class Openloops(Package):
             f.write('link_optimisation = -O2')
             f.write('process_download_script = download_dummy.py')
 
-        copy(join_path(spec['openloops'].prefix, 'cms.coll'), 'cms.coll')
+        copy(join_path(spec['openloops-process'].prefix, 'cms.coll'), 'cms.coll')
 
         copy(join_path(os.path.dirname(__file__), 'download_dummy.py'), 'download_dummy.py')
 
