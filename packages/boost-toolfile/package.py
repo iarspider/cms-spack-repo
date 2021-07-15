@@ -7,6 +7,7 @@ from scrampackage import write_scram_toolfile
 class BoostToolfile(Package):
     url = 'file://' + os.path.dirname(__file__) + '/../ToolfilePackage/junk.xml'
     version('1.0', '68841b7dcbd130afd7d236afe8fd5b949f017615', expand=False)
+    variant('cmsdist-commit', default='d9c2931')
     depends_on('boost')
 
     def install(self, spec, prefix):
@@ -134,6 +135,7 @@ class BoostToolfile(Package):
     <environment name="INCLUDE" default="$$BOOSTHEADER_BASE/include"/>
   </client>
   <runtime name="ROOT_INCLUDE_PATH" value="$$INCLUDE" type="path"/>
+  <use name="sockets"/>
   <use name="root_cxxdefaults"/>
   <flags CPPDEFINES="BOOST_SPIRIT_THREADSAFE PHOENIX_THREADSAFE"/>
   <flags CPPDEFINES="BOOST_MATH_DISABLE_STD_FPCLASSIFY"/>
