@@ -76,8 +76,8 @@ class Openloops(Package):
         if os.path.exists('process_src'):
             shutil.rmtree('process_src')
 
-        install_tree(self.spec['openloops-process'].prefix.process_src, '.')
-        install_tree(self.spec['openloops-process'].prefix.proclib, '.')
+        install_tree(self.spec['openloops-process'].prefix.process_src, 'process_src')
+        install_tree(self.spec['openloops-process'].prefix.proclib, 'proclib')
         install(join_path(self.spec['openloops-process'].prefix, 'cms.coll'), 'cms.coll')
 
         ol = Executable('./openloops')
