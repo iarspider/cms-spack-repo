@@ -42,12 +42,10 @@ class Openloops(Package):
 
         spack_env = ' '.join(spack_env)
         is_intel = self.spec.satisfies('%intel')
-        njobs = self.spec.variants['num_jobs'].value
 
         with open('openloops.cfg', 'w') as f:
             f.write('[OpenLoops]\n')
             f.write('import_env={0}\n'.format(spack_env))
-            f.write('num_jobs = {0}\n'.format(njobs))
             f.write('process_lib_dir = {0}\n'.format(self.spec.prefix.proclib))
             f.write('cc = {0}\n'.format(env['SPACK_CC']))
             f.write('cxx = {0}\n'.format(env['SPACK_CXX']))
