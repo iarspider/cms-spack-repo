@@ -31,7 +31,7 @@ class Openloops(Package):
     # NOTICE: update this line when openloops updates
     depends_on('openloops-process@2.1.2', when='@2.1.2')
 
-    phases = ['configure', 'build', 'build_processes', 'install']
+    phases = ['configure', 'build', 'install']
 
     def configure(self, spec, prefix):
         spack_env = ('PATH LD_LIBRARY_PATH CPATH C_INCLUDE_PATH' +
@@ -73,14 +73,12 @@ class Openloops(Package):
         ol = Executable('./openloops')
         ol('update', '--processes', 'generator=0')
 
-    def build_processes(self, spec, prefix):
         if os.path.exists('process_src'):
             shutil.rmtree('process_src')
-            
-        
-        copy(self.spec['openloops'].prefix.process_src, 'process_src')
-        copy(self.spec['openloops'].prefix.proclib, 'proclib')
-        copy(join_path(self.spec['openloops'].prefix, 'cms.coll'), '.')
+
+        install_tree(self.spec['openloops'].prefix.process_src, '.')
+        install_tree(self.spec['openloops'].prefix.proclib, '.')
+        install(join_path(self.spec['openloops'].prefix, 'cms.coll'), 'cms.coll')
 
         ol = Executable('./openloops')
         processes = self.spec.variants['processes'].value
