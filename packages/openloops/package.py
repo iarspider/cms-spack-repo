@@ -46,7 +46,7 @@ class Openloops(Package):
         with open('openloops.cfg', 'w') as f:
             f.write('[OpenLoops]\n')
             f.write('import_env={0}\n'.format(spack_env))
-            f.write('num_jobs = {0}\n'.format(make_jobs))
+            f.write('num_jobs = 4\n')
             f.write('process_lib_dir = {0}\n'.format(self.spec.prefix.proclib))
             f.write('cc = {0}\n'.format(env['SPACK_CC']))
             f.write('cxx = {0}\n'.format(env['SPACK_CXX']))
