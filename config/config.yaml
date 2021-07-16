@@ -1,2 +1,3 @@
 config:
   allow_sgid: false
+  shared_linking: 'runpath'
