@@ -4,7 +4,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '../ToolfilePackage'))
 from scrampackage import write_scram_toolfile
 
 
-class openloopsToolfile(Package):
+class OpenloopsToolfile(Package):
     url = 'file://' + os.path.dirname(__file__) + '/../ToolfilePackage/junk.xml'
     version('1.0', '68841b7dcbd130afd7d236afe8fd5b949f017615', expand=False)
     variant('cmsdist-commit', default='d9c2931') 
