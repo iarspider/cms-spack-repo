@@ -102,7 +102,7 @@ spack:
   - py-setuptools@51.3.3
   - py-six@1.15.0
   - py-termcolor@1.1.0
-  - py-typing_extensions@3.7.4.3
+  - py-typing-extensions@3.7.4.3
   - py-wheel@0.33.6
   - py-wrapt@1.11.2
   - python@3.8.2~libxml2
