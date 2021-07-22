@@ -36,6 +36,7 @@ spack:
   - eigen@f612df273689a19d25b45ca4f8269463207c4fee
   - expat@2.1.0~libbsd
   - expat-toolfile
+  - flatbuffers@1.12.0
   - fftw@3.3.8~mpi~openmp precision=double
   - fftw3-toolfile
   - freetype@2.10.0
@@ -88,7 +89,6 @@ spack:
   - py-absl-py@0.11.0
   - py-astor@0.8.1
   - py-cython@0.29.23
-  - py-flatbuffers@1.12.0
   - py-future@0.18.2
   - py-google-common@0.0.1
   - py-gast@0.4.0
