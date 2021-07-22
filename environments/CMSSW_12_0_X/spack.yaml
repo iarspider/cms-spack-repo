@@ -106,7 +106,6 @@ spack:
   - py-typing_extensions@3.7.4.3
   - py-wheel@0.33.6
   - py-wrapt@1.11.2
-  - py-setuptools@51.3.3
   - python@3.8.2~libxml2
   - python-toolfile
   - re2c@0.13.5
