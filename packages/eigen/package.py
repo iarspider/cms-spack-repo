@@ -10,7 +10,7 @@ class Eigen(CMakePackage):
     """
 
     homepage = 'http://eigen.tuxfamily.org/'
-    git = 'https://github.com/cms-external/eigen-git-mirror.git'
+    git = 'https://github.com/cms-externals/eigen-git-mirror.git'
     maintainers = ['HaoZeke']
 
     version('f612df273689a19d25b45ca4f8269463207c4fee', commit='4fc3872b0dc7540aeaea8de04835508bbd90aae3')
