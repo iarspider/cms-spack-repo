@@ -33,6 +33,7 @@ spack:
   - dcap@2.47.12
   - dcap-toolfile
   - db6-toolfile
+  - eigen@f612df273689a19d25b45ca4f8269463207c4fee
   - expat@2.1.0~libbsd
   - expat-toolfile
   - fftw@3.3.8~mpi~openmp precision=double
