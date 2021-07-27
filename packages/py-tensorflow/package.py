@@ -103,7 +103,7 @@ class PyTensorflow(Package, CudaPackage):
     variant('monolithic', default=False, description='Static monolithic build')
     variant('numa', default=False, description='Build with NUMA support')
     variant('dynamic_kernels', default=False, description='Build kernels into separate shared objects')
-    variant('vectorize_flag', default='', description='Vectorization flag')  # -- CMS
+    variant('vectorize_flag', default=None, description='Vectorization flag')  # -- CMS
     variant('only_python', default=True, description='Only install Python wrapper')  # -- CMS
 
     extends('python')
