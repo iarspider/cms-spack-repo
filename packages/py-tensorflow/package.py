@@ -265,7 +265,7 @@ class PyTensorflow(Package, CudaPackage):
     # depends_on('android-sdk', when='+android')
     # -- CMS
     depends_on('py-cython')
-    depends_on('py-googe-common')
+    depends_on('py-google-common')
     depends_on('eigen')
     depends_on('zlib')
     depends_on('libpng')
