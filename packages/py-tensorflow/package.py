@@ -542,7 +542,7 @@ class PyTensorflow(Package, CudaPackage):
         
         with open(join_path(tmp_path, 'cms_externals.txt'), "w") as f:
             f.write("png:" + self.spec["libpng"].prefix + "\n")
-            f.write("libjpeg_turbo:" + self.spec["libjpeg_turbo"].prefix + "\n")
+            f.write("libjpeg_turbo:" + self.spec["libjpeg-turbo"].prefix + "\n")
             f.write("zlib:" + self.spec["zlib"].prefix + "\n")
             f.write("eigen_archive:" + self.spec["eigen"].prefix + "\n")
             f.write("curl:" + self.spec["curl"].prefix + "\n")
@@ -553,7 +553,7 @@ class PyTensorflow(Package, CudaPackage):
             f.write("org_sqlite:" + self.spec["sqlite"].prefix + "\n")
             f.write("cython:" + "\n")
             f.write("flatbuffers:" + self.spec["flatbuffers"].prefix + "\n")
-            f.write("pybind11:" + self.spec["py3_pybind11"].prefix + "\n")
+            f.write("pybind11:" + self.spec["pybind11"].prefix + "\n")
             f.write("functools32_archive:" + "\n")
             f.write("enum34_archive:" + "\n")
             f.write("astor_archive:" + "\n")
