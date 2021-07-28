@@ -215,6 +215,7 @@ class PyTensorflow(Package, CudaPackage):
     depends_on('zlib')
     depends_on('libpng')
     depends_on('libjpeg-turbo')
+    depends_on('curl')
     depends_on('pcre')
     depends_on('giflib')
     depends_on('sqlite')
