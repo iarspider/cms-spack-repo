@@ -551,7 +551,7 @@ class PyTensorflow(Package, CudaPackage):
             f.write("eigen_archive:" + self.spec["eigen"].prefix + "\n")
             f.write("curl:" + self.spec["curl"].prefix + "\n")
             f.write("com_google_protobuf:" + self.spec["py-protobuf"].prefix + "\n")
-            f.write("com_github_grpc_grpc:" + self.spec["grpcio"].prefix + "\n")
+            f.write("com_github_grpc_grpc:" + self.spec["grpc"].prefix + "\n")
             f.write("pcre:" + self.spec["pcre"].prefix + "\n")
             f.write("gif:" + self.spec["giflib"].prefix + "\n")
             f.write("org_sqlite:" + self.spec["sqlite"].prefix + "\n")
