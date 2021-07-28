@@ -211,6 +211,7 @@ class PyTensorflow(Package, CudaPackage):
     # -- CMS
     depends_on('py-cython')
     depends_on('py-google-common')
+    depends_on('py-pybind11')
     depends_on('eigen')
     depends_on('zlib')
     depends_on('libpng')
@@ -554,7 +555,7 @@ class PyTensorflow(Package, CudaPackage):
             f.write("org_sqlite:" + self.spec["sqlite"].prefix + "\n")
             f.write("cython:" + "\n")
             f.write("flatbuffers:" + self.spec["flatbuffers"].prefix + "\n")
-            f.write("pybind11:" + self.spec["pybind11"].prefix + "\n")
+            f.write("pybind11:" + self.spec["py-pybind11"].prefix + "\n")
             f.write("functools32_archive:" + "\n")
             f.write("enum34_archive:" + "\n")
             f.write("astor_archive:" + "\n")
