@@ -23,7 +23,7 @@ class PyTensorflow(Package, CudaPackage):
     maintainers = ['adamjstewart', 'aweits']
     import_modules = ['tensorflow']
 
-    version('2.4.1',  commit='f681331f8fc0800883761c7709d13cda11942d4ad5ff9f44ad855e9dc78387e0')
+    version('2.4.1',  commit='9b69eda15062cfec1b9c2d6f78c0fecbf9e67a34')
     
     variant('mkl', default=False, description='Build with MKL support')
     variant('jemalloc', default=False, description='Build with jemalloc as malloc support')
@@ -548,25 +548,25 @@ class PyTensorflow(Package, CudaPackage):
         env.set('GCC_HOST_COMPILER_PATH', spack_cc)
         env.set('CC_OPT_FLGCC_HOST_COMPILER_PATHAGS', '-Wno-sign-compare')
 
-    def patch(self):
-        if self.spec.satisfies('@2.3.0:'):
-            filter_file('deps = protodeps + well_known_proto_libs(),',
-                        'deps = protodeps,',
-                        'tensorflow/core/platform/default/build_config.bzl',
-                        string=True)
-        if self.spec.satisfies('@2.4.0:'):
-            text = '''
-def protobuf_deps():
-    pass
-'''
-            with open('third_party/systemlibs/protobuf_deps.bzl', 'w') as f:
-                f.write(text)
-            filter_file(
-                '"//third_party/systemlibs:protobuf.bzl": "protobuf.bzl",',
-                '"//third_party/systemlibs:protobuf.bzl": "protobuf.bzl",\n'
-                '"//third_party/systemlibs:protobuf_deps.bzl": "protobuf_deps.bzl",',  # noqa: E501
-                'tensorflow/workspace.bzl',
-                string=True)
+#    def patch(self):
+#        if self.spec.satisfies('@2.3.0:'):
+#            filter_file('deps = protodeps + well_known_proto_libs(),',
+#                        'deps = protodeps,',
+#                        'tensorflow/core/platform/default/build_config.bzl',
+#                        string=True)
+#        if self.spec.satisfies('@2.4.0:'):
+#            text = '''
+#def protobuf_deps():
+#    pass
+#'''
+#            with open('third_party/systemlibs/protobuf_deps.bzl', 'w') as f:
+#                f.write(text)
+#            filter_file(
+#                '"//third_party/systemlibs:protobuf.bzl": "protobuf.bzl",',
+#                '"//third_party/systemlibs:protobuf.bzl": "protobuf.bzl",\n'
+#                '"//third_party/systemlibs:protobuf_deps.bzl": "protobuf_deps.bzl",',  # noqa: E501
+#                'tensorflow/workspace.bzl',
+#                string=True)
 
     def configure(self, spec, prefix):
         # NOTE: configure script is interactive. If you set the appropriate
