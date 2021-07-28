@@ -220,6 +220,8 @@ class PyTensorflow(Package, CudaPackage):
     depends_on('pcre')
     depends_on('giflib')
     depends_on('sqlite')
+    depends_on('grpc@1.35.0:')
+    # -- end CMS
 
     # Check configure and configure.py to see when these variants are supported
     conflicts('+mkl', when='@:1.0')
