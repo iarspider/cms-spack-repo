@@ -115,7 +115,7 @@ class Bazel(Package):
     # https://github.com/bazelbuild/bazel/commit/ab62a6e097590dac5ec946ad7a796ea0e8593ae0
     patch('linux_ppc-0.29.1.patch', when='@0.29.1')
     
-    patch('bazel-3.7.0-patches.patch', when='@3.7.0')
+    patch('bazel-3.7.0-patches.patch', when='@3.7.0:')  # -- CMS
 
     # Pass Spack environment variables to the build
     patch('bazelruleclassprovider-0.25.patch', when='@0.25:')
