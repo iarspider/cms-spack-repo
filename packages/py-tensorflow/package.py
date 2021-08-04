@@ -25,7 +25,7 @@ class PyTensorflow(Package, CudaPackage):
     import_modules = ['tensorflow']
 
     version('2.5.0.cms',  commit='9b69eda15062cfec1b9c2d6f78c0fecbf9e67a34')
-    
+
     variant('mkl', default=False, description='Build with MKL support')
     variant('jemalloc', default=False, description='Build with jemalloc as malloc support')
     variant('gcp', default=False, description='Build with Google Cloud Platform support')
@@ -50,7 +50,7 @@ class PyTensorflow(Package, CudaPackage):
     variant('numa', default=False, description='Build with NUMA support')
     variant('dynamic_kernels', default=False, description='Build kernels into separate shared objects')
     variant('vectorize_flag', default='-msse3', description='Vectorization flag',
-            values=('-msse3', '-march=nehalem', '-march=sandybridge', '-march=haswell', 
+            values=('-msse3', '-march=nehalem', '-march=sandybridge', '-march=haswell',
                     '-march=skylake-avx512'))  # -- CMS
     variant('only_python', default=True, description='Only install Python wrapper')  # -- CMS
 
@@ -96,23 +96,23 @@ class PyTensorflow(Package, CudaPackage):
     depends_on('py-absl-py@0.10:0.999', type=('build', 'run'), when='@2.4.0:')
     depends_on('py-absl-py@0.7.0:', type=('build', 'run'), when='@1.12.1,1.14:2.3')
     depends_on('py-absl-py@0.1.6:', type=('build', 'run'), when='@1.5:1.11')
-    
+
     depends_on('py-astunparse@1.6.3:1.6.999', type=('build', 'run'), when='@2.4.0:')
     depends_on('py-astunparse@1.6.3', type=('build', 'run'), when='@2.2:2.3')
-    
+
     depends_on('py-astor@0.6.0:', type=('build', 'run'), when='@1.6:2.1')
-    
+
     depends_on('py-backports-weakref@1.0:', type=('build', 'run'), when='@1.3: ^python@:3.3')
     depends_on('py-backports-weakref@1.0rc1', type=('build', 'run'), when='@1.2.0:1.2.1')
-    
+
     depends_on('py-enum34@1.1.6:', type=('build', 'run'), when='@1.5: ^python@:3.3')
     depends_on('py-enum34@1.1.6:', type=('build', 'run'), when='@1.4.0:1.4.1')
-    
+
     depends_on('py-gast@0.4.0', type=('build', 'run'), when='@2.5:')
     depends_on('py-gast@0.3.3', type=('build', 'run'), when='@2.2:2.4')
     depends_on('py-gast@0.2.2', type=('build', 'run'), when='@1.15:2.1')
     depends_on('py-gast@0.2.0:', type=('build', 'run'), when='@1.6:1.14')
-    
+
     depends_on('py-google-pasta@0.2:0.999', type=('build', 'run'), when='@2.4.0:')
     depends_on('py-google-pasta@0.1.8:', type=('build', 'run'), when='@2.1:2.3')
     depends_on('py-google-pasta@0.1.6:', type=('build', 'run'), when='@1.14:2.0')
@@ -120,14 +120,14 @@ class PyTensorflow(Package, CudaPackage):
     # propagate the mpi variant setting for h5py/hdf5 to avoid unexpected crashes
     depends_on('py-h5py@2.10.0:2.10.999+mpi', type=('build', 'run'), when='@2.2:+mpi')
     depends_on('py-h5py@2.10.0:2.10.999~mpi', type=('build', 'run'), when='@2.2:~mpi')
-    
+
     depends_on('hdf5+mpi', type='build', when='@2.2:+mpi')
     depends_on('hdf5~mpi', type='build', when='@2.2:~mpi')
-    
+
     depends_on('py-keras-applications@1.0.8:', type=('build', 'run'), when='@1.15:2.1')
     depends_on('py-keras-applications@1.0.6:', type=('build', 'run'), when='@1.12:1.14')
     depends_on('py-keras-applications@1.0.5:', type=('build', 'run'), when='@1.11.0:1.11.999')
-    
+
     depends_on('py-keras-preprocessing@1.1.2:1.1.999', type=('build', 'run'), when='@2.4:')
     depends_on('py-keras-preprocessing@1.1.1:1.999', type=('build', 'run'), when='@2.3:2.3.999')
     depends_on('py-keras-preprocessing@1.1.0:', type=('build', 'run'), when='@2.1:2.2')
@@ -144,10 +144,10 @@ class PyTensorflow(Package, CudaPackage):
     depends_on('py-numpy@1.10.1:',       type=('build', 'run'), when='@0.7.1:0.7.999 platform=darwin')
     depends_on('py-numpy@1.8.2:',        type=('build', 'run'), when='@0.6:0.10')
     depends_on('py-numpy@1.9.2:',        type=('build', 'run'), when='@0.5.0')
-    
+
     depends_on('py-opt-einsum@3.3.0:3.3.999', type=('build', 'run'), when='@2.4.0:')
     depends_on('py-opt-einsum@2.3.2:', type=('build', 'run'), when='@1.15:2.3')
-    
+
     depends_on('py-protobuf@3.9.2:', type=('build', 'run'), when='@2.3:')
     depends_on('py-protobuf@3.8.0:', type=('build', 'run'), when='@2.1:2.2')
     depends_on('py-protobuf@3.6.1:', type=('build', 'run'), when='@1.12:2.0')
@@ -160,37 +160,37 @@ class PyTensorflow(Package, CudaPackage):
     depends_on('py-protobuf@3.0.0', type=('build', 'run'), when='@0.11.0')
     depends_on('py-protobuf@3.0.0b2', type=('build', 'run'), when='@0.7.1:0.10')
     depends_on('py-protobuf@3.0.0a3', type=('build', 'run'), when='@0.6:0.7.0')
-    
+
     depends_on('protobuf')
-    
+
     # -- CMS: dependency type is build+link (default) dependency
     depends_on('flatbuffers+python@1.12.0:1.12.999', when='@2.4.0:', type=('build', 'link', 'run'))
     # tensorboard
     # tensorflow-estimator
     depends_on('py-termcolor@1.1.0:1.1.999', type=('build', 'run'), when='@2.4.0:')
     depends_on('py-termcolor@1.1.0:', type=('build', 'run'), when='@1.6:2.3')
-    
+
     depends_on('py-wrapt@1.12.1:1.12.999', type=('build', 'run'), when='@2.4.0:')
     depends_on('py-wrapt@1.11.1:', type=('build', 'run'), when='@1.12.1,1.14:2.3')
-    
+
     depends_on('py-wheel', type=('build', 'run'), when='@0.6:2.3')
     depends_on('py-wheel@0.26:', type=('build', 'run'), when='@0.6:2.3 ^python@3:')
     depends_on('py-wheel@0.35:0.999', type=('build', 'run'), when='@2.4.0: ^python@3:')
-    
+
     depends_on('py-mock@2.0.0:', type=('build', 'run'), when='@0.10: ^python@:2')
-    
+
     depends_on('py-functools32@3.2.3:', type=('build', 'run'), when='@1.15: ^python@:2')
-    
+
     depends_on('py-six@1.15.0:1.15.999', type=('build', 'run'), when='@2.4.0:')
     depends_on('py-six@1.12.0:', type=('build', 'run'), when='@2.1:2.3')
     depends_on('py-six@1.10.0:', type=('build', 'run'), when='@:2.0')
-    
+
     depends_on('py-scipy@1.2.2', type=('build', 'run'), when='@2.1.0:2.1.1,2.2.0,2.3.0 ^python@:2')
     depends_on('py-scipy@1.4.1', type=('build', 'run'), when='@2.1.0:2.1.1,2.2.0,2.3.0 ^python@3:')
-    
+
     depends_on('py-typing-extensions@3.7.4:3.7.999', type=('build', 'run'), when='@2.4.0:')
     # depends_on('py-grpcio@1.8.6:', type=('build', 'run'), when='@1.6:1.7')
- 
+
     if sys.byteorder == 'little':
         # Only builds correctly on little-endian machines
         # depends_on('py-grpcio@1.8.6:', type=('build', 'run'), when='@1.8:2.3')
@@ -546,7 +546,7 @@ class PyTensorflow(Package, CudaPackage):
         tmp_path = tempfile.mkdtemp(prefix='spack')
         env.set('TEST_TMPDIR', tmp_path)
         env.set('TF_CMS_EXTERNALS', join_path(tmp_path, 'cms_externals.txt'))
-        
+
         with open(join_path(tmp_path, 'cms_externals.txt'), "w") as f:
             f.write("png:" + self.spec["libpng"].prefix + "\n")
             f.write("libjpeg_turbo:" + self.spec["libjpeg-turbo"].prefix + "\n")
@@ -578,7 +578,7 @@ class PyTensorflow(Package, CudaPackage):
         # NOTE: INCLUDEDIR is not just relevant to protobuf
         # see third_party/systemlibs/jsoncpp.BUILD
         env.set('INCLUDEDIR', spec['protobuf'].prefix.include)
-        
+
         # -- CMS
         env.set('GCC_HOST_COMPILER_PATH', spack_cc)
         env.set('CC_OPT_FLGCC_HOST_COMPILER_PATHAGS', '-Wno-sign-compare')
@@ -806,14 +806,14 @@ class PyTensorflow(Package, CudaPackage):
         args.insert(0, '--batch')
         if self.spec.satisfies('target=x86_64:') and self.spec.variants['vectorize_flag'].value:
             args.append('--copt=' + self.spec.variants['vectorize_flag'].value)
-            
+
         if self.spec.satisfies('target=ppc64le'):
             args.extend(['--copt=-mcpu=native', '--copt=-mtune=native'])
             args.extend(['--copt=--param=l1-cache-size=64', '--copt=--param=l1-cache-line-size=128', '--copt=--param=l2-cache-size=512'])
-            
+
         if not (self.spec.satisfies('target=ppc64le') or self.spec.satisfies('target=x86_64:')):
             args.extend(['--copt=-mcpu=native', '--copt=-mtune=native'])
-            
+
         args.append('--cxxopt=-std=c++17')
         # -- end CMS
 
@@ -827,7 +827,7 @@ class PyTensorflow(Package, CudaPackage):
                 bazel(*args)
 
             protoc = which('protoc')
-            
+
             for root, dirs, files in itertools.chain(os.walk(self.stage.source_path), os.walk(tmp_path)):
                 for en in itertools.chain(files, dirs):
                     entry = join_path(root, en)
@@ -840,11 +840,11 @@ class PyTensorflow(Package, CudaPackage):
 
             for root, dirs, files in os.walk(join_path(self.stage.source_path, 'tensorflow')):
                 for fn in files:
-                    if fn.endswith('.proto'):                        
-                        protoc('--cpp_out={0}/bazel-bin/tensorflow/include'.format(self.stage.source_path), 
-                               '--proto_path={0}'.format(self.stage.source_path), 
+                    if fn.endswith('.proto'):
+                        protoc('--cpp_out={0}/bazel-bin/tensorflow/include'.format(self.stage.source_path),
+                               '--proto_path={0}'.format(self.stage.source_path),
                                join_path(root, fn))
-                
+
         build_pip_package = Executable(
             'bazel-bin/tensorflow/tools/pip_package/build_pip_package')
         buildpath = join_path(self.stage.source_path, 'spack-build')
@@ -853,16 +853,16 @@ class PyTensorflow(Package, CudaPackage):
     def install(self, spec, prefix):
         tmp_path = env['TEST_TMPDIR']
         buildpath = join_path(self.stage.source_path, 'spack-build')
-        
+
         srcdir = join_path(self.stage.source_path, 'bazel-bin', 'tensorflow')
-        outdir = self.spec.prefix.out
+        outdir = self.spec.prefix
         bindir = outdir.bin
         incdir = outdir.include
         libdir = outdir.lib
         mkdirp(bindir)
         mkdirp(incdir)
         mkdirp(libdir)
-    
+
         for fn in glob.glob(join_path(srcdir, 'libtensorflow*.so*')):
             install(fn, libdir)
 
@@ -871,19 +871,19 @@ class PyTensorflow(Package, CudaPackage):
 
         for fn in glob.glob(join_path(srcdir, 'compiler', 'xla', 'lib*.so*')):
             install(fn, libdir)
-            
+
         realversion = str(self.spec.version)
         majorversion = str(self.spec.version.up_to(1))
         for l in ('tensorflow_cc', 'tensorflow_framework', 'tensorflow'):
             if not os.path.exists(join_path(libdir, 'lib{0}.so.{1}'.format(l, realversion))):
                 continue
-                
+
             force_symlink(join_path(libdir, 'lib{0}.so.{1}'.format(l, realversion)), join_path(libdir, 'lib{0}.so.{1}'.format(l, majorversion)))
             force_symlink(join_path(libdir, 'lib{0}.so.{1}'.format(l, majorversion)), join_path(libdir, 'lib{0}.so'.format(l)))
-            
+
         for name in ('tensorflow', 'absl', 're2', 'third_party'):
             install_tree(join_path(srcdir, 'include', name), incdir)
-            
+
         def copy_headers(arg_1, arg_2):
             root_1 = arg_1.rstrip('/') + '/'
             headers = [s.replace(root_1, '') for s in fs.find(join_path(arg_1, arg_2), '*.h')]
@@ -891,13 +891,13 @@ class PyTensorflow(Package, CudaPackage):
                 header_dir = join_path(incdir, os.path.dirname(header_file))
                 mkdirp(header_dir)
                 install(header_file, header_dir)
-            
+
         copy_headers(self.stage.source_path, 'tensorflow/compiler')
         copy_headers(self.stage.source_path, 'tensorflow/core/profiler/internal')
         copy_headers(self.stage.source_path, 'tensorflow/core/profiler/lib')
         # -- CMS: done differently
         # with working_dir(buildpath):
-        # 
+        #
         #     setup_py('install', '--prefix={0}'.format(prefix),
         #              '--single-version-externally-managed', '--root=/')
         for root, dirs, files in os.walk(tmp_path):
@@ -905,7 +905,7 @@ class PyTensorflow(Package, CudaPackage):
                 entry = join_path(root, file)
                 os.chmod(entry, stat.S_IREAD | stat.S_IWRITE)
         remove_linked_tree(tmp_path)
-        
+
 
     def test(self):
         """Attempts to import modules of the installed package."""
