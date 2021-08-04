@@ -69,6 +69,8 @@ class Grpc(CMakePackage):
             '-DgRPC_BUILD_TESTS:BOOL=OFF',
             '-DgRPC_GFLAGS_PROVIDER:String=none',
             '-DgRPC_BENCHMARK_PROVIDER:String=none',
+            # -- CMS: set cxx standard. hack, need to push upstream
+            '-DCMAKE_CXX_STANDARD:STRING=17'
         ]
         if self.spec.satisfies('@1.27.0:'):
             args.append('-DgRPC_ABSL_PROVIDER:String=package')

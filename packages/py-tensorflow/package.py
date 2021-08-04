@@ -3,8 +3,9 @@
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
-import itertools
 import glob
+import itertools
+import os
 import stat
 import sys
 import tempfile
@@ -23,7 +24,7 @@ class PyTensorflow(Package, CudaPackage):
     maintainers = ['adamjstewart', 'aweits']
     import_modules = ['tensorflow']
 
-    version('2.4.1',  commit='9b69eda15062cfec1b9c2d6f78c0fecbf9e67a34')
+    version('2.5.0.cms',  commit='9b69eda15062cfec1b9c2d6f78c0fecbf9e67a34')
     
     variant('mkl', default=False, description='Build with MKL support')
     variant('jemalloc', default=False, description='Build with jemalloc as malloc support')
@@ -107,7 +108,8 @@ class PyTensorflow(Package, CudaPackage):
     depends_on('py-enum34@1.1.6:', type=('build', 'run'), when='@1.5: ^python@:3.3')
     depends_on('py-enum34@1.1.6:', type=('build', 'run'), when='@1.4.0:1.4.1')
     
-    depends_on('py-gast@0.3.3', type=('build', 'run'), when='@2.2:')
+    depends_on('py-gast@0.4.0', type=('build', 'run'), when='@2.5:')
+    depends_on('py-gast@0.3.3', type=('build', 'run'), when='@2.2:2.4')
     depends_on('py-gast@0.2.2', type=('build', 'run'), when='@1.15:2.1')
     depends_on('py-gast@0.2.0:', type=('build', 'run'), when='@1.6:1.14')
     
@@ -161,7 +163,8 @@ class PyTensorflow(Package, CudaPackage):
     
     depends_on('protobuf')
     
-    depends_on('flatbuffers+python@1.12.0:1.12.999', type=('build', 'run'), when='@2.4.0:')
+    # -- CMS: dependency type is build+link (default) dependency
+    depends_on('flatbuffers+python@1.12.0:1.12.999', when='@2.4.0:', type=('build', 'link', 'run'))
     # tensorboard
     # tensorflow-estimator
     depends_on('py-termcolor@1.1.0:1.1.999', type=('build', 'run'), when='@2.4.0:')
@@ -210,7 +213,7 @@ class PyTensorflow(Package, CudaPackage):
     # depends_on('android-sdk', when='+android')
     # -- CMS
     depends_on('py-cython')
-    depends_on('py-google-common')
+#    depends_on('py-google-common')
     depends_on('py-pybind11')
     depends_on('eigen')
     depends_on('zlib')
@@ -825,20 +828,22 @@ class PyTensorflow(Package, CudaPackage):
 
             protoc = which('protoc')
             
-            for root, dirs, files in os.walk(self.stage.source_path):
-                for en in itertools.chain(files, dirs):                
+            for root, dirs, files in itertools.chain(os.walk(self.stage.source_path), os.walk(tmp_path)):
+                for en in itertools.chain(files, dirs):
                     entry = join_path(root, en)
                     mode = os.stat(entry).st_mode
-                    mode |= (stat.S_IRUSR | stat.S_IWUSR | stat.S_IRGRP | stat.S_IWGRP |stat.S_IROTH | S_IWOTH)
+                    mode |= (stat.S_IRUSR | stat.S_IWUSR | stat.S_IRGRP | stat.S_IWGRP |stat.S_IROTH | stat.S_IWOTH)
                     if mode & (stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH):
                         mode |= (stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
-                        
+
                     os.chmod(entry, mode)
 
             for root, dirs, files in os.walk(join_path(self.stage.source_path, 'tensorflow')):
                 for fn in files:
                     if fn.endswith('.proto'):                        
-                        protoc('--cpp_out={0}/bazel-bin/tensorflow/include'.format(self.stage.source_path), join_path(root, fn))
+                        protoc('--cpp_out={0}/bazel-bin/tensorflow/include'.format(self.stage.source_path), 
+                               '--proto_path={0}'.format(self.stage.source_path), 
+                               join_path(root, fn))
                 
         build_pip_package = Executable(
             'bazel-bin/tensorflow/tools/pip_package/build_pip_package')
@@ -849,6 +854,7 @@ class PyTensorflow(Package, CudaPackage):
         tmp_path = env['TEST_TMPDIR']
         buildpath = join_path(self.stage.source_path, 'spack-build')
         
+        srcdir = join_path(self.stage.source_path, 'bazel-bin', 'tensorflow')
         outdir = self.spec.prefix.out
         bindir = outdir.bin
         incdir = outdir.include
@@ -857,17 +863,17 @@ class PyTensorflow(Package, CudaPackage):
         mkdirp(incdir)
         mkdirp(libdir)
     
-        for fn in glob.glob(join_path(self.stage.source_path, 'libtensorflow*.so*')):
+        for fn in glob.glob(join_path(srcdir, 'libtensorflow*.so*')):
             install(fn, libdir)
 
-        for fn in glob.glob(join_path(self.stage.source_path, 'compiler', 'tf2xla', 'lib*.so*')):
+        for fn in glob.glob(join_path(srcdir, 'compiler', 'tf2xla', 'lib*.so*')):
             install(fn, libdir)
 
-        for fn in glob.glob(join_path(self.stage.source_path, 'compiler', 'xla', 'lib*.so*')):
+        for fn in glob.glob(join_path(srcdir, 'compiler', 'xla', 'lib*.so*')):
             install(fn, libdir)
             
         realversion = str(self.spec.version)
-        majorversion = str(self.spec.version.upto(1))
+        majorversion = str(self.spec.version.up_to(1))
         for l in ('tensorflow_cc', 'tensorflow_framework', 'tensorflow'):
             if not os.path.exists(join_path(libdir, 'lib{0}.so.{1}'.format(l, realversion))):
                 continue
@@ -894,7 +900,11 @@ class PyTensorflow(Package, CudaPackage):
         # 
         #     setup_py('install', '--prefix={0}'.format(prefix),
         #              '--single-version-externally-managed', '--root=/')
-        # remove_linked_tree(tmp_path)
+        for root, dirs, files in os.walk(tmp_path):
+            for file in files:
+                entry = join_path(root, file)
+                os.chmod(entry, stat.S_IREAD | stat.S_IWRITE)
+        remove_linked_tree(tmp_path)
         
 
     def test(self):
