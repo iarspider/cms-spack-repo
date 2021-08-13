@@ -5,6 +5,8 @@
 
 from spack import *
 
+import os
+
 
 class Giflib(MakefilePackage, SourceforgePackage):
     """The GIFLIB project maintains the giflib service library, which has
