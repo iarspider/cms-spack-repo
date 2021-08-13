@@ -193,8 +193,8 @@ class PyTensorflow(Package, CudaPackage):
 
     if sys.byteorder == 'little':
         # Only builds correctly on little-endian machines
-        # depends_on('py-grpcio@1.8.6:', type=('build', 'run'), when='@1.8:2.3')
-        # depends_on('py-grpcio@1.32.0:1.32.999', type=('build', 'run'), when='@2.4:')
+        depends_on('py-grpcio@1.8.6:', type=('build', 'run'), when='@1.8:2.3')
+        depends_on('py-grpcio@1.32.0:1.32.999', type=('build', 'run'), when='@2.4:')
         depends_on('grpc@1.35.0: +shared', type=('build', 'run'), when='@2.4.0:')
 
     # TODO: add packages for some of these dependencies
