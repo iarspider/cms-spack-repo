@@ -179,7 +179,9 @@ class Bazel(Package):
 
         env.set('EXTRA_BAZEL_ARGS',
                 # Spack's logs don't handle colored output well
-                '--color=no --host_javabase=@local_jdk//:jdk'
+                '--color=no'
+                # -- CMS
+                ' --host_javabase=@local_jdk//:jdk'
                 # Enable verbose output for failures
                 ' --verbose_failures'
                 # Ask bazel to explain what it's up to

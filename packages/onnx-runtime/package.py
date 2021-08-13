@@ -19,7 +19,7 @@ class OnnxRuntime(CMakePackage):
     homepage = "https://github.com/microsoft/onnxruntime"
     git      = "https://github.com/cms-externals/onnxruntime.git"
 
-    version('1.7.2.cms', branch='cms/v1.7.2')
+    version('1.7.2.cms', branch='cms/v1.7.2', submodules=True)
 
     variant('cuda', default=False, description='Build with CUDA support')
 
@@ -28,7 +28,7 @@ class OnnxRuntime(CMakePackage):
     depends_on('python', type='build')
     depends_on('protobuf')
     depends_on('py-setuptools', type='build')
-    depends_on('py-numpy@16.6.6:')
+    depends_on('py-numpy@1.16.6:')
     depends_on('py-wheel', type='build')
     depends_on('py-onnx')
     depends_on('zlib')
@@ -36,13 +36,22 @@ class OnnxRuntime(CMakePackage):
     depends_on('py-pybind11')
     depends_on('cuda', when='+cuda')
     depends_on('cudnn', when='+cuda')
+    depends_on('iconv', type=('build', 'link', 'run'))
+    depends_on('re2')
     
     extends('python')
+    patch("https://github.com/microsoft/onnxruntime/commit/de4089f8cbe0baffe56a363cc3a41595cc8f0809.patch",
+          sha256="ad26be0aa042cbc4d3033ee604e7bfdfd5e48a37a228e0e504b5b7c18b14d5b8")
+    # https://github.com/microsoft/onnxruntime/issues/4234#issuecomment-698077636
+    patch('libiconv.patch', level=0)
 
     generator = 'Ninja'
     root_cmakelists_dir = 'cmake'
 
     def cmake_args(self):
+        define = self.define
+        define_from_variant = self.define_from_variant
+   
         args = [define('onnxruntime_ENABLE_PYTHON', True),
                 define('onnxruntime_BUILD_SHARED_LIB', True),
                 define_from_variant('onnxruntime_USE_CUDA', 'cuda'),
@@ -74,14 +83,16 @@ class OnnxRuntime(CMakePackage):
                 define('DCMAKE_TRY_COMPILE_PLATFORM_VARIABLES', 'CMAKE_CUDA_RUNTIME_LIBRARY')
             ))
 
+        return args
+
     # copied from python build system
-    def python(self, *args, **kwargs):
-        py_exe = spec['python'].command.path
+    def python(self, *args, **kwargs):          
+        py_exe = self.spec['python'].command
         py_exe(*args, **kwargs)
 
     def setup_py(self, *args, **kwargs):
-        with working_dir(self.stage.source_path):
-            self.python('-s', 'setup.py', '--no-user-cfg', *args, **kwargs)
+        with working_dir(self.build_directory):
+             self.python('-s', join_path(self.stage.source_path, 'setup.py'), '--no-user-cfg', *args, **kwargs)
  
     def install_args(self, spec, prefix):
         """Arguments to pass to install."""
