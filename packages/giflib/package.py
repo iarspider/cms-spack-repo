@@ -52,3 +52,9 @@ class Giflib(MakefilePackage, SourceforgePackage):
             configure = Executable('./configure')
             configure('--prefix={0}'.format(prefix))
 
+
+    @run_after('install')
+    def check_libgif_so(self):
+        libgif_so = join_path(self.spec.prefix.lib, 'libgif.so')
+        if os.path.islink(libgif_so) and not os.path.exists(libgif_so):
+            raise InstallError('Install failed for libgif: libgif.so symlink is broken')
