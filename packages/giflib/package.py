@@ -5,6 +5,8 @@
 
 from spack import *
 
+import os
+
 
 class Giflib(MakefilePackage, SourceforgePackage):
     """The GIFLIB project maintains the giflib service library, which has
@@ -17,31 +19,31 @@ class Giflib(MakefilePackage, SourceforgePackage):
     version('5.2.0', sha256='dc7257487c767137602d86c17098ec97065a718ff568a61cfcf1a9466f197b1f')
     version('5.1.4', sha256='df27ec3ff24671f80b29e6ab1c4971059c14ac3db95406884fc26574631ba8d5', extension='tar.bz2')
 
-    depends_on('automake', type='build', when='@:5.2.0')
-    depends_on('autoconf', type='build', when='@:5.2.0')
-    depends_on('m4', type='build', when='@:5.2.0')
-    depends_on('libtool', type='build', when='@:5.2.0')
+    depends_on('automake', type='build', when='@:5.1.9')
+    depends_on('autoconf', type='build', when='@:5.1.9')
+    depends_on('m4', type='build', when='@:5.1.9')
+    depends_on('libtool', type='build', when='@:5.1.9')
 
     patch('bsd-head.patch')
 
-    @property
-    def install_targets(self):
-        targets = ['install']
+    def prefix_and_libversion_args(self):
+        args = []
         if self.spec.satisfies('@5.2.0:'):
-            targets.append('PREFIX={0}'.format(self.spec.prefix))
-            targets.append('LIBMAJOR={0}'.format(self.spec.version.up_to(1)))
-            targets.append('LIBVER={0}'.format(self.spec.version))
-
-        return targets
+            args.extend([
+                'PREFIX={0}'.format(self.spec.prefix),
+                'LIBMAJOR={0}'.format(self.spec.version.up_to(1)),
+                'LIBVER={0}'.format(self.spec.version)
+            ])
+        return args
 
     @property
     def build_targets(self):
-        targets = ['all']
-        if self.spec.satisfies('@5.2.0:'):
-            targets.append('PREFIX={0}'.format(self.spec.prefix))
-            targets.append('LIBMAJOR={0}'.format(self.spec.version.up_to(1)))
-            targets.append('LIBVER={0}'.format(self.spec.version))
+        targets = ['all'] + self.prefix_and_libversion_args()
+        return targets
 
+    @property
+    def install_targets(self):
+        targets = ['install'] + self.prefix_and_libversion_args()
         return targets
 
     def check(self):
@@ -52,3 +54,9 @@ class Giflib(MakefilePackage, SourceforgePackage):
             configure = Executable('./configure')
             configure('--prefix={0}'.format(prefix))
 
+
+    @run_after('install')
+    def check_libgif_so(self):
+        libgif_so = join_path(self.spec.prefix.lib, 'libgif.so')
+        if os.path.islink(libgif_so) and not os.path.exists(libgif_so):
+            raise InstallError('Install failed for libgif: libgif.so symlink is broken')
