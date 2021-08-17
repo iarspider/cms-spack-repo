@@ -1,7 +1,9 @@
 #!/bin/bash
+SPACK_VERSION="729d66a3f8"
+SPACK_ENV="CMSSW_12_1_X"
+###############################################################################
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 cd ${SCRIPT_DIR}
-SPACK_VERSION="729d66a3f8"
 echo This script will install Spack and configure it for CMS needs
 echo Cloning spack...
 git clone --quiet https://github.com/spack/spack.git
@@ -23,5 +25,5 @@ echo Adding SCRAM build system support
 cp ${SCRIPT_DIR}/scram.py lib/spack/spack/build_systems/
 echo "from spack.build_systems.scram import ScramPackage" >> lib/spack/spack/pkgkit.py
 echo Creating environment
-spack env create CMSSW_12_0_X ${SCRIPT_DIR}/environments/CMSSW_12_0_X/spack.yaml
+spack env create ${SPACK_ENV} ${SCRIPT_DIR}/environments/${SPACK_ENV}/spack.yaml
 echo Done
