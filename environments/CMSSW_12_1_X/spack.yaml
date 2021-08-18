@@ -29,7 +29,7 @@ spack:
   - coral@2.3.21py3
   - cppunit@1.15.x
   - cuda@11.2.2
-  - curl@7.70.0~libssh2+gssapi
+  - curl@7.70.0~libssh2+gssapi~libidn2
   - davix@0.7.6
   - davix-toolfile
   - berkeley-db@6.2.32
