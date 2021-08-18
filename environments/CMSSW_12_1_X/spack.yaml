@@ -19,6 +19,7 @@ spack:
   - cms-config
   - autoconf@2.69
   - automake@1.16.1
+  - bazel@3.7.2
   - bison@3.5
   - boost@1.75.0~icu~atomic~container~context~coroutine~exception~graph~locale~log~math~random~wave+shared+multithreaded~debug+mpi+python+iostreams
   - bzip2@1.0.6
@@ -87,6 +88,7 @@ spack:
   - openmpi@4.1.0
   - openssl@1.1.0l
   - openssl-toolfile
+  - oracle-instant-client@19.11.0.0.0
   - oracleocci-abi-hack-cms
   - oracleocci-abi-hack-cms-toolfile
   - pacparser@1.3.5
