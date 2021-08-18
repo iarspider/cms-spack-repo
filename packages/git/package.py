@@ -234,10 +234,9 @@ class Git(AutotoolsPackage):
 
     depends_on('curl')
     depends_on('expat')
-    # -- CMS
-    # depends_on('gettext')
+    # depends_on('gettext') -- CMS
     depends_on('iconv')
-    depends_on('libidn2')
+    # depends_on('libidn2') -- CMS
     depends_on('openssl')
     depends_on('pcre', when='@:2.13')
     depends_on('pcre2', when='@2.14:')
@@ -395,4 +394,9 @@ class Git(AutotoolsPackage):
             env.prepend_path('LD_LIBRARY_PATH', join_path(
                 perl_svn.prefix, 'lib', 'perl5', 'x86_64-linux-thread-multi',
                 'Alien', 'SVN'))
+        # -- CMS: set more env variables
+        env.prepend_path('PATH', join_path(self.prefix.libexec, 'git-core'))
+        env.set('GIT_TEMPLATE_DIR', join_path(self.prefix.share, 'git-core', 'templates'))
+        env.set('GIT_SSL_CAINFO', join_path(prefix.share.ssl.certs, 'ca-bundle.crt'))
+        env.set('GIT_EXEC_PATH', join_path(self.prefix.libexec, 'git-core'))
 
