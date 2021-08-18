@@ -59,6 +59,7 @@ spack:
   - grpc@1.35.0+shared
   - gsl@2.6+external-cblas
   - gsl-toolfile
+  - hdf5@1.10.6+mpi+shared
   - hwloc@2.4.0~cuda~nvml+libxml2~cairo~netloc+pci
   - intel-tbb@2021.2.0
   - isl@0.21
@@ -99,17 +100,24 @@ spack:
   - protobuf@3.15.1
   - py-absl-py@0.11.0
   - py-astor@0.8.1
+  - py-astunparse@1.6.3
   - py-cython@0.29.23
   - py-future@0.18.2
-  - py-google-common@0.0.1
   - py-gast@0.4.0
+  - py-google-common@0.0.1
+  - py-google-pasta@0.2.0
+  - py-grpcio@1.36.0
+  - py-h5py@2.10.0
   - py-keras-applications@1.0.8
   - py-keras-preprocessing@1.1.2
   - py-mock@3.0.5
   - py-numpy@1.19.5
+  - py-onnx@1.8.1
   - py-opt-einsum@3.3.0
   - py-pip@20.3.3
+  - py-pkgconfig@1.5.2
   - py-protobuf@3.15.1
+  - py-pybind11@2.6.2
   - py-setuptools@51.3.3
   - py-six@1.15.0
   - py-tensorflow@2.5.0.cms~cuda~nccl~only_python
