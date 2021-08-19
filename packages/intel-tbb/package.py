@@ -145,7 +145,9 @@ class IntelTbb(CMakePackage):
     #
     def url_for_version(self, version):
         url = self.url_prefix + 'archive/{0}.tar.gz'
-        if version[0] >= 2020:
+        if version[0] >= 2021:
+            name = 'v{0}.0'.format(version)
+        elif version[0] >= 2020:
             name = 'v{0}'.format(version)
         elif version[0] >= 2017 and len(version) > 1:
             name = '{0}_U{1}'.format(version[0], version[1])
