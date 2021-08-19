@@ -45,7 +45,7 @@ spack:
   - fftw3-toolfile
   - freetype@2.10.0
   - freetype-toolfile
-  - frontier-client@2_9_1_cms
+  - frontier-client@2.9.1.cms
   - frontier-client-toolfile
   - gcc-compiler-toolfile
   - gdbm@1.10
@@ -61,7 +61,7 @@ spack:
   - gsl-toolfile
   - hdf5@1.10.6+mpi+shared
   - hwloc@2.4.0~cuda~nvml+libxml2~cairo~netloc+pci
-  - intel-tbb@2021.2.0
+  - intel-tbb@2021.3.0
   - isl@0.21
   - libffi@3.2.1
   - libjpeg-turbo@2.0.2
@@ -125,12 +125,12 @@ spack:
   - py-typing-extensions@3.7.4.3
   - py-wheel@0.36.2
   - py-wrapt@1.12.1
-  - python@3.8.2~libxml2
+  - python@3.9.6~libxml2
   - python-toolfile
   - re2c@0.13.5
   - root@6.22.08.patches_cms_a15e883+davix+fftw~fits~graphviz+math+minuit+mlp~mysql~opengl~postgres~pythia6~pythia8+python+root7+roofit~sqlite+ssl+tmva+tbb~vdt~veccore+x+xrootd
   - root-toolfile
-  - scram@3.0.29
+  - scram@3.0.30
   - sqlite@3.22.0~fts
   - sqlite-toolfile
   - util-linux-uuid@2.34
