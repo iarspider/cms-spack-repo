@@ -128,7 +128,7 @@ spack:
   - python@3.9.6~libxml2
   - python-toolfile
   - re2c@0.13.5
-  - root@6.22.08.patches_cms_a15e883+davix+fftw~fits~graphviz+math+minuit+mlp~mysql~opengl~postgres~pythia6~pythia8+python+root7+roofit~sqlite+ssl+tmva+tbb~vdt~veccore+x+xrootd
+  - root@6.22.08.patches_cms_abd79a9716+davix+fftw~fits~graphviz+math+minuit+mlp~mysql~opengl~postgres~pythia6~pythia8+python+root7+roofit~sqlite+ssl+tmva+tbb~vdt~veccore+x+xrootd
   - root-toolfile
   - scram@3.0.30
   - sqlite@3.22.0~fts
