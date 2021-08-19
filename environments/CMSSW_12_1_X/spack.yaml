@@ -120,7 +120,7 @@ spack:
   - py-pybind11@2.6.2
   - py-setuptools@51.3.3
   - py-six@1.15.0
-  - py-tensorflow@2.5.0.cms~cuda~nccl~only_python
+  - py-tensorflow@2.5.0.cms~cuda~nccl~only_python+mpi
   - py-termcolor@1.1.0
   - py-typing-extensions@3.7.4.3
   - py-wheel@0.36.2
