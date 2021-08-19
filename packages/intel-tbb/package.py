@@ -25,8 +25,8 @@ class IntelTbb(CMakePackage):
     # Note: when adding new versions, please check and update the
     # patches, filters and url_for_version() below as needed.
 
-    version('2021.2.0', sha256='cee20b0a71d977416f3e3b4ec643ee4f38cedeb2a9ff015303431dd9d8d79854',
-            preferred=True)
+    version('2021.3', sha256='8f616561603695bbb83871875d2c6051ea28f8187dbe59299961369904d1d49e')
+    version('2021.2', sha256='cee20b0a71d977416f3e3b4ec643ee4f38cedeb2a9ff015303431dd9d8d79854')
     version('2020.3', sha256='ebc4f6aa47972daed1f7bf71d100ae5bf6931c2e3144cf299c8cc7d041dca2f3')
     version('2020.2', sha256='4804320e1e6cbe3a5421997b52199e3c1a3829b2ecb6489641da4b8e32faf500')
     version('2020.1', sha256='7c96a150ed22bc3c6628bc3fef9ed475c00887b26d37bca61518d76a56510971')
