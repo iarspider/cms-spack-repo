@@ -3,6 +3,7 @@ from spack import *
 class CmsswConfig(Package):
     git = 'https://github.com/cms-sw/cmssw-config.git'
 
+    version('V06-03-01', tag='V06-03-01')
     version('V06-02-15', tag='V06-02-15')
 
 
