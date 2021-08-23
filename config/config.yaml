@@ -1,3 +1,9 @@
 config:
   allow_sgid: false
   shared_linking: 'runpath'
+  build_stage::
+    $spack/stage
+  test_stage::
+    $spack/test_stage
+  misc_cache::
+    $spack/cache
