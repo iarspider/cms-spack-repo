@@ -895,16 +895,19 @@ class PyTensorflow(Package, CudaPackage):
         copy_headers(self.stage.source_path, 'tensorflow/compiler')
         copy_headers(self.stage.source_path, 'tensorflow/core/profiler/internal')
         copy_headers(self.stage.source_path, 'tensorflow/core/profiler/lib')
-        # -- CMS: done differently
-        # with working_dir(buildpath):
-        #
-        #     setup_py('install', '--prefix={0}'.format(prefix),
-        #              '--single-version-externally-managed', '--root=/')
+        with working_dir(buildpath):
+            setup_py('install', '--prefix={0}'.format(prefix),
+                     '--single-version-externally-managed', '--root=/')
+
         for root, dirs, files in os.walk(tmp_path):
             for file in files:
                 entry = join_path(root, file)
                 os.chmod(entry, stat.S_IREAD | stat.S_IWRITE)
         remove_linked_tree(tmp_path)
+
+        # -- CMS
+        for fn in glob.glob(join_path(prefix.bin, 'tensorboard*')):
+            os.remove(fn)
 
 
     def test(self):
