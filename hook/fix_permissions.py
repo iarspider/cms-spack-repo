@@ -1,7 +1,7 @@
 import functools
 import operator
 import os
-import spack.package_prefs as prefs 
+import re
 
 from llnl.util.filesystem import join_path, force_remove
 
