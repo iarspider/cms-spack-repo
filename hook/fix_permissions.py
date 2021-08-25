@@ -34,7 +34,7 @@ def chmod(entry, perms, recursive=False):
     if recursive:
         for root, dirs, files in os.walk(entry):
             for entry in itertools.chain(dirs, files):
-                chmod_f(entry, perms)
+                chmod_f(join_path(root, entry), perms)
 
 
 def _chmod_one_o(entry, perms):
@@ -69,4 +69,5 @@ def _chmod_one_s(entry, perms):
 def post_install(spec): 
     prefix = spec.prefix
     chmod(str(prefix), 'o+r', True)
-    chmod(str(prefix.bin), 'a+x', True)
+    if os.path.exists(prefix.bin):
+        chmod(str(prefix.bin), 'a+x', True)
