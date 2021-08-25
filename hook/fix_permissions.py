@@ -25,6 +25,10 @@ def chmod(entry, perms, recursive=False):
         * a sequence of letters in r, w, x, or a single letter in o, g, u
     Notice: [+-]X is not supported
     """
+    if entry.rstrip('/').endswith('.spack'):
+        # Should be fine already
+        continue
+
     if not os.path.isdir(entry):
         recursive = False
 
@@ -38,7 +42,10 @@ def chmod(entry, perms, recursive=False):
 
 
 def _chmod_one_o(entry, perms):
-    os.chmod(entry, perms)
+    try:
+        os.chmod(entry, perms)
+    except PermissionError:
+        pass
 
 
 def _chmod_one_s(entry, perms):
@@ -63,7 +70,10 @@ def _chmod_one_s(entry, perms):
     if op == "=":
         mode &= ~ ors((stat_bit(who, z) for z in "rwx"))
     mode = (mode & ~mask) if (op == "-") else (mode | mask)
-    os.chmod(entry, mode)
+    try:
+        os.chmod(entry, perms)
+    except PermissionError:
+        pass
 
 
 def post_install(spec): 
