@@ -27,7 +27,7 @@ def chmod(entry, perms, recursive=False):
     """
     if entry.rstrip('/').endswith('.spack'):
         # Should be fine already
-        continue
+        return
 
     if not os.path.isdir(entry):
         recursive = False
