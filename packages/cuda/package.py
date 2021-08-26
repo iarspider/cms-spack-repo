@@ -206,10 +206,10 @@ class Cuda(Package):
         install(join_path(prefix.build.drivers, 'libcuda.so.{0}'.format(driver_version)), prefix.drivers)
         install(join_path(prefix.build.drivers, 'libnvidia-ptxjitcompiler.so.{0}'.format(driver_version)), prefix.drivers)
         with working_dir(prefix):
-            force_symlink(join_path('drivers', 'libcuda.so.{0}'.format(driver_version)), join_path('drivers', 'libcuda.so.1'))
-            force_symlink(join_path('drivers', 'libcuda.so.1'), join_path('drivers', 'libcuda.so'))         
-            force_symlink(join_path('drivers', 'libnvidia-ptxjitcompiler.so.{0}'.format(driver_version)), join_path('drivers', 'libnvidia-ptxjitcompiler.so.1'))
-            force_symlink(join_path('drivers', 'libnvidia-ptxjitcompiler.so.1'), join_path('drivers', 'libnvidia-ptxjitcompiler.so'))
+            force_symlink(join_path('drivers', 'libcuda.so.{0}'.format(driver_version)), 'libcuda.so.1')
+            force_symlink(join_path('drivers', 'libcuda.so.1'), 'libcuda.so')
+            force_symlink(join_path('drivers', 'libnvidia-ptxjitcompiler.so.{0}'.format(driver_version)), 'libnvidia-ptxjitcompiler.so.1')
+            force_symlink(join_path('drivers', 'libnvidia-ptxjitcompiler.so.1'), 'libnvidia-ptxjitcompiler.so')
 
         filter_file(r'\$(_HERE_)', '$(TOP)/bin', join_path(prefix, 'bin', 'nvcc.profile'))
         filter_file(r'/\$(_TARGET_DIR_)', '', join_path(prefix, 'bin', 'nvcc.profile'))
