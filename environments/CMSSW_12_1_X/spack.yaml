@@ -81,7 +81,6 @@ spack:
   - nasm@2.14.02
   - ninja@1.10.0
   - numactl@2.0.14
-  - onnx-runtime@1.7.2.cms
   - openblas@0.3.15
   - openloops@2.1.2
   - openloops-process@2.1.2
@@ -120,7 +119,6 @@ spack:
   - py-pybind11@2.6.2
   - py-setuptools@51.3.3
   - py-six@1.15.0
-  - py-tensorflow@2.5.0.cms~cuda~nccl~only_python+mpi
   - py-termcolor@1.1.0
   - py-typing-extensions@3.7.4.3
   - py-wheel@0.36.2
@@ -128,7 +126,7 @@ spack:
   - python@3.9.6~libxml2
   - python-toolfile
   - re2c@0.13.5
-  - root@6.22.08.patches_cms_abd79a9716+davix+fftw~fits~graphviz+math+minuit+mlp~mysql~opengl~postgres~pythia6~pythia8+python+root7+roofit~sqlite+ssl+tmva+tbb~vdt~veccore+x+xrootd
+  - root@6.25.01.patches_cms_0e0154b+davix+fftw~fits~graphviz+math+minuit+mlp~mysql~opengl~postgres~pythia6~pythia8+python+root7+roofit~sqlite+ssl+tmva+tbb~vdt~veccore+x+xrootd
   - root-toolfile
   - scram@3.0.30
   - sqlite@3.22.0~fts
