@@ -153,8 +153,10 @@ class Openssl(Package):   # Uses Fake Autotools, should subclass Package
                             # 'enable-krb5', 
                             'no-zlib',
                             '--openssldir=/etc/pki/tls',
-                            'fips', 'no-ec2m', 'no-gost',
+                            'no-ec2m', 'no-gost',
                             'no-srp'])
+            if self.spec.satisfies('@:1.1.0z'):
+                options.append('fips')
 
         # if spec.satisfies('@1.0'):
             # options.append('no-krb5')
