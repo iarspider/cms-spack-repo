@@ -37,7 +37,7 @@ class OnnxRuntime(CMakePackage):
     depends_on('cuda', when='+cuda')
     depends_on('cudnn', when='+cuda')
     depends_on('iconv', type=('build', 'link', 'run'))
-    depends_on('re2')
+    depends_on('re2+shared')
     
     extends('python')
     patch("https://github.com/microsoft/onnxruntime/commit/de4089f8cbe0baffe56a363cc3a41595cc8f0809.patch",
