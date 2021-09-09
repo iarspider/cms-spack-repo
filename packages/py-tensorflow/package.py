@@ -828,16 +828,15 @@ class PyTensorflow(Package, CudaPackage):
 
             protoc = which('protoc')
 
-            for root, dirs, files in itertools.chain(os.walk(self.stage.source_path, followlinks=False), os.walk(tmp_path, followlinks=False)):
-                for en in itertools.chain(files, dirs):
-                    entry = join_path(root, en)
+            for entry in glob.glob(join_path(self.stage.source_path, 'bazel-bin', 'tensorflow', 'include', '**'), recursive=True):
+                if not os.path.islink(entry):
                     mode = os.stat(entry).st_mode
                     mode |= (stat.S_IRUSR | stat.S_IWUSR | stat.S_IRGRP | stat.S_IWGRP |stat.S_IROTH | stat.S_IWOTH)
                     if mode & (stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH):
                         mode |= (stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
 
-                    if not os.path.islink(entry):
-                        os.chmod(entry, mode)
+                    os.chmod(entry, mode)
+                    
 
             for root, dirs, files in os.walk(join_path(self.stage.source_path, 'tensorflow')):
                 for fn in files:
@@ -903,7 +902,9 @@ class PyTensorflow(Package, CudaPackage):
         for root, dirs, files in os.walk(tmp_path):
             for file in files:
                 entry = join_path(root, file)
-                os.chmod(entry, stat.S_IREAD | stat.S_IWRITE)
+                if not os.path.islink(entry):
+                    fmode = os.stat(entry).st_mode
+                    os.chmod(entry, fmode | stat.S_IREAD | stat.S_IWRITE)
         remove_linked_tree(tmp_path)
 
         # -- CMS
