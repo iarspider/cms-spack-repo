@@ -15,7 +15,7 @@ class CmsConfig(BundlePackage):
 
     version('12_0_X')
 
-    depends_on('root')
+    depends_on('root~opengl')
     depends_on('coral')
     # 
     depends_on('oracle-instant-client@19.11.0.0.0', when='target=x86_64:')
