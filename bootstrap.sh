@@ -23,6 +23,8 @@ echo Adding CMS hooks
 cp ${SCRIPT_DIR}/hook/* lib/spack/spack/hooks/
 echo Adding SCRAM build system support
 cp ${SCRIPT_DIR}/scram.py lib/spack/spack/build_systems/
+echo Updating autotools.py
+cp ${SCRIPT_DIR}/autotools.py lib/spack/spack/build_systems/
 echo "from spack.build_systems.scram import ScramPackage" >> lib/spack/spack/pkgkit.py
 echo Creating environment
 spack env create ${SPACK_ENV} ${SCRIPT_DIR}/environments/${SPACK_ENV}/spack.yaml
