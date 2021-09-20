@@ -125,7 +125,7 @@ class Herwig3(AutotoolsPackage):
 
     @run_after('install')
     def cms_wrapper(self):
-        shutil.move(join_path(self.prefix.bin, 'Herwig'), join_path(self.prefix.bin, 'Herwig-cms')
+        shutil.move(join_path(self.prefix.bin, 'Herwig'), join_path(self.prefix.bin, 'Herwig-cms'))
         install(join_path(os.path.dirname(__file__), 'Herwig'), join_path(self.prefix.bin, 'Herwig'))
 
     # -- CMS: removed
