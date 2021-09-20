@@ -4,6 +4,8 @@
 # configuration settings.
 # NOTICE: intel-tbb should not be replaced with intel-oneapi-tbb, the latter one is pre-built and not configurable
 # NOTICE: ~cuda~nvml for now
+#   - onnx-runtime@1.7.2.cms
+#   - py-tensorflow@2.5.0.cms~cuda~nccl~only_python+mpi
 spack:
   concretization: together
   packages:
@@ -17,6 +19,7 @@ spack:
   view: false
   specs:
   - cms-config
+  - alpaka@0.7.0
   - autoconf@2.69
   - automake@1.16.1
   - bazel@3.7.2
@@ -24,31 +27,45 @@ spack:
   - boost@1.75.0~icu~atomic~container~context~coroutine~exception~graph~locale~log~math~random~wave+shared+multithreaded~debug+mpi+python+iostreams
   - bzip2@1.0.6
   - bzip2-toolfile
+  - catch2@2.13.7
+  - cfitsio@3.350~bzip2
+  - clhep@2.4.5.1.cms
   - cmake@3.18.2~ownlibs~ncurses
   - cmssw-config@V06-03-01
   - coral@2.3.21py3
   - cppunit@1.15.x
   - cuda@11.2.2
+  - cudnn@8.2.2.26
   - curl@7.70.0~libssh2+gssapi~libidn2
   - davix@0.7.6
   - davix-toolfile
   - berkeley-db@6.2.32
+  - db6-toolfile
   - dcap@2.47.12
   - dcap-toolfile
-  - db6-toolfile
+  - dd4hep@1.17+xercesc+geant4units # CMS: +geant4 is set internally to build static version of ddg4
+  - dire@2.004
+  - dmtcp@3.0.0-dev
   - eigen@f612df273689a19d25b45ca4f8269463207c4fee
+  - evtgen@02.00.00+pythia8+tauola+photos
   - expat@2.1.0~libbsd
   - expat-toolfile
-  - flatbuffers@1.12.0
-  - flex@2.6.4
+  - fastjet@3.4.0~atlas+python thread-safety=limited plugins=allcxx
   - fftw@3.3.8~mpi~openmp precision=double
   - fftw3-toolfile
+  - fjcontrib@1.044.cms
+  - flatbuffers@1.12.0
+  - flex@2.6.4  
+  - fmt@8.0.1+shared
+  - form@4.1.033e~gmp
   - freetype@2.10.0
   - freetype-toolfile
   - frontier-client@2.9.1.cms
   - frontier-client-toolfile
   - gcc-compiler-toolfile
+  - gdb@10.2+python+xz
   - gdbm@1.10
+  - gengetopt@2.22.6
   - gettext@0.20.1~bzip2~xz~curses~libxml2~libunistring
   - giflib@5.2.0
   - giflib-toolfile
@@ -56,10 +73,17 @@ spack:
   - gmake@4.3~nls
   - gmake-toolfile
   - gmp@6.2.0
+  - gnuplot@4.6.5~cairo~X~wx~gd~pbm
+  - gosam@2.1.1
+  - gosam-contrib@2.0+shared+static
+  - gperftools@2.9.1+libunwind+sized_delete+dynamic_sized_delete_support~debugalloc
+  - graphviz@2.49.0~x~qt~pangocairo+expat~doc
   - grpc@1.35.0+shared
   - gsl@2.6+external-cblas
   - gsl-toolfile
   - hdf5@1.10.6+mpi+shared
+  - hepmc@2.06.10
+  - herwig3@7.2.2
   - hwloc@2.4.0~cuda~nvml+libxml2~cairo~netloc+pci
   - intel-tbb@2021.3
   - isl@0.21
@@ -131,6 +155,7 @@ spack:
   - scram@3.0.30
   - sqlite@3.22.0~fts
   - sqlite-toolfile
+  - thepeg@2.2.2 hepmc=2
   - util-linux-uuid@2.34
   - xerces-c@3.1.3 netaccessor=none transcoder=none
   - xrootd@4.12.3+http~readline+python

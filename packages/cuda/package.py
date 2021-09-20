@@ -25,13 +25,17 @@ import llnl.util.tty as tty
 #    format returned by platform.system() and 'arch' by platform.machine()
 
 _versions = {
+    '11.4.2': {
+        'Linux-aarch64': ('f2c4a52e06329606c8dfb7c5ea3f4cb4c0b28f9d3fdffeeb734fcc98daf580d8', 'https://developer.download.nvidia.com/compute/cuda/11.4.2/local_installers/cuda_11.4.2_470.57.02_linux_sbsa.run'),
+        'Linux-x86_64':  ('bbd87ca0e913f837454a796367473513cddef555082e4d86ed9a38659cc81f0a', 'https://developer.download.nvidia.com/compute/cuda/11.4.2/local_installers/cuda_11.4.2_470.57.02_linux.run'),
+        'Linux-ppc64le': ('a917c2e53dc13fdda7def71fd40920bf3809d5a2caa3e9acfe377fb9fb22f12d', 'https://developer.download.nvidia.com/compute/cuda/11.4.2/local_installers/cuda_11.4.2_470.57.02_linux_ppc64le.run')},
     '11.4.1': {
         'Linux-aarch64': ('8efa725a41dfd3c0c0f453c2dd535d149154102bf2b791718859417b4f84f922', 'https://developer.download.nvidia.com/compute/cuda/11.4.1/local_installers/cuda_11.4.1_470.57.02_linux_sbsa.run'),
-        'Linux-x86_64': ('dd6c339a719989d2518f5d54eeac1ed707d0673f8664ba0c4d4b2af7c3ba0005', 'https://developer.download.nvidia.com/compute/cuda/11.4.1/local_installers/cuda_11.4.1_470.57.02_linux.run'),
+        'Linux-x86_64':  ('dd6c339a719989d2518f5d54eeac1ed707d0673f8664ba0c4d4b2af7c3ba0005', 'https://developer.download.nvidia.com/compute/cuda/11.4.1/local_installers/cuda_11.4.1_470.57.02_linux.run'),
         'Linux-ppc64le': ('dd92ca04f76ad938da3480e2901c0e52dbff6028ada63c09071ed9e3055dc361', 'https://developer.download.nvidia.com/compute/cuda/11.4.1/local_installers/cuda_11.4.1_470.57.02_linux_ppc64le.run')},
     '11.2.2': {
         'Linux-aarch64': ('878cbd36c5897468ef28f02da50b2f546af0434a8a89d1c724a4d2013d6aa993', 'https://developer.download.nvidia.com/compute/cuda/11.2.2/local_installers/cuda_11.2.2_460.32.03_linux_sbsa.run'),
-        'Linux-x86_64': ('0a2e477224af7f6003b49edfd2bfee07667a8148fe3627cfd2765f6ad72fa19d', 'https://developer.download.nvidia.com/compute/cuda/11.2.2/local_installers/cuda_11.2.2_460.32.03_linux.run'),
+        'Linux-x86_64':  ('0a2e477224af7f6003b49edfd2bfee07667a8148fe3627cfd2765f6ad72fa19d', 'https://developer.download.nvidia.com/compute/cuda/11.2.2/local_installers/cuda_11.2.2_460.32.03_linux.run'),
         'Linux-ppc64le': ('2304ec235fe5d1f8bf75f00dc2c2d11473759dc23428dbbd5fb5040bc8c757e3', 'https://developer.download.nvidia.com/compute/cuda/11.2.2/local_installers/cuda_11.2.2_460.32.03_linux_ppc64le.run')}
 }
 
@@ -124,14 +128,17 @@ class Cuda(Package):
         mkdirp(prefix.lib64)
         mkdirp(prefix.lib64.stubs)
 
-        # package only the runtime static library
+        # package only the runtime static libraries
         install(join_path(prefix.build.lib64, 'libcudadevrt.a'), prefix.lib64)
+        install(join_path(prefix.build.lib64, 'libcudart_static.a'), prefix.lib64)
         for fn in glob(join_path(prefix.build.lib64, 'lib*.a')):
             force_remove(fn)
 
         # package only the CUDA driver and NVML library stub
         install(join_path(prefix.build.lib64.stubs, 'libcuda.so'), prefix.lib64.stubs)
+        os.symlink(join_path(prefix.lib64.stubs, 'libcuda.so'), join_path(prefix.lib64.stubs, 'libcuda.so.1'))
         install(join_path(prefix.build.lib64.stubs, 'libnvidia-ml.so'), prefix.lib64.stubs)
+        os.symlink(join_path(prefix.lib64.stubs, 'libnvidia-ml.so'), join_path(prefix.lib64.stubs, 'libnvidia-ml.so.1'))
         shutil.rmtree(join_path(prefix.build.lib64.stubs))
 
         # do not package the OpenCL libraries
