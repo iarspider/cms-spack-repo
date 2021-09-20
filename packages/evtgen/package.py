@@ -4,8 +4,6 @@
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
 from spack import *
-import glob
-import shutil
 
 
 class Evtgen(CMakePackage):
@@ -58,6 +56,10 @@ class Evtgen(CMakePackage):
         return args
 
     def patch(self):
+        # gcc on MacOS doesn't recognize `-shared`, should use `-dynamiclib`;
+        # the `-undefined dynamic_lookup` flag enables weak linking on Mac
+        # Patch taken from CMS recipe:
+        # https://github.com/cms-sw/cmsdist/blob/IB/CMSSW_12_1_X/master/evtgen.spec#L48
         if not self.spec.satisfies("platform=darwin"):
             return
 
@@ -103,17 +105,10 @@ class Evtgen(CMakePackage):
             make('lib_shared')
             make('all')
 
-    # @when('@:01.99.99') -- CMS
+    @when('@:01.99.99')
     def install(self, spec, prefix):
         with working_dir(self.build_directory):
             make('install')
-
-        # -- CMS
-        mkdirp(prefix.lib)
-        for fn in glob.glob(join_path(prefix.lib64, '*.*')):
-            shutil.move(fn, prefix.lib)
-
-        shutil.rmtree(prefix.lib64)
 
     def setup_run_environment(self, env):
         env.set("EVTGEN", self.prefix.share)

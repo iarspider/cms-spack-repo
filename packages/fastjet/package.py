@@ -103,14 +103,4 @@ class Fastjet(AutotoolsPackage):
         else:
             extra_args.append('--enable-thread-safety')
 
-        # -- CMS
-        cxxflags_ = "-O3 -Wall -ffast-math -ftree-vectorize"
-        if self.spec.satisfies('arch=amd64'):
-            cxxflags_ += ' -msse3'
-            
-        if self.spec.satisfies('arch=ppc64le'):
-            cxxflags_ += ' -mcpu=power8 -mtune=power8 --param=l1-cache-size=64 --param=l1-cache-line-size=128 --param=l2-cache-size=512'
-            
-        extra_args.append('CXXFLAGS=' + cxxflags_)
-            
         return extra_args
