@@ -154,16 +154,14 @@ class Dd4hep(CMakePackage):
         self.spec.variants['shared'] = False
         self.spec.variants['geant4'] = True
 
-        # cmake stage
-         """Runs ``cmake`` in the build directory"""
+        # cmake stage: Runs ``cmake`` in the build directory
         options = self.std_cmake_args
         options += self.cmake_args()
         options.append(os.path.abspath(self.root_cmakelists_dir))
         with working_dir(self.build_directory, create=True):
             inspect.getmodule(self).cmake(*options)
 
-        # build stage
-        """Make the build targets"""
+        # build stage: Make the build targets
         with working_dir(self.build_directory):
             if self.generator == 'Unix Makefiles':
                 inspect.getmodule(self).make(*self.build_targets)
