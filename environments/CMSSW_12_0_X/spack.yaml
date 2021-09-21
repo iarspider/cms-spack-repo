@@ -24,6 +24,9 @@ spack:
   - bzip2@1.0.6
   - bzip2-toolfile
   - cmake@3.17.3~ownlibs~ncurses
+  - cmake@3.18.2~ownlibs~ncurses
+  - cmssw-config@V06-03-01
+  - coral@2.3.21py3
   - cppunit@1.15.x
   - cuda@11.2.2
   - curl@7.70.0~libssh2+gssapi
@@ -51,11 +54,13 @@ spack:
   - git@2.23.0~man~nls
   - gmake@4.3~nls
   - gmake-toolfile
+  - gmp@6.2.0
   - grpc@1.35.0+shared
   - gsl@2.6+external-cblas
   - gsl-toolfile
   - hwloc@2.4.0~cuda~nvml+libxml2~cairo~netloc+pci
   - intel-tbb@2021.2.0
+  - isl@0.21
   - libffi@3.2.1
   - libjpeg-turbo@2.0.2
   - libjpeg-turbo-toolfile
@@ -69,6 +74,8 @@ spack:
   - libxml2-toolfile
   - lz4@1.9.2
   - m4@1.4.18~sigsegv
+  - mpc@1.1.0
+  - mpfr@4.0.2
   - nasm@2.14.02
   - ninja@1.10.0
   - numactl@2.0.14
