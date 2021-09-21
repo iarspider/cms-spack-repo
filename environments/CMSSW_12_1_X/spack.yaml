@@ -28,7 +28,6 @@ spack:
   - bzip2@1.0.6
   - bzip2-toolfile
   - catch2@2.13.7
-  - cfitsio@3.350~bzip2
   - clhep@2.4.5.1.cms
   - cmake@3.18.2~ownlibs~ncurses
   - cmssw-config@V06-03-01
