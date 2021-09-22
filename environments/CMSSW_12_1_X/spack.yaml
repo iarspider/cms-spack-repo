@@ -83,8 +83,10 @@ spack:
   - hepmc@2.06.10
   - herwig3@7.2.2
   - hwloc@2.4.0~cuda~nvml+libxml2~cairo~netloc+pci
+  - igprof@5.9.16
   - intel-tbb@2021.3
   - isl@0.21
+  - jemalloc@5.2.1~documentation+stats libs=shared
   - libffi@3.2.1
   - libjpeg-turbo@2.0.2
   - libjpeg-turbo-toolfile
