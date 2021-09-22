@@ -87,6 +87,7 @@ spack:
   - intel-tbb@2021.3
   - isl@0.21
   - jemalloc@5.2.1~documentation+stats libs=shared
+  - lcov@1.15
   - libffi@3.2.1
   - libjpeg-turbo@2.0.2
   - libjpeg-turbo-toolfile
@@ -104,6 +105,7 @@ spack:
   - mpfr@4.0.2
   - nasm@2.14.02
   - ninja@1.10.0
+  - nlohmann-json@3.10.2
   - numactl@2.0.14
   - openblas@0.3.15
   - openloops@2.1.2
