@@ -26,7 +26,7 @@ class Gengetopt(AutotoolsPackage):
     version('2.20',   sha256='4c8b3b42cecff579f5f9de5ccad47e0849e0245e325a04ff5985c248141af1a4')
 
     depends_on('texinfo', type='build')
-    patch('gengetopt-parallelbuild.patch')  # -- CMS
+    # patch('gengetopt-parallelbuild.patch')  # -- CMS
 
     drop_files = ['share']  # -- CMS
 

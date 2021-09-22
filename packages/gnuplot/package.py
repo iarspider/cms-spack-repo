@@ -70,6 +70,11 @@ class Gnuplot(AutotoolsPackage):
     depends_on('qt@5.7:+opengl', when='+qt')
     depends_on('qt+framework', when='+qt platform=darwin')
 
+    def flag_handler(self, name, flags):
+        if name in ['cflags', 'cxxflags', 'cppflags']:
+            flags.append('-L {0} -liconv'.format(self.spec['iconv'].prefix.lib))
+        return (None, flags, None)
+
     def configure_args(self):
         # see https://github.com/Homebrew/homebrew-core/blob/master/Formula/gnuplot.rb
         # and https://github.com/macports/macports-ports/blob/master/math/gnuplot/Portfile
@@ -156,5 +161,4 @@ class Gnuplot(AutotoolsPackage):
 
         # TODO: --with-aquaterm  depends_on('aquaterm')
         options.append('--without-aquaterm')
-
         return options

@@ -215,6 +215,7 @@ class Cudnn(Package):
         sys = "{0}-{1}".format(platform.system(), platform.machine())
         # Munge it to match Nvidia's naming scheme
         sys_key = sys.lower().replace('x86_64', 'x64').replace('darwin', 'osx')
+        # raise RuntimeError("version " + str(version))
 
         if version >= Version('7.2'):
             directory = version[:3]
@@ -233,6 +234,7 @@ class Cudnn(Package):
             ver = version[:2]
             cuda = version[2:]
 
+        raise RuntimeError("version" + str(ver) + "url" + url.format(directory, cuda, sys_key, ver))
         return url.format(directory, cuda, sys_key, ver)
 
     def setup_run_environment(self, env):
