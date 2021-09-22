@@ -76,7 +76,6 @@ spack:
   - gosam@2.1.1
   - gosam-contrib@2.0+shared+static
   - gperftools@2.9.1+libunwind+sized_delete+dynamic_sized_delete_support~debugalloc
-  - graphviz@2.49.0~x~qt~pangocairo+expat~doc
   - grpc@1.35.0+shared
   - gsl@2.6+external-cblas
   - gsl-toolfile
