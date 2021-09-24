@@ -88,6 +88,7 @@ spack:
   - isl@0.21
   - jemalloc@5.2.1~documentation+stats libs=shared
   - lcov@1.15
+  - lhapdf@6.3.0
   - libffi@3.2.1
   - libjpeg-turbo@2.0.2
   - libjpeg-turbo-toolfile
