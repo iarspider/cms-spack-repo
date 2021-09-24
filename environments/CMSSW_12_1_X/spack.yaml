@@ -113,7 +113,7 @@ spack:
   - openloops@2.1.2
   - openloops-process@2.1.2
   - openloops-toolfile
-  - openmpi@4.1.0
+  - openmpi@4.1.1
   - openssl@1.1.0l
   - openssl-toolfile
   - oracle-instant-client@19.11.0.0.0
