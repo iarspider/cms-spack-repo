@@ -73,8 +73,8 @@ spack:
   - gmake-toolfile
   - gmp@6.2.0
   - gnuplot@5.2.8~cairo~X~wx~gd~pbm
-  - gosam@2.1.1
-  - gosam-contrib@2.0+shared+static
+  - py-gosam@2.1.1
+  - gosam-contrib@2.0 libs=shared,static
   - gperftools@2.9.1+libunwind+sized_delete+dynamic_sized_delete_support~debugalloc
   - grpc@1.35.0+shared
   - gsl@2.6+external-cblas
@@ -97,6 +97,7 @@ spack:
   - libtiff@4.0.10
   - libtiff-toolfile
   - libtool@2.4.6
+  - libunwind@1.5 +zlib~block_signals~docs
   - libxml2@2.9.10~python
   - libxml2-toolfile
   - lz4@1.9.2
