@@ -91,6 +91,11 @@ class Pythia8(AutotoolsPackage):
                 args.append('--with-lhapdf6-plugin=LHAPDF6.h')
                 args.append('--with-boost=' + self.spec['boost'].prefix)
 
+        if '+madgraph5amc' in self.spec:
+            args += '--with-mg5mes=' + self.spec['madgraph5amc'].prefix
+        else:
+            args += '--without-mg5mes'
+
         args += self.with_or_without('hepmc3', activation_value='prefix')
         args += self.with_or_without('fastjet3', activation_value='prefix',
                                      variant='fastjet')
@@ -101,8 +106,6 @@ class Pythia8(AutotoolsPackage):
             args.append('--with-yoda=' + self.spec['yoda'].prefix)
 
         args += self.with_or_without('python', activation_value='prefix')
-        args += self.with_or_without('mg5mes', activation_value='prefix',
-                                     variant='madgraph5amc')
         args += self.with_or_without('openmp', activation_value='prefix',
                                      variant='openmpi')
         args += self.with_or_without('mpich', activation_value='prefix')
