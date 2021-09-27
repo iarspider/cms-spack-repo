@@ -28,7 +28,9 @@ class Igprof(CMakePackage):
     patch('igprof-5.9.16.patch', when='@5.9.16', level=0)
 
     def cmake_args(self):
+        args = []
         args += self.define('CMAKE_CXX_FLAGS_RELWITHDEBINFO', '-g -O3')
+        return args
 
     def build_system_flags(pkg, name, flags):
         if name == 'cxxflags':
