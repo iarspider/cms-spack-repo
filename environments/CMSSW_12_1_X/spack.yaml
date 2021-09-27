@@ -6,6 +6,8 @@
 # NOTICE: ~cuda~nvml for now
 #   - onnx-runtime@1.7.2.cms
 #   - py-tensorflow@2.5.0.cms~cuda~nccl~only_python+mpi
+# nlohmann-json     version('3.10.2', sha256='081ed0f9f89805c2d96335c3acfa993b39a0a5b4b4cef7edb68dd2210a13458c')
+
 spack:
   concretization: together
   packages:
@@ -151,6 +153,7 @@ spack:
   - py-typing-extensions@3.7.4.3
   - py-wheel@0.36.2
   - py-wrapt@1.12.1
+  - pythia8@8306
   - python@3.9.6~libxml2
   - python-toolfile
   - re2c@0.13.5
