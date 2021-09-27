@@ -154,7 +154,7 @@ spack:
   - py-typing-extensions@3.7.4.3
   - py-wheel@0.36.2
   - py-wrapt@1.12.1
-  - pythia8@8306
+  - pythia8@8.306+hepmc~hepmc3+lhapdf
   - python@3.9.6~libxml2
   - python-toolfile
   - re2c@0.13.5
