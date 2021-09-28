@@ -43,8 +43,7 @@ spack:
   - db6-toolfile
   - dcap@2.47.12
   - dcap-toolfile
-  - dd4hep@1.18x+xercesc+geant4units # CMS: +geant4 is set internally to build static version of ddg4
-  - dire@2.004
+  - dd4hep@1.18x+xercesc+geant4units~edm4hep # CMS: +geant4 is set internally to build static version of ddg4
   - dmtcp@3.0.0-dev
   - eigen@82dd3710dac619448f50331c1d6a35da673f764a
   - evtgen@02.00.00+pythia8+tauola+photos
@@ -73,7 +72,7 @@ spack:
   - gmake@4.3~nls
   - gmake-toolfile
   - gmp@6.2.0
-  - gnuplot@5.2.8~cairo~X~wx~gd~pbm
+  - gnuplot@5.2.8~cairo~X~wx~gd~pbm~libcerf
   - py-gosam@2.1.1
   - gosam-contrib@2.0 libs=shared,static
   - gperftools@2.9.1+libunwind+sized_delete+dynamic_sized_delete_support~debugalloc
@@ -125,6 +124,7 @@ spack:
   - pacparser-toolfile
   - pcre@8.43~jit~multibyte+utf
   - pcre-toolfile
+  - photos@3.64
   - pkg-config@0.29.2+internal_glib
   - protobuf@3.15.1
   - py-absl-py@0.11.0
@@ -157,6 +157,7 @@ spack:
   - pythia8@8.306+hepmc~hepmc3+lhapdf
   - python@3.9.6~libxml2
   - python-toolfile
+  - qgraf@3.1.4
   - re2c@0.13.5
   - root@6.22.08.patches_cms_18c440c+davix+fftw~fits~graphviz+math+minuit+mlp~mysql~opengl~postgres~pythia6~pythia8+python+root7+roofit~sqlite+ssl+tmva+tbb~vdt~veccore+x+xrootd
   - root-toolfile
