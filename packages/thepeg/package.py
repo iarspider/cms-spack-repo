@@ -94,7 +94,7 @@ class Thepeg(AutotoolsPackage):
         return (flags, None, None)
 
     def configure_args(self):
-        # args = ['--with-gsl=' + self.spec['gsl'].prefix, '--without-javagui']
+        # args = ['--with-gsl=' + self.spec['gsl'].prefix, '--without-javagui']  # -- CMS/spack: use 'system' GSL (default), since we drop static version of GSL libs
         args = ['--without-javagui']
 
         if self.spec.satisfies('@:1.8.999'):
