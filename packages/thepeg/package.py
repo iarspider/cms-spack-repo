@@ -81,6 +81,11 @@ class Thepeg(AutotoolsPackage):
     # install_targets = ['install-strip'] -- CMS
 
     # -- CMS
+    @run_before('configure')
+    def remove_gslblas(self):
+        filter_file('-lgslcblas', '-lopenblas', 'configure')
+
+    # -- CMS
     def flag_handler(self, name, flags):
         if name in ['cflags', 'cxxflags', 'cppflags']:
             flags.append(self.compiler.cc_pic_flag)
@@ -117,8 +122,9 @@ class Thepeg(AutotoolsPackage):
 
         args += ['--with-zlib=' + self.spec['zlib'].prefix]
 
-        # -- CMS
+        # -- CMS: remove
         # args += ['CFLAGS=-O2', 'CXXFLAGS=-O2', 'FFLAGS=-O2']
+        # -- CMS: add
         args.append('--enable-shared')
         args.append('--disable-static')
 
