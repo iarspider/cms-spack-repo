@@ -89,7 +89,8 @@ class Thepeg(AutotoolsPackage):
         return (flags, None, None)
 
     def configure_args(self):
-        args = ['--with-gsl=' + self.spec['gsl'].prefix, '--without-javagui']
+        # args = ['--with-gsl=' + self.spec['gsl'].prefix, '--without-javagui']
+        args = ['--without-javagui']
 
         if self.spec.satisfies('@:1.8.999'):
             args += ['--with-LHAPDF=' + self.spec['lhapdf'].prefix]

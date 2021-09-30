@@ -18,6 +18,13 @@ spack:
       - prescott
       version: []
       variants: [cxxstd=17, build_type=Release]
+    mesa-glu:
+      buildable: false
+      externals:
+      - spec: mesa-glu@9.0.0
+        prefix: /usr
+    mesa:
+      variants: [~llvm]
   view: false
   specs:
   - cms-config
@@ -80,7 +87,7 @@ spack:
   - gsl@2.6+external-cblas
   - gsl-toolfile
   - hdf5@1.10.6+mpi+shared
-  - hepmc@2.06.10
+  - hepmc@2.06.10.cms
   - herwig3@7.2.2
   - hwloc@2.4.0~cuda~nvml+libxml2~cairo~netloc+pci
   - igprof@5.9.16
@@ -155,11 +162,11 @@ spack:
   - py-wheel@0.36.2
   - py-wrapt@1.12.1
   - pythia8@8.306+hepmc~hepmc3+lhapdf
-  - python@3.9.6~libxml2
+  - python@3.9.6~libxml2~debug
   - python-toolfile
-  - qgraf@3.1.4
+  - qgraf@3.4.2
   - re2c@0.13.5
-  - root@6.22.08.patches_cms_18c440c+davix+fftw~fits~graphviz+math+minuit+mlp~mysql~opengl~postgres~pythia6~pythia8+python+root7+roofit~sqlite+ssl+tmva+tbb~vdt~veccore+x+xrootd
+  - root@6.22.08.patches_cms_18c440c+davix+fftw~fits~graphviz+math+minuit+mlp~mysql+opengl~postgres~pythia6~pythia8+python~qt4+root7+roofit~sqlite+ssl+tmva+tbb~vdt~veccore+x+xrootd
   - root-toolfile
   - scram@3.0.31
   - sqlite@3.22.0~fts

@@ -4,6 +4,7 @@
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
 import shutil
+import os
 
 from spack import *
 
@@ -28,7 +29,7 @@ class Herwig3(AutotoolsPackage):
     depends_on('thepeg@2.2.2', when='@7.2.2', type='link')
     depends_on('boost', type='link')
     depends_on('python', type=('build', 'run'))
-    depends_on('gsl', type='link')
+    depends_on('gsl', type=('build', 'link'))
     depends_on('fastjet', type='link')
     # depends_on('vbfnlo@3:', type='link') -- CMS
     depends_on('madgraph5amc', type='link')
@@ -64,18 +65,19 @@ class Herwig3(AutotoolsPackage):
                    # "CT14lo", "CT14nlo")
 
     def configure_args(self):
-        args = ['--with-gsl=' + self.spec['gsl'].prefix, #
+        args = ['--with-gsl=system', #  + self.spec['gsl'].prefix, #
                 '--with-thepeg=' + self.spec['thepeg'].prefix, #
                 # '--with-thepeg-headers=' + self.spec['thepeg'].prefix.include, -- CMS
                 '--with-fastjet=' + self.spec['fastjet'].prefix, #
                 '--with-boost=' + self.spec['boost'].prefix, #
                 '--with-madgraph=' + self.spec['madgraph5amc'].prefix, #
                 '--with-openloops=' + self.spec['openloops'].prefix, #
-                '--with-gosam=' + self.spec['gosam'].prefix, #
+                '--with-gosam=' + self.spec['py-gosam'].prefix, #
                 '--with-gosam-contrib=' + self.spec['gosam-contrib'].prefix, #
                 # '--with-njet=' + self.spec['njet'].prefix,
                 # '--with-vbfnlo=' + self.spec['vbfnlo'].prefix,
-                '--with-gsl=' + self.spec['gsl'].prefix] 
+                # '--with-gsl=' + self.spec['gsl'].prefix
+                ] 
 
         if not self.spec.satisfies('arch=ppc64le'):
             args.append('--with-openloops=' + self.spec['openloops'].prefix)

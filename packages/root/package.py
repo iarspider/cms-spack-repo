@@ -165,11 +165,12 @@ class Root(CMakePackage):
     depends_on('libsm',   when="+x")
 
     # OpenGL
-    depends_on('ftgl@2.4.0:',  when="+x+opengl")
-    depends_on('glew',  when="+x+opengl")
-    depends_on('gl',    when="+x+opengl")
-    depends_on('glu',   when="+x+opengl")
-    depends_on('gl2ps', when="+x+opengl")
+    # -- CMS: use bultin versions
+    #depends_on('ftgl@2.4.0:',  when="+x+opengl")
+    #depends_on('glew',  when="+x+opengl")
+    #depends_on('gl',    when="+x+opengl")
+    #depends_on('glu',   when="+x+opengl")
+    #depends_on('gl2ps', when="+x+opengl")
 
     # Qt4
     depends_on('qt@:4.999', when='+qt4')
@@ -431,10 +432,10 @@ class Root(CMakePackage):
             options.append(define('cxx' + self.spec.variants['cxxstd'].value,
                                   True))
 
-        if '+x+opengl' in self.spec:
-            ftgl_prefix = self.spec['ftgl'].prefix
-            options.append(define('FTGL_ROOT_DIR', ftgl_prefix))
-            options.append(define('FTGL_INCLUDE_DIR', ftgl_prefix.include))
+#        if '+x+opengl' in self.spec:
+#            ftgl_prefix = self.spec['ftgl'].prefix
+#            options.append(define('FTGL_ROOT_DIR', ftgl_prefix))
+#            options.append(define('FTGL_INCLUDE_DIR', ftgl_prefix.include))
         if '+python' in self.spec:
             # See https://github.com/spack/spack/pull/11579
             options.append(define('PYTHON_EXECUTABLE',
@@ -473,9 +474,9 @@ class Root(CMakePackage):
             add_include_path('fontconfig')
             add_include_path('libx11')
             add_include_path('xproto')
-        if '+opengl' in spec:
-            add_include_path('glew')
-            add_include_path('mesa-glu')
+#        if '+opengl' in spec:
+#            add_include_path('glew')
+#            add_include_path('mesa-glu')
 
     def setup_run_environment(self, env):
         env.set('ROOTSYS', self.prefix)

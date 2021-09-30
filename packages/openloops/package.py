@@ -90,7 +90,7 @@ class Openloops(Package):
         ol('libinstall', ce, 'cms.coll')
 
     def install(self, spec, prefix):
-        install_tree('lib', self.prefix)
+        install_tree('lib', self.prefix.lib)
         mkdirp(self.prefix.proclib)
         for file in os.listdir('proclib'):
             if fnmatch.fnmatch(file, '*.info') or fnmatch.fnmatch(file, '*.so'):

@@ -5,6 +5,8 @@
 
 import glob
 from spack import *
+import os
+import inspect
 
 
 class Dd4hep(CMakePackage):
@@ -23,6 +25,7 @@ class Dd4hep(CMakePackage):
     maintainers = ['vvolkl', 'drbenmorgan']
 
     tags = ['hep']
+    phases = ['cmake', 'build', 'install', 'install_static']
 
     version('master', branch='master')
     version('1.18x', commit='e6291aaad54eb075f71bb1bd76bb96361e5d18bd')
@@ -66,10 +69,10 @@ class Dd4hep(CMakePackage):
     depends_on('cmake @3.12:', type='build')
     depends_on('ninja', type='build')
     depends_on('boost @1.49:')
-    depends_on('root @6.08: +gdml +math +python +x')  # -- CMS
+    depends_on('root @6.08: +gdml +math +python +x +opengl')  # -- CMS
     extends('python')
     depends_on('xerces-c', when='+xercesc')
-    depends_on('geant4@10.2.2:', when='+geant4')
+    depends_on('geant4@10.2.2:')  # -- CMS
     depends_on('assimp@5.0.2:', when='+assimp')
     depends_on('hepmc3', when="+hepmc3")
     depends_on('lcio', when="+lcio")
@@ -79,6 +82,8 @@ class Dd4hep(CMakePackage):
     # See https://github.com/AIDASoft/DD4hep/pull/771
     conflicts('^cmake@3.16:3.17.0', when='@1.15',
               msg='cmake version with buggy FindPython breaks dd4hep cmake config')
+
+    cms_stage = 1
 
     def cmake_args(self):
         spec = self.spec
@@ -149,11 +154,10 @@ class Dd4hep(CMakePackage):
                 ninja('test')
 
     # -- CMS: build static version of DDG4
-    @run_after('install')
-    def build_ddg4_static(self):
-        self.build_directory = 'build-g4'
-        self.spec.variants['shared'] = False
-        self.spec.variants['geant4'] = True
+    def install_static(self, spec, prefix):
+        self.cms_stage = 2
+        self.spec.variants['shared'].value = False
+        self.spec.variants['geant4'].value = True
 
         # cmake stage: Runs ``cmake`` in the build directory
         options = self.std_cmake_args
@@ -175,3 +179,10 @@ class Dd4hep(CMakePackage):
             install(fn, join_path(self.prefix.lib, fn[:-2] + '-static.a'))
             
         install_tree(join_path(self.stage.source_path, 'DDG4', 'include', 'DDG4'), self.prefix.include.DDG4)
+
+    @property
+    def build_dirname(self):
+        """Returns the directory name to use when building the package
+        :return: name of the subdirectory for building the package
+        """
+        return 'spack-build-%s' % self.spec.dag_hash(7)  + str(self.cms_stage)
