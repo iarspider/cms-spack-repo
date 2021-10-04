@@ -37,7 +37,7 @@ spack:
   - bzip2@1.0.6
   - bzip2-toolfile
   - catch2@2.13.7
-  - clhep@2.4.5.1.cms
+  - clhep@2.4.5.1.cms cxxstd=14
   - cmake@3.18.2~ownlibs~ncurses
   - cmssw-config@V06-03-01
   - coral@2.3.21py3
@@ -82,7 +82,7 @@ spack:
   - gnuplot@5.2.8~cairo~X~wx~gd~pbm~libcerf
   - py-gosam@2.1.1
   - geant4@10.7.2 cxxstd=14 +threads+vecgeom
-  - geant-data
+  - geant4-data@10.7.2
   - gosam-contrib@2.0 libs=shared,static
   - gperftools@2.9.1+libunwind+sized_delete+dynamic_sized_delete_support~debugalloc
   - grpc@1.35.0+shared
@@ -186,3 +186,5 @@ spack:
   - zlib-toolfile
   - zstd@1.4.5+shared~static~programs~legacy
   - zstd-toolfile
+  - rivet@3.1.4 hepmc=2
+  - yoda@1.9.0+root
