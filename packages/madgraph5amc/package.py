@@ -84,8 +84,8 @@ class Madgraph5amc(Package):
 
         set_parameter('fortran_compiler', self.compiler.fc)
         set_parameter('cpp_compiler', self.compiler.cxx)
-        set_parameter('timeout', 0)
-        set_parameter('autoupdate', 0)
+        set_parameter('timeout', "0")
+        set_parameter('autoupdate', "0")
         set_parameter('automatic_html_opening', 'False')
         set_parameter('notification_center', 'False')
 
@@ -119,12 +119,12 @@ class Madgraph5amc(Package):
             set_parameter('lhapdf_py3', join_path(spec['lhapdf'].prefix.bin, 'lhapdf-config'))
 
         if '+cms' in spec:
-            set_parameter('run_mode', 1)
+            set_parameter('run_mode', "1")
             set_parameter('cluster_type', 'lsf')
             set_parameter('cluster_queue', '1nh')
-            set_parameter('cluster_size', 150)
+            set_parameter('cluster_size', "150")
             
-        filter_file("SHFLAG = -fPIC", "SHFLAG = -fPIC -fcommon", join_path(spec.prefix, 'vendor/StdHEP/src/stdhep_arch'))
+        filter_file("SHFLAG = -fPIC", "SHFLAG = -fPIC -fcommon", join_path(self.stage.source_path, 'vendor/StdHEP/src/stdhep_arch'))
 
     def build(self, spec, prefix):
         with working_dir(join_path('vendor', 'CutTools')):
@@ -143,8 +143,10 @@ class Madgraph5amc(Package):
 
         if '+cms' in spec:
             shutil.copy('input/mg5_configuration.txt', 'input/mg5_configuration_patched.txt')
-            compile_py = Executable(join_path('bin', 'compile.py'))
-            compile_py()
+            # compile_py = Executable(join_path('bin', 'compile.py'))
+            py = which('python')
+            py(join_path('bin', 'compile.py'))
+            # compile_py()
             os.remove(join_path('bin', 'compile.py'))
             shutil.move('input/mg5_configuration_patched.txt', 'input/mg5_configuration.txt')
 
@@ -153,7 +155,7 @@ class Madgraph5amc(Package):
         for fn in glob.glob(join_path(prefix, '**', '*.tgz')):
             os.remove(fn)
             
-        install('.', prefix)
+        install_tree('.', prefix)
 
     @when('~cms')
     def install(self, spec, prefix):
