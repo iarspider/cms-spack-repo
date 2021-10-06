@@ -37,7 +37,7 @@ spack:
   - bzip2@1.0.6
   - bzip2-toolfile
   - catch2@2.13.7
-  - clhep@2.4.5.1.cms cxxstd=14
+  - clhep@2.4.5.1.cms
   - cmake@3.18.2~ownlibs~ncurses
   - cmssw-config@V06-03-01
   - collier@1.2.5
@@ -180,7 +180,7 @@ spack:
   - thepeg@2.2.2 hepmc=2
   - util-linux-uuid@2.34
   - veccore
-  - vecgeom@1.1.6 ~root~geant vector=sse3
+  - vecgeom@1.1.8 ~root~geant4 vector=sse3
   - xerces-c@3.1.3 netaccessor=none transcoder=none
   - xrootd@4.12.3+http~readline+python
   - xrootd-toolfile
