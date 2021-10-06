@@ -1,4 +1,3 @@
-#  pacparser-1.3.5
 from llnl.util.filesystem import *
 
 from spack.package import PackageBase, run_after
