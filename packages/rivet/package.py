@@ -151,6 +151,13 @@ class Rivet(AutotoolsPackage):
     def force_autoreconf(self):
         return self.version >= Version('2.6.2')
 
+    @run_before('configure')
+    def disable_openmp_arm(self):
+        if not self.spec.satisfies('arch=aarch64'):
+            return
+            
+        filter_file('^ax_openmp_flags=".*"', 'ax_openmp_flags="none"', 'configure')
+
     def setup_build_environment(self, env):
         # this avoids an "import site" error in the build
         env.unset('PYTHONHOME')
@@ -160,6 +167,9 @@ class Rivet(AutotoolsPackage):
     def flag_handler(self, name, flags):
         if self.spec.satisfies('@3.1.2:') and name == 'cxxflags':
             flags.append('-faligned-new')
+            flags.append('-std=cxx17') # -- CMS
+            if self.spec.satisfies('arch=amd64'): # -- CMS
+                flags.append('-msse3')
             return (None, None, flags)
         return (flags, None, None)
 
@@ -193,5 +203,7 @@ class Rivet(AutotoolsPackage):
             args += ['--enable-stdcxx11']
 
         args += ['--disable-pdfmanual']
+        # -- CMS
+        args += ['--disable-doxygen', '--with-pic']
 
         return args
