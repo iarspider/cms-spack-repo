@@ -40,6 +40,7 @@ spack:
   - clhep@2.4.5.1.cms cxxstd=14
   - cmake@3.18.2~ownlibs~ncurses
   - cmssw-config@V06-03-01
+  - collier@1.2.5
   - coral@2.3.21py3
   - cppunit@1.15.x
   - cuda@11.4.2
@@ -81,7 +82,7 @@ spack:
   - gmp@6.2.0
   - gnuplot@5.2.8~cairo~X~wx~gd~pbm~libcerf
   - py-gosam@2.1.1
-  - geant4@10.7.2 cxxstd=14 +threads+vecgeom
+  - geant4@10.7.2 +threads+vecgeom
   - geant4-data@10.7.2
   - gosam-contrib@2.0 libs=shared,static
   - gperftools@2.9.1+libunwind+sized_delete+dynamic_sized_delete_support~debugalloc
@@ -169,6 +170,7 @@ spack:
   - python-toolfile
   - qgraf@3.4.2
   - re2c@0.13.5
+  - rivet@3.1.4
   - root@6.22.08.patches_cms_18c440c+davix+fftw~fits~graphviz+math+minuit+mlp~mysql+opengl~postgres~pythia6~pythia8+python~qt4+root7+roofit~sqlite+ssl+tmva+tbb~vdt~veccore+x+xrootd
   - root-toolfile
   - scram@3.0.31
@@ -177,11 +179,14 @@ spack:
   - tauola@1.1.8 +hepmc+lhapdf+pythia8
   - thepeg@2.2.2 hepmc=2
   - util-linux-uuid@2.34
-  - xerces-c@3.1.3 netaccessor=none transcoder=none cxxstd=14
+  - veccore
+  - vecgeom@1.1.6 ~root~geant vector=sse3
+  - xerces-c@3.1.3 netaccessor=none transcoder=none
   - xrootd@4.12.3+http~readline+python
   - xrootd-toolfile
   - xz@5.2.4 libs=shared
   - xz-toolfile
+  - yoda@1.8.5
   - zlib@1.2.11.cms+optimize
   - zlib-toolfile
   - zstd@1.4.5+shared~static~programs~legacy
