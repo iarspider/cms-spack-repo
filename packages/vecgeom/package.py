@@ -89,7 +89,7 @@ class Vecgeom(CMakePackage, CudaPackage):
                 # No features available (could be 'generic' arch)
                 target_instructions = 'empty'
         else:
-            target = self.spec.variants['vector'].value.replace('_', '=')
+            target_instructions = self.spec.variants['vector'].value.replace('_', '=')
 
         define = CMakePackage.define
         options = [

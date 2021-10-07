@@ -18,7 +18,7 @@ class G4incl(G4DataPackage):
     maintainers = ['drbenmorgan']
 
     g4dataname = 'geant4-G4INCL'
-    g4rundata = 'G4INCLDATA'
+    g4runtime = 'G4INCLDATA'
 
     # Only versions relevant to Geant4 releases built by spack are added
     version('1.0', sha256='716161821ae9f3d0565fbf3c2cf34f4e02e3e519eb419a82236eef22c2c4367d')

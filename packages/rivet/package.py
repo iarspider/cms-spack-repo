@@ -167,7 +167,7 @@ class Rivet(AutotoolsPackage):
     def flag_handler(self, name, flags):
         if self.spec.satisfies('@3.1.2:') and name == 'cxxflags':
             flags.append('-faligned-new')
-            flags.append('-std=cxx17') # -- CMS
+            flags.append('-std=c++17') # -- CMS
             if self.spec.satisfies('arch=amd64'): # -- CMS
                 flags.append('-msse3')
             return (None, None, flags)
