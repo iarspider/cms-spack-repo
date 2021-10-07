@@ -10,7 +10,7 @@ class G4DataPackage(PackageBase):
 
     def __init__(self, spec):
         super().__init__(spec)
-        self.name = ''
+        self.g4dataname = ''
         self.g4datatool = None
 
         self.build_system_class = 'G4DataPackage'
@@ -24,8 +24,8 @@ class G4DataPackage(PackageBase):
         return self.stage.source_path
 
     def setup(self, spec, prefix):
-        self.g4datatool = re.sub('^geant4-', '', self.name)
-        self.basetool = self.name.upper().replace('-', '_')
+        self.g4datatool = re.sub('^geant4-', '', self.g4dataname)
+        self.basetool = self.g4dataname.upper().replace('-', '_')
         self.g4runtime = self.g4runtime or self.g4datatool
 
     def install(self, spec, prefix):
