@@ -16,6 +16,7 @@ class G4radioactivedecay(G4DataPackage):
 
     maintainers = ['drbenmorgan']
     
+    g4dataname = 'geant4-G4RadioactiveDecay'
     g4runtime = 'G4RADIOACTIVEDATA'
 
     # Only versions relevant to Geant4 releases built by spack are added

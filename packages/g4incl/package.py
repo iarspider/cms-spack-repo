@@ -17,6 +17,7 @@ class G4incl(G4DataPackage):
 
     maintainers = ['drbenmorgan']
 
+    g4dataname = 'geant4-G4INCL'
     g4rundata = 'G4INCLDATA'
 
     # Only versions relevant to Geant4 releases built by spack are added

@@ -24,6 +24,7 @@ class G4emlow(G4DataPackage):
     version('7.3', sha256='583aa7f34f67b09db7d566f904c54b21e95a9ac05b60e2bfb794efb569dba14e')
     version('6.50', sha256='c97be73fece5fb4f73c43e11c146b43f651c6991edd0edf8619c9452f8ab1236')
 
+    g4dataname = 'geant4-G4EMLOW'
     g4runtime = 'G4LEDATA'
 
     def url_for_version(self, version):

@@ -16,6 +16,7 @@ class G4pii(G4DataPackage):
 
     maintainers = ['drbenmorgan']
 
+    g4dataname = 'geant4-G4PII'
     g4runtime = 'G4PIIDATA'
 
     # Only versions relevant to Geant4 releases built by spack are added

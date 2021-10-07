@@ -14,6 +14,7 @@ class G4saiddata(G4DataPackage):
 
     tags = ['hep']
 
+    g4dataname = 'geant4-G4SAIDDATA'
     g4runtime = 'G4SAIDXSDATA'
 
     maintainers = ['drbenmorgan']

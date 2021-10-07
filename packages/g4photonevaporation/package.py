@@ -16,6 +16,7 @@ class G4photonevaporation(G4DataPackage):
 
     maintainers = ['drbenmorgan']
 
+    g4dataname = 'geant4-G4PhotonEvaporation'
     g4runtime = 'G4LEVELGAMMADATA'
 
     # Only versions relevant to Geant4 releases built by spack are added

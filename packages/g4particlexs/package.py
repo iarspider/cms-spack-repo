@@ -17,6 +17,7 @@ class G4particlexs(G4DataPackage):
 
     maintainers = ['drbenmorgan']
 
+    g4dataname = 'geant4-G4PARTICLEXS'
     g4runtime = 'G4PARTICLEXSDATA'
 
     # Only versions relevant to Geant4 releases built by spack are added

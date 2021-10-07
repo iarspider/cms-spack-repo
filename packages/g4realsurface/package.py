@@ -16,6 +16,7 @@ class G4realsurface(Package):
 
     maintainers = ['drbenmorgan']
 
+    g4dataname = 'geant4-G4RealSurface'
     g4runtime = 'G4REALSURFACEDATA'
 
     # Only versions relevant to Geant4 releases built by spack are added

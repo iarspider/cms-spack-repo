@@ -21,7 +21,7 @@ class G4abla(G4DataPackage):
     version('3.1', sha256='7698b052b58bf1b9886beacdbd6af607adc1e099fc730ab6b21cf7f090c027ed')
     version('3.0', sha256='99fd4dcc9b4949778f14ed8364088e45fa4ff3148b3ea36f9f3103241d277014')
 
-    name = 'geant4-G4ABLA'
+    g4dataname = 'geant4-G4ABLA'
     g4runtime = 'G4ABLADATA'
 
     def url_for_version(self, version):

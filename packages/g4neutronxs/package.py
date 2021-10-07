@@ -17,6 +17,7 @@ class G4neutronxs(Package):
 
     maintainers = ['drbenmorgan']
     
+    g4dataname = 'geant4-G4NEUTRONXS'
     g4runtime = 'G4NEUTRONXSDATA'
 
     # Only versions relevant to Geant4 releases built by spack are added

@@ -14,7 +14,8 @@ class G4tendl(Package):
 
     tags = ['hep']
 
-    g4runtime = 'G4PARTICLEHPDATA'
+    g4dataname = 'geant4-G4TENDL'
+    g4runtime = 'G4TENDL'
 
     maintainers = ['drbenmorgan']
 

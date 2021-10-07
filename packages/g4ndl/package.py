@@ -16,6 +16,7 @@ class G4ndl(G4DataPackage):
 
     maintainers = ['drbenmorgan']
     
+    g4dataname = 'geant4-G4NDL'
     g4runtime = 'G4NEUTRONHPDATA'
 
     version('4.6', sha256='9d287cf2ae0fb887a2adce801ee74fb9be21b0d166dab49bcbee9408a5145408')

@@ -21,6 +21,7 @@ class G4ensdfstate(G4DataPackage):
     version('2.2', sha256='dd7e27ef62070734a4a709601f5b3bada6641b111eb7069344e4f99a01d6e0a6')
     version('2.1', sha256='933e7f99b1c70f24694d12d517dfca36d82f4e95b084c15d86756ace2a2790d9')
     
+    g4dataname = 'geant4-G4ENSDFSTATE'
     g4runtime = 'G4ENSDFSTATEDATA'
 
     def url_for_version(self, version):
