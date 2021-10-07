@@ -49,7 +49,5 @@ class G4DataPackage(PackageBase):
 
         return
 
-    run_after('build')(PackageBase._run_default_build_time_test_callbacks)
-
     # Check that self.prefix is there after installation
     run_after('install')(PackageBase.sanity_check_prefix)
