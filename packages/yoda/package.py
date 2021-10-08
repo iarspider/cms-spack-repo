@@ -14,6 +14,7 @@ class Yoda(AutotoolsPackage):
 
     tags = ['hep']
 
+    version('1.9.0', sha256='9a55de12ffebbe41d1704459c5c9289eeaf0f0eb6a4d0104ea222d7ab889fdf4')
     version('1.8.5', sha256='4c2e6b8571fc176271515a309b45687a2981af1b07ff3f00d0b035a597aa32fd')
     version('1.8.4', sha256='9d24a41c9b7cc6eb14cab0a48f65d2fca7ec9d794afe0922ceb158d0153c150e')
     version('1.8.3', sha256='d9dd0ea5e0f630cdf4893c09a40c78bd44455777c2125385ecc26fa9a2acba8a')
