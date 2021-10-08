@@ -197,7 +197,7 @@ spack:
   - thepeg@2.2.2 hepmc=2
   - util-linux-uuid@2.34
   - veccore
-  - vecgeom@1.1.8 ~root~geant4 vector=sse3
+  - vecgeom@1.1.17 ~root~geant4 vector=sse3
   - xerces-c@3.1.3 netaccessor=none transcoder=none
   - xrootd@4.12.3+http~readline+python
   - xrootd-toolfile
