@@ -24,6 +24,11 @@ cp ${SCRIPT_DIR}/hook/* lib/spack/spack/hooks/
 echo Adding SCRAM build system support
 cp ${SCRIPT_DIR}/scram.py lib/spack/spack/build_systems/
 echo "from spack.build_systems.scram import ScramPackage" >> lib/spack/spack/pkgkit.py
+echo Adding G4data \"build system\"
+cp ${SCRIPT_DIR}/g4data.py lib/spack/spack/build_systems/
+echo "from spack.build_systems.g4data import G4DataPackage" >> lib/spack/spack/pkgkit.py
+echo Updating autotools.py
+cp ${SCRIPT_DIR}/autotools.py lib/spack/spack/build_systems/
 echo Creating environment
 spack env create ${SPACK_ENV} ${SCRIPT_DIR}/environments/${SPACK_ENV}/spack.yaml
 echo Done

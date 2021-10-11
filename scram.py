@@ -1,4 +1,3 @@
-#  pacparser-1.3.5
 from llnl.util.filesystem import *
 
 from spack.package import PackageBase, run_after
@@ -72,7 +71,7 @@ class ScramPackage(PackageBase):
             self.extraOptions = "USER_CXXFLAGS='%s'" % (self.usercxxflags + debugflags)
 
         if self.configtag is None:
-            self.configtag = 'V06-02-13'
+            self.configtag = 'V06-03-06'
 
         if self.cvssrc is None:
             self.cvssrc = self.toolname.replace('-patch', '').upper()
@@ -116,6 +115,10 @@ class ScramPackage(PackageBase):
                             '<runtime name="SCRAM_TARGET" value="auto"/><runtime name="USER_TARGETS_ALL" '
                             'value="1"/></tool>',
                             'config/Self.xml')
+                            
+            if getattr(self, 'release_usercxxflags', None):
+                with open("config/BuildFile.xml", "a") as f:
+                    f.write('<flags CXXFLAGS="' + self.release_usercxxflags + '"/>\n')
 
             if getattr(self, 'PartialBootstrapPatch', None):
                 with working_dir(self.stage.path):

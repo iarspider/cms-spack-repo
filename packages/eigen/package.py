@@ -13,8 +13,7 @@ class Eigen(CMakePackage):
     git = 'https://github.com/cms-externals/eigen-git-mirror.git'
     maintainers = ['HaoZeke']
 
-    version('f612df273689a19d25b45ca4f8269463207c4fee', commit='4fc3872b0dc7540aeaea8de04835508bbd90aae3')
-
+    version('82dd3710dac619448f50331c1d6a35da673f764a', commit='733e6166b2f8b4edd23da33985187fd60903e9ca')
 
     # From http://eigen.tuxfamily.org/index.php?title=Main_Page#Requirements
     # "Eigen doesn't have any dependencies other than the C++ standard
