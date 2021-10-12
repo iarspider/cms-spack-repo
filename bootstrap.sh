@@ -8,12 +8,6 @@ echo This script will install Spack and configure it for CMS needs
 echo Cloning spack...
 git clone --quiet https://github.com/spack/spack.git
 cd spack; git checkout --quiet ${SPACK_VERSION}
-echo Initializing Spack
-source share/spack/setup-env.sh
-echo Adding CMS repository
-spack repo add --scope=site ${SCRIPT_DIR}
-echo Adding CMS mirror
-spack mirror add --scope=site cms https://test-cms-spack.web.cern.ch/test-cms-spack/CMS/mirror
 echo Configuring spack
 cp ${SCRIPT_DIR}/config/config.yaml etc/spack/
 echo Adding external gcc 9.3.0
@@ -29,6 +23,12 @@ cp ${SCRIPT_DIR}/g4data.py lib/spack/spack/build_systems/
 echo "from spack.build_systems.g4data import G4DataPackage" >> lib/spack/spack/pkgkit.py
 echo Updating autotools.py
 cp ${SCRIPT_DIR}/autotools.py lib/spack/spack/build_systems/
+echo Initializing Spack
+source share/spack/setup-env.sh
+echo Adding CMS repository
+spack repo add --scope=site ${SCRIPT_DIR}
+echo Adding CMS mirror
+spack mirror add --scope=site cms https://test-cms-spack.web.cern.ch/test-cms-spack/CMS/mirror
 echo Creating environment
 spack env create ${SPACK_ENV} ${SCRIPT_DIR}/environments/${SPACK_ENV}/spack.yaml
 echo Done
