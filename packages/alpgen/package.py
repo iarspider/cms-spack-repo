@@ -39,7 +39,7 @@ class Alpgen(CMakePackage):
     def cmake(self, spec, prefix):
         return
         
-    @when('recipe=cms'):
+    @when('recipe=cms')
     def build(self, spec, prefix):
         build_sh = Executable('cms_build.sh')
         build_sh()
