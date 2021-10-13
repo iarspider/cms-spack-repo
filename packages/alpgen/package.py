@@ -18,7 +18,7 @@ class Alpgen(MakefilePackage):
     patch('alpgen-214.patch', when='recipe=cms')
     patch('alpgen-214-Darwin-x86_84-gfortran.patch', when='platform=darwin recipe=cms')
     patch('alpgen-2.1.4-sft.patch', when='recipe=sft', level=0)
-    
+
     depends_on('cmake', type='build', when='recipe=sft')
 
     variant('recipe', values=('cms', 'sft'), default='sft',
@@ -55,7 +55,7 @@ class Alpgen(MakefilePackage):
 
         :return: directory containing CMakeLists.txt
         """
-        return self.stage.source_path 
+        return self.stage.source_path
 
     def cmake_args(self):
         """Produces a list containing all the arguments that must be passed to
