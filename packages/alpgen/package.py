@@ -31,7 +31,7 @@ class Alpgen(CMakePackage):
 
     def patch(self):
         if self.spec.satisfies('recipe=sft'):
-            copy(join_path(os.path.dirname(__file__), 'CMakeLists.txt'), 
+            copy(join_path(os.path.dirname(__file__), 'CMakeLists.txt'),
                  'CMakeLists.txt')
 
         if self.spec.satisfies('recipe=cms'):
