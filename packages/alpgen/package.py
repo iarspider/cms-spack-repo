@@ -18,6 +18,8 @@ class Alpgen(MakefilePackage):
     patch('alpgen-214.patch', when='recipe=cms')
     patch('alpgen-214-Darwin-x86_84-gfortran.patch', when='platform=darwin recipe=cms')
     patch('alpgen-2.1.4-sft.patch', when='recipe=sft', level=0)
+    
+    depends_on('cmake', type='build', when='recipe=sft')
 
     variant('recipe', values=('cms', 'sft'), default='sft',
             description='Select build recipe: CMS for CMS experiment, ' +
@@ -120,16 +122,17 @@ class Alpgen(MakefilePackage):
         options += self.cmake_args()
         options.append(os.path.abspath(self.root_cmakelists_dir))
         with working_dir(self.build_directory, create=True):
-            inspect.getmodule(self).cmake(*options)
+            cmake_x = which('cmake')
+            cmake_x(*options)
 
     @when('recipe=sft')
     def build(self, spec, prefix):
         """Make the build targets"""
         with working_dir(self.build_directory):
-            inspect.getmodule(self).make()
+            make()
 
     @when('recipe=sft')
     def install(self, spec, prefix):
         """Make the install targets"""
         with working_dir(self.build_directory):
-            inspect.getmodule(self).make('install')
+            make('install')
