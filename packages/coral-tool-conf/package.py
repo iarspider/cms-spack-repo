@@ -22,19 +22,26 @@ class CoralToolConf(Package):
     depends_on('oracle-instant-client', when='arch=amd64')
 
     def install(self, spec, prefix):
-        get_tools_path = join_path(os.path.dirname(__file__), '..', 'ToolfilePackage', 'bin', 'get_tools')
-        set_executable(get_tools_path)
-        get_tools = Executable(get_tools_path)
-        
-        with working_dir(prefix, create=True):
-            mkdirp('tools/selected')
-            mkdirp('tools/available')
-            for dep in spec.dependencies():
-                uctool = dep.name.upper().replace('-', '_')
-                toolbase = dep.prefix
-                toolver = dep.version
-                
-                get_tools(toolbase, toolver, self.prefix, dep.name)
+        logfile = open('/build/razumov/cms-spack-repo/spack/tool.log', 'w')
+        try:
+            get_tools_path = join_path(os.path.dirname(__file__), '..', 'ToolfilePackage', 'bin', 'get_tools')
+            set_executable(get_tools_path)
+            get_tools = Executable(get_tools_path)
+            
+            with working_dir(prefix, create=True):
+                mkdirp('tools/selected')
+                mkdirp('tools/available')
+                for dep in spec.dependencies():
+                    uctool = dep.name.upper().replace('-', '_')
+                    toolbase = dep.prefix
+                    toolver = dep.version
+                    
+                    print(f"get_tools({toolbase}, {toolver}, {self.prefix}, {dep.name})", file=logfile)
+                    
+                    get_tools(toolbase, toolver, self.prefix, dep.name)
 
-        get_tools("", "system", self.prefix, "systemtools")
-        # TODO: vectorization
+            get_tools("", "system", self.prefix, "systemtools")
+            # TODO: vectorization
+        except Exception as e:
+            logfile.close()
+            raise e
