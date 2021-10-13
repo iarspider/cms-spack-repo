@@ -44,6 +44,17 @@ class Alpgen(MakefilePackage):
         """
         return os.path.join(self.stage.path, self.build_dirname)
 
+    @property
+    def root_cmakelists_dir(self):
+        """The relative path to the directory containing CMakeLists.txt
+
+        This path is relative to the root of the extracted tarball,
+        not to the ``build_directory``. Defaults to the current directory.
+
+        :return: directory containing CMakeLists.txt
+        """
+        return self.stage.source_path 
+
     def cmake_args(self):
         """Produces a list containing all the arguments that must be passed to
         cmake, except:
