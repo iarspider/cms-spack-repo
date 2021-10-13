@@ -13,7 +13,7 @@ cd wphqqwork; make gen; cd ..
 cd wqqwork; make gen; cd ..
 cd zqqwork; make gen; cd ..
 
-cd phjetwork; make gen; 
+cd phjetwork; make gen;
 export USRF=120_180bin
 make gen -f cmsMakefile
 export USRF=180_240bin
@@ -28,7 +28,7 @@ export USRF=60_120bin
 make gen -f cmsMakefile
 cd ..
 
-cd wjetwork; make gen; 
+cd wjetwork; make gen;
 export USRF=0ptw100
 make gen -f cmsMakefile
 export USRF=100ptw300
@@ -51,7 +51,7 @@ export USRF=1600ptw #was not in 212 patch
 make gen -f cmsMakefile
 cd ..
 
-cd zjetwork; make gen; 
+cd zjetwork; make gen;
 export USRF=0ptz100
 make gen -f cmsMakefile
 export USRF=100ptz300
@@ -74,7 +74,7 @@ export USRF=1600ptz #was not in 212 patch
 make gen -f cmsMakefile
 cd ..
 
-cd Njetwork; make gen; #whole Njetwork was not in 213 patch 
+cd Njetwork; make gen; #whole Njetwork was not in 213 patch
 export USRF=100_160
 make gen -f cmsMakefile
 export USRF=100_180

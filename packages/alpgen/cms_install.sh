@@ -34,4 +34,4 @@ cp wqqwork/wqqgen $i/bin/
 cp zjetwork/zjetgen $i/bin/
 cp zqqwork/zqqgen $i/bin/
 
-cp -R alplib/* $i/alplib/ 
+cp -R alplib/* $i/alplib/
