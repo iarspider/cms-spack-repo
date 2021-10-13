@@ -72,7 +72,7 @@ class Alpgen(MakefilePackage):
     # end
 
     def url_for_version(self, version):
-        root = url.rsplit('/', 2)[0]
+        root = self.url.rsplit('/', 2)[0]
         return "{0}/V{1}/{2}.tgz".format(root, version.upto(2), version.joined)
 
     def patch(self):
