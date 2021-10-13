@@ -24,7 +24,7 @@ class Alpgen(MakefilePackage):
                         'SFT for ATLAS/LHCb/others.')
 
     version('2.1.4', sha256='2f43f7f526793fe5f81a3a3e1adeffe21b653a7f5851efc599ed69ea13985c5e')
-    
+
     phases = ['cmake', 'build', 'install']
 
     # copied from CMakePackage
@@ -43,7 +43,7 @@ class Alpgen(MakefilePackage):
         :return: directory where to build the package
         """
         return os.path.join(self.stage.path, self.build_dirname)
- 
+
     def cmake_args(self):
         """Produces a list containing all the arguments that must be passed to
         cmake, except:
@@ -67,7 +67,7 @@ class Alpgen(MakefilePackage):
         # standard CMake arguments
         std_cmake_args = CMakePackage._std_args(self)
         std_cmake_args += getattr(self, 'cmake_flag_args', [])
-        return std_cmake_args 
+        return std_cmake_args
 
     # end
 
@@ -116,7 +116,6 @@ class Alpgen(MakefilePackage):
         """Make the build targets"""
         with working_dir(self.build_directory):
             inspect.getmodule(self).make()
-
 
     @when('recipe=sft')
     def install(self, spec, prefix):
