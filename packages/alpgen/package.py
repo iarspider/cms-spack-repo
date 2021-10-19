@@ -115,7 +115,7 @@ class Alpgen(MakefilePackage):
         for root, dirs, files in os.walk(prefix):
             set_install_permissions(root)
             for file in files:
-                set_install_permissions(file)
+                set_install_permissions(join_path(root, file))
 
     @when('recipe=sft')
     def cmake(self, spec, prefix):
