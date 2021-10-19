@@ -23,6 +23,9 @@ cp ${SCRIPT_DIR}/g4data.py lib/spack/spack/build_systems/
 echo "from spack.build_systems.g4data import G4DataPackage" >> lib/spack/spack/pkgkit.py
 echo Updating autotools.py
 cp ${SCRIPT_DIR}/autotools.py lib/spack/spack/build_systems/
+echo Updating version.py
+cp ${SCRIPT_DIR}/version.py lib/spack/spack/version.py
+cp ${SCRIPT_DIR}/test_versions.py lib/spack/spack/test/versions.py
 echo Initializing Spack
 source share/spack/setup-env.sh
 echo Adding CMS repository
