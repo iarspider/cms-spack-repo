@@ -28,6 +28,7 @@ spack:
   view: false
   specs:
   - cms-config
+  - alpgen@2.1.4 recipe=cms
   - alpaka@0.7.0
   - autoconf@2.69
   - automake@1.16.1
@@ -152,7 +153,10 @@ spack:
   - py-absl-py@0.11.0
   - py-astor@0.8.1
   - py-astunparse@1.6.3
+  - py-async-lru@1.0.2
+  - py-backports-entry-points-selectable@1.1.0
   - py-certifi@2020.6.20
+  - py-cppy@1.1.0
   - py-cycler@0.10.0
   - py-cython@0.29.23
   - py-future@0.18.2
