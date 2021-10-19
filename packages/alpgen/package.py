@@ -102,6 +102,8 @@ class Alpgen(MakefilePackage):
 
     @when('recipe=cms')
     def build(self, spec, prefix):
+        copy(join_path(os.path.dirname(__file__), 'cms_build.sh'), 'cms_build.sh')
+        copy(join_path(os.path.dirname(__file__), 'cms_install.sh'), 'cms_install.sh')
         bash = which('bash')
         bash('./cms_build.sh')
 
