@@ -25,11 +25,14 @@ class CoralToolConf(Package):
     depends_on('zlib')
     depends_on('bzip2')
     depends_on('xerces-c')
-    depends_on('oracle-instant-client', when='arch=amd64')
+    depends_on('oracle-instant-client', when='arch=x86_64')
 
-    depends_on('scramv1', type='build')
+    depends_on('scram', type='build')
 
     skipreqtools = ['jcompiler']
+
+    aliases = {'python': 'python3', 'bzip2': 'bz2lib', 'scram': 'SCRAMV1', 'oracle-instant-client': 'oracle',
+               'util-linux-uuid': 'libuuid', 'frontier-client': 'frontier_client'}
 
     def get_all_deps(self, spec):
         res = {}
@@ -59,17 +62,19 @@ class CoralToolConf(Package):
         for x in pythonpath_mod:
             x.execute(new_env)
 
-        path_list = new_env['PYTHONPATH'].split(":")
+        path_list = new_env.get('PYTHONPATH', '').split(":")
         pruned_path_list = prune_duplicate_paths(path_list)
 
         return pruned_path_list
 
     @property
     def site_packages_dir(self):
-        return join_path('lib', 'python{0}'.format(self.spec['python'].version.up_to(2)), 'site-packages')
+        return join_path('lib', 'python{0}'.format(self.spec['python'].version.up_to(2)))
 
     def setup_build_environment(self, env):
-        env.set('SCRAMV1_ROOT', self.spec['scramv1'].prefix)
+        env.set('scram_ROOT', self.spec['scram'].prefix)
+        env.set('GCC_ROOT', os.path.dirname(os.path.dirname(self.compiler.cc)))
+        env.set('GCC_VERSIO', self.compiler.real_version)
 
     def install(self, spec, prefix):
         get_tools_path = join_path(os.path.dirname(__file__), '..', 'ToolfilePackage', 'bin', 'get_tools')
@@ -84,19 +89,20 @@ class CoralToolConf(Package):
                 uctool = dep_name.upper().replace('-', '_')
                 toolbase = dep['prefix']
                 toolver = dep['version']
-
-                print(f"get_tools({toolbase}, {toolver}, {self.prefix}, {dep_name})", file=self.logfile)
+                dep_name = self.aliases.get(dep_name, dep_name)
 
                 get_tools(toolbase, toolver, prefix, dep_name)
 
+        gcc_dir = os.path.dirname(os.path.dirname(self.compiler.cc))
+        get_tools(gcc_dir, str(self.compiler.real_version), prefix, 'gcc')
         get_tools("", "system", self.prefix, "systemtools")
         # TODO: vectorization
 
         for tool in [x.lower() for x in self.skipreqtools]:
-            if os.path.isfile(join_path(prefix, "tools", "selected", x+'.xml')):
-                shutil.move(join_path(prefix, "tools", "selected", x+'.xml'), join_path(prefix, "tools", "available", x+'.xml'))
+            if os.path.isfile(join_path(prefix, "tools", "selected", tool+'.xml')):
+                shutil.move(join_path(prefix, "tools", "selected", tool+'.xml'), join_path(prefix, "tools", "available", tool+'.xml'))
 
-        if os.path.exists(join_path(self.spec['scramv1'].prefix.bin, 'chktool')):
+        if os.path.exists(join_path(self.spec['scram'].prefix.bin, 'chktool')):
             bash = which('bash')
             bash(join_path(os.path.dirname(__file__), 'run_chktool.sh'), prefix)
 
@@ -107,6 +113,7 @@ class CoralToolConf(Package):
                 f.write(pkg + '\n')
 
         with open(join_path(prefix.tools.selected, 'python-paths.xml'), 'a') as f:
+            f.write('<tool name="python-paths" version="1.0">\n')
             f.write('  <runtime name="PYTHON3PATH"  value="' + join_path(prefix, self.site_packages_dir, 'site-packages')  + '" type="path"/>\n')
             f.write('</tool>\n')
 
@@ -118,11 +125,11 @@ class CoralToolConf(Package):
 
             pk_name = dep_name.upper()
 
-            if os.path.isfile(join_path(prefix.tools.selected, pkname + '.xml')):
+            if os.path.isfile(join_path(prefix.tools.selected, pk_name + '.xml')):
                 continue
 
-            uctool = pkname.replace('-', '_')
-            with open(join_path(prefix.tools.selected, pkname + '.xml'), 'w') as f:
+            uctool = pk_name.replace('-', '_')
+            with open(join_path(prefix.tools.selected, pk_name + '.xml'), 'w') as f:
                 f.write(f"<tool name=\"{pk_name}\" version=\"{dep['version']}\">\n")
                 if os.path.exists(join_path(dep['prefix'], 'bin')):
                     for b in os.listdir(join_path(dep['prefix'], 'bin')):
