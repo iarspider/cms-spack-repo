@@ -158,7 +158,7 @@ spack:
   - py-protobuf@3.15.1
   - py-python-dateutil@2.8.1
   - py-pybind11@2.6.2
-  - py-setuptools@51.3.3
+  - py-setuptools@58.2.0
   - py-setuptools-scm@4.1.2
   - py-six@1.15.0
   - py-tensorflow@2.5.0.cms~cuda~nccl~only_python+mpi
