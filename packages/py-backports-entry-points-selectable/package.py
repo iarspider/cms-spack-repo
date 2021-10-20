@@ -18,4 +18,4 @@ class PyBackportsEntryPointsSelectable(PythonPackage):
 
     depends_on('python@2.7.0:2.7,3.0:3.10', type=('build', 'run'))
     depends_on('py-setuptools', type='build')
-    depends_on('py-importlib-metadata@:3.8', type='build')
+    depends_on('py-importlib-metadata', when='^python@:3.7', type='build')
