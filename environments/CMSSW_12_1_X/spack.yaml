@@ -142,6 +142,7 @@ spack:
   - py-google-pasta@0.2.0
   - py-grpcio@1.36.0
   - py-h5py@2.10.0
+  - py-idna@3.2
   - py-importlib-metadata@4.8.1
   - py-keras-applications@1.0.8
   - py-keras-preprocessing@1.1.2
