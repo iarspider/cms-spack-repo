@@ -38,7 +38,6 @@ spack:
   - clhep@2.4.5.1.cms
   - cmake@3.18.2~ownlibs~ncurses
   - cmssw-config@V06-03-01
-  - collier@1.2.5
   - coral@2.3.21py3
   - cppunit@1.15.x
   - cuda@11.4.2
@@ -129,6 +128,7 @@ spack:
   - protobuf@3.15.1
   - py-absl-py@0.11.0
   - py-anyio@3.3.4
+  - py-appdirs@1.4.4
   - py-astor@0.8.1
   - py-astunparse@1.6.3
   - py-async-lru@1.0.2
