@@ -164,6 +164,7 @@ spack:
   - py-sniffio@1.2.0
   - py-tensorflow@2.5.0.cms~cuda~nccl~only_python+mpi
   - py-termcolor@1.1.0
+  - py-tomli@1.2.1
   - py-typing-extensions@3.7.4.3
   - py-wheel@0.36.2
   - py-wrapt@1.12.1
