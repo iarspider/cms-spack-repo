@@ -128,6 +128,7 @@ spack:
   - pkg-config@0.29.2+internal_glib
   - protobuf@3.15.1
   - py-absl-py@0.11.0
+  - py-anyio@3.3.4
   - py-astor@0.8.1
   - py-astunparse@1.6.3
   - py-async-lru@1.0.2
@@ -165,6 +166,7 @@ spack:
   - py-typing-extensions@3.7.4.3
   - py-wheel@0.36.2
   - py-wrapt@1.12.1
+  - py-zipp@3.6.0
   - pythia8@8.306+hepmc~hepmc3+lhapdf
   - python@3.9.6~libxml2~debug
   - qgraf@3.4.2
