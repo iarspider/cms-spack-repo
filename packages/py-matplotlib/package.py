@@ -98,6 +98,7 @@ class PyMatplotlib(PythonPackage):
     depends_on('qhull@2015.2:2020.1', when='@3.3.0:3.3.999')
     depends_on('libpng@1.2:')
     depends_on('py-setuptools', type=('build', 'run'))  # See #3813
+    depends_on('py-packaging', type='build')
     depends_on('py-certifi@2020.6.20:', when='@3.3.1:', type='build')
     depends_on('py-numpy@1.11:', type=('build', 'run'))
     depends_on('py-numpy@1.15:', when='@3.3:', type=('build', 'run'))
