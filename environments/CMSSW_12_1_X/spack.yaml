@@ -137,6 +137,10 @@ spack:
   - py-astroid@2.7.3
   - py-astunparse@1.6.3
   - py-async-lru@1.0.2
+  - py-async-timeout@3.0.1
+  - py-atomicwrites@1.4.0
+  - py-attrs@21.2.0
+  - py-autopep8@1.6.0
   - py-backports-entry-points-selectable@1.1.0
   - py-certifi@2020.6.20
   - py-chardet@4.0
@@ -158,6 +162,7 @@ spack:
   - py-numpy@1.19.5
   - py-onnx@1.8.1
   - py-opt-einsum@3.3.0
+  - py-pycodestyle@2.8.0
   - py-pyparsing@2.4.7
   - py-pillow@8.0.0
   - py-pip@20.3.3
