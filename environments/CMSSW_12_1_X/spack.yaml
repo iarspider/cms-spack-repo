@@ -127,13 +127,19 @@ spack:
   - pkg-config@0.29.2+internal_glib
   - protobuf@3.15.1
   - py-absl-py@0.11.0
+  - py-aiohttp@3.7.4
   - py-anyio@3.3.4
   - py-appdirs@1.4.4
+  - py-argon2-cffi@21.1.0
+  - py-argparse@1.4.0
+  - py-asn1crypto@1.4.0
   - py-astor@0.8.1
+  - py-astroid@2.7.3
   - py-astunparse@1.6.3
   - py-async-lru@1.0.2
   - py-backports-entry-points-selectable@1.1.0
   - py-certifi@2020.6.20
+  - py-chardet@4.0
   - py-cppy@1.1.0
   - py-cycler@0.10.0
   - py-cython@0.29.23
