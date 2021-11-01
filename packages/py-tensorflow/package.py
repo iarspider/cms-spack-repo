@@ -24,6 +24,7 @@ class PyTensorflow(Package, CudaPackage):
     maintainers = ['adamjstewart', 'aweits']
     import_modules = ['tensorflow']
 
+    version('2.6.0.cms',  commit='719e00b6f9553de2662b6df2c353d6934e941103')
     version('2.5.0.cms',  commit='9b69eda15062cfec1b9c2d6f78c0fecbf9e67a34')
 
     variant('mkl', default=False, description='Build with MKL support')
@@ -188,7 +189,7 @@ class PyTensorflow(Package, CudaPackage):
     depends_on('py-scipy@1.2.2', type=('build', 'run'), when='@2.1.0:2.1.1,2.2.0,2.3.0 ^python@:2')
     depends_on('py-scipy@1.4.1', type=('build', 'run'), when='@2.1.0:2.1.1,2.2.0,2.3.0 ^python@3:')
 
-    depends_on('py-typing-extensions@3.7.4:3.7.999', type=('build', 'run'), when='@2.4.0:')
+    depends_on('py-typing-extensions@3.7.4:3.10', type=('build', 'run'), when='@2.4.0:') # -- CMS
     # depends_on('py-grpcio@1.8.6:', type=('build', 'run'), when='@1.6:1.7')
 
     if sys.byteorder == 'little':
@@ -582,6 +583,7 @@ class PyTensorflow(Package, CudaPackage):
         # -- CMS
         env.set('GCC_HOST_COMPILER_PATH', spack_cc)
         env.set('CC_OPT_FLGCC_HOST_COMPILER_PATHAGS', '-Wno-sign-compare')
+        filter_file('lib/python[^/]*/site-packages/', self.spec['python'].package.site_packages_dir, join_path(tmp_path, 'third_party/systemlibs/pybind11.BUILD'))
 
 #    def patch(self):
 #        if self.spec.satisfies('@2.3.0:'):
