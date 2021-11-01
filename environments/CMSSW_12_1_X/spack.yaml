@@ -173,14 +173,25 @@ spack:
   - py-fasteners@0.16.3
   - py-filelock@3.0.12
   - py-flake8@4.0.1
+  - py-flit@3.3.0
+  - py-flit-core@3.3.0
   - py-funcsigs@1.0.2
   - py-future@0.18.2
   - py-gast@0.5.2
+  - py-gitdb@4.0.7
+  - py-gitpython@3.1.18
+  - py-google-auth@2.0.2
+  - py-google-auth-oauthlib@0.4.6
   - py-google-pasta@0.2.0
   - py-grpcio@1.36.0
   - py-h5py@2.10.0
+  - py-html5lib@1.1
   - py-idna@3.2
+  - py-immutables@0.16
   - py-importlib-metadata@4.8.1
+  - py-iniconfig@1.1.1
+  - py-ipaddress@1.0.23
+  - py-ipykernel@6.4.1
   - py-keras-applications@1.0.8
   - py-keras-preprocessing@1.1.2
   - py-kiwisolver@1.3.2
