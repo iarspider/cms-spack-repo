@@ -143,7 +143,7 @@ spack:
   - py-autopep8@1.6.0
   - py-backcall@0.2.0
   - py-backports-entry-points-selectable@1.1.0
-  - py-beautifulsoup4@4.10.3
+  - py-beautifulsoup4@4.10.0
   - py-beniget@0.4.1
   - py-bleach@4.1.0
   - py-bokeh@2.4.1
