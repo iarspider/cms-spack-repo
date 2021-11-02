@@ -189,9 +189,22 @@ spack:
   - py-idna@3.2
   - py-immutables@0.16
   - py-importlib-metadata@4.8.1
+  - py-importlib-resources@5.3.0
   - py-iniconfig@1.1.1
   - py-ipaddress@1.0.23
   - py-ipykernel@6.4.1
+  - py-ipython@7.28.0
+  - py-ipywidgets@7.6.5
+  - py-isort@5.9.3
+  - py-jedi@0.18.0
+  - py-jinja2@3.0.1
+  - py-joblib@1.0.1
+  - py-jsonpickle@2.0.0
+  - py-jsonschema@3.2.0
+  - py-jupyter-client@7.0.6
+  - py-jupyter-core@4.7.1
+  - py-jupyter-packaging@0.10.6
+  - py-jupyter-server@1.11.2
   - py-keras-applications@1.0.8
   - py-keras-preprocessing@1.1.2
   - py-kiwisolver@1.3.2
