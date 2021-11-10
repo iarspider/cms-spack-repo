@@ -222,7 +222,13 @@ spack:
   - py-markdown@3.3.4
   - py-markupsafe@2.0.1
   - py-matplotlib@3.4.3
-  - py-mock@3.0.5
+  - py-matplotlib-inline@0.1.2
+  - py-mccabe@0.6.1
+  - py-mistune@0.8.4
+  - py-mock@4.0.3
+  - py-mpld3@0.5.5
+  - py-mpmath@1.2.1
+  - py-multidict@5.2.0
   - py-numpy@1.19.5
   - py-onnx@1.8.1
   - py-opt-einsum@3.3.0
