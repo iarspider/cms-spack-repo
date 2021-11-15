@@ -1,5 +1,5 @@
 #!/bin/bash
-SPACK_VERSION="729d66a3f8"
+SPACK_VERSION="v0.17"
 SPACK_ENV="CMSSW_12_1_X"
 ###############################################################################
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
