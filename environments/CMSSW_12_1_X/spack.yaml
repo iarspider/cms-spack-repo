@@ -253,8 +253,26 @@ spack:
   - py-pip@20.3.3
   - py-pkgconfig@1.5.2
   - py-protobuf@3.15.1
-  - py-python-dateutil@2.8.1
-  - py-pybind11@2.6.2
+  - py-psutil@5.8.0
+  - py-ptyprocess@0.7.0
+  - py-py@1.11.0
+  - py-pyasn1-modules@0.2.8
+  - py-pyasn1@0.4.8
+  - py-pybind11@2.7.1
+  - py-pycodestyle@2.8.0
+  - py-pycparser@2.20
+  - py-pycuda@2021.1
+  - py-pycurl@7.44.1
+  - py-pydantic@1.8.2
+  - py-pydot@1.4.2
+  - py-pyflakes@2.4.0
+  - py-pygithub@1.55
+  - py-pygments@2.10.0
+  - py-pymongo@3.12.1
+  - py-pyparsing@2.4.7
+  - py-pytest-runner@5.3.1
+  - py-pytest@6.2.5
+  - py-python-dateutil@2.8.2
   - py-setuptools@58.2.0
   - py-setuptools-scm@6.3.1
   - py-six@1.15.0
