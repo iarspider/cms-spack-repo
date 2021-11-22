@@ -273,10 +273,41 @@ spack:
   - py-pytest-runner@5.3.1
   - py-pytest@6.2.5
   - py-python-dateutil@2.8.2
+  - py-python-daemon@2.3.0
+  - py-python-ldap@3.3.1
+  - py-python-rapidjson@1.5
+  - py-pythran@0.10.0
+  - py-pytools@2021.2.9
+  - py-pytz@2021.1
+  - py-pyyaml@6.0
+  - py-pyzmq@22.3.0
+  - py-qtconsole@5.2.0
+  - py-qtpy@1.11.2
+  - py-repoze-lru@0.7
+  - py-requests-oauthlib@1.3.0
+  - py-requests-toolbelt@0.9.1
+  - py-requests-unixsocket@0.2.0
+  - py-requests@2.26.0
+  - py-rich@10.9.0
+  - py-rsa@4.7.2
+  - py-scandir@1.10.0
+  - py-scikit-build@0.12.0
+  - py-scikit-learn@0.24.2
+  - py-scipy@1.7.2
+  - py-send2trash@1.8.0
+  - py-simplegeneric@0.8.1
+  - py-seaborn@0.11.2
   - py-setuptools@58.2.0
   - py-setuptools-scm@6.3.1
-  - py-six@1.15.0
+  - py-six@1.16.0
   - py-sniffio@1.2.0
+  - py-soupsieve@2.2.1
+  - py-sqlalchemy@1.4.20
+  - py-stevedore@3.5.0
+  - py-subprocess32@3.5.4
+  - py-sympy@1.8
+  - py-tables@3.6.1
+  - py-tenacity@8.0.1
   - py-tensorflow@2.5.0.cms~cuda~nccl~only_python+mpi
   - py-termcolor@1.1.0
   - py-tomli@1.2.1
