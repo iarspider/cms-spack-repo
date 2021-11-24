@@ -24,6 +24,7 @@ class PyTensorflow(Package, CudaPackage):
     maintainers = ['adamjstewart', 'aweits']
     import_modules = ['tensorflow']
 
+    version('2.6.0.cms',  commit='719e00b6f9553de2662b6df2c353d6934e941103')
     version('2.5.0.cms',  commit='9b69eda15062cfec1b9c2d6f78c0fecbf9e67a34')
 
     variant('mkl', default=False, description='Build with MKL support')
@@ -220,7 +221,7 @@ class PyTensorflow(Package, CudaPackage):
     depends_on('libpng')
     depends_on('libjpeg-turbo')
     depends_on('curl')
-    depends_on('pcre')
+    depends_on('pcre', when='@2.5.0.cms')
     depends_on('giflib')
     depends_on('sqlite')
     depends_on('grpc@1.35.0:')
@@ -555,7 +556,8 @@ class PyTensorflow(Package, CudaPackage):
             f.write("curl:" + self.spec["curl"].prefix + "\n")
             f.write("com_google_protobuf:" + self.spec["py-protobuf"].prefix + "\n")
             f.write("com_github_grpc_grpc:" + self.spec["grpc"].prefix + "\n")
-            f.write("pcre:" + self.spec["pcre"].prefix + "\n")
+            if self.spec.satisfies('@2.5.0.cms'):
+                f.write("pcre:" + self.spec["pcre"].prefix + "\n")
             f.write("gif:" + self.spec["giflib"].prefix + "\n")
             f.write("org_sqlite:" + self.spec["sqlite"].prefix + "\n")
             f.write("cython:" + "\n")
@@ -574,7 +576,10 @@ class PyTensorflow(Package, CudaPackage):
             f.write("org_python_pypi_backports_weakref:" + "\n")
             f.write("opt_einsum_archive:" + "\n")
 
-        env.set('TF_SYSTEM_LIBS', 'png,libjpeg_turbo,zlib,eigen_archive,curl,com_google_protobuf,com_github_grpc_grpc,pcre,gif,org_sqlite,cython,flatbuffers,functools32_archive,enum34_archive,astor_archive,six_archive,absl_py,termcolor_archive,typing_extensions_archive,pasta,wrapt,gast_archive,org_python_pypi_backports_weakref,opt_einsum_archive')
+        if self.spec.satisfies('@2.5.0.cms:'):
+            env.set('TF_SYSTEM_LIBS', 'png,libjpeg_turbo,zlib,eigen_archive,curl,com_google_protobuf,com_github_grpc_grpc,pcre,gif,org_sqlite,cython,flatbuffers,functools32_archive,enum34_archive,astor_archive,six_archive,absl_py,termcolor_archive,typing_extensions_archive,pasta,wrapt,gast_archive,org_python_pypi_backports_weakref,opt_einsum_archive')
+        else:
+            env.set('TF_SYSTEM_LIBS', 'png,libjpeg_turbo,zlib,eigen_archive,curl,com_google_protobuf,com_github_grpc_grpc,gif,org_sqlite,cython,flatbuffers,functools32_archive,enum34_archive,astor_archive,six_archive,absl_py,termcolor_archive,typing_extensions_archive,pasta,wrapt,gast_archive,org_python_pypi_backports_weakref,opt_einsum_archive')
         # NOTE: INCLUDEDIR is not just relevant to protobuf
         # see third_party/systemlibs/jsoncpp.BUILD
         env.set('INCLUDEDIR', spec['protobuf'].prefix.include)
