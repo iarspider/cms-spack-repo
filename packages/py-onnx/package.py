@@ -35,3 +35,6 @@ class PyOnnx(PythonPackage):
 
     # 'python_out' does not recognize dllexport_decl.
     patch('remove_dllexport_decl.patch', when='@:1.6.0')
+
+    def setup_build_environment(self, env):
+        env.set('ONNX_ML', '1')
