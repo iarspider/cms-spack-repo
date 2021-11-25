@@ -44,6 +44,8 @@ class Madgraph5amc(Package):
             'the CMS experimenent on LHC')
     variant('nb_core', default=0, description='Number of cores to use. Default (0) ' +
             ' - use all available cores')
+    variant('thepeg', default=False)
+    variant('root', default=False)
 
     conflicts('%gcc@10:', when='@2.7.3')
 

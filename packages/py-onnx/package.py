@@ -31,8 +31,7 @@ class PyOnnx(PythonPackage):
     depends_on('py-typing@3.6.4:', when='^python@:3.4.999', type=('build', 'run'))
     depends_on('py-typing-extensions@3.6.4:', type=('build', 'run'))
     depends_on('cmake@3.1:', type='build')
-    depends_on('py-wheel', type='build')
-    depends_on('py-pip', type='build')
+    depends_on('py-pytest-runner', type='build')
 
     # 'python_out' does not recognize dllexport_decl.
     patch('remove_dllexport_decl.patch', when='@:1.6.0')

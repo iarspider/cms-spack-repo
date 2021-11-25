@@ -25,7 +25,7 @@ class CoralToolConf(Package):
     depends_on('zlib')
     depends_on('bzip2')
     depends_on('xerces-c')
-    depends_on('oracle-instant-client', when='arch=x86_64')
+    depends_on('oracle-instant-client', when='target=x86_64:')
 
     depends_on('scram', type='build')
 
@@ -82,17 +82,25 @@ class CoralToolConf(Package):
         get_tools = Executable(get_tools_path)
         all_deps = self.get_all_deps(spec)
 
+        logfile = open('/build/razumov/cms-spack-repo/spack/coral.log', 'w')
+
         with working_dir(prefix, create=True):
             mkdirp('tools/selected')
             mkdirp('tools/available')
             for dep_name, dep in all_deps.items():
+                print(f"Processing dependency {dep_name}", file=logfile)
                 uctool = dep_name.upper().replace('-', '_')
                 toolbase = dep['prefix']
                 toolver = dep['version']
                 dep_name = self.aliases.get(dep_name, dep_name)
+                print(f"... tool name is {dep_name}", file=logfile)
 
-                get_tools(toolbase, toolver, prefix, dep_name)
+                out = get_tools(toolbase, toolver, prefix, dep_name, output=str, error=str)
+                print(f"... executed {get_tools.path} {toolver} {prefix} {dep_name}, output follows", file=logfile)
+                print(out, file=logfile)
+                print('\nEND', file=logfile)
 
+        logfile.close()
         gcc_dir = os.path.dirname(os.path.dirname(self.compiler.cc))
         get_tools(gcc_dir, str(self.compiler.real_version), prefix, 'gcc')
         get_tools("", "system", self.prefix, "systemtools")

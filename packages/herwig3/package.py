@@ -36,8 +36,8 @@ class Herwig3(AutotoolsPackage):
     # depends_on('njet', type='link') -- CMS
     depends_on('py-gosam', type='link')
     depends_on('gosam-contrib', type='link')
-    depends_on('openloops', type='link', when='arch=x86_64')
-    depends_on('openloops', type='link', when='arch=aarch64')
+    depends_on('openloops', type='link', when='target=x86_64:')
+    depends_on('openloops', type='link', when='target=aarch64:')
     # -- CMS
     depends_on('hepmc', type=('build', 'link'))
     depends_on('yoda', type=('build', 'link'))
