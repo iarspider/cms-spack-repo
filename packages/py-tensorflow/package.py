@@ -24,6 +24,7 @@ class PyTensorflow(Package, CudaPackage):
     maintainers = ['adamjstewart', 'aweits']
     import_modules = ['tensorflow']
 
+    version('2.6.0.cms',  commit='719e00b6f9553de2662b6df2c353d6934e941103')
     version('2.5.0.cms',  commit='9b69eda15062cfec1b9c2d6f78c0fecbf9e67a34')
 
     variant('mkl', default=False, description='Build with MKL support')
@@ -108,7 +109,7 @@ class PyTensorflow(Package, CudaPackage):
     depends_on('py-enum34@1.1.6:', type=('build', 'run'), when='@1.5: ^python@:3.3')
     depends_on('py-enum34@1.1.6:', type=('build', 'run'), when='@1.4.0:1.4.1')
 
-    depends_on('py-gast@0.4.0:', type=('build', 'run'), when='@2.5.0.cms')
+    depends_on('py-gast@0.4.0:', type=('build', 'run'), when='@2.5.0.cms:')
     #depends_on('py-gast@0.3.3', type=('build', 'run'), when='@2.2:2.4')
     #depends_on('py-gast@0.2.2', type=('build', 'run'), when='@1.15:2.1')
     #depends_on('py-gast@0.2.0:', type=('build', 'run'), when='@1.6:1.14')
@@ -220,7 +221,7 @@ class PyTensorflow(Package, CudaPackage):
     depends_on('libpng')
     depends_on('libjpeg-turbo')
     depends_on('curl')
-    depends_on('pcre')
+    depends_on('pcre', when='@2.5.0.cms')
     depends_on('giflib')
     depends_on('sqlite')
     depends_on('grpc@1.35.0:')
@@ -267,32 +268,6 @@ class PyTensorflow(Package, CudaPackage):
     conflicts('+monolithic', when='@:1.3')
     conflicts('+numa', when='@:1.12.0,1.12.2:1.13')
     conflicts('+dynamic_kernels', when='@:1.12.0,1.12.2:1.12.3')
-
-    # TODO: why is this needed?
-    patch('url-zlib.patch',  when='@0.10.0')
-    # TODO: why is this needed?
-    patch('crosstool.patch', when='@0.10.0+cuda')
-    # Avoid build error: "no such package '@io_bazel_rules_docker..."
-    patch('io_bazel_rules_docker2.patch', when='@1.15:2.0')
-    # Avoide build error: "name 'new_http_archive' is not defined"
-    patch('http_archive.patch', when='@1.12.3')
-    # Backport of 837c8b6b upstream
-    # "Remove contrib cloud bigtable and storage ops/kernels."
-    # Allows 2.0.* releases to build with '--config=nogcp'
-    patch('0001-Remove-contrib-cloud-bigtable-and-storage-ops-kernel.patch',
-          when='@2.0.0:2.0.999')
-
-    # for fcc
-    patch('1-1_fcc_tf_patch.patch', when='@2.1.0:2.1.99%fj')
-
-    # do not import contrib.cloud if not available
-    patch('https://github.com/tensorflow/tensorflow/commit/ed62ac8203999513dfae03498e871ea35eb60cc4.patch',
-          sha256='c37d14622a86b164e2411ea45a04f756ac61b2044d251f19ab17733c508e5305', when='@1.14.0')
-    # import_contrib_cloud patch for older versions
-    patch('contrib_cloud_1.10.patch', when='@1.10:1.13')
-    patch('contrib_cloud_1.9.patch', when='@1.9')
-    patch('contrib_cloud_1.4.patch', when='@1.4:1.8')
-    patch('contrib_cloud_1.1.patch', when='@1.1:1.3')
 
     phases = ['configure', 'build', 'install']
 
@@ -555,7 +530,8 @@ class PyTensorflow(Package, CudaPackage):
             f.write("curl:" + self.spec["curl"].prefix + "\n")
             f.write("com_google_protobuf:" + self.spec["py-protobuf"].prefix + "\n")
             f.write("com_github_grpc_grpc:" + self.spec["grpc"].prefix + "\n")
-            f.write("pcre:" + self.spec["pcre"].prefix + "\n")
+            if self.spec.satisfies('@2.5.0.cms'):
+                f.write("pcre:" + self.spec["pcre"].prefix + "\n")
             f.write("gif:" + self.spec["giflib"].prefix + "\n")
             f.write("org_sqlite:" + self.spec["sqlite"].prefix + "\n")
             f.write("cython:" + "\n")
@@ -574,7 +550,10 @@ class PyTensorflow(Package, CudaPackage):
             f.write("org_python_pypi_backports_weakref:" + "\n")
             f.write("opt_einsum_archive:" + "\n")
 
-        env.set('TF_SYSTEM_LIBS', 'png,libjpeg_turbo,zlib,eigen_archive,curl,com_google_protobuf,com_github_grpc_grpc,pcre,gif,org_sqlite,cython,flatbuffers,functools32_archive,enum34_archive,astor_archive,six_archive,absl_py,termcolor_archive,typing_extensions_archive,pasta,wrapt,gast_archive,org_python_pypi_backports_weakref,opt_einsum_archive')
+        if self.spec.satisfies('@2.5.0.cms'):
+            env.set('TF_SYSTEM_LIBS', 'png,libjpeg_turbo,zlib,eigen_archive,curl,com_google_protobuf,com_github_grpc_grpc,pcre,gif,org_sqlite,cython,flatbuffers,functools32_archive,enum34_archive,astor_archive,six_archive,absl_py,termcolor_archive,typing_extensions_archive,pasta,wrapt,gast_archive,org_python_pypi_backports_weakref,opt_einsum_archive')
+        else:
+            env.set('TF_SYSTEM_LIBS', 'png,libjpeg_turbo,zlib,eigen_archive,curl,com_google_protobuf,com_github_grpc_grpc,gif,org_sqlite,cython,flatbuffers,functools32_archive,enum34_archive,astor_archive,six_archive,absl_py,termcolor_archive,typing_extensions_archive,pasta,wrapt,gast_archive,org_python_pypi_backports_weakref,opt_einsum_archive')
         # NOTE: INCLUDEDIR is not just relevant to protobuf
         # see third_party/systemlibs/jsoncpp.BUILD
         env.set('INCLUDEDIR', spec['protobuf'].prefix.include)

@@ -24,3 +24,4 @@ class PyAnyio(PythonPackage):
     depends_on('py-idna@2.8:', type=('build', 'run'))
     depends_on('py-sniffio@1.1:', type=('build', 'run'))
     depends_on('py-typing-extensions', when='^python@:3.7', type=('build', 'run'))
+    depends_on('py-packaging@20:', type='build')
