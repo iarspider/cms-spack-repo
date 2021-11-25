@@ -36,9 +36,9 @@ class M4(AutotoolsPackage, GNUMirrorPackage):
     patch('https://src.fedoraproject.org/rpms/m4/raw/5d147168d4b93f38a4833f5dd1d650ad88af5a8a/f/m4-1.4.18-glibc-change-work-around.patch', sha256='fc9b61654a3ba1a8d6cd78ce087e7c96366c290bc8d2c299f09828d793b853c8', when='@1.4.18')
     # from: https://www.mail-archive.com/m4-patches@gnu.org/msg01208.html
     # tests: Fix failing test checks/198.sysval with upstream patch for doc/m4.texi
-    patch('index.html?id=a1354086',
+    patch('git_a1354086.patch',
           sha256='bfdffa7c2eb01021d5849b36972c069693654ad826c1a20b53534009a4ec7a89', when='@1.4.19')
-    patch('index.html?id=cd7f4d15',
+    patch('git_cd7f4d15.patch',
           sha256='9dc5fbd0d5cb1037ab1e6d0ecc74a30df218d0a94bdd5a02759a97f62daca573', when='@1.4.19')
 
     variant('sigsegv', default=True,
