@@ -7,6 +7,7 @@
 #   - cudnn@8.2.2.26
 #   - py-jupyterlab-widgets@1.0.1 - maybe use wheel to avoid py-jupter-packaging dep?
 #   - py-ipywidgets@7.6.5 - depends on jupyterlab-widgets
+#   - py-jupyter@1.0.0
 spack:
   concretization: together
   packages:
@@ -206,7 +207,6 @@ spack:
   - py-jupyter-core@4.7.1
   - py-jupyter-packaging@0.10.6
   - py-jupyter-server@1.11.2
-  - py-jupyter@1.0.0
   - py-jupyterlab-pygments@0.1.2
   - py-keras-applications@1.0.8
   - py-keras-preprocessing@1.1.2
