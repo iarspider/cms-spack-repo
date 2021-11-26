@@ -6,6 +6,7 @@
 # NOTICE: ~cuda~nvml for now
 #   - cudnn@8.2.2.26
 #   - py-jupyterlab-widgets@1.0.1 - maybe use wheel to avoid py-jupter-packaging dep?
+#   - py-ipywidgets@7.6.5 - depends on jupyterlab-widgets
 spack:
   concretization: together
   packages:
@@ -195,7 +196,6 @@ spack:
   - py-ipaddress@1.0.23
   - py-ipykernel@6.4.1
   - py-ipython@7.28.0
-  - py-ipywidgets@7.6.5
   - py-isort@5.9.3
   - py-jedi@0.18.0
   - py-jinja2@3.0.1
