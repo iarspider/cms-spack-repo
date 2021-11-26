@@ -4,8 +4,8 @@
 # configuration settings.
 # NOTICE: intel-tbb should not be replaced with intel-oneapi-tbb, the latter one is pre-built and not configurable
 # NOTICE: ~cuda~nvml for now
-# nlohmann-json     version('3.10.2', sha256='081ed0f9f89805c2d96335c3acfa993b39a0a5b4b4cef7edb68dd2210a13458c')
 #   - cudnn@8.2.2.26
+#   - py-jupyterlab-widgets@1.0.1 - maybe use wheel to avoid py-jupter-packaging dep?
 spack:
   concretization: together
   packages:
@@ -152,7 +152,7 @@ spack:
   - py-cachetools@4.2.4
   - py-certifi@2021.10.8
   - py-cffi@1.15.0
-  - py-chardet@4.0
+  - py-chardet@4.0.0
   - py-click@8.0.1
   - py-cloudpickle@1.6.0
   - py-colorama@0.4.4
@@ -208,7 +208,6 @@ spack:
   - py-jupyter-server@1.11.2
   - py-jupyter@1.0.0
   - py-jupyterlab-pygments@0.1.2
-  - py-jupyterlab-widgets@1.0.1
   - py-keras-applications@1.0.8
   - py-keras-preprocessing@1.1.2
   - py-keyring@23.1.0
