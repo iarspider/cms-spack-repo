@@ -294,7 +294,7 @@ spack:
   - py-simplegeneric@0.8.1
   - py-seaborn@0.11.2
   - py-setuptools@58.2.0
-  - py-setuptools-scm@6.3.1
+  - py-setuptools-scm@5.0.2 # NB: py-lazy-object-proxy
   - py-six@1.16.0
   - py-sniffio@1.2.0
   - py-soupsieve@2.2.1
