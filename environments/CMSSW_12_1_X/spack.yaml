@@ -272,7 +272,7 @@ spack:
   - py-python-daemon@2.3.0
   - py-python-ldap@3.3.1
   - py-python-rapidjson@1.5
-  - py-pythran@0.10.0
+  - py-pythran@0.9.12 # NB: py-scipy
   - py-pytools@2021.2.9
   - py-pytz@2021.1
   - py-pyyaml@6.0
