@@ -183,8 +183,8 @@ spack:
   - py-gast@0.5.2
   - py-gitdb@4.0.7
   - py-gitpython@3.1.18
-  - py-google-auth@2.0.2
-  - py-google-auth-oauthlib@0.4.6
+  - py-google-auth@1.6.3  # NB: py-tensorboard
+  - py-google-auth-oauthlib@0.4.1  # NB: py-google-auth < 2.0 for py-tensorboard
   - py-google-pasta@0.2.0
   - py-grpcio@1.36.0
   - py-h5py@2.10.0
@@ -295,7 +295,7 @@ spack:
   - py-seaborn@0.11.2
   - py-setuptools@57.4.0 # NB: py-scipy
   - py-setuptools-scm@5.0.2 # NB: py-lazy-object-proxy
-  - py-six@1.16.0
+  - py-six@1.15.0 # NB: py-tensorflow
   - py-sniffio@1.2.0
   - py-soupsieve@2.2.1
   - py-sqlalchemy@1.4.20
@@ -323,7 +323,7 @@ spack:
   - py-tqdm@4.62.3
   - py-traitlets@5.1.1
   - py-typed-ast@1.4.3
-  - py-typing-extensions@3.10.0.2
+  - py-typing-extensions@3.7.4.3 # NB: py-tensorflow
   - py-typing@3.7.4.3
   - py-uncertainties@3.1.6
   - py-uproot@4.1.8
