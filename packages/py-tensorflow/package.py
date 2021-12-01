@@ -94,11 +94,11 @@ class PyTensorflow(Package, CudaPackage):
     depends_on('py-future', type='build', when='^python@:2')
 
     # Listed under REQUIRED_PACKAGES in tensorflow/tools/pip_package/setup.py
-    depends_on('py-absl-py@0.10:0.999', type=('build', 'run'), when='@2.4.0:')
+    depends_on('py-absl-py@0.10:0', type=('build', 'run'), when='@2.4.0:')
     depends_on('py-absl-py@0.7.0:', type=('build', 'run'), when='@1.12.1,1.14:2.3')
     depends_on('py-absl-py@0.1.6:', type=('build', 'run'), when='@1.5:1.11')
 
-    depends_on('py-astunparse@1.6.3:1.6.999', type=('build', 'run'), when='@2.4.0:')
+    depends_on('py-astunparse@1.6.3:1.6', type=('build', 'run'), when='@2.4.0:')
     depends_on('py-astunparse@1.6.3', type=('build', 'run'), when='@2.2:2.3')
 
     depends_on('py-astor@0.6.0:', type=('build', 'run'), when='@1.6:2.1')
@@ -114,11 +114,13 @@ class PyTensorflow(Package, CudaPackage):
     #depends_on('py-gast@0.2.2', type=('build', 'run'), when='@1.15:2.1')
     #depends_on('py-gast@0.2.0:', type=('build', 'run'), when='@1.6:1.14')
 
-    depends_on('py-google-pasta@0.2:0.999', type=('build', 'run'), when='@2.4.0:')
+    depends_on('py-google-pasta@0.2:0', type=('build', 'run'), when='@2.4.0:')
     depends_on('py-google-pasta@0.1.8:', type=('build', 'run'), when='@2.1:2.3')
     depends_on('py-google-pasta@0.1.6:', type=('build', 'run'), when='@1.14:2.0')
     depends_on('py-google-pasta@0.1.2:', type=('build', 'run'), when='@1.12.1')
     # propagate the mpi variant setting for h5py/hdf5 to avoid unexpected crashes
+    depends_on('py-h5py@3.1.0:3.1+mpi', type=('build', 'run'), when='@2.6:+mpi')
+    depends_on('py-h5py@3.1.0:3.1~mpi', type=('build', 'run'), when='@2.6:~mpi')
     depends_on('py-h5py@2.10.0:2.10.999+mpi', type=('build', 'run'), when='@2.2:+mpi')
     depends_on('py-h5py@2.10.0:2.10.999~mpi', type=('build', 'run'), when='@2.2:~mpi')
 
@@ -129,13 +131,13 @@ class PyTensorflow(Package, CudaPackage):
     depends_on('py-keras-applications@1.0.6:', type=('build', 'run'), when='@1.12:1.14')
     depends_on('py-keras-applications@1.0.5:', type=('build', 'run'), when='@1.11.0:1.11.999')
 
-    depends_on('py-keras-preprocessing@1.1.2:1.1.999', type=('build', 'run'), when='@2.4:')
-    depends_on('py-keras-preprocessing@1.1.1:1.999', type=('build', 'run'), when='@2.3:2.3.999')
+    depends_on('py-keras-preprocessing@1.1.2:1.1', type=('build', 'run'), when='@2.4:')
+    depends_on('py-keras-preprocessing@1.1.1:1', type=('build', 'run'), when='@2.3:2.3.999')
     depends_on('py-keras-preprocessing@1.1.0:', type=('build', 'run'), when='@2.1:2.2')
     depends_on('py-keras-preprocessing@1.0.5:', type=('build', 'run'), when='@1.12:2.0')
     depends_on('py-keras-preprocessing@1.0.3:', type=('build', 'run'), when='@1.11:1.11.999')
     # https://github.com/tensorflow/tensorflow/issues/40688
-    depends_on('py-numpy@1.19.2:1.19.999',  type=('build', 'run'), when='@2.4.0:')
+    depends_on('py-numpy@1.19.2:1.19',  type=('build', 'run'), when='@2.4.0:')
     depends_on('py-numpy@1.16.0:1.18',  type=('build', 'run'), when='@1.13.2,1.15:2.3')
     depends_on('py-numpy@1.14.5:1.18',  type=('build', 'run'), when='@1.12.1,1.14.0')
     depends_on('py-numpy@1.13.3:1.14.5', type=('build', 'run'), when='@1.10.0:1.10.1')
@@ -146,7 +148,7 @@ class PyTensorflow(Package, CudaPackage):
     depends_on('py-numpy@1.8.2:',        type=('build', 'run'), when='@0.6:0.10')
     depends_on('py-numpy@1.9.2:',        type=('build', 'run'), when='@0.5.0')
 
-    depends_on('py-opt-einsum@3.3.0:3.3.999', type=('build', 'run'), when='@2.4.0:')
+    depends_on('py-opt-einsum@3.3.0:3.3', type=('build', 'run'), when='@2.4.0:')
     depends_on('py-opt-einsum@2.3.2:', type=('build', 'run'), when='@1.15:2.3')
 
     depends_on('py-protobuf@3.9.2:', type=('build', 'run'), when='@2.3:')
@@ -165,37 +167,38 @@ class PyTensorflow(Package, CudaPackage):
     depends_on('protobuf')
 
     # -- CMS: dependency type is build+link (default) dependency
-    depends_on('flatbuffers+python@1.12.0:1.12.999', when='@2.4.0:', type=('build', 'link', 'run'))
+    depends_on('flatbuffers+python@1.12.0:1.12', when='@2.4.0:', type=('build', 'link', 'run'))
     # tensorboard
     # tensorflow-estimator
-    depends_on('py-termcolor@1.1.0:1.1.999', type=('build', 'run'), when='@2.4.0:')
+    depends_on('py-termcolor@1.1.0:1.1', type=('build', 'run'), when='@2.4.0:')
     depends_on('py-termcolor@1.1.0:', type=('build', 'run'), when='@1.6:2.3')
 
-    depends_on('py-wrapt@1.12.1:1.12.999', type=('build', 'run'), when='@2.4.0:')
+    depends_on('py-wrapt@1.12.1:1.12', type=('build', 'run'), when='@2.4.0:')
     depends_on('py-wrapt@1.11.1:', type=('build', 'run'), when='@1.12.1,1.14:2.3')
 
     depends_on('py-wheel', type=('build', 'run'), when='@0.6:2.3')
     depends_on('py-wheel@0.26:', type=('build', 'run'), when='@0.6:2.3 ^python@3:')
-    depends_on('py-wheel@0.35:0.999', type=('build', 'run'), when='@2.4.0: ^python@3:')
+    depends_on('py-wheel@0.35:0', type=('build', 'run'), when='@2.4.0: ^python@3:')
 
     depends_on('py-mock@2.0.0:', type=('build', 'run'), when='@0.10: ^python@:2')
 
     depends_on('py-functools32@3.2.3:', type=('build', 'run'), when='@1.15: ^python@:2')
 
-    depends_on('py-six@1.15.0:1.15.999', type=('build', 'run'), when='@2.4.0:')
+    depends_on('py-six@1.15.0:1.15', type=('build', 'run'), when='@2.4.0:')
     depends_on('py-six@1.12.0:', type=('build', 'run'), when='@2.1:2.3')
     depends_on('py-six@1.10.0:', type=('build', 'run'), when='@:2.0')
 
     depends_on('py-scipy@1.2.2', type=('build', 'run'), when='@2.1.0:2.1.1,2.2.0,2.3.0 ^python@:2')
     depends_on('py-scipy@1.4.1', type=('build', 'run'), when='@2.1.0:2.1.1,2.2.0,2.3.0 ^python@3:')
 
-    depends_on('py-typing-extensions@3.7.4:3.7.999', type=('build', 'run'), when='@2.4.0:')
+    depends_on('py-typing-extensions@3.7.4:3.7', type=('build', 'run'), when='@2.4.0:')
     # depends_on('py-grpcio@1.8.6:', type=('build', 'run'), when='@1.6:1.7')
 
     if sys.byteorder == 'little':
         # Only builds correctly on little-endian machines
         depends_on('py-grpcio@1.8.6:', type=('build', 'run'), when='@1.8:2.3')
         depends_on('py-grpcio@1.32.0:', type=('build', 'run'), when='@2.4:')
+        depends_on('py-grpcio@1.37.0:1', type=('build', 'run'), when='@2.6:')
         depends_on('grpc@1.35.0: +shared', type=('build', 'run'), when='@2.4.0:')
 
     # TODO: add packages for some of these dependencies
