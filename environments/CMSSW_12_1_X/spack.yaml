@@ -304,6 +304,7 @@ spack:
   - py-sympy@1.8
   - py-tables@3.6.1
   - py-tenacity@6.3.1 # NB: py-luigi
+  - py-typing-extensions@3.7.4.3 # NB: py-tensorflow; NB: keep this here
   - py-tensorboard-plugin-wit@1.8.0
   # wheel recipe
   - py-tensorboard@2.6.0
@@ -323,7 +324,6 @@ spack:
   - py-tqdm@4.62.3
   - py-traitlets@5.1.1
   - py-typed-ast@1.4.3
-  - py-typing-extensions@3.7.4.3 # NB: py-tensorflow
   - py-typing@3.7.4.3
   - py-uncertainties@3.1.6
   - py-uproot@4.1.8
