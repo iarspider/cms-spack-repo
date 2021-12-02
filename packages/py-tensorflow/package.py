@@ -67,9 +67,10 @@ class PyTensorflow(Package, CudaPackage):
     # Need to investigate further.
 
     # See _TF_MIN_BAZEL_VERSION and _TF_MAX_BAZEL_VERSION in configure.py
-    depends_on('bazel@3.1.0:3.99.0',  type='build', when='@2.3:')
-    depends_on('bazel@2.0.0',         type='build', when='@2.2.0:2.2.999')
-    depends_on('bazel@0.27.1:0.29.1', type='build', when='@2.1.0:2.1.999')
+    depends_on('bazel@3.7.2:3',  type='build', when='@2.6')
+    depends_on('bazel@3.1.0:3.1',  type='build', when='@2.3:2.5')
+    depends_on('bazel@2.0.0',         type='build', when='@2.2.0:2.2')
+    depends_on('bazel@0.27.1:0.29.1', type='build', when='@2.1.0:2.1')
     depends_on('bazel@0.24.1:0.26.1', type='build', when='@1.15:2.0')
     # See call to check_bazel_version in configure.py
     depends_on('bazel@0.24.1:0.25.2', type='build', when='@1.14.0')
@@ -119,23 +120,24 @@ class PyTensorflow(Package, CudaPackage):
     depends_on('py-google-pasta@0.1.6:', type=('build', 'run'), when='@1.14:2.0')
     depends_on('py-google-pasta@0.1.2:', type=('build', 'run'), when='@1.12.1')
     # propagate the mpi variant setting for h5py/hdf5 to avoid unexpected crashes
+    #TODO
     depends_on('py-h5py@3.1.0:3.1+mpi', type=('build', 'run'), when='@2.6:+mpi')
     depends_on('py-h5py@3.1.0:3.1~mpi', type=('build', 'run'), when='@2.6:~mpi')
-    depends_on('py-h5py@2.10.0:2.10.999+mpi', type=('build', 'run'), when='@2.2:+mpi')
-    depends_on('py-h5py@2.10.0:2.10.999~mpi', type=('build', 'run'), when='@2.2:~mpi')
+    depends_on('py-h5py@2.10.0:2.10+mpi', type=('build', 'run'), when='@2.2:2.5+mpi')
+    depends_on('py-h5py@2.10.0:2.10~mpi', type=('build', 'run'), when='@2.2:2.5~mpi')
 
     depends_on('hdf5+mpi', type='build', when='@2.2:+mpi')
     depends_on('hdf5~mpi', type='build', when='@2.2:~mpi')
 
     depends_on('py-keras-applications@1.0.8:', type=('build', 'run'), when='@1.15:2.1')
     depends_on('py-keras-applications@1.0.6:', type=('build', 'run'), when='@1.12:1.14')
-    depends_on('py-keras-applications@1.0.5:', type=('build', 'run'), when='@1.11.0:1.11.999')
+    depends_on('py-keras-applications@1.0.5:', type=('build', 'run'), when='@1.11.0:1.11')
 
     depends_on('py-keras-preprocessing@1.1.2:1.1', type=('build', 'run'), when='@2.4:')
-    depends_on('py-keras-preprocessing@1.1.1:1', type=('build', 'run'), when='@2.3:2.3.999')
+    depends_on('py-keras-preprocessing@1.1.1:1', type=('build', 'run'), when='@2.3:2.3')
     depends_on('py-keras-preprocessing@1.1.0:', type=('build', 'run'), when='@2.1:2.2')
     depends_on('py-keras-preprocessing@1.0.5:', type=('build', 'run'), when='@1.12:2.0')
-    depends_on('py-keras-preprocessing@1.0.3:', type=('build', 'run'), when='@1.11:1.11.999')
+    depends_on('py-keras-preprocessing@1.0.3:', type=('build', 'run'), when='@1.11:1.11')
     # https://github.com/tensorflow/tensorflow/issues/40688
     depends_on('py-numpy@1.19.2:1.19',  type=('build', 'run'), when='@2.4.0:')
     depends_on('py-numpy@1.16.0:1.18',  type=('build', 'run'), when='@1.13.2,1.15:2.3')
@@ -144,7 +146,7 @@ class PyTensorflow(Package, CudaPackage):
     depends_on('py-numpy@1.13.3:',       type=('build', 'run'), when='@1.6:1.9')
     depends_on('py-numpy@1.12.1:',       type=('build', 'run'), when='@1.4:1.5')
     depends_on('py-numpy@1.11.0:',       type=('build', 'run'), when='@0.11:1.3')
-    depends_on('py-numpy@1.10.1:',       type=('build', 'run'), when='@0.7.1:0.7.999 platform=darwin')
+    depends_on('py-numpy@1.10.1:',       type=('build', 'run'), when='@0.7.1:0.7 platform=darwin')
     depends_on('py-numpy@1.8.2:',        type=('build', 'run'), when='@0.6:0.10')
     depends_on('py-numpy@1.9.2:',        type=('build', 'run'), when='@0.5.0')
 
@@ -679,7 +681,7 @@ class PyTensorflow(Package, CudaPackage):
                 '.tf_configure.bazelrc')
 
         # see tensorflow issue #31187 on github
-        if spec.satisfies('@2.0.0:2.0.999'):
+        if spec.satisfies('@2.0.0:2.0'):
             filter_file(r'\#define RUY_DONOTUSEDIRECTLY_AVX512 1',
                         '#define RUY_DONOTUSEDIRECTLY_AVX512 0',
                         'tensorflow/lite/experimental/ruy/platform.h')
