@@ -37,6 +37,7 @@ class PyTensorflowEstimator(Package):
 
     depends_on('bazel@0.19.0:', type='build')
     depends_on('py-funcsigs@1.0.2:', type=('build', 'run'))
+    depends_on('py-keras', type=('build', 'run'), when='@2.6.0:')
 
     def install(self, spec, prefix):
         self.tmp_path = tempfile.mkdtemp(dir='/tmp', prefix='spack')

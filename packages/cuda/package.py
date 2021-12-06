@@ -147,15 +147,13 @@ class Cuda(Package):
             force_remove(fn)
 
         # package the dynamic libraries
-        for fn in glob(join_path(prefix.build.lib64, '*.so')):
-            install(fn, prefix.lib64)
+        install_tree(prefix.build.lib64, prefix.lib64)
 
         # package the includes
-        for fn in glob(join_path(prefix.build.include, '*.h*')):
-            install(fn, prefix.include)
+        install_tree(prefix.build.include, prefix.include)
 
         # package the CUDA Profiling Tools Interface includes and libraries
-        for fn in glob(join_path(prefix.build.extras.CUPTI.lib64, '*.so')):
+        for fn in glob(join_path(prefix.build.extras.CUPTI.lib64, '*.so*')):
             install(fn, prefix.lib64)
 
         for fn in glob(join_path(prefix.build.extras.CUPTI.include, '*.h')):
@@ -217,10 +215,10 @@ class Cuda(Package):
         install(join_path(prefix.build.drivers, 'libcuda.so.{0}'.format(driver_version)), prefix.drivers)
         install(join_path(prefix.build.drivers, 'libnvidia-ptxjitcompiler.so.{0}'.format(driver_version)), prefix.drivers)
         with working_dir(prefix):
-            force_symlink(join_path('drivers', 'libcuda.so.{0}'.format(driver_version)), 'libcuda.so.1')
-            force_symlink(join_path('drivers', 'libcuda.so.1'), 'libcuda.so')
-            force_symlink(join_path('drivers', 'libnvidia-ptxjitcompiler.so.{0}'.format(driver_version)), 'libnvidia-ptxjitcompiler.so.1')
-            force_symlink(join_path('drivers', 'libnvidia-ptxjitcompiler.so.1'), 'libnvidia-ptxjitcompiler.so')
+            force_symlink('libcuda.so.{0}'.format(driver_version), join_path('drivers', 'libcuda.so.1'))
+            force_symlink('libcuda.so.1', join_path('drivers', 'libcuda.so'))
+            force_symlink('libnvidia-ptxjitcompiler.so.{0}'.format(driver_version), join_path('drivers', 'libnvidia-ptxjitcompiler.so.1'))
+            force_symlink('libnvidia-ptxjitcompiler.so.1', join_path('drivers', 'libnvidia-ptxjitcompiler.so')) 
 
         filter_file(r'\$(_HERE_)', '$(TOP)/bin', join_path(prefix, 'bin', 'nvcc.profile'))
         filter_file(r'/\$(_TARGET_DIR_)', '', join_path(prefix, 'bin', 'nvcc.profile'))
