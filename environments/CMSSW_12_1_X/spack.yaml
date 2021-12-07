@@ -3,12 +3,15 @@
 # It describes a set of packages to be installed, along with
 # configuration settings.
 # NOTICE: intel-tbb should not be replaced with intel-oneapi-tbb, the latter one is pre-built and not configurable
+# Checksum: py-pbr@5.6.0
 # NOTICE: ~cuda~nvml for now
 #   - cudnn@8.2.2.26
 #   - py-typing@3.7.4.3 NB: not needed for py 3.7+
+#   - py-tensorflow-estimator@2.6.0 -> part of tf
+# TO CHECK:
 #   - py-jupyterlab-widgets@1.0.1 - maybe use wheel to avoid py-jupter-packaging dep?
 #   - py-ipywidgets@7.6.5 - depends on jupyterlab-widgets
-#   - py-jupyter@1.0.0
+#   - py-jupyter@1.0.0 - depends on py-qtconsole
 spack:
   concretization: together
   packages:
@@ -126,7 +129,7 @@ spack:
   - numactl@2.0.14
   - onnx-runtime@1.7.2.cms
   - openblas@0.3.15
-  - openldap@2.4.45  # 2.6.0 requires OpenSSL 1.1.1 ; TODO: check recipe
+  - openldap@2.4.49+client_only~sasl  # 2.6.0 requires OpenSSL 1.1.1
   - openloops@2.1.2
   - openloops-process@2.1.2
   - openmpi@4.1.1
@@ -293,7 +296,7 @@ spack:
   - py-requests-toolbelt@0.9.1
   - py-requests-unixsocket@0.2.0
   - py-requests@2.26.0
-  - py-rich@10.9.0
+  - py-rich@10.14.0
   - py-rsa@4.7.2
   - py-scandir@1.10.0
   - py-scikit-build@0.12.0
@@ -318,11 +321,6 @@ spack:
   - py-tensorboard@2.6.0 # wheel
   - py-tensorboard-dataserver@0.6.1 # wheel
   - py-tensorflow@2.6.0.cms~cuda~nccl~only_python+mpi
-
-
-
-  
-  # - py-tensorflow-estimator@2.6.0
   - py-termcolor@1.1.0
   - py-terminado@0.12.1
   - py-testpath@0.5.0
@@ -339,7 +337,7 @@ spack:
   - py-uproot@4.1.8
   - py-urllib3@1.26.6
   - py-virtualenv-clone@0.5.7
-  - py-virtualenv@20.7.2
+  - py-virtualenv@20.10.0
   - py-virtualenvwrapper@4.8.4
   - py-wcwidth@0.2.5
   - py-webencodings@0.5.1
