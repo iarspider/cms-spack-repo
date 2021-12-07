@@ -6,7 +6,7 @@
 import llnl.util.tty as tty
 
 from spack import *
-import spack.architecture
+# import spack.architecture
 
 import os
 import re

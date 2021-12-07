@@ -21,6 +21,8 @@ class GosamContrib(AutotoolsPackage):
             multi=True, description='Build shared libs, static libs or both')
     variant('pic', default=False, description='Build position-independent code')
 
+    parallel = False
+
     def flag_handler(self, name, flags):
         if name in ['cflags', 'cxxflags', 'cppflags']:
             if '+pic' in self.spec:
