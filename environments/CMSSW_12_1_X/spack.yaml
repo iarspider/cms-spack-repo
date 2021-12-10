@@ -175,14 +175,17 @@ spack:
   - py-chardet@4.0.0
   - py-click@8.0.1
   - py-clikit@0.6.2
+  - py-climate@0.1.0
   - py-cleo@0.8.1
   - py-cloudpickle@1.6.0
+  - py-cmsml@0.1.2
   - py-colorama@0.4.4
   - py-commonmark@0.9.1
   - py-contextvars@2.4
   - py-coverage@5.5  
   - py-cppy@1.1.0
   - py-crashtest@0.3.1
+  - py-cx-oracle@8.3.0
   - py-cycler@0.10.0
   - py-cython@0.29.24
   - py-debugpy@1.4.1
@@ -193,12 +196,14 @@ spack:
   - py-distro@1.6.0
   - py-docopt@0.6.2
   - py-docutils@0.18
+  - py-downhill@0.4.0
   - py-entrypoints@0.3
   - py-fasteners@0.16.3
   - py-filelock@3.0.12
   - py-flake8@4.0.1
   - py-flit@3.3.0
   - py-flit-core@3.3.0
+  - py-fs@2.4.14
   - py-funcsigs@1.0.2
   - py-future@0.18.2
   - py-gast@0.5.2
