@@ -24,14 +24,14 @@ class Cmssw(Package):
     depends_on('gmake')
     depends_on('llvm')
  
-    if sys.platform == 'darwin':
-        patch('macos.patch')
-    else:
-        patch('linux.patch')
+    # if sys.platform == 'darwin':
+        # patch('macos.patch')
+    # else:
+        # patch('linux.patch')
 
-    scram_arch = 'slc_amd64_gcc'
-    if sys.platform == 'darwin':
-        scram_arch = 'osx10_amd64_clang'
+    # scram_arch = 'slc_amd64_gcc'
+    # if sys.platform == 'darwin':
+        # scram_arch = 'osx10_amd64_clang'
 
 
     def install(self, spec, prefix):
