@@ -215,8 +215,10 @@ spack:
   - py-google-auth-oauthlib@0.4.1  # NB: py-google-auth < 2.0 for py-tensorboard
   - py-google-pasta@0.2.0
   - py-grpcio@1.39.0
+  - py-grpcio-tools@1.39.0
   - py-h5py@3.1.0
   - py-hepdata-lib@0.9.0
+  - py-hep-ml@0.7.0
   - py-hist@2.5.2
   - py-histoprint@2.2.0
   - py-html5lib@1.1
