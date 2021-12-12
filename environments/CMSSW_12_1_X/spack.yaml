@@ -51,7 +51,7 @@ spack:
   - bzip2@1.0.6
   - catch2@2.13.7
   - clhep@2.4.5.1.cms
-  - cmake@3.18.2~ownlibs~ncurses
+  - cmake@3.21.4~ownlibs~ncurses
   - cmssw-config@V06-03-01
   - coral@2.3.21py3
   - cppunit@1.15.x
