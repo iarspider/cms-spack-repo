@@ -242,7 +242,7 @@ class Cmake(Package):
         spec = self.spec
         args = [
             '--prefix={0}'.format(self.prefix),
-            '--parallel={0}'.format(make_jobs)
+            '--parallel={0}'.format(make_jobs),
         ]
 
         if '+ownlibs' in spec:
