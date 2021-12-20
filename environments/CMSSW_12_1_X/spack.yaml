@@ -183,7 +183,7 @@ spack:
   - py-commonmark@0.9.1
   - py-contextvars@2.4
   - py-correctionlib@2.1.0
-  - py-coverage@5.5  
+  - py-coverage@5.5
   - py-cppy@1.1.0
   - py-crashtest@0.3.1
   - py-cx-oracle@8.3.0
@@ -281,7 +281,7 @@ spack:
   - py-numpy@1.19.5
   - py-oauthlib@3.1.1
   - py-onnx@1.8.1
-  - py-onnx-converter-common@1.9.0
+  - py-onnxconverter-common@1.9.0
   - py-opt-einsum@3.3.0
   - py-packaging@21.0
   - py-pandas@1.3.4
@@ -295,7 +295,7 @@ spack:
   - py-ply@3.11
   - py-pillow@8.0.0
   - py-pip@20.3.3
-  - py-prompt_toolkit@3.0.24
+  - py-prompt-toolkit@3.0.24
   - py-protobuf@3.15.1
   - py-psutil@5.8.0
   - py-ptyprocess@0.7.0
@@ -317,7 +317,6 @@ spack:
   - py-pylev@1.4.0
   - py-pymongo@3.12.1
   - py-pyparsing@2.4.7
-  - py-prwlock@0.4.1
   - py-pysqlite3@0.4.6
   - py-pytest-runner@5.3.1
   - py-pytest@6.2.5
@@ -330,7 +329,8 @@ spack:
   - py-pytz@2021.1
   - py-pyyaml@6.0
   - py-pyzmq@22.3.0
-  - py-rep@0.6.6
+  
+  # - py-rep@0.6.6
   - py-repoze-lru@0.7
   - py-requests-oauthlib@1.3.0
   - py-requests-toolbelt@0.9.1
