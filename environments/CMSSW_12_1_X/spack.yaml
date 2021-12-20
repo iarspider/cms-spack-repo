@@ -182,7 +182,7 @@ spack:
   - py-colorama@0.4.4
   - py-commonmark@0.9.1
   - py-contextvars@2.4
-  - py-correctionlib@2.0.0
+  - py-correctionlib@2.1.0
   - py-coverage@5.5  
   - py-cppy@1.1.0
   - py-crashtest@0.3.1
@@ -285,6 +285,7 @@ spack:
   - py-opt-einsum@3.3.0
   - py-packaging@21.0
   - py-pandas@1.3.4
+  - py-parsimonious@0.8.1
   - py-pastel@0.2.1
   - py-pathlib2@2.3.6
   - py-pbr@5.6.0
@@ -294,13 +295,16 @@ spack:
   - py-ply@3.11
   - py-pillow@8.0.0
   - py-pip@20.3.3
+  - py-prompt_toolkit@3.0.24
   - py-protobuf@3.15.1
   - py-psutil@5.8.0
   - py-ptyprocess@0.7.0
+  - py-prwlock@0.4.1
   - py-py@1.11.0
   - py-pyasn1-modules@0.2.8
   - py-pyasn1@0.4.8
   - py-pybind11@2.7.1
+  - py-pybrain@0.3.3.post
   - py-pycodestyle@2.8.0
   - py-pycparser@2.20
   - py-pycuda@2021.1
@@ -313,6 +317,8 @@ spack:
   - py-pylev@1.4.0
   - py-pymongo@3.12.1
   - py-pyparsing@2.4.7
+  - py-prwlock@0.4.1
+  - py-pysqlite3@0.4.6
   - py-pytest-runner@5.3.1
   - py-pytest@6.2.5
   - py-python-dateutil@2.8.2
@@ -324,6 +330,7 @@ spack:
   - py-pytz@2021.1
   - py-pyyaml@6.0
   - py-pyzmq@22.3.0
+  - py-rep@0.6.6
   - py-repoze-lru@0.7
   - py-requests-oauthlib@1.3.0
   - py-requests-toolbelt@0.9.1
@@ -332,14 +339,17 @@ spack:
   - py-rich@10.14.0
   - py-rsa@4.7.2
   - py-scandir@1.10.0
+  - py-schema@0.7.5
   - py-scikit-build@0.12.0
   - py-scikit-learn@0.24.2
+  - py-scinum@0.7.5
   - py-scipy@1.7.2
   - py-send2trash@1.8.0
-  - py-simplegeneric@0.8.1
   - py-seaborn@0.11.2
   - py-setuptools@57.4.0 # NB: py-scipy
   - py-setuptools-scm@5.0.2 # NB: py-lazy-object-proxy
+  - py-shellingham@1.4.0
+  - py-simplegeneric@0.8.1
   - py-six@1.15.0 # NB: py-tensorflow
   - py-sniffio@1.2.0
   - py-soupsieve@2.2.1
@@ -370,6 +380,7 @@ spack:
   - py-uncertainties@3.1.6
   - py-uproot@4.1.8
   - py-urllib3@1.26.6
+  - py-vector@0.8.4
   - py-virtualenv-clone@0.5.7
   - py-virtualenv@20.10.0
   - py-virtualenvwrapper@4.8.4
