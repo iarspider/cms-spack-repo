@@ -22,3 +22,6 @@ class PyHepdataLib(PythonPackage):
     depends_on('py-six',           type=('build', 'run'))
     depends_on('py-pytest-runner', type='build')
     depends_on('py-pytest-cov',    type='build')
+
+    def setup_build_environment(self, env):
+        env.prepend_path('LD_LIBRARY_PATH', self.spec['root'].prefix.lib) 
