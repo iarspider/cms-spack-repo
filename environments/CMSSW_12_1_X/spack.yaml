@@ -8,6 +8,7 @@
 #   - cudnn@8.2.2.26
 #   - py-typing@3.7.4.3 NB: not needed for py 3.7+
 #   - py-tensorflow-estimator@2.6.0 -> part of tf
+#   - py-rep@0.6.6
 # TO CHECK:
 #   - py-jupyterlab-widgets@1.0.1 - maybe use wheel to avoid py-jupter-packaging dep?
 #   - py-ipywidgets@7.6.5 - depends on jupyterlab-widgets
@@ -205,7 +206,7 @@ spack:
   - py-flawfinder@2.0.19
   - py-flit@3.3.0
   - py-flit-core@3.3.0
-  - py-fs@2.4.14
+  - py-fs@0.5.4
   - py-funcsigs@1.0.2
   - py-future@0.18.2
   - py-gast@0.5.2
@@ -331,8 +332,6 @@ spack:
   - py-pytz@2021.1
   - py-pyyaml@6.0
   - py-pyzmq@22.3.0
-  
-  # - py-rep@0.6.6
   - py-repoze-lru@0.7
   - py-requests-oauthlib@1.3.0
   - py-requests-toolbelt@0.9.1
@@ -344,7 +343,7 @@ spack:
   - py-schema@0.7.5
   - py-scikit-build@0.12.0
   - py-scikit-learn@0.24.2
-  - py-scinum@0.7.5
+  - py-scinum@1.2.0
   - py-scipy@1.7.2
   - py-send2trash@1.8.0
   - py-seaborn@0.11.2
