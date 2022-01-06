@@ -3,7 +3,6 @@
 # It describes a set of packages to be installed, along with
 # configuration settings.
 # NOTICE: intel-tbb should not be replaced with intel-oneapi-tbb, the latter one is pre-built and not configurable
-# Checksum: py-pbr@5.6.0
 # NOTICE: ~cuda~nvml for now
 #   - cudnn@8.2.2.26
 #   - py-typing@3.7.4.3 NB: not needed for py 3.7+
@@ -39,6 +38,8 @@ spack:
       variants: [~gold]
     gdk-pixbuf:
       variants: [~x11]
+    libarchive:
+      variants: [crypto=openssl]
   view: false
   specs:
   - cms-config
@@ -121,7 +122,7 @@ spack:
   - libxml2@2.9.10~python
   - lz4@1.9.3
   - m4@1.4.18~sigsegv
-  - madgraph5amc@2.7.3.py3 +cms+ninja+collier+golem~syscalc nb_core=4
+  - madgraph5amc@2.7.3.py3 +cms~ninja~collier+golem~syscalc nb_core=4
   - mpc@1.1.0
   - mpfr@4.0.2
   - nasm@2.14.02
@@ -291,7 +292,7 @@ spack:
   - py-parsimonious@0.8.1
   - py-pastel@0.2.1
   - py-pathlib2@2.3.6
-  - py-pbr@5.6.0
+  - py-pbr@5.7.0
   - py-pexpect@4.8.0
   - py-pickleshare@0.7.5
   - py-pkgconfig@1.5.5

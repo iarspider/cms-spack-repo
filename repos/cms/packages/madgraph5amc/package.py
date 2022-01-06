@@ -90,15 +90,20 @@ class Madgraph5amc(Package):
         set_parameter('autoupdate', "0")
         set_parameter('automatic_html_opening', 'False')
         set_parameter('notification_center', 'False')
+        set_parameter('output_dependencies', 'internal')
 
         if '+syscalc' in self.spec:
             set_parameter('syscalc_path', spec['syscalc'].prefix.bin)
 
         if '+ninja' in spec:
             set_parameter('ninja', spec['gosam-contrib'].prefix)
+        else:
+            set_parameter('ninja', spec.prefix.HEPTools.lib)
 
         if '+collier' in spec:
             set_parameter('collier', spec['collier'].prefix.lib)
+        else:
+            set_parameter('collier', spec.prefix.HEPTools.lib)
 
         if '+golem' in spec:
             set_parameter('golem', spec['gosam-contrib'].prefix)
@@ -110,7 +115,7 @@ class Madgraph5amc(Package):
 
         if '+pythia8' in spec:
             set_parameter('pythia8_path', spec['pythia8'].prefix)
-            set_parameter('mg5amc_py8_interface_path', join_path(spec.prefix.HEPTools.MG5aMC_PY8_interface))
+            set_parameter('mg5amc_py8_interface_path', spec.prefix.HEPTools.MG5aMC_PY8_interface)
 
         if '+thepeg' in spec:
             set_parameter('thepeg_path', spec['thepeg'].prefix)
@@ -125,6 +130,7 @@ class Madgraph5amc(Package):
             set_parameter('cluster_type', 'lsf')
             set_parameter('cluster_queue', '1nh')
             set_parameter('cluster_size', "150")
+            set_parameter('pjfry', 'None')
             
         filter_file("SHFLAG = -fPIC", "SHFLAG = -fPIC -fcommon", join_path(self.stage.source_path, 'vendor/StdHEP/src/stdhep_arch'))
 
