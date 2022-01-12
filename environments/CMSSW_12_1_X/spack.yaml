@@ -155,6 +155,7 @@ spack:
   - py-appdirs@1.4.4
   - py-argon2-cffi@21.1.0
   - py-argparse@1.4.0
+  - py-arrow@0.16.0
   - py-asn1crypto@1.4.0
   - py-astor@0.8.1
   - py-astroid@2.7.3
@@ -185,6 +186,7 @@ spack:
   - py-climate@0.1.0
   - py-cleo@0.8.1
   - py-cloudpickle@1.6.0
+  - py-cmake@3.21.4
   - py-cmsml@0.1.2
   - py-colorama@0.4.4
   - py-commonmark@0.9.1
@@ -277,6 +279,7 @@ spack:
   - py-mplhep@0.3.15
   - py-mplhep-data@0.0.3
   - py-mpmath@1.2.1
+  - py-msgpack@1.0.2
   - py-multidict@5.2.0
   - py-nbclient@0.5.5
   - py-nbconvert@6.2.0
@@ -286,7 +289,7 @@ spack:
   - py-numba@0.54.0
   - py-numexpr@2.7.3
   - py-numpy@1.19.5
-  - py-oauthlib@3.1.1
+  - py-oauthlib@3.1.1~extras
   - py-onnx@1.8.1
   - py-onnxmltools@1.10.0
   - py-onnx-runtime@1.7.2
@@ -359,6 +362,7 @@ spack:
   - py-simplegeneric@0.8.1
   - py-six@1.15.0 # NB: py-tensorflow
   - py-skl2onnx@1.10.3
+  - py-smmap@3.0.4
   - py-sniffio@1.2.0
   - py-soupsieve@2.2.1
   - py-sqlalchemy@1.4.20
