@@ -41,7 +41,7 @@ spack:
       externals: [{spec: libx11@1.7.0, prefix: /usr}]
       buildable: false
     libxext:
-      externals: [{spec: libxext@1.3.3, prefix: /}usr]
+      externals: [{spec: libxext@1.3.3, prefix: /usr}]
       buildable: false
     libxft:
       externals: [{spec: libxft@2.3.2, prefix: /usr}]
