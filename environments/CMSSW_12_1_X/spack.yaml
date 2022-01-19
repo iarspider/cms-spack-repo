@@ -128,7 +128,7 @@ spack:
   - libtool@2.4.6
   - libunwind@1.5.0 +zlib~block_signals~docs
   - libxml2@2.9.10~python
-  - libzmq@4.3.3
+  - libzmq@4.3.3~docs~libbsd
   - lz4@1.9.3
   - m4@1.4.18~sigsegv
   - madgraph5amc@2.7.3.py3 +cms~ninja~collier+golem~syscalc nb_core=4
