@@ -143,6 +143,7 @@ spack:
   - libtool@2.4.6
   - libunwind@1.5.0 +zlib~block_signals~docs
   - libxml2@2.9.10~python
+  - libxslt@1.1.33~crypto~python
   - libzmq@4.3.3~docs~libbsd
   - lz4@1.9.3
   - m4@1.4.18~sigsegv
@@ -209,6 +210,7 @@ spack:
   - py-cmsml@0.1.2
   - py-colorama@0.4.4
   - py-commonmark@0.9.1
+  - py-contextlib2@21.6.0
   - py-contextvars@2.4
   - py-correctionlib@2.1.0
   - py-coverage@5.5
@@ -221,6 +223,7 @@ spack:
   - py-debugpy@1.4.1
   - py-decorator@5.1.0
   - py-defusedxml@0.7.1
+  - py-deprecated@1.2.13
   - py-deprecation@2.1.0
   - py-distlib@0.3.3
   - py-distro@1.6.0
@@ -279,6 +282,7 @@ spack:
   - py-jupyter-server@1.11.2
   - py-jupyter-server-mathjax@0.2.3
   - py-jupyterlab-pygments@0.1.2
+  - py-pyjwt@2.1.0
   - py-keras2onnx@1.7.0
   - py-keras-applications@1.0.8
   - py-keras-preprocessing@1.1.2
@@ -307,9 +311,9 @@ spack:
   - py-mpmath@1.2.1
   - py-msgpack@1.0.2
   - py-multidict@5.2.0
+  - py-pynacl@1.4.0
   - py-nbclient@0.5.5
   - py-nbconvert@6.2.0
-  - py-nbdime@3.1.1
   - py-nbformat@5.1.3
   - py-nest-asyncio@1.5.1
   - py-neurolab@0.3.5
@@ -338,6 +342,7 @@ spack:
   - py-ply@3.11
   - py-pillow@8.0.0
   - py-pip@20.3.3
+  - py-platformdirs@2.4.0
   - py-pluggy@1.0.0
   - py-prompt-toolkit@3.0.24
   - py-prometheus-client@0.12.0
@@ -355,13 +360,13 @@ spack:
   - py-pycuda@2021.1
   - py-pycurl@7.44.1
   - py-pydantic@1.8.2
-  - py-pydot@1.4.2
   - py-pyflakes@2.4.0
   - py-pygithub@1.55
   - py-pygments@2.10.0
   - py-pylev@1.4.0
   - py-pymongo@3.12.1
   - py-pyparsing@2.4.7
+  - py-pyrsistent@0.18.0
   - py-pysqlite3@0.4.6
   - py-pytest-runner@5.3.1
   - py-pytest@6.2.5
@@ -460,6 +465,7 @@ spack:
   - veccore
   - vecgeom@1.1.17 ~root~geant4 vector=sse3
   - xerces-c@3.1.3 netaccessor=none transcoder=none
+  - xgboost@1.3.3
   - xrootd@4.12.3+http~readline+python
   - xz@5.2.4 libs=shared
   - zlib@1.2.11.cms+optimize
