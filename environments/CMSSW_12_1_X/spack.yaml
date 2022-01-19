@@ -118,13 +118,17 @@ spack:
   - lcov@1.15
   - lhapdf@6.3.0
   - libffi@3.2.1
+  - libgit2@1.1.1
   - libjpeg-turbo@2.0.2
   - libpciaccess@0.16
   - libpng@1.6.37
+  - libsodium@1.0.18
+  - libssh2@1.8.0
   - libtiff@4.0.10
   - libtool@2.4.6
   - libunwind@1.5.0 +zlib~block_signals~docs
   - libxml2@2.9.10~python
+  - libzmq@4.3.3
   - lz4@1.9.3
   - m4@1.4.18~sigsegv
   - madgraph5amc@2.7.3.py3 +cms~ninja~collier+golem~syscalc nb_core=4
@@ -195,6 +199,7 @@ spack:
   - py-coverage@5.5
   - py-cppy@1.1.0
   - py-crashtest@0.3.1
+  - py-cryptography@3.4.7
   - py-cx-oracle@8.3.0
   - py-cycler@0.10.0
   - py-cython@0.29.24
@@ -210,6 +215,7 @@ spack:
   - py-entrypoints@0.3
   - py-fasteners@0.16.3
   - py-filelock@3.0.12
+  - py-fire@0.4.0
   - py-flake8@4.0.1
   - py-flawfinder@2.0.19
   - py-flit@3.3.0
@@ -218,11 +224,13 @@ spack:
   - py-funcsigs@1.0.2
   - py-future@0.18.2
   - py-gast@0.5.2
+  - py-gevent@1.5.0
   - py-gitdb@4.0.7
   - py-gitpython@3.1.18
   - py-google-auth@1.6.3  # NB: py-tensorboard
   - py-google-auth-oauthlib@0.4.1  # NB: py-google-auth < 2.0 for py-tensorboard
   - py-google-pasta@0.2.0
+  - py-greenlet@1.1.0
   - py-grpcio@1.39.0
   - py-grpcio-tools@1.39.0
   - py-h5py@3.1.0
@@ -241,9 +249,12 @@ spack:
   - py-ipaddress@1.0.23
   - py-ipykernel@6.4.1
   - py-ipython@7.28.0
+  - py-ipython-genutils@0.2.0  # NB: Not in cms, needed for almost all ipy/jupy packages
   - py-isort@5.9.3
   - py-jedi@0.18.0
   - py-jinja2@3.0.1
+  - py-jinja2-time@0.2.0
+  - py-jeepney@0.6.0
   - py-joblib@1.0.1
   - py-jsonpickle@2.0.0
   - py-jsonschema@3.2.0
@@ -284,6 +295,8 @@ spack:
   - py-nbclient@0.5.5
   - py-nbconvert@6.2.0
   - py-nbdime@3.1.1
+  - py-nbformat@5.1.3
+  - py-nest-asyncio@1.5.1
   - py-neurolab@0.3.5
   - py-notebook@6.4.5
   - py-numba@0.54.0
@@ -297,17 +310,22 @@ spack:
   - py-opt-einsum@3.3.0
   - py-packaging@21.0
   - py-pandas@1.3.4
+  - py-pandocfilters@1.5.0
   - py-parsimonious@0.8.1
+  - py-parso@0.8.2
   - py-pastel@0.2.1
   - py-pathlib2@2.3.6
   - py-pbr@5.7.0
   - py-pexpect@4.8.0
   - py-pickleshare@0.7.5
   - py-pkgconfig@1.5.5
+  - py-pkginfo@1.7.1
   - py-ply@3.11
   - py-pillow@8.0.0
   - py-pip@20.3.3
+  - py-pluggy@1.0.0
   - py-prompt-toolkit@3.0.24
+  - py-prometheus-client@0.12.0
   - py-protobuf@3.15.1
   - py-psutil@5.8.0
   - py-ptyprocess@0.7.0
@@ -332,6 +350,7 @@ spack:
   - py-pysqlite3@0.4.6
   - py-pytest-runner@5.3.1
   - py-pytest@6.2.5
+  - py-pytest-cov@2.8.1
   - py-python-dateutil@2.8.2
   - py-python-daemon@2.3.0
   - py-python-ldap@3.3.1
@@ -354,9 +373,12 @@ spack:
   - py-scikit-learn@0.24.2
   - py-scinum@1.2.0
   - py-scipy@1.7.2
-  - py-send2trash@1.8.0
+  - py-semantic-version@2.8.2
+  - py-send2trash@1.8.0  
   - py-seaborn@0.11.2
+  - py-secretstorage@3.3.1
   - py-setuptools@57.4.0 # NB: py-scipy
+  - py-setuptools-rust@0.12.1
   - py-setuptools-scm@5.0.2 # NB: py-lazy-object-proxy
   - py-shellingham@1.4.0
   - py-simplegeneric@0.8.1
@@ -387,6 +409,7 @@ spack:
   - py-tornado@6.1
   - py-tqdm@4.62.3
   - py-traitlets@5.1.1
+  - py-twine@2.0.0
   - py-typed-ast@1.4.3
   - py-uhi@0.3.0
   - py-uncertainties@3.1.6
@@ -413,6 +436,7 @@ spack:
   - re2c@0.13.5
   - rivet@3.1.4 hepmc=2
   - root@6.22.08.patches_cms_18c440c+davix+fftw~fits~graphviz+math+minuit+mlp~mysql+opengl~postgres~pythia6~pythia8+python~qt4+root7+roofit~sqlite+ssl+tmva+tbb~vdt~veccore+x+xrootd
+  - rust@1.51.0
   - scram@3.0.31
   - sqlite@3.36.0~fts
   - tauola@1.1.8 +hepmc+lhapdf+pythia8
