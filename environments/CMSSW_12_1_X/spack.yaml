@@ -77,8 +77,7 @@ spack:
   - bison@3.5
   - boost@1.75.0~icu~atomic~container~context~coroutine~exception~graph~locale~log~math~random~wave+shared+multithreaded~debug+mpi+python+iostreams
   - bzip2@1.0.6
-  - catch2@2.13.7
-  - clang@12.0.1.cms+clang~flang+compiler-rt~libcxx~internal_unwind~polly~gold+lld~lldb~omp_as_runtime+llvm_dylib+link_llvm_dylib targets=x86,powerpc,aarch64,nvptx
+  - catch2@2.13.7  
   - clhep@2.4.5.1.cms
   - cmake@3.21.4~ownlibs~ncurses
   - cmssw-config@V06-03-01
@@ -152,6 +151,7 @@ spack:
   - libxml2@2.9.10~python
   - libxslt@1.1.33~crypto~python
   - libzmq@4.3.3~docs~libbsd
+  - llvm@12.0.1.cms+clang~flang+compiler-rt~libcxx~internal_unwind~polly~gold+lld~lldb~omp_as_runtime+llvm_dylib+link_llvm_dylib targets=x86,powerpc,aarch64,nvptx
   - lz4@1.9.3
   - m4@1.4.18~sigsegv
   - madgraph5amc@2.7.3.py3 +cms~ninja~collier+golem~syscalc nb_core=4
