@@ -51,6 +51,7 @@ class Madgraph5amc(Package):
 
     depends_on('syscalc', when='+syscalc')
     depends_on('gosam-contrib', when='+ninja')
+    depends_on('gosam-contrib', when='+golem')
     depends_on('collier', when='+collier')
     depends_on('lhapdf')
     depends_on('fastjet')

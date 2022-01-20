@@ -163,6 +163,8 @@ class Root(CMakePackage):
     depends_on('libxft',  when="+x")
     depends_on('libxpm',  when="+x")
     depends_on('libsm',   when="+x")
+    depends_on('xextproto', when="+x")
+    depends_on('fontconfig', when="+x")
 
     # OpenGL
     # -- CMS: use bultin versions
