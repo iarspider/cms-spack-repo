@@ -55,6 +55,9 @@ spack:
     libxpm:
       externals: [{spec: libxpm@4.11.0, prefix: /usr}]
       buildable: false
+    xextproto:
+      externals: [{spec: xextproto@7.3.0, prefix: /usr}]
+      buildable: false
     mesa:
       variants: [~llvm]
     llvm:
