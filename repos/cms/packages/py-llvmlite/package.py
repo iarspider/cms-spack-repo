@@ -30,7 +30,7 @@ class PyLlvmlite(PythonPackage):
     depends_on('py-enum34', type=('build', 'run'), when='@:0.32.0 ^python@:3.3')
 
     # llvmlite compatibility information taken from https://github.com/numba/llvmlite#compatibility
-    depends_on('llvm@11.0:11~flang', when='@0.37.0:')
+    depends_on('llvm@11.0:~flang', when='@0.37.0:') # -- CMS
     for t in ['arm:', 'ppc:', 'ppc64:', 'ppc64le:', 'ppcle:',
               'sparc:', 'sparc64:', 'x86:', 'x86_64:']:
         depends_on('llvm@10.0.0:10.0~flang', when='@0.34.0:0.36 target={0}'.format(t))
@@ -41,6 +41,12 @@ class PyLlvmlite(PythonPackage):
     depends_on('llvm@6.0.0:6.0~flang', when='@0.23.0:0.26')
     depends_on('llvm@4.0.0:4.0~flang', when='@0.17.0:0.20')
     depends_on('binutils', type='build')
+    
+    # -- begin CMS: patches
+    patch("py3-llvmlite-fpic-flag.patch", when='@0.37.0')
+    patch("py3-llvmlite-removeMethod.patch", when='@0.37.0')
+    patch("py3-llvmlite-version.patch", when='@0.37.0')
+    # -- end CMS
 
     def setup_build_environment(self, env):
         if self.spec.satisfies('%fj'):
