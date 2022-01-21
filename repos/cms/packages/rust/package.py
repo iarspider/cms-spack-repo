@@ -105,7 +105,7 @@ sysconfdir = "etc"
 """.format(
                 rust_arch=rust_arch,
                 prefix=prefix,
-                llvm_config=os.path.join(self.spec['llvm'].bin, 'llvm-config')
+                llvm_config=os.path.join(self.spec['llvm'].prefix.bin, 'llvm-config')
             )
             )
 
