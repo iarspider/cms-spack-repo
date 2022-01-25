@@ -4,7 +4,7 @@
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
 import re
-import temppath
+import tempfile
 
 from six import iteritems
 
@@ -93,6 +93,7 @@ class Rust(Package):
     # The `x.py` bootstrapping script did not exist prior to Rust 1.17. It
     # would be possible to support both, but for simplicitly, we only support
     # Rust 1.17 and newer
+    version('1.57.0', sha256='3546f9c3b91b1f8b8efd26c94d6b50312c08210397b4072ed2748e2bd4445c1a')
     version('1.51.0', sha256='7a6b9bafc8b3d81bbc566e7c0d1f17c9f499fd22b95142f7ea3a8e4d1f9eb847')
     version('1.48.0', sha256='0e763e6db47d5d6f91583284d2f989eacc49b84794d1443355b85c58d67ae43b')
     version('1.47.0', sha256='3185df064c4747f2c8b9bb8c4468edd58ff4ad6d07880c879ac1b173b768d81d')
@@ -636,9 +637,9 @@ sysconfdir = "etc"
         python('./x.py', 'install')
 
     def setup_build_environment(self, env):
-        self.cargo_dir = join_path(temppath.mkdtemp(), 'cargo_home')
-        mkdirp(cargo_dir)
-        env.set('CARGO_HOME', cargo_dir)
+        self.cargo_dir = join_path(tempfile.mkdtemp(), 'cargo_home')
+        mkdirp(self.cargo_dir)
+        env.set('CARGO_HOME', self.cargo_dir)
         if self.spec['openssl'].external:
             env.set('OPENSSL_NO_PKG_CONFIG', '1')
             env.set('OPENSSL_DIR', self.spec['openssl'].prefix)
