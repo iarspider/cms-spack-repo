@@ -142,6 +142,12 @@ class Rust(Package):
     # This dictionary contains a version: hash dictionary for each supported
     # Rust target.
     rust_releases = {
+        '1.57.0': {
+            'x86_64-unknown-linux-gnu':      'ea0253784b2e5c22659ff148d492a68d2e11da734491714ebc61cc93896efcda',
+            'powerpc64le-unknown-linux-gnu': '3ddc1abed6b7535c4150bf54291901fa856806c948bc21b711e24a3c8d810be7',
+            'aarch64-unknown-linux-gnu':     'd66847f7cf7b548ecb328c400ac4f691ee2aea6ff5cd9286ad8733239569556c',
+            'x86_64-apple-darwin':           '15ceffc4743434c19d08f73fb4edd6642b7fd8162ed7101d3e6ca2c691fcb699'
+        },
         '1.51.0': {
             'x86_64-unknown-linux-gnu':      '9e125977aa13f012a68fdc6663629c685745091ae244f0587dd55ea4e3a3e42f',
             'powerpc64le-unknown-linux-gnu': '7362f561104d7be4836507d3a53cd39444efcdf065813d559beb1f54ce9f7680',
