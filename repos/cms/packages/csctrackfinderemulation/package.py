@@ -12,6 +12,5 @@ class Csctrackfinderemulation(MakefilePackage):
 
     version('1.2', commit='8c0287fde4739d96fd3fd4a03e5ce5e6b986052e')
 
-    def install(self, spec, prefix):
-        super(Csctrackfinderemulation, self).install(spec, prefix)
-        install_tree(join_path(self.stage.source_path, 'installDir'), prefix)
+    def patch(self, spec, prefix):
+        filter_file('INSTALL_DIR:=.*', 'INSTALL_DIR:={0}'.format(prefix), 'makefile')
