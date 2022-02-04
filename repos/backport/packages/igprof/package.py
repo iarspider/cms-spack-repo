@@ -29,7 +29,7 @@ class Igprof(CMakePackage):
 
     def cmake_args(self):
         args = []
-        args += self.define('CMAKE_CXX_FLAGS_RELWITHDEBINFO', '-g -O3')
+        args += [self.define('CMAKE_CXX_FLAGS_RELWITHDEBINFO', '-g -O3')]
         return args
 
     def build_system_flags(pkg, name, flags):

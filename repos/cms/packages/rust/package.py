@@ -72,6 +72,7 @@ class Rust(Package):
     depends_on('openssl@:1')
     depends_on('libssh2')
     depends_on('libgit2')
+    depends_on('llvm', type=('build', 'link'))
 
     # Pre-release Versions
     version('master', branch='master', submodules=True)
@@ -134,6 +135,7 @@ class Rust(Package):
     version('1.24.1', sha256='3ea53d45e8d2e9a41afb3340cf54b9745f845b552d802d607707cf04450761ef', deprecated=True)
     version('1.24.0', sha256='bb8276f6044e877e447f29f566e4bbf820fa51fea2f912d59b73233ffd95639f', deprecated=True)
     version('1.23.0', sha256='7464953871dcfdfa8afcc536916a686dd156a83339d8ec4d5cb4eb2fe146cb91', deprecated=True)
+
 
     # The Rust bootstrapping process requires a bootstrapping compiler. The
     # easiest way to do this is to download the binary distribution of the
@@ -555,7 +557,8 @@ class Rust(Package):
             tools.append('src')
 
         ar = which('ar', required=True)
-        llvm_config = which('llvm-config', required=True)
+        llvm_config = which('llvm-config', required=True).path
+#        llvm_config = self.spec['llvm'].bin.join('llvm-config')
 
         extra_targets = []
         if not self.spec.satisfies('extra_targets=none'):
@@ -566,7 +569,7 @@ class Rust(Package):
             ','.join('"{0}"'.format(target) for target in targets) + ']'
         target_specs = '\n'.join(
             '[target.{0}]\nar = "{1}"\nllvm-config = "{2}"'.format(target, ar.path,
-                                                                   llvm_config.path)
+                                                                   llvm_config)
             for target in targets)
 
         # build.tools was introduced in Rust 1.25
@@ -579,7 +582,7 @@ class Rust(Package):
         # ensures everything but the bootstrapping script is warning free for
         # the latest set of warning.
         deny_warnings_spec = \
-            'deny-warnings = false' if '@1.42.0' in self.spec else ''
+            'deny-warnings = false' #if '@1.42.0' in self.spec else ''
 
         # "Nightly" and master builds want a path to rustfmt - otherwise, it
         # will try to download rustfmt from the Internet. We'll give it rustfmt
@@ -612,6 +615,7 @@ verbose = 2
 [rust]
 channel = "stable"
 rpath = true
+codegen-tests = false
 {deny_warnings_spec}
 
 {target_specs}
@@ -649,6 +653,7 @@ sysconfdir = "etc"
         if self.spec['openssl'].external:
             env.set('OPENSSL_NO_PKG_CONFIG', '1')
             env.set('OPENSSL_DIR', self.spec['openssl'].prefix)
+            env.set('OPENSSL_LIB_DIR', self.spec['openssl'].prefix.lib64)
         
     def setup_run_environment(self, spec, prefix):
         env.set('CARGO_HOME', self.cargo_dir)
