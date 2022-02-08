@@ -42,7 +42,8 @@ class Pythia6(AutotoolsPackage):
     version('6.4.26', url='https://service-spi.web.cern.ch/service-spi/external/MCGenerators/distribution/pythia6/pythia6-426-src.tgz',
             sha256='4dd75f551b7660c35f817c063abd74ca91b70259c0987905a06ebb2d21bcdf26')
 
-    install_libtool_archives = True
+    # install_libtool_archives = True
+    keep_archive = True
     configure_directory = '426'
 
     depends_on('autoconf', type='build')

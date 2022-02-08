@@ -199,7 +199,8 @@ class Root(CMakePackage):
     depends_on('openssl',   when='+davix')  # Also with davix
     depends_on('oracle-instant-client', when='+oracle @:6.24.01')
     depends_on('postgresql', when='+postgres')
-    depends_on('pythia6+root', when='+pythia6')
+    # depends_on('pythia6+root', when='+pythia6')
+    depends_on('pythia6', when='+pythia6')  # -- CMS: No root variant
     depends_on('pythia8',   when='+pythia8')
     depends_on('r',         when='+r', type=('build', 'run'))
     depends_on('r-rcpp',    when='+r', type=('build', 'run'))

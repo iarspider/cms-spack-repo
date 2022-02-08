@@ -66,7 +66,8 @@ class Openloops(Package):
             f.write('link_optimisation = -O2\n')
             f.write('process_download_script = download_dummy.py\n')
 
-        copy(join_path(spec['openloops-process'].prefix, 'cms.coll'), 'cms.coll')
+        self.coll_file = 'tiny.coll' if spec['openloops-process'].variants['tiny'].value else 'cms.coll'
+        copy(join_path(spec['openloops-process'].prefix, self.coll_file), self.coll_file)
 
         copy(join_path(os.path.dirname(__file__), 'download_dummy.py'), 'download_dummy.py')
 
@@ -79,7 +80,7 @@ class Openloops(Package):
 
         install_tree(self.spec['openloops-process'].prefix.process_src, 'process_src')
         install_tree(self.spec['openloops-process'].prefix.proclib, 'proclib')
-        install(join_path(self.spec['openloops-process'].prefix, 'cms.coll'), 'cms.coll')
+        install(join_path(self.spec['openloops-process'].prefix, self.coll_file), self.coll_file)
 
         ol = Executable('./openloops')
         if '+compile_extra' in self.spec:
@@ -87,7 +88,7 @@ class Openloops(Package):
         else:
             ce = ''
 
-        ol('libinstall', ce, 'cms.coll')
+        ol('libinstall', ce, self.coll_file)
 
     def install(self, spec, prefix):
         install_tree('lib', self.prefix.lib)

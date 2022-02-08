@@ -9,7 +9,7 @@ index f707c72..61be44c 100644
 -      DOUBLE PRECISION TWOM24
 -      PARAMETER (TWOM24 = 2.D0**(-24))
 -      Real Rvec(2)
--       Integer i
+-	Integer i
 -      CALL RANLUX(RVEC,2)
 -      DR(1) = DBLE (RVEC(1)) + DBLE (RVEC(2)) * TWOM24
 -c      CALL RM48 (DR,1)
@@ -21,7 +21,7 @@ index f707c72..61be44c 100644
 -
 -
        SUBROUTINE dcasrnv(RVEC,LENV)
-
+ 
        Integer lenv,I
 diff --git a/src/Makefile.in b/src/Makefile.in
 index 2f2d255..5aed8f2 100644
