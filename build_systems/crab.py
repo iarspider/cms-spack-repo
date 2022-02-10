@@ -5,7 +5,7 @@
 
 from llnl.util.filesystem import *
 
-ffrom spack.package import PackageBase
+from spack.package import PackageBase
 
 import glob
 import os
