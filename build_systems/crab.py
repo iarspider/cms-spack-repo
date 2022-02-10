@@ -3,7 +3,9 @@
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
-from spack import *
+from llnl.util.filesystem import *
+
+ffrom spack.package import PackageBase
 
 import glob
 import os
