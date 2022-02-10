@@ -9,14 +9,14 @@ import glob
 import os
 import re
 
-class CrabProd(CrabPackage):
-    """crab-prod"""
+class CrabPre(CrabPackage):
+    """crab-pre"""
 
     homepage = "https://www.example.com"
     url = "file://" + os.path.dirname(__file__) + '/junk.xml'
 
     wmcore_version = '1.5.3'
-    crab_client_version = 'v3.220104'
+    crab_client_version = 'v3.211130'
     crab_client_revision = '00'
-    crab_server_version = 'v3.220107'
+    crab_server_version = 'v3.211025'
     dbs_version = '3.14.0'
