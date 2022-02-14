@@ -1,0 +1,16 @@
+#CMSDIST_FILE_REVISION=3
+import sys
+from os.path import join, exists
+CMSPath="/root/spack/opt/spack/linux-ubuntu20.04-skylake_avx512/gcc-9.3.0/crab-1.0-oheikktep4lzqlatwz3bfgmawlhdln2e/share/cms"
+_crab_type="crab-%s" % __file__.split("/")[-3]
+_crab_ver=None
+with open(join(CMSPath,"crab/1.0/etc","%s.latest" % _crab_type)) as ref:
+  _crab_ver = ref.readlines()[0].strip()
+CRABInstallationPath=join(CMSPath,_crab_type,_crab_ver)
+_crablib = join(CRABInstallationPath,"lib")
+sys.path.insert(0,_crablib)
+_crabpkg = join(_crablib, __name__)
+_pkg_init_file = join(_crabpkg, '__init__.py')
+if exists(_pkg_init_file):
+  __path__.insert(0,_crabpkg)
+  exec(open(_pkg_init_file).read())
