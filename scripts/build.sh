@@ -9,9 +9,9 @@ echo Setup Spack for CMS
 cd $WORKSPACE/cms-spack-repo
 bash -xe ./bootstrap.sh
 cd spack
-source share/spack/setup-env.sh 
+source share/spack/setup-env.sh
 echo Add signing key
-spack gpg trust $SPACK_GPG_KEY
+if [ ! -z ${SPACK_GPG_KEY+x} ]; then spack gpg trust $SPACK_GPG_KEY; fi
 echo Add padding to install_tree
 spack config add "config:install_tree:padded_length:128"
 echo Start the installation

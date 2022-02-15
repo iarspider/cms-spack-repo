@@ -6,7 +6,7 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 cd ${SCRIPT_DIR}
 echo This script will install Spack and configure it for CMS needs
 echo Cloning spack...
-git clone --quiet https://github.com/spack/spack.git
+[ ! -d spack ] && git clone --quiet https://github.com/spack/spack.git
 cd spack; git checkout --quiet ${SPACK_VERSION}
 echo Configuring spack
 cp ${SCRIPT_DIR}/config/config.yaml etc/spack/
