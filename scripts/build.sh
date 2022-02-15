@@ -15,7 +15,7 @@ spack gpg trust $SPACK_GPG_KEY
 echo Add padding to install_tree
 spack config add "config:install_tree:padded_length:128"
 echo Start the installation
-spack env activate CMSSW_12_1_X
+spack env activate ${SPACK_ENV}
 spack -d install -j$CORES --fail-fast
 echo Prepare mirror and buildcache
 spack mirror create -d $WORKSPACE/mirror --all --dependencies

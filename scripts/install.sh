@@ -16,7 +16,7 @@ echo Set install root
 mkdir -p $WORKSPACE/install
 spack config add "config:install_tree:root:$WORKSPACE/install"
 echo Start the installation
-spack env activate CMSSW_12_1_X
+spack env activate ${SPACK_ENV}
 spack install -j$CORES --fail-fast --cache-only
 # CMS post-install
 if [ -z ${RPM_INSTALL_PREFIX+x} ]; then export RPM_INSTALL_PREFIX=$WORKSPACE; fi

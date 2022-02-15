@@ -1,6 +1,6 @@
 #!/bin/bash
 SPACK_VERSION="v0.17.0"
-SPACK_ENV="CMSSW_12_1_X"
+# SPACK_ENV="CMSSW_12_1_X"
 ###############################################################################
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 cd ${SCRIPT_DIR}
@@ -10,7 +10,7 @@ git clone --quiet https://github.com/spack/spack.git
 cd spack; git checkout --quiet ${SPACK_VERSION}
 echo Configuring spack
 cp ${SCRIPT_DIR}/config/config.yaml etc/spack/
-echo Adding external gcc 9.3.0
+echo Adding external gcc
 mkdir -p etc/spack/linux
 cp ${SCRIPT_DIR}/config/compilers.yaml etc/spack/linux/compilers.yaml
 echo Adding CMS hooks
