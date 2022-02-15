@@ -18,9 +18,13 @@ spack config add "config:install_tree:root:$WORKSPACE/install"
 echo Start the installation
 spack env activate CMSSW_12_1_X
 spack install -j$CORES --fail-fast --cache-only
-spack load root
+# CMS post-install
+if [ -z ${RPM_INSTALL_PREFIX+x} ]; then export RPM_INSTALL_PREFIX=$WORKSPACE; fi
+find $WORKSPACE/install -name 'cmspost.sh' -exec /bin/bash -xe {} \;
 # Tests
+spack load root
 root --version
 spack unload root
 spack load coral
 python -c "import LCG"
+spack unload coral

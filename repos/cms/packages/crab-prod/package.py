@@ -24,4 +24,5 @@ class CrabProd(CrabPackage):
     @run_after('install')
     def copy_cmspost(self):
         install(join_path(os.path.dirname(__file__), 'cmspost.sh'), prefix)
+        filter_file('%{ver}', str(spec.version), join_path(prefix, 'cmspost.sh'))
         set_executable(join_path(prefix, 'cmspost.sh'))

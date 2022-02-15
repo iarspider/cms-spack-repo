@@ -1,5 +1,6 @@
 #!/bin/bash
-cd $(dirname $0)
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+cd $SCRIPT_DIR
 
 mkdir -p ${RPM_INSTALL_PREFIX}/common ${RPM_INSTALL_PREFIX}/etc/cms-git-tools ${RPM_INSTALL_PREFIX}/share/man/man1
 

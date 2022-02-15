@@ -2,7 +2,7 @@
 pkgrel=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 directpkgreqs="crab-prod crab-pre crab-dev"
 cd ${RPM_INSTALL_PREFIX}
-crab=share/cms/crab/${realversion}
+crab=share/cms/crab/%{ver}
 mkdir -p ${crab}/bin ${crab}/lib ${crab}/etc share/etc/profile.d
 for f in crab-env.csh crab-env.sh ; do
   ./common_revision_script.sh ${pkgrel}/$f share/etc/profile.d/S99$f

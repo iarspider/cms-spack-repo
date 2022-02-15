@@ -6,6 +6,7 @@
 from llnl.util.filesystem import *
 
 from spack.package import PackageBase
+from spack.directives import resource, version
 
 import glob
 import os

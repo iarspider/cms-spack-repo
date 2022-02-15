@@ -38,4 +38,5 @@ class Crab(Package):
             filter_file('@CRAB_COMMON_VERSION@', str(spec.version), target_fn)
         set_executable(prefix.join('crab.sh'))
         install(local_file('cmspost.sh'), prefix)
+        filter_file('%{ver}', str(spec.version), prefix.join('cmspost.sh'))
         install(local_file('common_revision_script.sh'), prefix)
