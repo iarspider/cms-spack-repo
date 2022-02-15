@@ -27,8 +27,8 @@ class Crab(Package):
     resource(name='crab-env.sh', url=local_file_url('crab-env.sh.file'), sha256='a780ec79286446e603408179457b7f485efcc137c68cd150de05a6634f778798', expand=False)
 
     depends_on('crab-prod')
-#    depends_on('crab-pre')
-#    depends_on('crab-dev')
+    depends_on('crab-pre')
+    depends_on('crab-dev')
 
     def install(self, spec, prefix):
         for fn in glob.glob(join_path(os.path.dirname(__file__), 'crab*')):
