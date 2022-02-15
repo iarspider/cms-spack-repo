@@ -1,6 +1,6 @@
 #!/bin/bash
 SPACK_VERSION="v0.17.0"
-# SPACK_ENV="CMSSW_12_1_X"
+# SPACK_ENV_NAME="CMSSW_12_1_X"
 ###############################################################################
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 cd ${SCRIPT_DIR}
@@ -33,5 +33,5 @@ spack repo add --scope=site ${SCRIPT_DIR}/repos/backport
 echo Adding CMS mirror
 spack mirror add --scope=site cms https://test-cms-spack.web.cern.ch/test-cms-spack/CMS/mirror
 echo Creating environment
-spack env create ${SPACK_ENV} ${SCRIPT_DIR}/environments/${SPACK_ENV}/spack.yaml
+spack env create ${SPACK_ENV_NAME} ${SCRIPT_DIR}/environments/${SPACK_ENV_NAME}/spack.yaml
 echo Done
