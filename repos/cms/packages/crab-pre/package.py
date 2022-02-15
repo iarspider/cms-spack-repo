@@ -20,9 +20,5 @@ class CrabPre(CrabPackage):
     crab_client_revision = '00'
     crab_server_version = 'v3.211025'
     dbs_version = '3.14.0'
+    thisdir = os.path.dirname(__file__)
 
-    @run_after('install')
-    def copy_cmspost(self):
-        install(join_path(os.path.dirname(__file__), 'cmspost.sh'), prefix)
-        filter_file('%{ver}', str(spec.version), join_path(prefix, 'cmspost.sh'))
-        set_executable(join_path(prefix, 'cmspost.sh'))

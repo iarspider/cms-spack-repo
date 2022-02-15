@@ -24,6 +24,7 @@ class CrabPackage(PackageBase):
     crab_server_version = 'v3.220107'
     dbs_version = '3.14.0'
 
+    build_system_class='CrabPackage'
 
     resource(
         name='CRABClient',
@@ -55,6 +56,8 @@ class CrabPackage(PackageBase):
     wmcore_packages = ("PSetTweaks", "Utils", "WMCore")
     crabserver_packages = ("RESTInteractions.py", "ServerUtilities.py")
     dbs_packages = ("Client/src/python/dbs", "PycurlClient/src/python/RestClient")
+
+    phases = ['install']
 
     def install(self, spec, prefix):
         crab_type = os.path.basename(os.path.dirname(__file__)).replace('crab-', '')
@@ -107,5 +110,6 @@ class CrabPackage(PackageBase):
                     f.write("complete -F _UseCrab_prod -o filenames crab\n")
         else:
             raise RuntimeError("ERROR: Unable to fix crab use function _UseCrab")
-        install(join_path(os.path.dirname(__file__), 'cmspost.sh'), prefix)
+        install(join_path(self.thisdir, 'cmspost.sh'), prefix)
+        filter_file('%{ver}', str(spec.version), join_path(prefix, 'cmspost.sh'))
         set_executable(join_path(prefix, 'cmspost.sh'))

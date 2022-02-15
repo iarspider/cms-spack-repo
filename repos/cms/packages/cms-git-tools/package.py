@@ -21,4 +21,4 @@ class CmsGitTools(Package):
         install_tree('.', prefix.common)
         install(join_path(self.stage.source_path, 'docs', 'man', 'man1', '*.1'), prefix.share.man.man1)
         install(join_path(os.path.dirname(__file__), 'cmspost.sh'), prefix)
-        filter_file('%{fakerevision}', str(spec.version.upto(1)), join_path(prefix, 'cmspost.sh'))
+        filter_file('%{fakerevision}', str(spec.version.up_to(1)), join_path(prefix, 'cmspost.sh'))
