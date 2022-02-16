@@ -7,6 +7,13 @@ from spack import *
 import os
 
 
+def local_file(fn):
+    return join_path(os.path.dirname(__file__), fn)
+
+def local_file_url(fn):
+    return 'file://' + local_file(fn)
+
+
 class OpenloopsProcess(Package):
     """Download process sources for OpenLoops"""
 
@@ -17,14 +24,14 @@ class OpenloopsProcess(Package):
     patch('openloops-urlopen2curl.patch')
 
     resource(name='cms.coll',
-             url='file://' + os.path.dirname(__file__) + 'cms.coll',
+             url=local_file_url('cms.coll'),
              sha256='ad84441b47bc01ea74487d153943d6bf9c6f2a1c40e6c158f9d0ce886ef29e4b',
-             when='~tiny')
+             when='~tiny', expand=False, placement={'cms.coll': 'cms.coll'})
 
     resource(name='tiny.coll',
-             url='file://' + os.path.dirname(__file__) + 'tiny.coll',
+             url=local_file_url('tiny.coll'),
              sha256='eb0f24cc30fb10d75f828d60abe686fc0485d274f9832d26414f40e9a78dcd78',
-             when='+tiny')
+             when='+tiny', expand=False, placement={'tiny.coll': 'tiny.coll'})
 
     variant('tiny', default=False, description='Only download one process to speed things up')
 

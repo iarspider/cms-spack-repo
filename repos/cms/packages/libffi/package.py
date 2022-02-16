@@ -12,10 +12,11 @@ class Libffi(AutotoolsPackage, SourcewarePackage):
     to call any function specified by a call interface description at
     run time."""
     homepage = "https://sourceware.org/libffi/"
-    sourceware_mirror_path = "libffi/libffi-3.2.1.tar.gz"
+    url = "https://github.com/libffi/libffi/archive/refs/tags/v3.4.2.tar.gz"
 
-    version('3.3',   sha256='72fba7922703ddfa7a028d513ac15a85c8d54c8d67f55fa5a4802885dc652056')
-    version('3.2.1', sha256='d06ebb8e1d9a22d19e38d63fdb83954253f39bedc5d46232a05645685722ca37')
+    version('3.4.2',     sha256='0acbca9fd9c0eeed7e5d9460ae2ea945d3f1f3d48e13a4c54da12c7e0d23c313')
+    version('3.3',       sha256='3f2f86094f5cf4c36cfe850d2fe029d01f5c2c2296619407c8ba0d8207da9a6b')
+    version('3.2.1',     sha256='96d08dee6f262beea1a18ac9a3801f64018dc4521895e9198d029d6850febe23')
 
     patch('clang-powerpc-3.2.1.patch', when='@3.2.1%clang platform=linux')
     # ref.: https://github.com/libffi/libffi/pull/561
@@ -23,7 +24,11 @@ class Libffi(AutotoolsPackage, SourcewarePackage):
     # -- CMS
     patch('libffi-3.2.1-fix-include-path.patch', when='@3.2.1')
 
-    drop_files = ['lib', 'lib64/*.la', 'share']
+    drop_files = ['share', 'lib64/pkgconfig']
+
+    depends_on('autoconf', type='build', when='@3.4.2')
+    depends_on('automake', type='build', when='@3.4.2')
+    depends_on('libtool', type='build', when='@3.4.2')
 
     @property
     def headers(self):
@@ -31,7 +36,7 @@ class Libffi(AutotoolsPackage, SourcewarePackage):
         return find_headers('ffi', self.prefix, recursive=True)
 
     def configure_args(self):
-        args = ['--enable-portable-binary', '--disable-static']  # -- CMS
+        args = ['--enable-portable-binary', '--disable-static', '--disable-dependency-tracking', '--disable-docs']  # -- CMS
         if self.spec.version >= Version('3.3'):
             # Spack adds its own target flags, so tell libffi not to
             # second-guess us
