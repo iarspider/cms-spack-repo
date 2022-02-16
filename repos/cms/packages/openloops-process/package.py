@@ -18,7 +18,7 @@ class OpenloopsProcess(Package):
 
     resource('cms.coll',
              url='file://' + os.path.dirname(__file__) + 'cms.coll',
-             sha256='ad84441b47bc01ea74487d153943d6bf9c6f2a1c40e6c158f9d0ce886ef29e4b'.
+             sha256='ad84441b47bc01ea74487d153943d6bf9c6f2a1c40e6c158f9d0ce886ef29e4b',
              when='~tiny')
 
     resource('tiny.coll',
