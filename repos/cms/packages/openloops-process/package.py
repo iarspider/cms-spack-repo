@@ -16,12 +16,12 @@ class OpenloopsProcess(Package):
     version('2.1.2', branch='cms/v2.1.2')
     patch('openloops-urlopen2curl.patch')
 
-    resource('cms.coll',
+    resource(name='cms.coll',
              url='file://' + os.path.dirname(__file__) + 'cms.coll',
              sha256='ad84441b47bc01ea74487d153943d6bf9c6f2a1c40e6c158f9d0ce886ef29e4b',
              when='~tiny')
 
-    resource('tiny.coll',
+    resource(name='tiny.coll',
              url='file://' + os.path.dirname(__file__) + 'tiny.coll',
              sha256='eb0f24cc30fb10d75f828d60abe686fc0485d274f9832d26414f40e9a78dcd78',
              when='+tiny')
