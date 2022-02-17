@@ -13,9 +13,11 @@ if [ -f ${RPM_INSTALL_PREFIX}/etc/cms-git-tools/version ] ; then
 fi
 
 for file in $(find . -name '*' -type f -path '*/common/*' -o -type f -path '*/share/*') ; do
+  mkdir -p ${RPM_INSTALL_PREFIX}/$(dirname $file)
   cp -f ${file} ${RPM_INSTALL_PREFIX}/${file}
 done
 for file in $(find . -name '*' -type l -path '*/common/*') ; do
+  mkdir -p ${RPM_INSTALL_PREFIX}/$(dirname $file)
   cp -pRf ${file} ${RPM_INSTALL_PREFIX}/${file}
 done
 rm -f ${RPM_INSTALL_PREFIX}/common/git-addpkg

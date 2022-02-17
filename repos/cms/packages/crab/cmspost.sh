@@ -5,13 +5,13 @@ cd ${RPM_INSTALL_PREFIX}
 crab=share/cms/crab/%{ver}
 mkdir -p ${crab}/bin ${crab}/lib ${crab}/etc share/etc/profile.d
 for f in crab-env.csh crab-env.sh ; do
-  ./common_revision_script.sh ${pkgrel}/$f share/etc/profile.d/S99$f
+  ${pkgrel}/common_revision_script.sh ${pkgrel}/$f share/etc/profile.d/S99$f
 done
 for f in crab-setup.csh crab-setup.sh ; do
-  ./common_revision_script.sh ${pkgrel}/$f common/$f
+  ${pkgrel}/common_revision_script.sh ${pkgrel}/$f common/$f
 done
-./common_revision_script.sh ${pkgrel}/crab.sh            ${crab}/bin/crab.sh
-./common_revision_script.sh ${pkgrel}/crab-proxy-package ${crab}/lib/crab-proxy-package
+${pkgrel}/common_revision_script.sh ${pkgrel}/crab.sh            ${crab}/bin/crab.sh
+${pkgrel}/common_revision_script.sh ${pkgrel}/crab-proxy-package ${crab}/lib/crab-proxy-package
 
 for pkg in $(echo ${directpkgreqs} | tr ' ' '\n') ; do
   crab_name=$(echo $pkg | cut -d/ -f2)
