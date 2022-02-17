@@ -22,9 +22,11 @@ spack install -j$CORES --fail-fast --cache-only
 if [ -z ${RPM_INSTALL_PREFIX+x} ]; then export RPM_INSTALL_PREFIX=$WORKSPACE; fi
 find $WORKSPACE/install -name 'cmspost.sh' -exec /bin/bash -xe {} \;
 # Tests
-spack load root
-root --version
-spack unload root
-spack load coral
-python -c "import LCG"
-spack unload coral
+if [[ ${SPACK_ENV_NAME} == CMSSW* ]]; then
+    spack load root
+    root --version
+    spack unload root
+    spack load coral
+    python -c "import LCG"
+    spack unload coral
+fi
