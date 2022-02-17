@@ -17,10 +17,9 @@ mkdir -p $WORKSPACE/install
 spack config add "config:install_tree:root:$WORKSPACE/install"
 echo Start the installation
 spack env activate ${SPACK_ENV_NAME}
-spack install -j$CORES --fail-fast --cache-only
 # CMS post-install
 if [ -z ${RPM_INSTALL_PREFIX+x} ]; then export RPM_INSTALL_PREFIX=$WORKSPACE/root; fi
-find $WORKSPACE/install -name 'cmspost.sh' -exec /bin/bash -xe {} \;
+spack install -j$CORES --fail-fast --cache-only
 # Tests
 if [[ ${SPACK_ENV_NAME} == CMSSW* ]]; then
     spack load root
