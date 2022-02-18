@@ -26,11 +26,11 @@ grep -q "lib/spack/spack/pkgkit.py" -e "CrabPackage"   || (echo "from spack.buil
 echo Initializing Spack
 source share/spack/setup-env.sh
 echo Adding CMS repository
-(spack repo list | grep -e "cms")      || spack repo add --scope=site ${SCRIPT_DIR}/repos/cms
+(spack repo list | grep -e "^cms")      || spack repo add --scope=site ${SCRIPT_DIR}/repos/cms
 echo Adding backport repository
-(spack repo list | grep -e "backport") || spack repo add --scope=site ${SCRIPT_DIR}/repos/backport
+(spack repo list | grep -e "^backport") || spack repo add --scope=site ${SCRIPT_DIR}/repos/backport
 echo Adding CMS mirror
-(spack mirror list | grep -e "cms")    || spack mirror add --scope=site cms https://test-cms-spack.web.cern.ch/test-cms-spack/CMS/mirror
+(spack mirror list | grep -e "^cms")    || spack mirror add --scope=site cms https://test-cms-spack.web.cern.ch/test-cms-spack/CMS/mirror
 echo Creating environment
 (spack env list | grep -e ${SPACK_ENV_NAME}) || spack env create ${SPACK_ENV_NAME} ${SCRIPT_DIR}/environments/${SPACK_ENV_NAME}/spack.yaml
 echo Done
