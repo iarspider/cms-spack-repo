@@ -1,5 +1,6 @@
 import os
 from llnl.util.filesystem import join_path, force_remove
+from spack.util.executable import which
 
 
 def post_install(spec):
