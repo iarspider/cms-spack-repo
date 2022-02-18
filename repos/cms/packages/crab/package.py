@@ -31,12 +31,17 @@ class Crab(Package):
     depends_on('crab-dev')
 
     def install(self, spec, prefix):
+        directpkgreqs = []
+        for dep in spec.dependencies():
+            directpkgreqs.append('cms/{0}/{1}'.format(spec.name, spec.version))
+    
         for fn in glob.glob(join_path(os.path.dirname(__file__), 'crab*')):
             target_fn = prefix.join(os.path.basename(fn).replace('.file', ''))
             install(fn, target_fn)
-            filter_file('@CMS_PATH@', prefix, target_fn)
-            filter_file('@CRAB_COMMON_VERSION@', str(spec.version), target_fn)
+            filter_file('@CMS_PATH@', prefix, target_fn, backup=False)
+            filter_file('@CRAB_COMMON_VERSION@', str(spec.version), target_fn, backup=False)
         set_executable(prefix.join('crab.sh'))
         install(local_file('cmspost.sh'), prefix)
-        filter_file('%{ver}', str(spec.version), prefix.join('cmspost.sh'))
+        filter_file('%{ver}', str(spec.version), prefix.join('cmspost.sh'), backup=False)
+        filter_file('directpkgreqs=.*', '"' + ' '.join(directpkgreqs) + '"', prefix.join('cmspost.sh'), backup=False)
         install(local_file('common_revision_script.sh'), prefix)

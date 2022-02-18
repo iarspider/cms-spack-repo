@@ -1,6 +1,6 @@
 #!/bin/bash
 pkgrel=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-directpkgreqs="crab-prod crab-pre crab-dev"
+directpkgreqs=""
 cd ${RPM_INSTALL_PREFIX}
 crab=share/cms/crab/%{ver}
 mkdir -p ${crab}/bin ${crab}/lib ${crab}/etc share/etc/profile.d
