@@ -9,9 +9,9 @@ echo Setup Spack for CMS
 cd $WORKSPACE/cms-spack-repo
 bash -xe ./bootstrap.sh
 cd spack
-source share/spack/setup-env.sh 
+source share/spack/setup-env.sh
 echo Add signing key
-spack buildcache keys --force --install --trust 
+spack buildcache keys --force --install --trust
 echo Set install root
 mkdir -p $WORKSPACE/install
 spack config add "config:install_tree:root:$WORKSPACE/install"
