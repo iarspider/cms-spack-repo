@@ -19,7 +19,7 @@ spack env activate ${SPACK_ENV_NAME}
 spack -d install -j$CORES --fail-fast
 echo Prepare mirror and buildcache
 spack mirror create -d $WORKSPACE/mirror --all --dependencies
-if [ ${UPLOAD_BUILDCACHE} = "true" ]; then
+if [ ${UPLOAD_BUILDCACHE-x} = "true" ]; then
   spack buildcache create -r -f -a -d $WORKSPACE/mirror
   spack gpg publish -d $WORKSPACE/mirror --rebuild-index
   cd $WORKSPACE
