@@ -45,3 +45,4 @@ class Crab(Package):
         filter_file('%{ver}', str(spec.version), prefix.join('cmspost.sh'), backup=False)
         filter_file('directpkgreqs=.*', '"' + ' '.join(directpkgreqs) + '"', prefix.join('cmspost.sh'), backup=False)
         install(local_file('common_revision_script.sh'), prefix)
+        set_executable(prefix.join('common_revision_script.sh'))
