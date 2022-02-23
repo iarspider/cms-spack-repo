@@ -74,6 +74,7 @@ spack:
   - autoconf@2.69
   - automake@1.16.1
   - bazel@3.7.2
+  - berkeley-db@6.2.32
   - bison@3.5
   - blackhat@0.9.9
   - boost@1.75.0~icu~atomic~container~context~coroutine~exception~graph~locale~log~math~random~wave+shared+multithreaded~debug+mpi+python+iostreams
@@ -98,8 +99,8 @@ spack:
   - cuda@11.4.2
   - curl@7.70.0~libssh2+gssapi~libidn2
   - dablooms@0.9.1
+  - das-client@v03.01.00
   - davix@0.7.6
-  - berkeley-db@6.2.32
   - dcap@2.47.12
   - dd4hep@1.18x+xercesc+geant4units~edm4hep # CMS: +geant4 is set internally to build static version of ddg4
   - dmtcp@3.0.0-dev
@@ -133,6 +134,7 @@ spack:
   - gettext@0.20.1~bzip2~xz~curses~libxml2~libunistring
   - giflib@5.2.0
   - git@2.23.0~man~nls
+  - glimpse@4.18.7-6
   - gmake@4.3~nls
   - gmp@6.2.0
   - gnuplot@5.2.8~cairo~X~wx~gd~pbm~libcerf

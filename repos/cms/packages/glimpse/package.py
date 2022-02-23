@@ -19,9 +19,9 @@ debian/patches/30-manpage-spelling
 class Glimpse(AutotoolsPackage):
     """ glimpse - search quickly through entire file systems"""
 
-    git = "https://github.com/az143/glimpse.git"
+    git = "https://github.com/cms-externals/glimpse.git"
 
-    version('4.18.7-6', commit='23edbf54d45cefb1a5537598efe88d2b68470afb')
+    version('4.18.7-6', commit='5426ca983218befa4aeadf21cad2305d90c84adb')
 
     parallel = False
 
