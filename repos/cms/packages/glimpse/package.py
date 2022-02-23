@@ -5,17 +5,6 @@
 
 from spack import *
 
-
-"""
-debian/patches/01-cross
-debian/patches/01-makefile
-debian/patches/01-manpages
-debian/patches/12-manpage-hyphen
-debian/patches/15-manpage-url
-debian/patches/20-bin-spelling
-debian/patches/25-fix-double-free
-debian/patches/30-manpage-spelling
-"""
 class Glimpse(AutotoolsPackage):
     """ glimpse - search quickly through entire file systems"""
 
@@ -24,15 +13,6 @@ class Glimpse(AutotoolsPackage):
     version('4.18.7-6', commit='5426ca983218befa4aeadf21cad2305d90c84adb')
 
     parallel = False
-
-    patch('01-cross')
-    patch('01-makefile')
-    patch('01-manpages')
-    patch('12-manpage-hyphen')
-    patch('15-manpage-url')
-    patch('20-bin-spelling')
-    patch('25-fix-double-free')
-    patch('30-manpage-spelling')
 
     @run_after('configure')
     def cmspatch(self):
