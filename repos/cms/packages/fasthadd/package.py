@@ -23,7 +23,7 @@ class Fasthadd(MakefilePackage):
              placement={'ROOTFilePB.proto': 'ROOTFilePB.proto'})
 
     depends_on('root')
-    depends_on('protobuf@:3.6.10')
+    depends_on('protobuf')
     phases = ['install']
 
     def install(self, spec, prefix):
