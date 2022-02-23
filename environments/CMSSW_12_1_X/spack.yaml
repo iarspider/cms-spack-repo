@@ -87,7 +87,6 @@ spack:
   - cmake@3.21.4~ownlibs~ncurses
   - cms-git-tools@211007.0
   - cmsmon-tools@0.5.35
-  - csctrackfinderemulation@1.2
   - cmssw-config@V06-03-01
   - coral@2.3.21py3
   - cppunit@1.15.x
