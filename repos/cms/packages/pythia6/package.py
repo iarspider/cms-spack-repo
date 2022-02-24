@@ -55,11 +55,6 @@ class Pythia6(AutotoolsPackage):
     # intended to be used with other code with different requirements.
     variant('nmxhep', default=4000, values=_is_integral, description='Extent of particle arrays in the /HEPEVT/ COMMON block.')
 
-    def setup_build_environment(self, env):
-        if self.spec.satisfies('%gcc@10:'):
-            env.append_flags('CFLAGS', '-fcommon')
-            env.append_flags('FFLAGS', '-fcommon')
-
     def configure_args(self):
         mkdirp(self.stage.path, 'temp_prefix')
         args = ['--with-hepevt=4000', '--prefix=' + join_path(self.stage.path, 'temp_prefix'), '--disable-shared', '--enable-static']
@@ -68,13 +63,9 @@ class Pythia6(AutotoolsPackage):
 
         return args
 
-    @run_after('configure')
-    def patch_libtool(self):
-        filter_file('^CC=.*$', 'CC="gcc -fPIC"', join_path(self.configure_directory, 'libtool'))
-
     def build(self, spec, prefix):
         with working_dir(self.configure_directory):
-            make('all', 'CFLAGS=-fPIC -fcommon')
+            make('all', 'CFLAGS=-fPIC -fcommon', 'FFLAGS=-fPIC -fcommon')
             make('install')
 
     def install(self, spec, prefix):
