@@ -447,7 +447,7 @@ spack:
   - py-tensorflow@2.6.0.cms~cuda~nccl~only_python+mpi
   - py-termcolor@1.1.0
   - py-terminado@0.12.1
-  - py-testpath@0.5.0
+  - py-testpath@0.6.0
   - py-theano@1.0.5
   - py-threadpoolctl@3.0.0
   - py-toml@0.10.2
