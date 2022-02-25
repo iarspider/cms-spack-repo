@@ -74,6 +74,10 @@ class Cuda(Package):
     depends_on('libxml2', when='@10.1.243:')
     depends_on('python@2.7:')
 
+    # Required for newer (post-0.17.0) Spack versions
+    variant('allow-unsupported-compilers', default=False, sticky=True,
+            description='Allow unsupported host compiler and CUDA version combinations')
+
 
     @classmethod
     def determine_version(cls, exe):

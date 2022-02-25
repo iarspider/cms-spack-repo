@@ -13,7 +13,6 @@ class CrabDev(CrabPackage):
     """crab-dev"""
 
     homepage = "https://www.example.com"
-    url = "file://" + os.path.dirname(__file__) + '/junk.xml'
 
     wmcore_version = '1.5.3'
     crab_client_version = 'v3.220204'
