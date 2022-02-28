@@ -17,6 +17,7 @@ class DasClient(Package):
 
     def install(self, spec, prefix):
         mkdirp(prefix.bin)
+        mkdirp(prefix.etc)
         install('src/python/DAS/tools/das_client.py', prefix.bin)
         install(join_path(os.path.dirname(__file__), 'das_clinet'), join_path(prefix.etc, 'das_client'))
         filter_file('%v', str(spec.version), join_path(prefix.etc, 'das_client'))
