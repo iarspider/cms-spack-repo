@@ -102,14 +102,14 @@ class Cuda(Package):
         mkdirp(prefix.build)
         mkdirp(prefix.tmp)
 
-        if os.path.exists('/tmp/cuda-installer.log'):
-            try:
-                os.remove('/tmp/cuda-installer.log')
-            except OSError:
-                if spec.satisfies('@10.1:'):
-                    tty.die("The cuda installer will segfault due to the "
-                            "presence of /tmp/cuda-installer.log "
-                            "please remove the file and try again ")
+#        if os.path.exists('/tmp/cuda-installer.log'):
+#            try:
+#                os.remove('/tmp/cuda-installer.log')
+#            except OSError:
+#                if spec.satisfies('@10.1:'):
+#                    tty.die("The cuda installer will segfault due to the "
+#                            "presence of /tmp/cuda-installer.log "
+#                            "please remove the file and try again ")
         runfile = glob(join_path(self.stage.source_path, 'cuda*_linux*'))[0]
         driver_version = os.path.basename(runfile).split('_')[2]
 
