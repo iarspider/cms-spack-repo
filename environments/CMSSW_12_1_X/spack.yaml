@@ -160,6 +160,7 @@ spack:
   - ittnotify@16.06.18
   - jemalloc@5.2.1~documentation+stats libs=shared
   - jimmy@4.2
+  - ktjet@1.06
   - lcov@1.15
   - lhapdf@6.3.0
   - libffi@3.2.1
@@ -171,6 +172,7 @@ spack:
   - libssh2@1.8.0
   - libtiff@4.0.10
   - libtool@2.4.6
+  - libungif@4.1.4
   - libunwind@1.5.0 +zlib~block_signals~docs
   - libxml2@2.9.10~python
   - libxslt@1.1.33~crypto~python
@@ -179,8 +181,13 @@ spack:
   - lz4@1.9.3
   - m4@1.4.18~sigsegv
   - madgraph5amc@2.7.3.py3 +cms~ninja~collier+golem~syscalc nb_core=4
+  - mcfm@6.3
+  - mctester@1.25.0a
+  - md5@1.0.0
+  - meschach@1.2.pCMS1
   - mpc@1.1.0
   - mpfr@4.0.2
+  - mxnet-predict@1.6.0
   - nasm@2.14.02
   - ninja@1.10.0
   - nlohmann-json@3.10.2
