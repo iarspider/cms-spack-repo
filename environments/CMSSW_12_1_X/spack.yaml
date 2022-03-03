@@ -257,7 +257,7 @@ spack:
   - py-crashtest@0.3.1
   - py-cryptography@3.2.1  # NB: newver versions need newer openssl
   - py-cx-oracle@8.3.0
-  - py-cycler@0.10.0
+  - py-cycler@0.11.0
   - py-cython@0.29.24
   - py-debugpy@1.4.1
   - py-decorator@5.1.0
