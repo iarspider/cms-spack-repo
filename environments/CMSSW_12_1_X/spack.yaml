@@ -200,7 +200,7 @@ spack:
   - openmpi@4.1.1
   - oracle-instant-client@19.11.0.0.0
   - oracleocci-abi-hack-cms
-  - pacparser@1.3.5
+  - pacparser@1.3.7
   - pcre@8.43~jit~multibyte+utf
   - photos@3.64
   - photos-f@215.5
@@ -455,7 +455,7 @@ spack:
   - py-typing-extensions@3.7.4.3 # NB: py-tensorflow; NB: keep this here
   - py-tensorboard-plugin-wit@1.8.0 # wheel
   - py-tensorboard@2.6.0 # wheel
-  - py-tensorboard-dataserver@0.6.1 # wheel
+  - py-tensorboard-data-server@0.6.1
   - py-tensorflow@2.6.0.cms~cuda~nccl~only_python+mpi
   - py-termcolor@1.1.0
   - py-terminado@0.12.1

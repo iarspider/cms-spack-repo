@@ -19,6 +19,7 @@ class Mcfm(MakefilePackage):
 
     version('6.3', branch='cms/6.3', commit='d2e025c')
     keep_archives = True # -- CMS
+    parallel = False
 
     depends_on('root')
     patch('mcfm-6.3-opt-for-size.patch', when='target=aarch64:')
