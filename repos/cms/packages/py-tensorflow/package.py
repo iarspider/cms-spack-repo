@@ -880,6 +880,7 @@ class PyTensorflow(Package, CudaPackage):
         copy_headers(self.stage.source_path, 'tensorflow/core/profiler/internal')
         copy_headers(self.stage.source_path, 'tensorflow/core/profiler/lib')
         with working_dir(buildpath):
+            setup_py = Executable('setup.py')
             setup_py('install', '--prefix={0}'.format(prefix),
                      '--single-version-externally-managed', '--root=/')
 

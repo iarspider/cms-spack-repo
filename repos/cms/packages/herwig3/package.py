@@ -24,7 +24,7 @@ class Herwig3(AutotoolsPackage):
     depends_on('automake', type='build')
     depends_on('libtool',  type='build')
     depends_on('m4',       type='build')
-    depends_on('lhapdf',   type=('build', 'link'))
+    depends_on('lhapdf',   type='link')
     depends_on('thepeg@2.2.1', when='@7.2.1', type='link')
     depends_on('thepeg@2.2.2', when='@7.2.2', type='link')
     depends_on('boost', type='link')
@@ -52,17 +52,17 @@ class Herwig3(AutotoolsPackage):
         autoreconf('--install', '--verbose', '--force')
         filter_file('-lgslcblas', '-lopenblas', 'configure')  # -- CMS
 
-    # ! TODO: CMS: removed
-    @run_before('build')
-    def install_lhapdfsets(self):
-        mkdirp(self.prefix.tmppdfsets)
-        lhapdf = which('lhapdf')
-        if self.spec.satisfies('@7.2.0:'):
-            lhapdf("--pdfdir=" + self.prefix.tmppdfsets,
-                   "--source=/cvmfs/sft.cern.ch/lcg/external/lhapdfsets/current",
-                   "--listdir=/cvmfs/sft.cern.ch/lcg/external/lhapdfsets/current",
-                   "install", "MHT2014lo68cl", "MMHT2014nlo68cl",
-                   "CT14lo", "CT14nlo")
+    # -- CMS: removed
+    # @run_before('build')
+    # def install_lhapdfsets(self):
+        # mkdirp(self.prefix.tmppdfsets)
+        # lhapdf = which('lhapdf')
+        # if self.spec.satisfies('@7.2.0:'):
+            # lhapdf("--pdfdir=" + self.prefix.tmppdfsets,
+                   # # "--source=/cvmfs/sft.cern.ch/lcg/external/lhapdfsets/current",
+                   # # "--listdir=/cvmfs/sft.cern.ch/lcg/external/lhapdfsets/current",
+                   # "install", "MHT2014lo68cl", "MMHT2014nlo68cl",
+                   # "CT14lo", "CT14nlo")
 
     def configure_args(self):
         args = ['--with-gsl=system', #  + self.spec['gsl'].prefix, #
