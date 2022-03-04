@@ -24,7 +24,7 @@ class Herwig3(AutotoolsPackage):
     depends_on('automake', type='build')
     depends_on('libtool',  type='build')
     depends_on('m4',       type='build')
-    depends_on('lhapdf',   type='link')
+    depends_on('lhapdf',   type=('build', 'link'))
     depends_on('thepeg@2.2.1', when='@7.2.1', type='link')
     depends_on('thepeg@2.2.2', when='@7.2.2', type='link')
     depends_on('boost', type='link')
