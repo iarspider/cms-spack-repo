@@ -380,7 +380,7 @@ spack:
   - py-pkginfo@1.7.1
   - py-ply@3.11
   - py-pillow@8.0.0
-  - py-pip@20.3.3
+  - py-pip@21.3.1
   - py-platformdirs@2.4.0
   - py-pluggy@1.0.0
   - py-prompt-toolkit@3.0.24
@@ -455,7 +455,7 @@ spack:
   - py-typing-extensions@3.7.4.3 # NB: py-tensorflow; NB: keep this here
   - py-tensorboard-plugin-wit@1.8.0 # wheel
   - py-tensorboard@2.6.0 # wheel
-  - py-tensorboard-data-server@0.6.1
+  - py-tensorboard-dataserver@0.6.1
   - py-tensorflow@2.6.0.cms~cuda~nccl~only_python+mpi
   - py-termcolor@1.1.0
   - py-terminado@0.12.1
