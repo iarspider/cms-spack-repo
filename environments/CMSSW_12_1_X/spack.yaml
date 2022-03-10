@@ -497,6 +497,8 @@ spack:
   - root@6.22.08.patches_cms_18c440c+davix+fftw~fits~graphviz+math+minuit+mlp~mysql+opengl~postgres~pythia6~pythia8+python~qt4+root7+roofit~sqlite+ssl+tmva+tbb~vdt~veccore+x+xrootd
   - rust@1.57.0~rustfmt~analysis~clippy~src
   - scram@3.0.31
+  - sherpa@2.2.12+analysis+fastjet+hepmc2+rivet+lhapdf+blackhat+python+ufo+openloops+cernlib+mpi+cms
+  - starlight@r193
   - sqlite@3.36.0~fts
   - starlight@r193
   - tauola@1.1.8 +hepmc+lhapdf+pythia8
