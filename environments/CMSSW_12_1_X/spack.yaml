@@ -505,6 +505,7 @@ spack:
   - tauola-f@27.121.5
   - thepeg@2.2.2 hepmc=2
   - tkonlinesw@4.2.0-1_gcc7
+  - toprex@4.23
   - util-linux-uuid@2.34
   - veccore
   - vecgeom@1.1.17 ~root~geant4 vector=sse3
