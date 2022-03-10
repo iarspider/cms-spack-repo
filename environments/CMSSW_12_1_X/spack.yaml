@@ -21,7 +21,7 @@ spack:
       target:
       - prescott
       version: []
-      variants: [cxxstd=17, build_type=Release]
+      variants: [cxxstd=17, build_type=Release, +cms, ~cuda]
     mesa-glu:
       externals: [{spec: mesa-glu@9.0.0, prefix: /usr}]
       buildable: false
