@@ -498,8 +498,11 @@ spack:
   - rust@1.57.0~rustfmt~analysis~clippy~src
   - scram@3.0.31
   - sqlite@3.36.0~fts
+  - starlight@r193
   - tauola@1.1.8 +hepmc+lhapdf+pythia8
+  - tauola-f@27.121.5
   - thepeg@2.2.2 hepmc=2
+  - tkonlinesw@4.2.0-1_gcc7
   - util-linux-uuid@2.34
   - veccore
   - vecgeom@1.1.17 ~root~geant4 vector=sse3
