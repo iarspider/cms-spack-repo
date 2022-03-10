@@ -271,7 +271,7 @@ spack:
   - py-downhill@0.4.0
   - py-entrypoints@0.3
   - py-fasteners@0.16.3
-  - py-filelock@3.0.12
+  - py-filelock@3.5.0  # test
   - py-fire@0.4.0
   - py-flake8@4.0.1
   - py-flawfinder@2.0.19
@@ -497,8 +497,7 @@ spack:
   - root@6.22.08.patches_cms_18c440c+davix+fftw~fits~graphviz+math+minuit+mlp~mysql+opengl~postgres~pythia6~pythia8+python~qt4+root7+roofit~sqlite+ssl+tmva+tbb~vdt~veccore+x+xrootd
   - rust@1.57.0~rustfmt~analysis~clippy~src
   - scram@3.0.31
-  - sherpa@2.2.12+analysis+fastjet+hepmc2+rivet+lhapdf+blackhat+python+ufo+openloops+cernlib+mpi+cms
-  - starlight@r193
+  - sherpa@2.2.12+analysis+fastjet+hepmc2+rivet+lhapdf+blackhat+python+ufo+openloops+mpi+cms~hepmc3
   - sqlite@3.36.0~fts
   - starlight@r193
   - tauola@1.1.8 +hepmc+lhapdf+pythia8
