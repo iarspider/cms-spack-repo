@@ -75,8 +75,8 @@ class Cuda(Package):
     depends_on('python@2.7:')
 
     # Required for newer (post-0.17.0) Spack versions
-        variant('allow-unsupported-compilers', default=False,
-            description='Allow unsupported host compiler and CUDA version combinations')
+    variant('allow-unsupported-compilers', default=False,
+        description='Allow unsupported host compiler and CUDA version combinations')
 
 
     @classmethod
