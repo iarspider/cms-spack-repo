@@ -27,8 +27,8 @@ echo Initializing Spack
 source share/spack/setup-env.sh
 echo Adding CMS repository
 spack repo add --scope=site ${SCRIPT_DIR}/repos/cms
-echo Adding backport repository
-spack repo add --scope=site ${SCRIPT_DIR}/repos/backport
+#echo Adding backport repository
+#spack repo add --scope=site ${SCRIPT_DIR}/repos/backport
 echo Adding CMS mirror
 spack mirror add --scope=site cms https://test-cms-spack.web.cern.ch/test-cms-spack/CMS/mirror
 echo Creating environment
