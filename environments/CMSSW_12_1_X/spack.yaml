@@ -58,6 +58,9 @@ spack:
     xextproto:
       externals: [{spec: xextproto@7.3.0, prefix: /usr}]
       buildable: false
+    krb5:
+      externals: [{spec: krb5@1.15.1, prefix: /usr}]
+      buildable: false
     mesa:
       variants: [~llvm]
     llvm:
@@ -75,7 +78,7 @@ spack:
   - automake@1.16.1
   - bazel@3.7.2
   - berkeley-db@6.2.32
-  - benchmark@master
+  - benchmark@develop
   - bison@3.5
   - blackhat@0.9.9
   - boost@1.75.0~icu~atomic~container~context~coroutine~exception~graph~locale~log~math~random~wave+shared+multithreaded~debug+mpi+python+iostreams
@@ -98,7 +101,7 @@ spack:
   - crab-prod@v3.220104.00
   - csctrackfinderemulation@1.2
   - cuda@11.4.2
-  - curl@7.70.0~libssh2+gssapi~libidn2
+  - curl@7.79.0~libssh2+gssapi~libidn2
   - dablooms@0.9.1
   - das-client@v03.01.00
   - davix@0.7.6

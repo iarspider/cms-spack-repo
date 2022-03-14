@@ -1,12 +1,14 @@
 #!/bin/bash -e
-upstream="/home/razumov/Work/_CMS/vanilla_spack/var/spack/repos/builtin/packages"
+UPSTREAM_SPACK=${UPSTREAM_SPACK:-"/home/razumov/Work/_CMS/vanilla_spack/var/spack/repos/builtin/packages"}
 #########################################################################################################################
+[ -d ${UPSTREAM_SPACK} ] || (echo "Invalid upstream Spack location: ${UPSTREAM_SPACK}"; exit 2)
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 cd $(dirname $SCRIPT_DIR)
 [ $# -lt 1 ] && (echo "Usage: backport.sh <package> [<package> ...]"; exit 1)
 for pname in "$@"
 do
-    [ ! -d ${upstream}/${pname} -o ! -f ${upstream}/${pname}/package.py ] && (echo "Can't find recipe for $pname"; exit 2)
-    cp -rf ${upstream}/${pname} repos/backport/packages
+    updir=${UPSTREAM_SPACK}/var/spack/repos/builtin/packages/${pname}
+    [ ! -d ${updir} -o ! -f ${updir}/package.py ] && (echo "Can't find recipe for $pname"; exit 2)
+    cp -rf ${updir} repos/backport/packages
     cp -rf repos/backport/packages/${pname} spack/var/spack/repos/builtin/packages
 done
