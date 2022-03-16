@@ -6,7 +6,7 @@
 from spack import *
 
 
-class DataGeometryTestreference(BundlePackage):
+class DataGeometryTestreference(CMSDataPackage):
     n = "data-Geometry-TestReference"
     git = "https://github.com/cms-data/{0}.git".format(n.replace('data-', ''))
 

@@ -24,6 +24,9 @@ echo "from spack.build_systems.g4data import G4DataPackage" >> lib/spack/spack/p
 echo Adding Crab package type
 cp ${SCRIPT_DIR}/build_systems/crab.py lib/spack/spack/build_systems/
 echo "from spack.build_systems.crab import CrabPackage" >> lib/spack/spack/pkgkit.py
+echo Adding CMSData package type
+cp ${SCRIPT_DIR}/build_systems/cmsdata.py lib/spack/spack/build_systems/
+echo "spack.build_systems.cmsdata import CMSDataPackage" >> lib/spack/spack/pkgkit.py
 echo Initializing Spack
 source share/spack/setup-env.sh
 echo Adding CMS repository

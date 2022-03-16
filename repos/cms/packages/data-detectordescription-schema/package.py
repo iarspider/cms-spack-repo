@@ -10,4 +10,5 @@ class DataDetectordescriptionSchema(CMSDataPackage):
     """FIXME: Put a proper description of your package here."""
     n = 'data-DetectorDescription-Schema'
     git = "https://github.com/cms-data/{0}.git".format(n.replace('data-', ''))
+    data = ""
     version('V02-03-00', tag='V02-03-00')

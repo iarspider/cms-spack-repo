@@ -9,5 +9,5 @@ from spack import *
 class DataSimg4cmsForward(CMSDataPackage):
     """FIXME: Put a proper description of your package here."""
     n = 'data-SimG4CMS-Forward'
-    git = "https://github.com/cms-data/{0}.git".format(n.replace('data-', ''))
-    version('V02-04-00', tag='V02-04-00')
+    url = "http://cmsrep.cern.ch/cmssw/download/data/SimG4CMS-Forward.tar.gz"
+    version('V02-04-00', sha256='d37c14b80eff463da59250b72524eaf87e47d0534150e6861346b7fd7302b239')

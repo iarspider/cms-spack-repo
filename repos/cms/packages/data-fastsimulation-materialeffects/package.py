@@ -9,5 +9,5 @@ from spack import *
 class DataFastsimulationMaterialeffects(CMSDataPackage):
     """FIXME: Put a proper description of your package here."""
     n = 'data-FastSimulation-MaterialEffects'
-    git = "https://github.com/cms-data/{0}.git".format(n.replace('data-', ''))
-    version('V05-00-00', tag='V05-00-00')
+    url = 'https://cmsrep.cern.ch/cmssw/download/data/data-FastSimulation-MaterialEffects-V05-00-00.tar.gz'
+    version('V05-00-00', sha256='d77dddbd4309034191d7f73e0006de130af3023e4a17b56befc4825394cd5606')
