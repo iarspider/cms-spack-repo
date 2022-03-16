@@ -159,7 +159,7 @@ spack:
   - hydjet2@2.4.3
   - hwloc@2.4.0~cuda~nvml+libxml2~cairo~netloc+pci
   - igprof@5.9.16
-  - intel-tbb@2021.3
+  - intel-tbb@2021.3.0
   - isl@0.21
   - ittnotify@16.06.18
   - jemalloc@5.2.1~documentation+stats libs=shared
