@@ -11,3 +11,7 @@ class DataSimtransportHectorproducer(CMSDataPackage):
     n = 'data-SimTransport-HectorProducer'
     url = 'https://github.com/cms-data/SimTransport-HectorProducer/archive/V01-00-01.tar.gz'
     version('V01-00-01', sha256='d8fde77891f66a03904f255e630f8b361fd2407502d016d1b82255b5f02b6964')
+    
+    def url_for_version(self, version):
+        url = self.url.rsplit('/', 1)[0]
+        return url + '/' + str(version) + '.tar.gz'

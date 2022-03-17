@@ -11,3 +11,7 @@ class DataRecobtagSoftlepton(CMSDataPackage):
     n = 'data-RecoBTag-SoftLepton'
     url = 'https://github.com/cms-data/RecoBTag-SoftLepton/archive/V01-00-01.tar.gz'
     version('V01-00-01', sha256='c8a29ffd5ab8d923ab27413aec5163ae2417db095c6deff7a119ca595bc2c562')
+    
+    def url_for_version(self, version):
+        url = self.url.rsplit('/', 1)[0]
+        return url + '/' + str(version) + '.tar.gz'

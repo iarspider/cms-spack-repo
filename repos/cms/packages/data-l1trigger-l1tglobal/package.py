@@ -11,3 +11,7 @@ class DataL1triggerL1tglobal(CMSDataPackage):
     n = 'data-L1Trigger-L1TGlobal'
     url = 'https://github.com/cms-data/L1Trigger-L1TGlobal/archive/V00-00-07.tar.gz'
     version('V00-00-07', sha256='9b3732a938d6032b80419c8e573eee77d0918390c0904ccfdea7cbc5de82962e')
+    
+    def url_for_version(self, version):
+        url = self.url.rsplit('/', 1)[0]
+        return url + '/' + str(version) + '.tar.gz'
