@@ -11,3 +11,6 @@ class DataSimg4cmsForward(CMSDataPackage):
     n = 'data-SimG4CMS-Forward'
     url = "http://cmsrep.cern.ch/cmssw/download/data/SimG4CMS-Forward.tar.gz"
     version('V02-04-00', sha256='d37c14b80eff463da59250b72524eaf87e47d0534150e6861346b7fd7302b239')
+
+    def url_for_version(self, version):
+        return self.url

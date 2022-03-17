@@ -11,14 +11,7 @@ from string import Template
 class RPMTemplate(Template):
     delimiter = '%'
 
-class IntelVtune(Package):
-    """SCRAM config for intel vtune"""
-
-    url      = "file://" + os.path.dirname(__file__) + '/junk.xml'
-
-    version('2018.0.2.525261', sha256='2cae8b754a9f824ddd27964d11732941fd88f52f0880d7f685017caba7fea6b7')
-
-    xmldata = RPMTemplate("""<tool name="intel-vtune" version="%{realversion}">
+xmldata = RPMTemplate("""<tool name="intel-vtune" version="%{realversion}">
   <info url="https://software.intel.com/en-us/intel-vtune-amplifier-xe"/>
   <client>
     <environment name="INTEL_VTUNE_BASE" default="/cvmfs/projects.cern.ch/intelsw/psxe/linux/x86_64/2018/vtune_amplifier_%{realversion}"/>
@@ -28,6 +21,15 @@ class IntelVtune(Package):
   <runtime name="VTUNE_AMPLIFIER_2018_DIR" value="$INTEL_VTUNE_BASE"/>
 </tool>
 """)
+
+
+class IntelVtune(Package):
+    """SCRAM config for intel vtune"""
+
+    url      = "file://" + os.path.dirname(__file__) + '/junk.xml'
+
+    version('2018.0.2.525261', sha256='2cae8b754a9f824ddd27964d11732941fd88f52f0880d7f685017caba7fea6b7',
+            expand=False)
 
     def install(self, spec, prefix):
         mkdirp(prefix.etc.join('scram.d'))
