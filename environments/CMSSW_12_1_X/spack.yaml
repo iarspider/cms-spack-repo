@@ -61,6 +61,27 @@ spack:
     krb5:
       externals: [{spec: krb5@1.15.1, prefix: /usr}]
       buildable: false
+    perl:
+      externals: [{spec: perl@5.16.3~cpanm+shared+threads, prefix: /usr}]
+      buildable: false
+    readline:
+      externals: [{spec: readline@6.2, prefix: /usr}]
+      buildable: false
+    openssh:
+      externals: [{spec: openssh@7.4p1, prefix: /usr}]
+      buildable: false
+    libedit:
+      externals: [{spec: libedit@3.0, prefix: /usr}]
+      buildable: false
+    tar:
+      externals: [{spec: tar@1.26, prefix: /usr}]
+      buildable: false
+    libaio:
+      externals: [{spec: libaio@0.3.109, prefix: /usr}]
+      buildable: false
+    fontconfig:
+      externals: [{spec: fontconfig@2.13.0, prefix: /usr}]
+      buildable: false
     mesa:
       variants: [~llvm]
     llvm:
