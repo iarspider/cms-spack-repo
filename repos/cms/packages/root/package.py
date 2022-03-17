@@ -152,7 +152,7 @@ class Root(CMakePackage):
     depends_on('ncurses')
     depends_on('nlohmann-json', when='@6.24:')
     depends_on('pcre')
-    depends_on('xxhash', when='@6.13.02:')  # See cmake_args, below.
+    # depends_on('xxhash', when='@6.13.02:')  # See cmake_args, below. -- CMS
     depends_on('xz')
     depends_on('zlib')
     depends_on('zstd', when='@6.20:')
@@ -216,7 +216,7 @@ class Root(CMakePackage):
     #conflicts('^intel-oneapi-tbb@2021.1:', when='@:6.22',
     #          msg='Please use an older intel-tbb/intel-oneapi-tbb version')
     # depends_on('intel-tbb@:2021.0', when='@:6.22 ^intel-tbb')
-    depends_on('unuran',    when='+unuran')
+    # depends_on('unuran',    when='+unuran') -- CMS
     depends_on('vc',        when='+vc')
     depends_on('vdt',       when='+vdt')
     depends_on('veccore',   when='+veccore')
@@ -326,7 +326,7 @@ class Root(CMakePackage):
             define('builtin_openssl', False),
             define('builtin_pcre', False),
             define('builtin_tbb', False),
-            define('builtin_unuran', False),
+            define('builtin_unuran', True),  # -- CMS
             define('builtin_vc', False),
             define('builtin_vdt', False),
             define('builtin_veccore', False),
