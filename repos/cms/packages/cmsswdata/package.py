@@ -107,7 +107,7 @@ class Cmsswdata(BundlePackage):
 
     for ver, datapkgs in data_versions.items():
         for pkg, pkgver in datapkgs.items():
-            requires(pkg + '@' + pkgver, when='@'+ver)
+            depends_on(pkg + '@' + pkgver, when='@'+ver)
 
     def install(self, spec, prefix):
         searchpath_xml = StringIO("")

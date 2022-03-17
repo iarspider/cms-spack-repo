@@ -21,10 +21,8 @@ class Libffi(AutotoolsPackage, SourcewarePackage):
     patch('clang-powerpc-3.2.1.patch', when='@3.2.1%clang platform=linux')
     # ref.: https://github.com/libffi/libffi/pull/561
     patch('powerpc-3.3.patch', when='@3.3')
-    # -- CMS
-    patch('libffi-3.2.1-fix-include-path.patch', when='@3.2.1')
 
-    drop_files = ['share', 'lib64/pkgconfig']
+    drop_files = ['share'] 
 
     depends_on('autoconf', type='build', when='@3.4.2')
     depends_on('automake', type='build', when='@3.4.2')

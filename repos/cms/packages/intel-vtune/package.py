@@ -33,12 +33,12 @@ class IntelVtune(Package):
         mkdirp(prefix.etc.join('scram.d'))
         mkdirp(prefix.etc.join('profile.d'))
 
-	with open(prefix.etc.join('scram.d/intel-vtune.xml'), 'w') as f:
-	    f.write(xmldata.substitute(realversion=str(self.spec.version)))
+        with open(prefix.etc.join('scram.d/intel-vtune.xml'), 'w') as f:
+            f.write(xmldata.substitute(realversion=str(self.spec.version)))
 
         with open(prefix.etc.join('profile.d/init.sh'), 'w') as f:
-            f.write("INTEL_VTUNE_ROOT='{pkgrel}'".format(pkgrel=prefix)
+            f.write("INTEL_VTUNE_ROOT='{pkgrel}'".format(pkgrel=prefix))
 
         with open(prefix.etc.join('profile.d/init.csh'), 'w') as f:
-            f.write("set INTEL_VTUNE_ROOT '{pkgrel}'".format(pkgrel=prefix)
+            f.write("set INTEL_VTUNE_ROOT '{pkgrel}'".format(pkgrel=prefix))
 

@@ -169,7 +169,7 @@ spack:
   - ktjet@1.06
   - lcov@1.15
   - lhapdf@6.3.0
-  - libffi@3.2.1
+  - libffi@3.4.2
   - libgit2@1.1.1
   - libjpeg-turbo@2.0.2
   - libpciaccess@0.16
@@ -214,7 +214,7 @@ spack:
   - protobuf@3.15.1
   - pyquen@1.5.4
   - py-absl-py@0.11.0
-  - py-aiohttp@3.7.4
+  - py-aiohttp@3.8.1
   - py-aiosqlite@0.17.0
   - py-anyio@3.3.4
   - py-appdirs@1.4.4
@@ -226,7 +226,7 @@ spack:
   - py-astroid@2.7.3
   - py-astunparse@1.6.3
   - py-async-lru@1.0.2
-  - py-async-timeout@3.0.1
+  - py-async-timeout@4.0.2
   - py-atomicwrites@1.4.0
   - py-attrs@21.2.0
   - py-autopep8@1.6.0
