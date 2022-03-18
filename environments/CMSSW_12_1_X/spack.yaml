@@ -248,6 +248,7 @@ spack:
   - meschach@1.2.pCMS1
   - mpc@1.1.0
   - mpfr@4.0.2
+  - mpfr-static@4.0.2
   - mxnet-predict@1.6.0
   - nasm@2.14.02
   - ninja@1.10.0
@@ -270,6 +271,7 @@ spack:
   - protobuf@3.15.1
   - py-absl-py@0.11.0
   - py-aiohttp@3.8.1
+  - py-aiosignal@1.2.0
   - py-aiosqlite@0.17.0
   - py-anyio@3.3.4
   - py-appdirs@1.4.4
@@ -564,6 +566,7 @@ spack:
   - sherpa@2.2.12+analysis+fastjet+hepmc2+rivet+lhapdf+blackhat+python+ufo+openloops+mpi+cms~hepmc3
   - sqlite@3.36.0~fts
   - starlight@r193
+  - swig@4.0.2
   - tauola@1.1.8 +hepmc+lhapdf+pythia8
   - tauola-f@27.121.5
   - thepeg@2.2.2 hepmc=2
