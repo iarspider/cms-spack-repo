@@ -102,6 +102,8 @@ class Sherpa(AutotoolsPackage):
         filter_file(r'#include <sys/sysctl.h>',
                     '#ifdef ARCH_DARWIN\n#include <sys/sysctl.h>\n#endif',
                     'ATOOLS/Org/Run_Parameter.C')
+        # CMS: avoid makeinfo dependency
+        filter_file('Manual', '# Manual', 'Makefile.am')
 
     def configure_args(self):
         args = []

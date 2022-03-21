@@ -172,6 +172,8 @@ class Bazel(Package):
         return url.format(version)
 
     def setup_build_environment(self, env):
+        # -- CMS: fix building with external Java
+        env.set('JAVA_HOME', '/usr/lib/jvm/java')
         # fix the broken linking (on power9)
         # https://github.com/bazelbuild/bazel/issues/10327
         env.set('BAZEL_LINKOPTS', '')

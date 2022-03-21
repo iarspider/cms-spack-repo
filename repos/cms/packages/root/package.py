@@ -476,7 +476,7 @@ class Root(CMakePackage):
                 add_include_path('xextproto')
             add_include_path('fontconfig')
             add_include_path('libx11')
-            add_include_path('xproto')
+#            add_include_path('xproto') # -- CMS: external xproto
 #        if '+opengl' in spec:
 #            add_include_path('glew')
 #            add_include_path('mesa-glu')

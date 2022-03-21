@@ -34,7 +34,7 @@ class Flex(AutotoolsPackage):
     depends_on('bison',         type='build')
     depends_on('gettext@0.19:', type='build', when='+nls')
     depends_on('gettext@0.19:', type='build', when='@:2.6.0,2.6.4')
-#    depends_on('help2man',      type='build', when='@:2.6.0,2.6.4') -- CMS
+    # depends_on('help2man',      type='build', when='@:2.6.0,2.6.4') # -- CMS
     depends_on('findutils',     type='build')
     depends_on('diffutils',     type='build')
 
@@ -51,7 +51,7 @@ class Flex(AutotoolsPackage):
     # - https://github.com/westes/flex/issues/241
     patch('https://github.com/westes/flex/commit/24fd0551333e7eded87b64dd36062da3df2f6380.patch', sha256='09c22e5c6fef327d3e48eb23f0d610dcd3a35ab9207f12e0f875701c677978d3', when='@2.6.4')
     patch('gcc-flex-nonfull-path-m4.patch')
-    patch('gcc-flex-disable-doc.patch')
+    # patch('gcc-flex-disable-doc.patch')
 
     drop_files = ['share']  # -- CMS
 
@@ -78,6 +78,11 @@ class Flex(AutotoolsPackage):
     def autoreconf(self, spec, prefix):
         autogen = Executable('./autogen.sh')
         autogen()
+
+    @run_after('autoreconf')
+    def disable_doc(self):
+        patch_x = which('patch')
+        patch_x('-p1', '-i', join_path(os.path.dirname(__file__), 'gcc-flex-disable-doc.patch'))
 
     @property
     def force_autoreconf(self):

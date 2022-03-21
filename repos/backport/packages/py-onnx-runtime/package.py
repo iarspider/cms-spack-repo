@@ -19,9 +19,11 @@ class PyOnnxRuntime(CMakePackage, PythonPackage):
     homepage = "https://github.com/microsoft/onnxruntime"
     git      = "https://github.com/microsoft/onnxruntime.git"
 
+    version('1.10.0', tag='v1.10.0', submodules=True)
     version('1.7.2',  tag='v1.7.2',  submodules=True)
 
     variant('cuda', default=False, description='Build with CUDA support')
+    variant('cms', default=False, description='Apply CMS patches')
 
     depends_on('cmake@3.1:', type='build')
     depends_on('ninja', type='build')
@@ -43,9 +45,11 @@ class PyOnnxRuntime(CMakePackage, PythonPackage):
     extends('python')
     # Adopted from CMS experiment's fork of onnxruntime
     # https://github.com/cms-externals/onnxruntime/compare/5bc92df...d594f80
-    patch('cms.patch', level=1, when='@1.7.2')
+    patch('cms.patch', level=1, when='@1.7.2 +cms')
+    # https://github.com/cms-externals/onnxruntime/compare/0d9030e...7a6355a
+    patch('cms_1_10.patch', level=1, when='@1.10.0 +cms')
     # https://github.com/microsoft/onnxruntime/issues/4234#issuecomment-698077636
-    patch('libiconv.patch', level=0, when='@1.7.2')
+    patch('libiconv.patch', level=0, when='~cms') # -- CMS: not needed with libc iconv
     # https://github.com/microsoft/onnxruntime/commit/de4089f8cbe0baffe56a363cc3a41595cc8f0809.patch
     patch('gcc11.patch', level=1, when='@1.7.2')
 
@@ -106,16 +110,10 @@ class PyOnnxRuntime(CMakePackage, PythonPackage):
 
         return args
 
-    def setup_file(self):
-        return join_path(self.stage.source_path, 'setup.py')
-
-    @run_after('build')
-    def build_python(self):
-        """Build everything needed to install."""
-        with working_dir(self.stage.source_path):
-            PythonPackage.build(self, self.spec, self.prefix)
-
     @run_after('install')
     def install_python(self):
-        with working_dir(self.stage.source_path):
-            PythonPackage.install(self, self.spec, self.prefix)
+        args = ['-c', 'cd', self.build_directory, '&&', pip.command]
+        args.extend(PythonPackage._std_args(self))
+        args.append('--prefix=' + self.spec.prefix)
+        bash = which('bash')
+        bash(*args)

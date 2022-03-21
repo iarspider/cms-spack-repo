@@ -184,8 +184,10 @@ class Llvm(CMakePackage, CudaPackage):
 
     @run_after('install')
     def post_inst(self):
+        # Hack
+        #python_platlib = join_path(self.prefix, self.spec['python'].package.platlib)
         # install_tree("llvm/bindings/python", python_platlib)
-        install_tree("clang/bindings/python", python_platlib)
+        install_tree("clang/bindings/python", site_packages_dir)
 
         for fn in glob.glob(join_path(self.build_directory, 'clang', 'tools', 'scan-build', 'set-xcode*')):
             force_remove(fn)

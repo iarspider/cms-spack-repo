@@ -82,9 +82,6 @@ spack:
     fontconfig:
       externals: [{spec: fontconfig@2.13.0, prefix: /usr}]
       buildable: false
-    perl:
-      externals: [{spec: perl@5.16.3~cpanm+shared+threads, prefix: /usr}]
-      buildable: false
     ncurses:
       externals: [{spec: ncurses@5.9.20130511+termlib abi=5, prefix: /usr}]
       buildable: false
@@ -188,7 +185,7 @@ spack:
   - g4radioactivedecay@5.6
   - g4realsurface@2.2
   - g4saiddata@2.0
-  - gdb@10.2+python+xz
+  - gdb@10.2+python+xz~doc
   - gdbm@1.10
   - gengetopt@2.22.6
   - gettext@0.20.1~bzip2~xz~curses~libxml2~libunistring
@@ -254,7 +251,6 @@ spack:
   - ninja@1.10.0
   - nlohmann-json@3.10.2
   - numactl@2.0.14
-  - onnx-runtime@1.7.2.cms
   - openblas@0.3.15
   - openldap@2.4.49+client_only~sasl  # 2.6.0 requires OpenSSL 1.1.1
   - openloops@2.1.2
@@ -426,7 +422,7 @@ spack:
   - py-oauthlib@3.1.1~extras
   - py-onnx@1.8.1
   - py-onnxmltools@1.10.0
-  - py-onnx-runtime@1.7.2
+  - py-onnx-runtime@1.10.0+cms
   - py-onnxconverter-common@1.9.0
   - py-opt-einsum@3.3.0
   - py-packaging@21.0

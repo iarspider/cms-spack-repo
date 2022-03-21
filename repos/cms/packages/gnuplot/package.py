@@ -71,7 +71,7 @@ class Gnuplot(AutotoolsPackage):
     depends_on('qt+framework', when='+qt platform=darwin')
 
     def flag_handler(self, name, flags):
-        if name in ['cflags', 'cxxflags', 'cppflags']:
+        if name in ['cflags', 'cxxflags', 'cppflags'] and self.spec['iconv'].name == 'iconv':
             flags.append('-L {0} -liconv'.format(self.spec['iconv'].prefix.lib))
         return (None, flags, None)
 
