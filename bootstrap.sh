@@ -34,11 +34,11 @@ echo Copying backported PythonPackage class
 cp ${SCRIPT_DIR}/build_systems/python.py lib/spack/spack/build_systems/
 cp ${SCRIPT_DIR}/develop/build_environment.py lib/spack/spack/build_environment.py
 echo Initializing Spack
-source share/spack/setup-env.sh
+#source share/spack/setup-env.sh
 echo Adding CMS repository
-spack repo add --scope=site ${SCRIPT_DIR}/repos/cms
+bin/spack repo add --scope=site ${SCRIPT_DIR}/repos/cms
 echo Adding CMS mirror
-spack mirror add --scope=site cms https://test-cms-spack.web.cern.ch/test-cms-spack/CMS/mirror
+bin/spack mirror add --scope=site cms https://test-cms-spack.web.cern.ch/test-cms-spack/CMS/mirror
 echo Creating environment
-spack env create ${SPACK_ENV_NAME} ${SCRIPT_DIR}/environments/${SPACK_ENV_NAME}/spack.yaml
+bin/spack env create ${SPACK_ENV_NAME} ${SCRIPT_DIR}/environments/${SPACK_ENV_NAME}/spack.yaml
 echo Done
