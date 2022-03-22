@@ -7,7 +7,7 @@ import glob
 import os
 import re
 
-class CMSDataPackage(Package):
+class CMSDataPackage(PackageBase):
     build_system_class = 'CMSDataPackage'
     phases = ['install']
 
