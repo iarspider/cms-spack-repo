@@ -16,7 +16,7 @@ echo Add padding to install_tree
 bin/spack config add "config:install_tree:padded_length:128"
 echo Start the installation
 # bin/spack env activate ${SPACK_ENV_NAME}
-bin/spack -e ${SPACK_ENV_NAME} --show-cores=minimized concretize
+bin/spack -e ${SPACK_ENV_NAME} -d --show-cores=minimized concretize
 bin/spack -e ${SPACK_ENV_NAME} -d install -j$CORES --fail-fast
 echo Prepare mirror and buildcache
 bin/spack -e ${SPACK_ENV_NAME} mirror create -d $WORKSPACE/mirror --all --dependencies
