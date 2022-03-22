@@ -271,3 +271,7 @@ class PythonPackage(PackageBase):
                 os.remove(dst)
 
         view.remove_files(to_remove)
+
+    # Dummy build method to avoid concretization errors
+    def build(self, spec, prefix):
+        pass
