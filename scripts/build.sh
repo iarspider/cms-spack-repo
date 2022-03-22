@@ -7,7 +7,7 @@ fi
 export CORES
 echo Setup Spack for CMS
 cd $WORKSPACE/cms-spack-repo
-bash -xe ./bootstrap.sh
+[ ! -d spack ] && bash -xe ./bootstrap.sh
 cd spack
 # source share/spack/setup-env.sh
 echo Add signing key

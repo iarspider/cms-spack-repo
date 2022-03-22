@@ -30,7 +30,7 @@ class PythonPackage(PackageBase):
     maintainers = ['adamjstewart']
 
     # Default phases
-    phases = ['install']
+    phases = ['build', 'install']
 
     # To be used in UI queries that require to know which
     # build-system class we are using
