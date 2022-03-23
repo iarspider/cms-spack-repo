@@ -20,7 +20,7 @@ echo Start the installation
 bin/spack -e ${SPACK_ENV_NAME} -d --show-cores=minimized concretize
 SPACK_MON_ARGS=""
 SPACKMON_USER="cmsbuild"
-if [ ! -z ${SPACKMON_TOKEN} ]; then SPACK_MON_ARGS="-monitor --monitor-host http://cms-spackmon.cern.ch/cms-spackmon"; fi;
+if [ ! -z ${SPACKMON_TOKEN} ]; then SPACK_MON_ARGS="--monitor --monitor-host http://cms-spackmon.cern.ch/cms-spackmon"; fi;
 bin/spack -e ${SPACK_ENV_NAME} -d install -j$CORES --fail-fast $SPACK_MON_ARGS
 echo Prepare mirror and buildcache
 bin/spack -e ${SPACK_ENV_NAME} mirror create -d $WORKSPACE/mirror --all --dependencies
