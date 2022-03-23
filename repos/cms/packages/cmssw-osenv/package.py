@@ -10,7 +10,7 @@ class CmsswOsenv(Package):
     """FIXME: Put a proper description of your package here."""
 
     homepage = "https://www.example.com"
-    git      = "git://github.com/cms-sw/cmssw-osenv.git"
+    git      = "https://github.com/cms-sw/cmssw-osenv.git"
 
     version('211125.0', commit='3a1d33d8dc9989257ec91e3543eda8250e5a3593')
 

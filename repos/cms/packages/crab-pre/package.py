@@ -24,25 +24,25 @@ class CrabPre(Package):
 
     resource(
         name='CRABClient',
-        git='git://github.com/dmwm/CRABClient.git',
+        git='https://github.com/dmwm/CRABClient.git',
         tag=crab_client_version,
         destination='.'
     )
     resource(
         name='WMCore',
-        git='git://github.com/dmwm/WMCore.git',
+        git='https://github.com/dmwm/WMCore.git',
         tag=wmcore_version,
         destination='.'
     )
     resource(
         name='CRABServer',
-        git='git://github.com/dmwm/CRABServer.git',
+        git='https://github.com/dmwm/CRABServer.git',
         tag=crab_server_version,
         destination='.'
     )
     resource(
         name='DBS',
-        git='git://github.com/dmwm/DBS.git',
+        git='https://github.com/dmwm/DBS.git',
         tag=dbs_version,
         destination='.'
     )
