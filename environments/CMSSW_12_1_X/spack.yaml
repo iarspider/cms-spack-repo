@@ -8,10 +8,6 @@
 #   - py-typing@3.7.4.3 NB: not needed for py 3.7+
 #   - py-tensorflow-estimator@2.6.0 -> part of tf
 #   - py-rep@0.6.6
-# TO CHECK:
-#   - py-jupyterlab-widgets@1.0.1 - maybe use wheel to avoid py-jupter-packaging dep?
-#   - py-ipywidgets@7.6.5 - depends on jupyterlab-widgets
-#   - py-jupyter@1.0.0 - depends on py-qtconsole
 spack:
   concretization: together
   packages:
@@ -145,8 +141,10 @@ spack:
   - cmsmon-tools@0.5.35
   - cmssw-config@V06-03-01
   - cmssw-osenv@211125.0
+  - cmssw-tool-conf@1.0 # FIXME!
   - cmsswdata@40.0
   - coral@2.3.21py3
+  - coral-tool-conf
   - cppunit@1.15.x
   - crab@1.0
   - crab-dev@v3.220204.00
@@ -154,6 +152,7 @@ spack:
   - crab-prod@v3.220104.00
   - csctrackfinderemulation@1.2
   - cuda@11.4.2
+  - cupla@0.3.0 # 
   - curl@7.79.0~libssh2+gssapi~libidn2
   - dablooms@0.9.1
   - das-client@v03.01.00
@@ -264,6 +263,7 @@ spack:
   - photos@3.64
   - photos-f@215.5
   - pkg-config@0.29.2+internal_glib
+  - professor@2.3.3
   - protobuf@3.15.1
   - py-absl-py@0.11.0
   - py-aiohttp@3.8.1

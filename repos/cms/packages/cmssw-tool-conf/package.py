@@ -6,6 +6,8 @@ import fnmatch
 
 
 class CmsswToolConf(Package):
+    """ CMSSW TOOL CONFIGURATION """
+
     url = 'file://' + os.path.dirname(__file__) + '/../ToolfilePackage/junk.xml'
     version('1.0', '68841b7dcbd130afd7d236afe8fd5b949f017615', expand=False)
 
