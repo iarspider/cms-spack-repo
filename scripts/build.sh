@@ -17,11 +17,11 @@ echo Add padding to install_tree
 bin/spack config add "config:install_tree:padded_length:128"
 echo Start the installation
 # bin/spack env activate ${SPACK_ENV_NAME}
-bin/spack -e ${SPACK_ENV_NAME} -d --show-cores=minimized concretize
+# bin/spack -e ${SPACK_ENV_NAME} -d --show-cores=minimized concretize
 SPACK_MON_ARGS=""
 export SPACKMON_USER="cmsbuild"
 if [ ! -z ${SPACKMON_TOKEN} ]; then SPACK_MON_ARGS="--monitor --monitor-host http://cms-spackmon.cern.ch/cms-spackmon"; export SPACKMON_TOKEN; fi;
-bin/spack -e ${SPACK_ENV_NAME} -d install -j$CORES --fail-fast $SPACK_MON_ARGS
+bin/spack --show-cores=minimized -e ${SPACK_ENV_NAME} -d install -j$CORES $SPACK_MON_ARGS
 echo Prepare mirror and buildcache
 bin/spack -e ${SPACK_ENV_NAME} mirror create -d $WORKSPACE/mirror --all --dependencies
 if [ ${UPLOAD_BUILDCACHE-x} = "true" ]; then
