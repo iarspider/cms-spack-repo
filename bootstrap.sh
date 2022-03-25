@@ -5,8 +5,9 @@ SPACK_ENV_NAME=${SPACK_ENV_NAME:-CMSSW_12_1_X}
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 cd ${SCRIPT_DIR}
 echo This script will install Spack and configure it for CMS needs
+[ -d spack ] && (echo Skipping bootstrap; exit 0)
 echo Cloning spack...
-[ ! -d spack ] && git clone --quiet https://github.com/spack/spack.git
+git clone --quiet https://github.com/spack/spack.git
 cd spack; git checkout --quiet ${SPACK_VERSION}
 echo Configuring spack
 cp ${SCRIPT_DIR}/config/config.yaml etc/spack/
@@ -39,6 +40,8 @@ echo Adding CMS repository
 bin/spack repo add --scope=site ${SCRIPT_DIR}/repos/cms
 echo Adding CMS mirror
 bin/spack mirror add --scope=site cms https://test-cms-spack.web.cern.ch/test-cms-spack/CMS/mirror
+echo Forcing bootstrap of clingo
+bin/spack spec zlib > /dev/null
 echo Creating environment
 bin/spack env create ${SPACK_ENV_NAME} ${SCRIPT_DIR}/environments/${SPACK_ENV_NAME}/spack.yaml
 echo Done
