@@ -20,3 +20,4 @@ class PyTomlkit(PythonPackage):
     depends_on('py-enum34@1.1:1', when='^python@2.7', type=('build', 'run'))
     depends_on('py-functools32@3.2.3:3', when='^python@2.7', type=('build', 'run'))
     depends_on('py-typing@3.6:3', when='^python@2.7,3.4', type=('build', 'run'))
+    depends_on('git', type='build')  # HACK
