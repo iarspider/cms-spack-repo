@@ -16,7 +16,7 @@ echo Add padding to install_tree
 spack config add "config:install_tree:padded_length:128"
 echo Start the installation
 spack env activate CMSSW_12_1_X
-spack -d install -j$CORES --fail-fast
+spack -d install -j$CORES
 echo Prepare mirror and buildcache
 spack mirror create -d $WORKSPACE/mirror --all --dependencies
 if [ ${UPLOAD_BUILDCACHE} == "true" ]; then
@@ -25,5 +25,7 @@ if [ ${UPLOAD_BUILDCACHE} == "true" ]; then
 fi
 cd $WORKSPACE
 echo Upload mirror
+# Temporary hack until this is fixed in Spack
+find mirror -type 'f' -name '*\?*' -exec rm {} \;
 rsync -e "ssh -o StrictHostKeyChecking=no -o GSSAPIAuthentication=yes -o GSSAPIDelegateCredentials=yes" --recursive --links --ignore-existing mirror/ cmsbuild@lxplus:/eos/user/r/razumov/www/CMS/mirror
 echo Done
