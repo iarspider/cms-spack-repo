@@ -30,42 +30,46 @@ class Cupla(Package, CudaPackage):
 
         mkdirp('build')
         mkdirp('lib')
-        
+
         files = find(self.stage.source_path, '*.cpp', recursive=True)
-        
+#        if self.spec.satisfies('~cuda'):
+#            files = [fn for fn in files if 'CUDASamples' not in fn]
+
         CXXFLAGS=["-DALPAKA_DEBUG=0"]
         for dep in ('cuda', 'intel-tbb', 'boost', 'alpaka'):
-            CXXFLAGS.append("-I{0}".format(self.spec[dep].prefix.include))
-            
+            if dep in self.spec:
+                CXXFLAGS.append("-I{0}".format(self.spec[dep].prefix.include))
+            CXXFLAGS.append("-I{0}".format(join_path(self.stage.source_path, 'example/CUDASamples/common')))
+
         CXXFLAGS.append("-Iinclude")
-        
+
         HOST_FLAGS = ["-std=c++17", "-O2", "-pthread", "-fPIC", "-Wall", "-Wextra"]
         NVCC_FLAGS = self.cuda_flags
-        
+
         gpp = Executable(self.compiler.cxx)
         nvcc = self.spec['cuda'].prefix.bin.nvcc if spec.satisfies('+cuda') else ''
-        
+
         # build the serial CPU backend
         mkdirp('build/serial')
         for File in files:
             fn = os.path.basename(File)
             gpp('-DALPAKA_ACC_CPU_B_SEQ_T_SEQ_ENABLED', '-DCUPLA_STREAM_ASYNC_ENABLED=0', *CXXFLAGS, *HOST_FLAGS, '-c', File, '-o', 'build/serial/' + fn + '.o')
         gpp(*CXXFLAGS, *HOST_FLAGS, 'build/serial/*.o', '-shared',  '-o', 'lib/libcupla-serial.so')
-        
+
         # build the TBB CPU backend
         mkdirp('build/tbb')
         for File in files:
             fn = os.path.basename(File)
-            gpp('--DALPAKA_ACC_CPU_B_TBB_T_SEQ_ENABLED', '-DCUPLA_STREAM_ASYNC_ENABLED=1', *CXXFLAGS, *HOST_FLAGS, '-c', File, '-o', 'build/tbb/' + fn + '.o')
+            gpp('-DALPAKA_ACC_CPU_B_TBB_T_SEQ_ENABLED', '-DCUPLA_STREAM_ASYNC_ENABLED=1', *CXXFLAGS, *HOST_FLAGS, '-c', File, '-o', 'build/tbb/' + fn + '.o')
         gpp(*CXXFLAGS, *HOST_FLAGS, 'build/tbb/*.o', '-L' + self.spec['intel-tbb'].prefix.lib, '-ltbb', '-shared',  '-o', 'lib/libcupla-tbb.so')
-        
+
         if spec.satisfies('+cuda'):
             mkdirp('build/cuda')
             for File in files:
                 fn = os.path.basename(File)
                 nvcc('-DALPAKA_ACC_GPU_CUDA_ENABLED', '-DCUPLA_STREAM_ASYNC_ENABLED=1', *CXXFLAGS, *NVCC_FLAGS, '-Xcompiler', ' '.join(HOST_FLAGS), '-x', 'cu', '-c', File, '-o', 'build/cuda/' + fn + '.o')
             gpp(*CXXFLAGS, *HOST_FLAGS, 'build/cuda/*.o', '-L' + self.spec['cuda'].prefix.lib64, '-lcudart', '-shared', '-o', 'lib/libcupla-cuda.so')
-            
+
         mkdirp(prefix.include)
         mkdirp(prefix.lib)
         install_tree('include', prefix.include)
