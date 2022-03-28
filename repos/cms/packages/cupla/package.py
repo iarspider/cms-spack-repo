@@ -31,7 +31,7 @@ class Cupla(Package, CudaPackage):
         mkdirp('build')
         mkdirp('lib')
 
-        files = find(self.stage.source_path, '*.cpp', recursive=True)
+        files = find(join_path(self.stage.source_path, 'src'), '*.cpp', recursive=True)
 #        if self.spec.satisfies('~cuda'):
 #            files = [fn for fn in files if 'CUDASamples' not in fn]
 
