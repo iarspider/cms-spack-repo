@@ -157,6 +157,7 @@ spack:
   - curl@7.79.0~libssh2+gssapi~libidn2
   - dablooms@0.9.1
   - das-client@v03.01.00
+  - dasgoclient@v02.04.46
   - davix@0.7.6
   - dcap@2.47.12
   - dd4hep@1.18x+xercesc+geant4units~edm4hep # CMS: +geant4 is set internally to build static version of ddg4
