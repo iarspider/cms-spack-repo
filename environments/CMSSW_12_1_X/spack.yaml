@@ -138,6 +138,7 @@ spack:
   - clhep@2.4.5.1.cms
   - cmake@3.21.4~ownlibs~ncurses
   - cms-git-tools@211007.0
+  - cmslhetoeosmanager  # NB: version detected automatically
   - cmsmon-tools@0.5.35
   - cmssw-config@V06-03-01
   - cmssw-osenv@211125.0
