@@ -34,6 +34,8 @@ find ${SCRIPT_DIR}/repos/backport/packages -maxdepth 1 -type 'd' -exec cp -r -f 
 echo Copying backported PythonPackage class
 cp ${SCRIPT_DIR}/build_systems/python.py lib/spack/spack/build_systems/
 cp ${SCRIPT_DIR}/develop/build_environment.py lib/spack/spack/build_environment.py
+echo Copying patched CudaPackage class
+cp ${SCRIPT_DIR}/build_systems/cuda.py lib/spack/spack/build_systems/
 echo Initializing Spack
 #source share/spack/setup-env.sh
 echo Adding CMS repository
