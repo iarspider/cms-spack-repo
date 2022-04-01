@@ -178,16 +178,16 @@ class CmsswToolConf(BundlePackage, CudaPackage):
     depends_on('openloops', when='platform=linux target=x86_64:')
     depends_on('openloops', when='platform=linux target=aarch64:')
     
-    depends_on('tkonlinesw', when='platform=linux arch=x86_64:')
-    depends_on('oracle', when='platform=linux arch=x86_64:')
-    depends_on('intel-vtune', when='platform=linux arch=x86_64:')
-    depends_on('cmsmon-tools', when='platform=linux arch=x86_64:')
-    depends_on('dip', when='platform=linux arch=x86_64:')
+    depends_on('tkonlinesw', when='platform=linux target=x86_64:')
+    depends_on('oracle', when='platform=linux target=x86_64:')
+    depends_on('intel-vtune', when='platform=linux target=x86_64:')
+    depends_on('cmsmon-tools', when='platform=linux target=x86_64:')
+    depends_on('dip', when='platform=linux target=x86_64:')
 
-    depends_on('tkonlinesw-fake', when='platform=linux arch=aarch64:')
-    depends_on('tkonlinesw-fake', when='platform=linux arch=ppc64le:')
-    depends_on('oracle-fake', when='platform=linux arch=aarch64:')
-    depends_on('oracle-fake', when='platform=linux arch=ppc64le:')
+    depends_on('tkonlinesw-fake', when='platform=linux target=aarch64:')
+    depends_on('tkonlinesw-fake', when='platform=linux target=ppc64le:')
+    depends_on('oracle-fake', when='platform=linux target=aarch64:')
+    depends_on('oracle-fake', when='platform=linux target=ppc64le:')
 
     depends_on('xtensor')
     depends_on('xtl')
@@ -203,11 +203,11 @@ class CmsswToolConf(BundlePackage, CudaPackage):
         env.set('ROOT_CXXMODULES', 0)
         # TODO: vectorization
         # compilation_flags.file
-        if self.spec.satisfies('arch=x86_64:'):
+        if self.spec.satisfies('target=x86_64:'):
             env.set('COMPILER_CXXFLAGS', '-msse3')
-        elif self.spec.satisfies('arch=aarch64:'):
-            env.set('COMPILER_CXXFLAGS', '-march=armv8-a -mno-outline-atomics')
-        elif self.spec.satisfies('arch=ppc64le:'):
+        elif self.spec.satisfies('target=aarch64:'):
+            env.set('COMPILER_CXXFLAGS', '-mtarget=armv8-a -mno-outline-atomics')
+        elif self.spec.satisfies('target=ppc64le:'):
             env.set('COMPILER_CXXFLAGS', '-mcpu=power8 -mtune=power8 --param=l1-cache-size=64 --param=l1-cache-line-size=128 --param=l2-cache-size=512')
 
         env.set('ORACLE_ENV_ROOT', '')
@@ -269,6 +269,6 @@ class CmsswToolConf(BundlePackage, CudaPackage):
                 f.write('</tool>\n')
             
         if DUP_BIN:
-            msg = '\n'.join(f'{k}: {','.join(v)}' for k, v in DUP_BIN.items())
+            msg = '\n'.join(f"{k}: {','.join(v)}" for k, v in DUP_BIN.items())
             msg += '\nERROR: Duplicate python binaries found. Please cleanup and make sure only one binary is available.'
             raise RuntimeError(msg)
