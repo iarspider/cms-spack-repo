@@ -163,6 +163,7 @@ spack:
   - dd4hep@1.18x+xercesc+geant4units~edm4hep # CMS: +geant4 is set internally to build static version of ddg4
   - dmtcp@3.0.0-dev
   - eigen@82dd3710dac619448f50331c1d6a35da673f764a
+  - elfutils@0.186~nls
   - evtgen@02.00.00+pythia8+tauola+photos
   - expat@2.1.0~libbsd
   - fasthadd@2.3
@@ -186,6 +187,7 @@ spack:
   - g4radioactivedecay@5.6
   - g4realsurface@2.2
   - g4saiddata@2.0
+  - gbl@V02-04-01~root
   - gdb@10.2+python+xz~doc
   - gdbm@1.10
   - gengetopt@2.22.6
