@@ -19,9 +19,6 @@ cp ${SCRIPT_DIR}/hook/* lib/spack/spack/hooks/
 echo Adding SCRAM build system support
 cp ${SCRIPT_DIR}/build_systems/scram.py lib/spack/spack/build_systems/
 echo "from spack.build_systems.scram import ScramPackage" >> lib/spack/spack/pkgkit.py
-echo Adding G4data package type
-cp ${SCRIPT_DIR}/build_systems/g4data.py lib/spack/spack/build_systems/
-echo "from spack.build_systems.g4data import G4DataPackage" >> lib/spack/spack/pkgkit.py
 echo Adding Crab package type
 cp ${SCRIPT_DIR}/build_systems/crab.py lib/spack/spack/build_systems/
 echo "from spack.build_systems.crab import CrabPackage" >> lib/spack/spack/pkgkit.py

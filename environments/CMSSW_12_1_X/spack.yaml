@@ -103,8 +103,10 @@ spack:
       externals:
       - spec: diffutils@3.3
         prefix: /usr
-    libiconv:
-      externals: [{spec: findutils@4.5.11, prefix: /usr}]
+      buildable: false
+    libelf:
+      - spec: libelf@0.176
+        prefix: /usr
       buildable: false
     libc:
       externals: [{spec: libc@1.0+iconv, prefix: /usr}]
@@ -162,6 +164,7 @@ spack:
   - dcap@2.47.12
   - dd4hep@1.18x+xercesc+geant4units~edm4hep # CMS: +geant4 is set internally to build static version of ddg4
   - dmtcp@3.0.0-dev
+  - dwz@0.14-patches
   - eigen@82dd3710dac619448f50331c1d6a35da673f764a
   - evtgen@02.00.00+pythia8+tauola+photos
   - expat@2.1.0~libbsd
@@ -198,7 +201,7 @@ spack:
   - gnuplot@5.2.8~cairo~X~wx~gd~pbm~libcerf
   - py-gosam@2.1.1
   - geant4@10.7.2 +threads+vecgeom
-  - geant4-data@10.7.2
+  - geant4data@10.0
   - gosam-contrib@2.0 libs=shared,static
   - gperftools@2.9.1+libunwind+sized_delete+dynamic_sized_delete_support~debugalloc
   - grpc@1.35.0+shared
