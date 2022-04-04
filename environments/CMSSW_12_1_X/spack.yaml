@@ -552,7 +552,7 @@ spack:
   - py-zipp@3.6.0
   - pyquen@1.5.4
   - pythia6@6.4.26
-  - pythia8@8.306+hepmc~hepmc3+lhapdf
+  - pythia8@8.306+hepmc+hepmc3+lhapdf
   - python@3.9.6~libxml2~debug
   - qd@2.3.13
   - qgraf@3.4.2
