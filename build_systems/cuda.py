@@ -37,6 +37,14 @@ class CudaPackage(PackageBase):
             description='CUDA architecture',
             values=spack.variant.any_combination_of(*cuda_arch_values))
 
+    # C++ standard to use for building host and device code with nvcc
+    nvcc_stdcxx = ['-std=c++17']
+
+    def cuda_flags_4(arch_list):
+        return [('--generate-code arch=compute_{0},code=sm_{0} '
+               '--generate-code arch=compute_{0},code=compute_{0}').format(s)
+               for s in arch_list]
+
     # https://docs.nvidia.com/cuda/cuda-compiler-driver-nvcc/index.html#nvcc-examples
     # https://llvm.org/docs/CompileCudaWithLLVM.html#compiling-cuda-code
     @staticmethod
@@ -51,17 +59,15 @@ class CudaPackage(PackageBase):
         # allow __host__, __device__ attributes in lambda declaration
         cuda_flags_3 = ['--extended-lambda']
         # build support for the various compute architectures
-        cuda_flags_4 = [('--generate-code arch=compute_{0},code=sm_{0} '
-                         '--generate-code arch=compute_{0},code=compute_{0}').format(s)
-                        for s in arch_list]
         # disable warnings about attributes on defaulted methods
         cuda_flags_5 = ['-Xcudafe', '--diag_suppress=esa_on_defaulted_function_ignored']
         # link the CUDA runtime shared library
         cuda_flags_6 = ['--cudart', 'shared']
-        # C++ standard to use for building host and device code with nvcc
-        nvcc_stdcxx = ['-std=c++17']
 
-        return nvcc_stdcxx.extend(cuda_flags_0).extend(cuda_flags_1).extend(cuda_flags_2).extend(cuda_flags_3).extend(cuda_flags_4).extend(cuda_flags_5).extend(cuda_flags_6)
+        flags = [].extend(self.nvcc_stdcxx).extend(cuda_flags_0).extend(cuda_flags_1).extend(cuda_flags_2)
+        flags = flags.extend(cuda_flags_3).extend(self.cuda_flags_4(arch_list)).extend(cuda_flags_5).extend(cuda_flags_6)
+
+        return flags
 
     depends_on('cuda', when='+cuda')
 
