@@ -145,9 +145,10 @@ spack:
   - cmssw-config@V06-03-01
   - cmssw-osenv@211125.0
   - cmssw-tool-conf@1.0 # FIXME!
+  - cmssw-wm-tools@211210
   - cmsswdata@40.0
   - coral@2.3.21py3
-  - coral-tool-conf
+  - coral-tool-conf@10.0
   - cppunit@1.15.x
   - crab@1.0
   - crab-dev@v3.220204.00

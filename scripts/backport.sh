@@ -1,5 +1,5 @@
 #!/bin/bash -e
-UPSTREAM_SPACK=${UPSTREAM_SPACK:-"/home/razumov/Work/_CMS/vanilla_spack/var/spack/repos/builtin/packages"}
+UPSTREAM_SPACK=${UPSTREAM_SPACK:-"/home/razumov/Work/_CMS/vanilla_spack"}
 #########################################################################################################################
 [ -d ${UPSTREAM_SPACK} ] || (echo "Invalid upstream Spack location: ${UPSTREAM_SPACK}"; exit 2)
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
