@@ -157,6 +157,7 @@ spack:
   - csctrackfinderemulation@1.2
   - cuda@11.5.2
   - cudnn@8.3.2.44
+  - cuda-compatible-runtime@1.0
   - cupla@0.3.0
   - curl@7.79.0~libssh2+gssapi~libidn2
   - dablooms@0.9.1
