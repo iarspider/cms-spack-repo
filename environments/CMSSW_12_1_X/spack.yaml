@@ -156,7 +156,8 @@ spack:
   - crab-prod@v3.220104.00
   - csctrackfinderemulation@1.2
   - cuda@11.5.2
-  - cupla@0.3.0 # 
+  - cudnn@8.3.2.44
+  - cupla@0.3.0
   - curl@7.79.0~libssh2+gssapi~libidn2
   - dablooms@0.9.1
   - das-client@v03.01.00
