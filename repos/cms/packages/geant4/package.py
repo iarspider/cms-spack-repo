@@ -49,17 +49,17 @@ class Geant4(CMakePackage):
     depends_on('cmake@3.5:', type='build')
     depends_on('cmake@3.8:', type='build', when='@10.6.0:')
 
-    depends_on('geant4-data@10.7.2', when='@10.7.2')
-    depends_on('geant4-data@10.7.1', when='@10.7.1')
-    depends_on('geant4-data@10.7.0', when='@10.7.0')
-    depends_on('geant4-data@10.6.3', when='@10.6.3')
-    depends_on('geant4-data@10.6.2', when='@10.6.2')
-    depends_on('geant4-data@10.6.1', when='@10.6.1')
-    depends_on('geant4-data@10.6.0', when='@10.6.0')
-    depends_on('geant4-data@10.5.1', when='@10.5.1')
-    depends_on('geant4-data@10.4.3', when='@10.4.3')
-    depends_on('geant4-data@10.4.0', when='@10.4.0')
-    depends_on('geant4-data@10.3.3', when='@10.3.3')
+#    depends_on('geant4-data@10.7.2', when='@10.7.2')
+#    depends_on('geant4-data@10.7.1', when='@10.7.1')
+#    depends_on('geant4-data@10.7.0', when='@10.7.0')
+#    depends_on('geant4-data@10.6.3', when='@10.6.3')
+#    depends_on('geant4-data@10.6.2', when='@10.6.2')
+#    depends_on('geant4-data@10.6.1', when='@10.6.1')
+#    depends_on('geant4-data@10.6.0', when='@10.6.0')
+#    depends_on('geant4-data@10.5.1', when='@10.5.1')
+#    depends_on('geant4-data@10.4.3', when='@10.4.3')
+#    depends_on('geant4-data@10.4.0', when='@10.4.0')
+#    depends_on('geant4-data@10.3.3', when='@10.3.3')
 
     depends_on("expat")
     depends_on("zlib")
@@ -143,11 +143,12 @@ class Geant4(CMakePackage):
             options.append('-DGEANT4_BUILD_TLS_MODEL=global-dynamic')
 
         # install the data with geant4
-        datadir = spec['geant4-data'].prefix.share
-        dataver = '{0}-{1}'.format(spec['geant4-data'].name,
-                                   spec['geant4-data'].version.dotted)
-        datapath = join_path(datadir, dataver)
-        options.append('-DGEANT4_INSTALL_DATADIR={0}'.format(datapath))
+# -- CMS
+#        datadir = spec['geant4-data'].prefix.share
+#        dataver = '{0}-{1}'.format(spec['geant4-data'].name,
+#                                   spec['geant4-data'].version.dotted)
+#        datapath = join_path(datadir, dataver)
+#        options.append('-DGEANT4_INSTALL_DATADIR={0}'.format(datapath))
 
         # Vecgeom
         if '+vecgeom' in spec:
