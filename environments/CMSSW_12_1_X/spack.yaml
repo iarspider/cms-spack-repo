@@ -191,7 +191,7 @@ spack:
   - g4saiddata@2.0
   - gdb@10.2+python+xz~doc
   - gdbm@1.10
-  - geant4@11.0.1
+  - geant4@11.0.1.cms+threads+vecgeom~opengl~x11~qt~python~motif
   - geant4data@10.0
   - geant4-parfullcms@2014.01.27
   - gengetopt@2.22.6
@@ -203,8 +203,6 @@ spack:
   - gmp@6.2.0
   - gnuplot@5.2.8~cairo~X~wx~gd~pbm~libcerf
   - py-gosam@2.1.1
-  - geant4@10.7.2 +threads+vecgeom
-  - geant4data@10.0
   - gosam-contrib@2.0 libs=shared,static
   - gperftools@2.9.1+libunwind+sized_delete+dynamic_sized_delete_support~debugalloc
   - grpc@1.35.0+shared
