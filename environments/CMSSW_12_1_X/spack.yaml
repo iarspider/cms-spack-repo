@@ -191,6 +191,9 @@ spack:
   - g4saiddata@2.0
   - gdb@10.2+python+xz~doc
   - gdbm@1.10
+  - geant4@11.0.1
+  - geant4data@10.0
+  - geant4-parfullcms@2014.01.27
   - gengetopt@2.22.6
   - gettext@0.20.1~bzip2~xz~curses~libxml2~libunistring
   - giflib@5.2.0
