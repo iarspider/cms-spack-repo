@@ -103,8 +103,10 @@ spack:
       externals:
       - spec: diffutils@3.3
         prefix: /usr
-    libiconv:
-      externals: [{spec: findutils@4.5.11, prefix: /usr}]
+      buildable: false
+    libelf:
+      - spec: libelf@0.176
+        prefix: /usr
       buildable: false
     libc:
       externals: [{spec: libc@1.0+iconv, prefix: /usr}]
@@ -143,9 +145,10 @@ spack:
   - cmssw-config@V06-03-01
   - cmssw-osenv@211125.0
   - cmssw-tool-conf@1.0 # FIXME!
+  - cmssw-wm-tools@211210
   - cmsswdata@40.0
   - coral@2.3.21py3
-  - coral-tool-conf
+  - coral-tool-conf@10.0
   - cppunit@1.15.x
   - crab@1.0
   - crab-dev@v3.220204.00
@@ -153,7 +156,9 @@ spack:
   - crab-prod@v3.220104.00
   - csctrackfinderemulation@1.2
   - cuda@11.5.2
-  - cupla@0.3.0 # 
+  - cudnn@8.3.2.44
+  - cuda-compatible-runtime@1.0
+  - cupla@0.3.0
   - curl@7.79.0~libssh2+gssapi~libidn2
   - dablooms@0.9.1
   - das-client@v03.01.00
@@ -162,6 +167,7 @@ spack:
   - dcap@2.47.12
   - dd4hep@1.18x+xercesc+geant4units~edm4hep # CMS: +geant4 is set internally to build static version of ddg4
   - dmtcp@3.0.0-dev
+  - dwz@0.14-patches
   - eigen@82dd3710dac619448f50331c1d6a35da673f764a
   - elfutils@0.186~nls
   - evtgen@02.00.00+pythia8+tauola+photos
@@ -190,6 +196,9 @@ spack:
   - gbl@V02-04-01~root
   - gdb@10.2+python+xz~doc
   - gdbm@1.10
+  - geant4@11.0.1.cms+threads+vecgeom~opengl~x11~qt~python~motif
+  - geant4data@10.0
+  - geant4-parfullcms@2014.01.27
   - gengetopt@2.22.6
   - gettext@0.20.1~bzip2~xz~curses~libxml2~libunistring
   - giflib@5.2.0
@@ -199,8 +208,6 @@ spack:
   - gmp@6.2.0+static
   - gnuplot@5.2.8~cairo~X~wx~gd~pbm~libcerf
   - py-gosam@2.1.1
-  - geant4@10.7.2 +threads+vecgeom
-  - geant4-data@10.7.2
   - gosam-contrib@2.0 libs=shared,static
   - gperftools@2.9.1+libunwind+sized_delete+dynamic_sized_delete_support~debugalloc
   - grpc@1.35.0+shared
@@ -557,7 +564,7 @@ spack:
   - py-zipp@3.6.0
   - pyquen@1.5.4
   - pythia6@6.4.26
-  - pythia8@8.306+hepmc~hepmc3+lhapdf
+  - pythia8@8.306+hepmc+hepmc3+lhapdf
   - python@3.9.6~libxml2~debug
   - qd@2.3.13
   - qgraf@3.4.2

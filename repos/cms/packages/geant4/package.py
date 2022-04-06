@@ -14,11 +14,13 @@ class Geant4(CMakePackage):
 
     homepage = "http://geant4.cern.ch/"
     url = "https://gitlab.cern.ch/geant4/geant4/-/archive/v10.7.1/geant4-v10.7.1.tar.gz"
+    git = "https://github.com/cms-externals/geant4"
 
     tags = ['hep']
 
     maintainers = ['drbenmorgan']
 
+    version('11.0.1.cms', commit='271d2ffb2bd0a2aa26c4d15bc5e99e50f49cd232')
     version('10.7.2', sha256='593fc85883a361487b17548ba00553501f66a811b0a79039276bb75ad59528cf')
     version('10.7.1', sha256='2aa7cb4b231081e0a35d84c707be8f35e4edc4e97aad2b233943515476955293')
     version('10.7.0', sha256='c991a139210c7f194720c900b149405090058c00beb5a0d2fac5c40c42a262d4')
@@ -49,17 +51,18 @@ class Geant4(CMakePackage):
     depends_on('cmake@3.5:', type='build')
     depends_on('cmake@3.8:', type='build', when='@10.6.0:')
 
-    depends_on('geant4-data@10.7.2', when='@10.7.2')
-    depends_on('geant4-data@10.7.1', when='@10.7.1')
-    depends_on('geant4-data@10.7.0', when='@10.7.0')
-    depends_on('geant4-data@10.6.3', when='@10.6.3')
-    depends_on('geant4-data@10.6.2', when='@10.6.2')
-    depends_on('geant4-data@10.6.1', when='@10.6.1')
-    depends_on('geant4-data@10.6.0', when='@10.6.0')
-    depends_on('geant4-data@10.5.1', when='@10.5.1')
-    depends_on('geant4-data@10.4.3', when='@10.4.3')
-    depends_on('geant4-data@10.4.0', when='@10.4.0')
-    depends_on('geant4-data@10.3.3', when='@10.3.3')
+#    -- CMS
+#    depends_on('geant4-data@10.7.2', when='@10.7.2')
+#    depends_on('geant4-data@10.7.1', when='@10.7.1')
+#    depends_on('geant4-data@10.7.0', when='@10.7.0')
+#    depends_on('geant4-data@10.6.3', when='@10.6.3')
+#    depends_on('geant4-data@10.6.2', when='@10.6.2')
+#    depends_on('geant4-data@10.6.1', when='@10.6.1')
+#    depends_on('geant4-data@10.6.0', when='@10.6.0')
+#    depends_on('geant4-data@10.5.1', when='@10.5.1')
+#    depends_on('geant4-data@10.4.3', when='@10.4.3')
+#    depends_on('geant4-data@10.4.0', when='@10.4.0')
+#    depends_on('geant4-data@10.3.3', when='@10.3.3')
 
     depends_on("expat")
     depends_on("zlib")
@@ -120,13 +123,21 @@ class Geant4(CMakePackage):
 
         # Core options
         options = [
-            self.define_from_variant('GEANT4_BUILD_CXXSTD', 'cxxstd'),
+            self.define_from_variant('CMAKE_CXX_STANDARD', 'cxxstd'),
             '-DGEANT4_USE_SYSTEM_CLHEP=ON',
             '-DGEANT4_USE_SYSTEM_EXPAT=ON',
             '-DGEANT4_USE_SYSTEM_ZLIB=ON',
             '-DGEANT4_USE_G3TOG4=ON',
             '-DGEANT4_USE_GDML=ON',
-            '-DXERCESC_ROOT_DIR={0}'.format(spec['xerces-c'].prefix)
+            # -- cms
+            '-DGEANT4_INSTALL_EXAMPLES=OFF',
+            '-DBUILD_SHARED_LIBS=ON',
+            '-DBUILD_STATIC_LIBS=ON',
+            '-DGEANT4_BUILD_BUILTIN_BACKTRACE=OFF',
+            '-DGEANT4_BUILD_VERBOSE_CODE=OFF',
+            '-DGEANT4_ENABLE_TESTING=OFF',
+            '-DGEANT4_BUILD_TLS_MODEL:STRING="global-dynamic"'
+            # -- end cms
         ]
 
         # Don't install the package cache file as Spack will set
@@ -143,15 +154,16 @@ class Geant4(CMakePackage):
             options.append('-DGEANT4_BUILD_TLS_MODEL=global-dynamic')
 
         # install the data with geant4
-        datadir = spec['geant4-data'].prefix.share
-        dataver = '{0}-{1}'.format(spec['geant4-data'].name,
-                                   spec['geant4-data'].version.dotted)
-        datapath = join_path(datadir, dataver)
-        options.append('-DGEANT4_INSTALL_DATADIR={0}'.format(datapath))
+# -- CMS
+#        datadir = spec['geant4-data'].prefix.share
+#        dataver = '{0}-{1}'.format(spec['geant4-data'].name,
+#                                   spec['geant4-data'].version.dotted)
+#        datapath = join_path(datadir, dataver)
+#        options.append('-DGEANT4_INSTALL_DATADIR={0}'.format(datapath))
 
         # Vecgeom
         if '+vecgeom' in spec:
-            options.append('-DGEANT4_USE_USOLIDS=ON')
+            options.append('-DGEANT4_USE_USOLIDS=all')  # -- cms
             options.append('-DUSolids_DIR=%s' % spec[
                 'vecgeom'].prefix.lib.CMake.USolids)
 

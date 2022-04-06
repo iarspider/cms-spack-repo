@@ -10,7 +10,7 @@ def local_file_url(fn):
     return 'file://' + local_file(fn)
 
 
-class CmsswToolConf(BundlePackage, CudaPackage):
+class CmsswToolConf(ScramToolfilePackage, CudaPackage):
     version('52.0')
     
     resource(name='toolfiles',
@@ -197,78 +197,3 @@ class CmsswToolConf(BundlePackage, CudaPackage):
     
     ## INCLUDE cmssw-drop-tools
     skipreqtools = ('jcompiler', 'icc-cxxcompiler', 'icc-ccompiler', 'icc-f77compiler', 'rivet2', 'opencl', 'opencl-cpp', 'nvidia-drivers', 'intel-vtune', 'jemalloc-debug')
-
-    ## INCLUDE scram-tools.file/tool-env
-    def setup_build_environment(self, env):
-        env.set('ROOT_CXXMODULES', 0)
-        # TODO: vectorization
-        # compilation_flags.file
-        if self.spec.satisfies('target=x86_64:'):
-            env.set('COMPILER_CXXFLAGS', '-msse3')
-        elif self.spec.satisfies('target=aarch64:'):
-            env.set('COMPILER_CXXFLAGS', '-mtarget=armv8-a -mno-outline-atomics')
-        elif self.spec.satisfies('target=ppc64le:'):
-            env.set('COMPILER_CXXFLAGS', '-mcpu=power8 -mtune=power8 --param=l1-cache-size=64 --param=l1-cache-line-size=128 --param=l2-cache-size=512')
-
-        env.set('ORACLE_ENV_ROOT', '')
-        
-        # TODO: remember, the list is different for arm vs. everything else
-        env.set('CUDA_FLAGS', CudaPackage.cuda_flags(self.spec.variant['cuda_arch']))
-        env.set('CUDA_HOST_CXXFLAGS', '-std=c++17')
-        
-        # Technical variables
-        env.set('SCRAMV1_ROOT', self.spec['scram'].prefix)
-        
-        python_dir = 'python{0}'.format(self.spec['python'].version.up_to(2))
-        env.set('PYTHON3_LIB_SITE_PACKAGES', os.path.join('lib', python_dir, 'site-packages'))
-        
-    ## INCLUDE scram-tool-conf
-    def install(self, spec, prefix):
-        mkdirp(prefix.tools.selected)
-        mkdirp(prefix.tools.available)
-
-        bash = which('bash')
-
-        for dep in spec.dependencies():
-            uctool = dep.name.upper().replace('-', '_')
-            toolbase = dep.prefix
-            toolver = str(dep.version)
-            bash('scram-tools/bin/get_tools', toolbase, toolver, prefix, dep.name)
-            
-        bash('scram-tools/bin/get_tools', "", "system", prefix, "systemtools")
-        
-        # TODO: vectorization
-        for tool in skipreqtools:
-            if os.path.exists(join_path(prefix, 'tools', 'selected', tool + '.xml')):
-                shutil.move(join_path(prefix, 'tools', 'selected', tool + '.xml'),
-                            join_path(prefix, 'tools', 'available', tool + '.xml'))
-                
-        bash(join_path(os.path.dirname(__file__), '-e', 'scram-check.sh'), prefix)
-        ### bash(join_path(os.path.dirname(__file__), 'generate-python-paths.sh'), prefix) ###
-        ALL_PY_BIN = set()
-        ALL_PY_PKGS = set()
-        DUP_BIN = defaultdict(list)
-        
-        for pkg in spec.dependencies():
-            pk_name = spec.name.lower()
-            if os.path.exists(join_path(os.path.dirname(__file__), pk_name + '.xml')):
-                continue
-            
-            pk_ver = pkg.version
-            uctool = pk_name.upper().replace('-', '_')
-            with open(join_path(prefix, 'tools', 'selected', pk_name + '.xml'), 'w') as f:
-                f.write(f'<tool name="{pk_name}" version="{pk_ver}"\n')
-                if os.path.exists(pkg.prefix.bin):
-                    for b in os.listdir(pkg.prefix.bin):
-                        if b in ALL_PY_BIN:
-                            DUP_BIN[b].append(pk_name)
-                    f.write('  <client>\n')
-                    f.write(f'    <environment name="${uctool}_BASE" default="{pkg.prefix}"/>\n')
-                    f.write('  </client>\n')
-                    f.write(f'  <runtime name="PATH" value={uctool}/bin" type="path"/>\n')
-                f.write('</tool>\n')
-            
-        if DUP_BIN:
-            msg = '\n'.join(f"{k}: {','.join(v)}" for k, v in DUP_BIN.items())
-            msg += '\nERROR: Duplicate python binaries found. Please cleanup and make sure only one binary is available.'
-            raise RuntimeError(msg)
