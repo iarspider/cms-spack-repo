@@ -1,7 +1,8 @@
 from llnl.util.filesystem import *
 
 from spack.package import BundlePackage
-from spack.directives import resource, version
+from spack.directives import resource, version, depends_on
+from spack.util.executable import which, Executable
 
 import glob
 import os
@@ -10,7 +11,7 @@ import re
 class ScramToolfilePackage(BundlePackage):
     build_system_class = 'ScramToolfilePackage'
     phases = ['install']
-    
+
     depends_on('cmsdist', type='build')
     depends_on('scram', type='build')
 
