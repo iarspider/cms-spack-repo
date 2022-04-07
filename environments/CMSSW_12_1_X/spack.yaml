@@ -340,6 +340,7 @@ spack:
   - py-filelock@3.5.0  # test
   - py-fire@0.4.0
   - py-flake8@4.0.1
+  - py-flatbuffers@2.0
   - py-flawfinder@2.0.19
   - py-flit@3.3.0
   - py-flit-core@3.3.0
@@ -465,6 +466,7 @@ spack:
   - py-pycuda@2021.1
   - py-pycurl@7.44.1
   - py-pydantic@1.8.2
+  - py-pydot@1.4.2
   - py-pyflakes@2.4.0
   - py-pygithub@1.55
   - py-pygments@2.10.0
@@ -521,7 +523,7 @@ spack:
   - py-typing-extensions@3.7.4.3 # NB: py-tensorflow; NB: keep this here
   - py-tensorboard-plugin-wit@1.8.0 # wheel
   - py-tensorboard@2.6.0 # wheel
-  - py-tensorboard-dataserver@0.6.1
+  - py-tensorboard-dataserver@0.6.1 # check spelling: py-tensorboard-data-server@0.6.1
   - py-tensorflow@2.6.0.cms~cuda~nccl~only_python+mpi
   - py-termcolor@1.1.0
   - py-terminado@0.12.1
