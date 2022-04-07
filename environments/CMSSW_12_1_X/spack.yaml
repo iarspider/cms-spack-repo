@@ -584,6 +584,7 @@ spack:
   - tkonlinesw@4.2.0-1_gcc7
   - toprex@4.23
   - triton-inference-client@2.11.0
+  - ucx@1.12~static+shared+openmp+ucg+cma+thread_multiple+pic~java+cuda~rocm+gdrcopy+rc+ud+dc+mlx5-dv+ib-hw-tm+dm~cm+rdmacm~knem+xpmem~examples opt=3
   - util-linux-uuid@2.34
   - utm@utm_0.10.0
   - veccore
