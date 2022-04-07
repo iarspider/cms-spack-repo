@@ -573,6 +573,7 @@ spack:
   - rust@1.57.0~rustfmt~analysis~clippy~src
   - scram@3.0.31
   - sherpa@2.2.12+analysis+fastjet+hepmc2+rivet+lhapdf+blackhat+python+ufo+openloops+mpi+cms~hepmc3
+  - sigcpp@3.2.0~doc
   - sqlite@3.36.0~fts
   - starlight@r193
   - swig@4.0.2
