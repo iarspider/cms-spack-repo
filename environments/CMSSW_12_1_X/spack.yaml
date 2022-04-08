@@ -249,7 +249,7 @@ spack:
   - m4@1.4.18~sigsegv
   - madgraph5amc@2.7.3.py3 +cms~ninja~collier+golem~syscalc nb_core=4
   - mcfm@6.3
-  - mctester@1.25.0a
+  - mctester@1.25.1
   - md5@1.0.0
   - meschach@1.2.pCMS1
   - millepede@04-11-01
