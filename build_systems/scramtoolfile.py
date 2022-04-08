@@ -16,7 +16,11 @@ class ScramToolfilePackage(BundlePackage):
     depends_on('scram', type='build')
 
     aliases = {'python': 'python3', 'bzip2': 'bz2lib', 'scram': 'SCRAMV1', 'oracle-instant-client': 'oracle',
-               'util-linux-uuid': 'libuuid', 'frontier-client': 'frontier_client'}
+               'util-linux-uuid': 'libuuid', 'frontier-client': 'frontier_client', 'das-client': 'das_client',
+               'frontier-client': 'frontier_client', 'py-onnx-runtime': 'onnxruntime', 'fftw': 'fftw3',
+               'professor': 'professor2', 'fjcontrib': 'fastjet-contrib', 'opencl-clhpp': 'opencl-cpp',
+               'gosam-contrib': 'gosamcontrib', 'py-gosam': 'gosam', 'madgraph5amc': 'madgraph5amcatnlo',
+               'oracle-instant-client': 'oracle'}
 
     def get_all_deps(self, spec):
         res = {}

@@ -1,1 +1,0 @@
-To be added in https://github.com/spack/spack/pull/27798, no need to create a PR until then
