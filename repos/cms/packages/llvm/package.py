@@ -66,6 +66,9 @@ class Llvm(CMakePackage, CudaPackage):
 
     variant('cuda', default=False)
     variant('cuda_arch', default='foo')
+    variant('clang', default=True) # dummy
+    variant('flang', default=False) # dummy
+    variant('shared_libs', default=True) # dummy
 
     # LLVM bug https://bugs.llvm.org/show_bug.cgi?id=48234
     # CMake bug: https://gitlab.kitware.com/cmake/cmake/-/issues/21469

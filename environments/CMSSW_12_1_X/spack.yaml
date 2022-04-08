@@ -100,13 +100,10 @@ spack:
       externals: [{spec: findutils@4.5.11, prefix: /usr}]
       buildable: false
     diffutils:
-      externals:
-      - spec: diffutils@3.3
-        prefix: /usr
+      externals: [{spec: diffutils@3.3, prefix: /usr}]
       buildable: false
     libelf:
-      - spec: libelf@0.176
-        prefix: /usr
+      externals: [{spec: libelf@0.176, prefix: /usr}]
       buildable: false
     libc:
       externals: [{spec: libc@1.0+iconv, prefix: /usr}]
