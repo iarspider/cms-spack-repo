@@ -48,7 +48,7 @@ class Vecgeom(CMakePackage, CudaPackage):
             description='Support ROOT geometry construction')
     variant('shared', default=True,
             description='Build shared libraries')
-    variant('vector', values=('auto', 'sse2', 'sse3', 'ssse3', 'sse4.1', 
+    variant('vector', values=('auto', 'sse2', 'sse3', 'ssse3', 'sse4.1',
                               'sse4.2', 'avx', 'avx2', 'native', 'empty',
                               'arch_nehalem', 'arch_sandybridge',
                               'arch_haswell', 'arch_skylake-avx512'),
@@ -58,7 +58,6 @@ class Vecgeom(CMakePackage, CudaPackage):
 
     depends_on('veccore@0.5.2:', type=('build', 'link'), when='@1.1.0:')
     depends_on('veccore@0.4.2', type=('build', 'link'), when='@:1.0')
-    depends_on('veccore+cuda', type=('build', 'link'), when='+cuda')
 
     conflicts('+cuda', when='@:1.1.5')
 
@@ -73,7 +72,6 @@ class Vecgeom(CMakePackage, CudaPackage):
     for std in _cxxstd_values:
         depends_on('geant4 cxxstd=' + std, when='+geant4 cxxstd=' + std)
         depends_on('root cxxstd=' + std, when='+root cxxstd=' + std)
-        depends_on('veccore cxxstd=' + std, when='cxxstd=' + std)
         depends_on('xerces-c cxxstd=' + std, when='+gdml cxxstd=' + std)
 
     def cmake_args(self):

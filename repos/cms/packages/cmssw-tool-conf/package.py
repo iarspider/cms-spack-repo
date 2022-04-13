@@ -136,8 +136,8 @@ class CmsswToolConf(ScramToolfilePackage, CudaPackage):
     depends_on('gmp')
     depends_on('mpfr')
     depends_on('fjcontrib')
-    depends_on('opencl')
-    depends_on('opencl-clhpp')
+    # depends_on('opencl') # DROP?
+    # depends_on('opencl-clhpp') # DROP?
     depends_on('qd')
     depends_on('blackhat')
     depends_on('sherpa')
@@ -167,22 +167,22 @@ class CmsswToolConf(ScramToolfilePackage, CudaPackage):
     depends_on('cuda-compatible-runtime', when='platform=linux')
     depends_on('alpaka', when='platform=linux')
     depends_on('cupla ', when='platform=linux')
-    
+
     depends_on('cudnn', when='platform=linux target=x86_64:')
     depends_on('cudnn', when='platform=linux target=ppc64le:')
-    
+
     depends_on('libunwind', when='platform=linux')
 
     depends_on('igprof', when='platform=linux target=x86_64:')
     depends_on('igprof', when='platform=linux target=aarch64:')
     depends_on('openloops', when='platform=linux target=x86_64:')
     depends_on('openloops', when='platform=linux target=aarch64:')
-    
+
     depends_on('tkonlinesw', when='platform=linux target=x86_64:')
     depends_on('oracle-instant-client', when='platform=linux target=x86_64:')
     depends_on('intel-vtune', when='platform=linux target=x86_64:')
     depends_on('cmsmon-tools', when='platform=linux target=x86_64:')
-    depends_on('dip', when='platform=linux target=x86_64:')
+    # depends_on('dip', when='platform=linux target=x86_64:') # TODO: need access
 
     # TODO
     # depends_on('tkonlinesw-fake', when='platform=linux target=aarch64:')
@@ -195,6 +195,6 @@ class CmsswToolConf(ScramToolfilePackage, CudaPackage):
     depends_on('xgboost')
 
     # TODO: cmssw-vectorization
-    
+
     ## INCLUDE cmssw-drop-tools
     skipreqtools = ('jcompiler', 'icc-cxxcompiler', 'icc-ccompiler', 'icc-f77compiler', 'rivet2', 'opencl', 'opencl-cpp', 'nvidia-drivers', 'intel-vtune', 'jemalloc-debug')

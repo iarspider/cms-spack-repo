@@ -3,8 +3,6 @@
 # It describes a set of packages to be installed, along with
 # configuration settings.
 # NOTICE: intel-tbb should not be replaced with intel-oneapi-tbb, the latter one is pre-built and not configurable
-# NOTICE: ~cuda~nvml for now
-#   - cudnn@8.2.2.26
 #   - py-typing@3.7.4.3 NB: not needed for py 3.7+
 #   - py-tensorflow-estimator@2.6.0 -> part of tf
 #   - py-rep@0.6.6
@@ -17,7 +15,9 @@ spack:
       target:
       - prescott
       version: []
-      variants: [cxxstd=17, build_type=Release, +cms, ~cuda]
+      variants: [cxxstd=17, build_type=Release, +cms]
+      providers:
+        iconv: [libc]
     mesa-glu:
       externals: [{spec: mesa-glu@9.0.0, prefix: /usr}]
       buildable: false
@@ -108,6 +108,8 @@ spack:
     libc:
       externals: [{spec: libc@1.0+iconv, prefix: /usr}]
       buildable: false
+    libiconv:
+      buildable: false
     mesa:
       variants: [~llvm]
     llvm:
@@ -153,7 +155,7 @@ spack:
   - crab-prod@v3.220104.00
   - csctrackfinderemulation@1.2
   - cuda@11.5.2
-  - cudnn@8.3.2.44
+  - cudnn@8.3.2.44-11.5 # NB: version includes CUDA version
   - cuda-compatible-runtime@1.0
   - cupla@0.3.0
   - curl@7.79.0~libssh2+gssapi~libidn2
@@ -272,7 +274,7 @@ spack:
   - photos@3.64+hepmc~hepmc3
   - photos-f@215.5
   - pkg-config@0.29.2+internal_glib
-  - professor@2.3.3
+  - professor@2.3.3~interactive
   - protobuf@3.15.1
   - py-absl-py@0.11.0
   - py-aiohttp@3.8.1
@@ -581,11 +583,11 @@ spack:
   - tkonlinesw@4.2.0-1_gcc7
   - toprex@4.23
   - triton-inference-client@2.11.0
-  - ucx@1.12~static+shared+openmp+ucg+cma+thread_multiple+pic~java+cuda~rocm+gdrcopy+rc+ud+dc+mlx5-dv+ib-hw-tm+dm+rdmacm~knem+xpmem~examples opt=3
+  - ucx@1.12~static+shared+openmp+ucg+cma+thread_multiple+pic~java+cuda~rocm+gdrcopy+rc+ud+dc+mlx5-dv+ib-hw-tm+dm+rdmacm~knem~xpmem~examples opt=3
   - util-linux-uuid@2.34
   - utm@utm_0.10.0
-  - valgrind@3.17.0~static~mpi
-  - vdt@0.4.3+preload  
+  - valgrind@3.17.0~mpi libs=shared
+  - vdt@0.4.3+preload
   - veccore@0.8.0
   - vecgeom@1.1.17 ~root~geant4 vector=sse3
   - xerces-c@3.1.3 netaccessor=none transcoder=none

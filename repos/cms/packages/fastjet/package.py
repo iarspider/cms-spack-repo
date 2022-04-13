@@ -13,7 +13,7 @@ class Fastjet(AutotoolsPackage):
     """
 
     homepage = "http://fastjet.fr/"
-    url      = "http://fastjet.fr/repo/fastjet-3.3.3.tar.gz"
+    url      = "https://lcgpackages.web.cern.ch/tarFiles/sources/fastjet-3.3.4.tar.gz"
 
     tags = ['hep']
 

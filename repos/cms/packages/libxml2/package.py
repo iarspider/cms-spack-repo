@@ -43,7 +43,7 @@ class Libxml2(AutotoolsPackage):
 
     patch('nvhpc-configure.patch', when='%nvhpc')
     patch('nvhpc-elfgcchack.patch', when='%nvhpc')
-    
+ 
     # -- CMS hook
     drop_files = ['lib/*.la']
 
