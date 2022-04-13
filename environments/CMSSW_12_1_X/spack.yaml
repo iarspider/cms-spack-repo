@@ -269,7 +269,7 @@ spack:
   - pacparser@1.3.8
   - pcre@8.43~jit~multibyte+utf
   - pcre2@10.36
-  - photos@3.64
+  - photos@3.64+hepmc~hepmc3
   - photos-f@215.5
   - pkg-config@0.29.2+internal_glib
   - professor@2.3.3
@@ -584,12 +584,18 @@ spack:
   - ucx@1.12~static+shared+openmp+ucg+cma+thread_multiple+pic~java+cuda~rocm+gdrcopy+rc+ud+dc+mlx5-dv+ib-hw-tm+dm+rdmacm~knem+xpmem~examples opt=3
   - util-linux-uuid@2.34
   - utm@utm_0.10.0
-  - veccore
+  - valgrind@3.17.0~static~mpi
+  - vdt@0.4.3+preload  
+  - veccore@0.8.0
   - vecgeom@1.1.17 ~root~geant4 vector=sse3
   - xerces-c@3.1.3 netaccessor=none transcoder=none
   - xgboost@1.3.3
   - xrootd@4.12.3+http~readline+python
+  - xtensor@0.24.1
+  - xtl@0.7.4
   - xz@5.2.4 libs=shared
+  - yaml-cpp@0.7.0+shared
+  - yoda@1.9.0+root
   - zlib@1.2.11.cms+optimize
   - zstd@1.4.5+shared~static~programs~legacy
-  - yoda@1.9.0+root
+
