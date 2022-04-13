@@ -204,6 +204,7 @@ spack:
   - gmake@4.3~nls
   - gmp@6.2.0
   - gnuplot@5.2.8~cairo~X~wx~gd~pbm~libcerf
+  - go@1.16
   - py-gosam@2.1.1
   - gosam-contrib@2.0 libs=shared,static
   - gperftools@2.9.1+libunwind+sized_delete+dynamic_sized_delete_support~debugalloc
