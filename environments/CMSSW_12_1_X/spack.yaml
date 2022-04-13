@@ -223,7 +223,8 @@ spack:
   - intel-vtune@2018.0.2.525261
   - isl@0.21
   - ittnotify@16.06.18
-  - jemalloc@5.2.1~documentation+stats libs=shared
+  - jemalloc@5.2.1.cms~documentation+stats~debug libs=shared
+  - jemalloc-debug@5.2.1.cms~documentation+stats+debug libs=shared
   - jimmy@4.2
   - ktjet@1.06
   - lcov@1.15
