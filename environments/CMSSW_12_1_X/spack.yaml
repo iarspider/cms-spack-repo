@@ -3,8 +3,6 @@
 # It describes a set of packages to be installed, along with
 # configuration settings.
 # NOTICE: intel-tbb should not be replaced with intel-oneapi-tbb, the latter one is pre-built and not configurable
-# NOTICE: ~cuda~nvml for now
-#   - cudnn@8.2.2.26
 #   - py-typing@3.7.4.3 NB: not needed for py 3.7+
 #   - py-tensorflow-estimator@2.6.0 -> part of tf
 #   - py-rep@0.6.6
@@ -17,7 +15,9 @@ spack:
       target:
       - prescott
       version: []
-      variants: [cxxstd=17, build_type=Release, +cms, ~cuda]
+      variants: [cxxstd=17, build_type=Release, +cms]
+      providers:
+        iconv: [libc]
     mesa-glu:
       externals: [{spec: mesa-glu@9.0.0, prefix: /usr}]
       buildable: false
@@ -100,16 +100,15 @@ spack:
       externals: [{spec: findutils@4.5.11, prefix: /usr}]
       buildable: false
     diffutils:
-      externals:
-      - spec: diffutils@3.3
-        prefix: /usr
+      externals: [{spec: diffutils@3.3, prefix: /usr}]
       buildable: false
     libelf:
-      - spec: libelf@0.176
-        prefix: /usr
+      externals: [{spec: libelf@0.176, prefix: /usr}]
       buildable: false
     libc:
       externals: [{spec: libc@1.0+iconv, prefix: /usr}]
+      buildable: false
+    libiconv:
       buildable: false
     mesa:
       variants: [~llvm]
@@ -156,7 +155,7 @@ spack:
   - crab-prod@v3.220104.00
   - csctrackfinderemulation@1.2
   - cuda@11.5.2
-  - cudnn@8.3.2.44
+  - cudnn@8.3.2.44-11.5 # NB: version includes CUDA version
   - cuda-compatible-runtime@1.0
   - cupla@0.3.0
   - curl@7.79.0~libssh2+gssapi~libidn2
@@ -207,6 +206,7 @@ spack:
   - gmake@4.3~nls
   - gmp@6.2.0+static
   - gnuplot@5.2.8~cairo~X~wx~gd~pbm~libcerf
+  - go@1.16
   - py-gosam@2.1.1
   - gosam-contrib@2.0 libs=shared,static
   - gperftools@2.9.1+libunwind+sized_delete+dynamic_sized_delete_support~debugalloc
@@ -228,7 +228,8 @@ spack:
   - intel-vtune@2018.0.2.525261
   - isl@0.21
   - ittnotify@16.06.18
-  - jemalloc@5.2.1~documentation+stats libs=shared
+  - jemalloc@5.2.1.cms~documentation+stats~debug libs=shared
+  - jemalloc-debug@5.2.1.cms~documentation+stats+debug libs=shared
   - jimmy@4.2
   - ktjet@1.06
   - lcov@1.15
@@ -247,15 +248,17 @@ spack:
   - libxml2@2.9.10~python
   - libxslt@1.1.33~crypto~python
   - libzmq@4.3.3~docs~libbsd
+  - log4cplus@2.0.7
   - llvm@12.0.1.cms~cuda
   - lwtnn@2.12.1
   - lz4@1.9.3
   - m4@1.4.18~sigsegv
   - madgraph5amc@2.7.3.py3 +cms~ninja~collier+golem~syscalc nb_core=4
   - mcfm@6.3
-  - mctester@1.25.0a
+  - mctester@1.25.1
   - md5@1.0.0
   - meschach@1.2.pCMS1
+  - millepede@04-11-01
   - mpc@1.1.0
   - mpfr@4.0.2+static
   # - mpfr-static@4.0.2
@@ -265,6 +268,7 @@ spack:
   - nlohmann-json@3.10.2
   - numactl@2.0.14
   - openblas@0.3.15
+  - opencv@4.5.1+eigen+python3
   - openldap@2.4.49+client_only~sasl  # 2.6.0 requires OpenSSL 1.1.1
   - openloops@2.1.2
   - openloops-process@2.1.2
@@ -274,10 +278,10 @@ spack:
   - pacparser@1.3.8
   - pcre@8.43~jit~multibyte+utf
   - pcre2@10.36
-  - photos@3.64
+  - photos@3.64+hepmc~hepmc3
   - photos-f@215.5
   - pkg-config@0.29.2+internal_glib
-  - professor@2.3.3
+  - professor@2.3.3~interactive
   - protobuf@3.15.1
   - py-absl-py@0.11.0
   - py-aiohttp@3.8.1
@@ -568,12 +572,15 @@ spack:
   - python@3.9.6~libxml2~debug
   - qd@2.3.13
   - qgraf@3.4.2
+  - rdma-core@39.1
   - re2c@0.13.5
   - rivet@3.1.4 hepmc=2
   - root@6.22.08.patches_cms_18c440c+davix+fftw~fits~graphviz+math+minuit+mlp~mysql+opengl~postgres~pythia6~pythia8+python~qt4+root7+roofit~sqlite+ssl+tmva+tbb~vdt~veccore+x+xrootd
   - rust@1.57.0~rustfmt~analysis~clippy~src
   - scram@3.0.31
   - sherpa@2.2.12+analysis+fastjet+hepmc2+rivet+lhapdf+blackhat+python+ufo+openloops+mpi+cms~hepmc3
+  - sigcpp@3.2.0~doc
+  - sloccount@2.26
   - sqlite@3.36.0~fts
   - starlight@r193
   - swig@4.0.2
@@ -583,14 +590,21 @@ spack:
   - tkonlinesw@4.2.0-1_gcc7
   - toprex@4.23
   - triton-inference-client@2.11.0
+  - ucx@1.12~static+shared+openmp+ucg+cma+thread_multiple+pic~java+cuda~rocm+gdrcopy+rc+ud+dc+mlx5-dv+ib-hw-tm+dm+rdmacm~knem~xpmem~examples opt=3
   - util-linux-uuid@2.34
   - utm@utm_0.10.0
-  - veccore
+  - valgrind@3.17.0~mpi libs=shared
+  - vdt@0.4.3+preload
+  - veccore@0.8.0
   - vecgeom@1.1.17 ~root~geant4 vector=sse3
   - xerces-c@3.1.3 netaccessor=none transcoder=none
   - xgboost@1.3.3
   - xrootd@4.12.3+http~readline+python
+  - xtensor@0.24.1
+  - xtl@0.7.4
   - xz@5.2.4 libs=shared
+  - yaml-cpp@0.7.0+shared
+  - yoda@1.9.0+root
   - zlib@1.2.11.cms+optimize
   - zstd@1.4.5+shared~static~programs~legacy
-  - yoda@1.9.0+root
+

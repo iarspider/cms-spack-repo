@@ -11,9 +11,9 @@ from spack import *
 
 
 class TauolaF(MakefilePackage):
-    """Old version of Tauola"""
+    """TAUOLA - a library of Monte Carlo programs to simulate decays of polarized tau leptons"""
 
-    homepage = "https://www.example.com"
+    homepage = "http://wasm.home.cern.ch/wasm/f77.html"
     url      = "http://cern.ch/service-spi/external/MCGenerators/distribution/tauola/tauola-27.121.5-src.tgz"
 
     version('27.121.5', sha256='906c3ccffcf6f02f48de2469adffffad5026ca78d98e77da99a6ee2d6ca3633f')

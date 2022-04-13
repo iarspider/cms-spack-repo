@@ -12,8 +12,7 @@ from  spack.util.environment import *
 
 
 class CoralToolConf(ScramToolfilePackage):
-    url = 'file://' + os.path.dirname(__file__) + '/junk.xml'
-    version('10.0', '68841b7dcbd130afd7d236afe8fd5b949f017615', expand=False)
+    version('10.0')
 
     depends_on('pcre')
     depends_on('python')
