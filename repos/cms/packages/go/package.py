@@ -1,4 +1,5 @@
 import os
+import platform
 import re
 
 import llnl.util.tty as tty
@@ -24,7 +25,7 @@ class Go(Package):
                           'Linux-ppc64le': ('27a1aaa988e930b7932ce459c8a63ad5b3333b3a06b016d87ff289f2a11aacd6',
                                             'https://storage.googleapis.com/golang/go1.16.linux-ppc64le.tar.gz')
                          }}
-                         
+
     for ver, packages in _versions.items():
         key = "{0}-{1}".format(platform.system(), platform.machine())
         pkg = packages.get(key)
