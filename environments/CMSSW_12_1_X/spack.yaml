@@ -130,7 +130,7 @@ spack:
   - benchmark@develop
   - bison@3.5
   - blackhat@0.9.9
-  - boost@1.75.0~icu~atomic~container~context~coroutine~exception~graph~locale~log~math~random~wave+shared+multithreaded~debug+mpi+python+iostreams
+  - boost@1.78.0.cms~icu~atomic~container~context~coroutine~exception~graph~locale~log~math~random~wave+shared+multithreaded~debug+mpi+python+iostreams
   - bzip2@1.0.6
   - cascade@2.2.04
   - catch2@2.13.7
@@ -164,10 +164,10 @@ spack:
   - dasgoclient@v02.04.46
   - davix@0.7.6
   - dcap@2.47.12
-  - dd4hep@1.18x+xercesc+geant4units~edm4hep # CMS: +geant4 is set internally to build static version of ddg4
+  - dd4hep@1.19x+xercesc+geant4units~edm4hep # CMS: +geant4 is set internally to build static version of ddg4
   - dmtcp@3.0.0-dev
   - dwz@0.14-patches
-  - eigen@82dd3710dac619448f50331c1d6a35da673f764a
+  - eigen@3.4.90
   - elfutils@0.186~nls
   - evtgen@02.00.00+pythia8+tauola+photos
   - expat@2.1.0~libbsd
@@ -195,7 +195,7 @@ spack:
   - gbl@V02-04-01~root
   - gdb@10.2+python+xz~doc
   - gdbm@1.10
-  - geant4@11.0.1.cms+threads+vecgeom~opengl~x11~qt~python~motif
+  - geant4@10.7.2+threads+vecgeom~opengl~x11~qt~python~motif
   - geant4data@10.0
   - geant4-parfullcms@2014.01.27
   - gengetopt@2.22.6
@@ -250,7 +250,7 @@ spack:
   - libzmq@4.3.3~docs~libbsd
   - log4cplus@2.0.7
   - llvm@12.0.1.cms~cuda
-  - lwtnn@2.12.1
+  - lwtnn@2.10 # NB: doesn't compile with our eigen: https://github.com/lwtnn/lwtnn/issues/161
   - lz4@1.9.3
   - m4@1.4.18~sigsegv
   - madgraph5amc@2.7.3.py3 +cms~ninja~collier+golem~syscalc nb_core=4
@@ -261,7 +261,6 @@ spack:
   - millepede@04-11-01
   - mpc@1.1.0
   - mpfr@4.0.2+static
-  # - mpfr-static@4.0.2
   - mxnet-predict@1.6.0
   - nasm@2.14.02
   - ninja@1.10.0
@@ -579,7 +578,7 @@ spack:
   - rivet@3.1.4 hepmc=2
   - root@6.22.08.patches_cms_18c440c+davix+fftw~fits~graphviz+math+minuit+mlp~mysql+opengl~postgres~pythia6~pythia8+python~qt4+root7+roofit~sqlite+ssl+tmva+tbb~vdt~veccore+x+xrootd
   - rust@1.57.0~rustfmt~analysis~clippy~src
-  - scram@3.0.31
+  - scram@3.0.36
   - sherpa@2.2.12+analysis+fastjet+hepmc2+rivet+lhapdf+blackhat+python+ufo+openloops+mpi+cms~hepmc3
   - sigcpp@3.2.0~doc
   - sloccount@2.26
@@ -592,21 +591,22 @@ spack:
   - tkonlinesw@4.2.0-1_gcc7
   - toprex@4.23
   - triton-inference-client@2.11.0
-  - ucx@1.12~static+shared+openmp+ucg+cma+thread_multiple+pic~java+cuda~rocm+gdrcopy+rc+ud+dc+mlx5-dv+ib-hw-tm+dm+rdmacm~knem~xpmem~examples opt=3
+  - ucx@1.12.0~static+shared+openmp+ucg+cma+thread_multiple+pic~java+cuda~rocm+gdrcopy+rc+ud+dc+mlx5-dv+ib-hw-tm+dm+rdmacm~knem~xpmem~examples
+    opt=3
   - util-linux-uuid@2.34
   - utm@utm_0.10.0
   - valgrind@3.17.0~mpi libs=shared
   - vdt@0.4.3+preload
   - veccore@0.8.0
-  - vecgeom@1.1.17 ~root~geant4 vector=sse3
+  - vecgeom@1.1.18 ~root~geant4 vector=sse3
   - xerces-c@3.1.3 netaccessor=none transcoder=none
   - xgboost@1.3.3
   - xrootd@4.12.3+http~readline+python
-  - xtensor@0.24.1
+  - xtensor@0.24.1~xsimd~tbb
   - xtl@0.7.4
   - xz@5.2.4 libs=shared
   - yaml-cpp@0.7.0+shared
   - yoda@1.9.0+root
   - zlib@1.2.11.cms+optimize
   - zstd@1.4.5+shared~static~programs~legacy
-
+  - cmsdist@12_4_X
