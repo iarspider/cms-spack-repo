@@ -38,12 +38,13 @@ class CudaPackage(PackageBase):
             values=spack.variant.any_combination_of(*cuda_arch_values))
 
     # C++ standard to use for building host and device code with nvcc
-    nvcc_stdcxx = ['-std=c++17']
+    nvcc_stdcxx = '-std=c++17'
 
     def cuda_flags_4(arch_list):
-        return [('--generate-code arch=compute_{0},code=sm_{0} '
-               '--generate-code arch=compute_{0},code=compute_{0}').format(s)
-               for s in arch_list]
+        flags = []
+        flags.extend( ('--generate-code arch=compute_{0},code=sm_{0}'.format(s) for s in arch_list) )
+        flags.extend( ('--generate-code arch=compute_{0},code=compute_{0}'.format(s) for s in arch_list) )
+        return flags
 
     # https://docs.nvidia.com/cuda/cuda-compiler-driver-nvcc/index.html#nvcc-examples
     # https://llvm.org/docs/CompileCudaWithLLVM.html#compiling-cuda-code
@@ -64,8 +65,8 @@ class CudaPackage(PackageBase):
         # link the CUDA runtime shared library
         cuda_flags_6 = ['--cudart', 'shared']
 
-        flags = [].extend(self.nvcc_stdcxx).extend(cuda_flags_0).extend(cuda_flags_1).extend(cuda_flags_2)
-        flags = flags.extend(cuda_flags_3).extend(self.cuda_flags_4(arch_list)).extend(cuda_flags_5).extend(cuda_flags_6)
+        flags = [] + [CudaPackage.nvcc_stdcxx] + cuda_flags_0 + cuda_flags_1 + cuda_flags_2
+        flags = flags + cuda_flags_3 + CudaPackage.cuda_flags_4(arch_list) + cuda_flags_5 + cuda_flags_6
 
         return flags
 

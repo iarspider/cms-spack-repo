@@ -19,12 +19,13 @@ class Boost(Package):
     """
     homepage = "http://www.boost.org"
     url      = "http://downloads.sourceforge.net/project/boost/boost/1.55.0/boost_1_55_0.tar.bz2"
-    git      = "https://github.com/boostorg/boost.git"
+    git      = "https://github.com/cms-externals/boost.git"
     list_url = "http://sourceforge.net/projects/boost/files/boost/"
     list_depth = 1
     maintainers = ['hainest']
 
     version('develop', branch='develop', submodules=True)
+    version('1.78.0.cms', commit='7f597ea02d8a714076157b4bf65fa8e5752b8468')
     version('1.76.0', sha256='f0397ba6e982c4450f27bf32a2a83292aba035b827a5623a14636ea583318c41')
     version('1.75.0', sha256='953db31e016db7bb207f11432bef7df100516eeb746843fa0486a222e3fd49cb')
     version('1.74.0', sha256='83bfc1507731a0906e387fc28b7ef5417d591429e51e788417fe9ff025e116b1')
@@ -203,7 +204,7 @@ class Boost(Package):
     patch('boost_11856.patch', when='@1.60.0%gcc@4.4.7')
 
     # Patch fix from https://svn.boost.org/trac/boost/ticket/11120
-    patch('python_jam.patch', when='@1.56.0: ^python@3:')
+    # patch('python_jam.patch', when='@1.56.0: ^python@3:') -- CMS: not needed
     patch('python_jam_pre156.patch', when='@:1.55.0 ^python@3:')
 
     # Patch fix for IBM XL compiler

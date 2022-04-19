@@ -37,7 +37,7 @@ class Coral(ScramPackage):
         # custom
         self.toolname = 'coral'
         self.toolconf = 'coral-tool-conf'
-        # self.usercxxflags = '-fpermissive'
+        self.usercxxflags = ['-fPIC', '-pthread'] # HACK
 
     def patch(self):
         if self.spec.satisfies('platform=darwin'):

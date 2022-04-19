@@ -54,9 +54,12 @@ class ScramPackage(PackageBase):
         """
         return self.stage.source_path
 
-    def setup(self, spec, prefix):
-        """
-        """
+    def setup_build_environment(self, env):
+        if isinstance(self.usercxxflags, str):
+            self.usercxxflags = [self.usercxxflags]
+        for flag in self.usercxxflags:
+            env.append_flags('USER_CXXFLAGS', flag)
+
         self.subpackageDebug = self.subpackageDebug and (platform.system() == 'linux')
 
         if self.subpackageDebug:
@@ -64,14 +67,22 @@ class ScramPackage(PackageBase):
             debugflags = '-fdebug-prefix-map={0}={1} -fdebug-prefix-map={2}={1} -g'.format(str(self.stage.path),
                                                                                            '/opt/cmssw',
                                                                                            str(self.prefix))
+            debugflags = debugflags.split(' ')
         else:
-            debugflags = ''
+            debugflags = []
 
-        if self.usercxxflags is not None:
-            self.extraOptions = "USER_CXXFLAGS='%s'" % (self.usercxxflags + debugflags)
+        for flag in debugflags:
+            env.append_flags('USER_CXXFLAGS', flag)
+
+    def setup(self, spec, prefix):
+        """
+        """
+
+        #if self.usercxxflags is not None:
+        #    self.extraOptions = "USER_CXXFLAGS='%s'" % (self.usercxxflags + debugflags)
 
         if self.configtag is None:
-            self.configtag = 'V06-03-06'
+            self.configtag = 'V07-06-00'
 
         if self.cvssrc is None:
             self.cvssrc = self.toolname.replace('-patch', '').upper()
@@ -115,7 +126,7 @@ class ScramPackage(PackageBase):
                             '<runtime name="SCRAM_TARGET" value="auto"/><runtime name="USER_TARGETS_ALL" '
                             'value="1"/></tool>',
                             'config/Self.xml')
-                            
+
             if getattr(self, 'release_usercxxflags', None):
                 with open("config/BuildFile.xml", "a") as f:
                     f.write('<flags CXXFLAGS="' + self.release_usercxxflags + '"/>\n')

@@ -28,6 +28,7 @@ class Dd4hep(CMakePackage):
     phases = ['cmake', 'build', 'install', 'install_static']
 
     version('master', branch='master')
+    version('1.19x', commit='cc335b34e9eb2825ab18e20c531be813a92d141f')
     version('1.18x', commit='e6291aaad54eb075f71bb1bd76bb96361e5d18bd')
     version('1.17', sha256='036a9908aaf1e13eaf5f2f43b6f5f4a8bdda8183ddc5befa77a4448dbb485826')
     version('1.16.1', sha256='c8b1312aa88283986f89cc008d317b3476027fd146fdb586f9f1fbbb47763f1a')

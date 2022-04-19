@@ -14,6 +14,7 @@ class RdmaCore(BuiltinRdmaCore):
         args.extend(['-DENABLE_RESOLVE_NEIGH=FALSE',
                      '-DENABLE_STATIC=FALSE',
                      '-DNO_MAN_PAGES=TRUE'])
+        return args
 
     @run_after('install')
     def post_install(self):

@@ -60,7 +60,8 @@ clang: error: unknown argument: '-static-libubsan'
     # TODO: replace this with an explicit list of components of Boost,
     # for instance depends_on('boost +filesystem')
     # See https://github.com/spack/spack/pull/22303 for reference
-    depends_on(Boost.with_default_variants, when='+boost')
+    # needs upstream changes
+    # depends_on(Boost.with_default_variants, when='+boost')
 
     depends_on("autoconf", type='build', when='@develop')
     depends_on("automake", type='build', when='@develop')
@@ -75,7 +76,7 @@ clang: error: unknown argument: '-static-libubsan'
 
     def configure_args(self):
         spec = self.spec
-        options = [self.enable_or_disable('libs')]
+        options = self.enable_or_disable('libs')
         if spec.satisfies('+ubsan'):
             options.append('--enable-ubsan')
         if spec.satisfies('+only64bit'):

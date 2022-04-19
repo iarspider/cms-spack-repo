@@ -30,6 +30,11 @@ class Mctester(AutotoolsPackage):
         args = ['--with-HepMC=' + self.spec['hepmc'].prefix, '--with-root=' + self.spec['root'].prefix]
         return args
 
+#    @run_before('build')
+#    def pre_build(self):
+#        filter_file('../make.inc', './make.inc', 'Makefile')
+
+    @when('@1.25.0a')
     def do_stage(self, mirror_only=False):
         super(Mctester, self).do_stage(mirror_only)
         dn = os.listdir(self.stage.source_path)[0]

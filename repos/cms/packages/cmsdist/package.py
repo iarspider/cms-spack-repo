@@ -15,4 +15,5 @@ class Cmsdist(Package):
     version('12_4_X', commit='ec8cd99')
 
     def install(self, spec, prefix):
-        install_tree('scram-tools.file', prefix)
+        mkdir(prefix.join('scram-tools.file'))
+        install_tree('scram-tools.file', prefix.join('scram-tools.file'))

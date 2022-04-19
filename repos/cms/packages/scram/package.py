@@ -14,6 +14,7 @@ class Scram(Package):
     url = "https://github.com/cms-sw/SCRAM/archive/V2_2_6.tar.gz"
     git = "https://github.com/cms-sw/SCRAM.git"
 
+    version('3.0.36', commit='02b0bef849aa8bfc8f9c2afa5b02234221960822')
     version('3.0.31', commit='e61917ac8b26a2fd0d9f67847aa8271ffe871671')
     version('3.0.30', commit='16d116bf9059ce52e2deb1e58580cf55df636ca5')
     version('3.0.29', commit='4489bd56104394c247b7cfcb64376257772e23c3')

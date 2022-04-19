@@ -1,12 +1,17 @@
+from collections import defaultdict, Counter
 from llnl.util.filesystem import *
 
 from spack.package import BundlePackage
+from spack.build_systems.cuda import CudaPackage
 from spack.directives import resource, version, depends_on
 from spack.util.executable import which, Executable
+import spack.user_environment as uenv
+from spack.util.environment import *
 
 import glob
 import os
 import re
+import shutil
 
 class ScramToolfilePackage(BundlePackage):
     build_system_class = 'ScramToolfilePackage'
@@ -58,7 +63,7 @@ class ScramToolfilePackage(BundlePackage):
     @property
     def site_packages_dir(self):
         return join_path('lib', 'python{0}'.format(self.spec['python'].version.up_to(2)))
-    
+
     ## INCLUDE scram-tools.file/tool-env
     def setup_build_environment(self, env):
         env.set('ROOT_CXXMODULES', 0)
@@ -72,23 +77,24 @@ class ScramToolfilePackage(BundlePackage):
             env.set('COMPILER_CXXFLAGS', '-mcpu=power8 -mtune=power8 --param=l1-cache-size=64 --param=l1-cache-line-size=128 --param=l2-cache-size=512')
 
         env.set('ORACLE_ENV_ROOT', '')
-        
+
         # TODO: remember, the list is different for arm vs. everything else
-        env.set('CUDA_FLAGS', CudaPackage.cuda_flags(self.spec.variant['cuda_arch']))
-        env.set('CUDA_HOST_CXXFLAGS', '-std=c++17')
-        
+        if 'cuda' in self.spec:
+            env.set('CUDA_FLAGS', CudaPackage.cuda_flags(self.spec.variants['cuda_arch'].value))
+            env.set('CUDA_HOST_CXXFLAGS', CudaPackage.nvcc_stdcxx)
+
         # Technical variables
         env.set('SCRAMV1_ROOT', self.spec['scram'].prefix)
-        
+
         python_dir = 'python{0}'.format(self.spec['python'].version.up_to(2))
         env.set('PYTHON3_LIB_SITE_PACKAGES', os.path.join('lib', python_dir, 'site-packages'))
-        
+
     ## INCLUDE scram-tool-conf
     def install(self, spec, prefix):
         mkdirp(prefix.tools.selected)
         mkdirp(prefix.tools.available)
 
-        get_tools_path = join_path(spec['cmsdist'].prefix, 'scram-tools.file', 'bin', 'get-tools')
+        get_tools_path = join_path(spec['cmsdist'].prefix, 'scram-tools.file', 'bin', 'get_tools')
         set_executable(get_tools_path)
         get_tools = Executable(get_tools_path)
         all_deps = self.get_all_deps(spec)
@@ -99,26 +105,26 @@ class ScramToolfilePackage(BundlePackage):
             toolver = dep['version']
             dep_name = self.aliases.get(dep_name, dep_name)
             get_tools(toolbase, toolver, prefix, dep_name)
-            
-        get_tools(gcc_dir, str(self.compiler.real_version), prefix, 'gcc')
+
+        # get_tools(gcc_dir, str(self.compiler.real_version), prefix, 'gcc')
         get_tools("", "system", prefix, "systemtools")
-        
+
         # TODO: vectorization
-        for tool in skipreqtools:
+        for tool in self.skipreqtools:
             if os.path.exists(join_path(prefix.tools.selected, tool + '.xml')):
                 shutil.move(join_path(prefix.tools.selected, tool + '.xml'),
                             join_path(prefix.tools.available, tool + '.xml'))
-                
+
         if os.path.exists(spec['scram'].prefix.bin.chktool):
             chktool = Executable(spec['scram'].prefix.bin.chktool)
             out = chktool(*find(prefix.tools, '*.xml'), output=str, error=str, fail_on_error=False)
             if 'ERROR:' in out:
                 raise InstallError('chktool found errors\n'+out)
-            
+
         ALL_PY_BIN = set()
         ALL_PY_PKGS = set()
         DUP_BIN = defaultdict(list)
-        
+
         pythonpath = self.get_pythonpath(spec)
         mkdirp(join_path(prefix, self.site_packages_dir, 'site-packages'))
         with open(join_path(prefix, self.site_packages_dir, 'site-packages', 'tool-deps.pth'), 'w') as f:
@@ -165,6 +171,6 @@ class ScramToolfilePackage(BundlePackage):
             if cnt > 1:
                 prov = ', '.join(all_py_binpkg[bin_])
                 msg.append(f"{bin_}: {prov}")
-                
+
         if msg:
             raise InstallError("Duplicate python binaries found. Please cleanup and make sure only one binary is available.\n" + '\n'.join(msg))
