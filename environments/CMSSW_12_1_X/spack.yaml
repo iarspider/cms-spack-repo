@@ -141,7 +141,6 @@ spack:
   - cms-git-tools@211007.0
   - cmslhetoeosmanager  # NB: version detected automatically
   - cmsmon-tools@0.5.35
-  - cmssw-config@V06-03-01
   - cmssw-osenv@211125.0
   - cmssw-tool-conf@1.0 # FIXME!
   - cmssw-wm-tools@211210

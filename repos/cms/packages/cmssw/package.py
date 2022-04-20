@@ -9,21 +9,25 @@ from spack.util.executable import Executable
 # sys.path.append(os.path.join(os.path.dirname(__file__), '../ToolfilePackage'))
 # from scrampackage import relrelink
 
-
-class Cmssw(Package):
+class Cmssw(ScramPackage):
     """CMSSW built as a scram project"""
 
     homepage = "http://cms-sw.github.io"
     url = "https://github.com/cms-sw/cmssw/archive/CMSSW_10_2_0.tar.gz"
+    git = 'https://github.com/cms-sw/cmssw.git'
 
-    version('10.3.0.pre3', git='https://github.com/cms-sw/cmssw.git', tag='CMSSW_10_3_0_pre3')
+    # variant('queue', default='', values=('', 'COVERAGE', 'EXPERIMENTAL', 'DBG', 'CMSDEPRECATED', 'FORTIFIED', 'UBSAN', 'ICC', 'CLANG', 'CXXMODULE'))
+
+    version('12.0.0', tag='CMSSW_12_0_0')
 
     depends_on('scram')
     depends_on('cmssw-config')
     depends_on('cmssw-tool-conf')
     depends_on('gmake')
     depends_on('llvm')
- 
+    # depends_on('mpfr', when='@12.0.0_ICC_X')
+    # depends_on('icc', when='@12.0.0_ICC_X') TODO
+
     # if sys.platform == 'darwin':
         # patch('macos.patch')
     # else:
@@ -32,71 +36,40 @@ class Cmssw(Package):
     # scram_arch = 'slc_amd64_gcc'
     # if sys.platform == 'darwin':
         # scram_arch = 'osx10_amd64_clang'
+        
+    def edit(self, spec, prefix):
+        if '_COVERAGE_X' in str(spec.version):
+            self.release_usercxxflags = '-fprofile-arcs -ftest-coverage'
+        if '_EXPERIMENTAL_X' in str(spec.version):
+            self.release_usercxxflags = '-O3 -ffast-math -freciprocal-math -fipa-pta'
+        if '_DBG_X' in str(spec.version):
+            if self.spec.satisfies('arch=ppc64le'):
+                self.usercxxflags = '-g'
+            else:
+                self.release_usercxxflags = '-g -O3 -DEDM_ML_DEBUG'
+        if '_CMSDEPRECATED_X' in str(spec.version):
+            self.release_usercxxflags = '-DUSE_CMS_DEPRECATED'
+        if '_FORTIFIED_X' in str(spec.version):
+            self.release_usercxxflags = '-fexceptions -fstack-protector-all --param=ssp-buffer-size=4 -Wp,-D_FORTIFY_SOURCE=2'
+        if '_UBSAN_X' in str(spec.version):
+            self.release_usercxxflags = '-g'
 
+        super().edit(spec, prefix)
 
-    def install(self, spec, prefix):
-        raise RuntimeError('Not implemented yet')
-        # scram = Executable(spec['scram'].prefix.bin+'/scram')
-        # source_directory = self.stage.source_path
-        # cmssw_version = 'CMSSW.' + str(self.version)
-        # cmssw_u_version = cmssw_version.replace('.', '_')
-        # scram_version = 'V%s' % spec['scram'].version
-        # config_tag = '%s' % spec['cmssw-config'].version
+        if '_UBSAN_X' in str(spec.version):
+            filter_file('</tool>', r'runtime name="UBSAN_OPTIONS" value="print_stacktrace=1"/>\n</tool>', 'config/Self.xml')
+            
+        if '_ICC_X' in str(spec.version):
+            self.scram_compiler = 'icc'
 
-        # gcc = which(spack_f77)
-        # gcc_prefix = re.sub('/bin/.*$', '', self.compiler.f77)
-        # gcc_machine = gcc('-dumpmachine', output=str)
-        # gcc_ver = gcc('-dumpversion', output=str)
+        if '_CLANG_X' in str(spec.version):
+            self.scram_compiler = 'llvm'
+            self.extra_tools = 'llvm-cxxcompiler llvm-f77compiler llvm-ccompiler'
+            
+        if '_CXXMODULE_X' in str(spec.version):
+            shutil.copy(join_path(os.path.dirname(__file__), 'CXXModules.mk'), 'config/SCRAM/GMake/CXXModules.mk')
 
-        # with working_dir(self.stage.path):
-            # install_tree(source_directory, 'src')
-            # install_tree(spec['cmssw-config'].prefix.bin, 'config')
-            # with open('config/config_tag', 'w') as f:
-                # f.write(config_tag+'\n')
-                # f.close()
-            # uc = Executable('config/updateConfig.pl')
-            # uc('-p', 'CMSSW',
-                 # '-v', '%s' % cmssw_u_version,
-                 # '-s', '%s' % scram_version,
-                 # '-t', '%s' % spec['cmssw-tool-conf'].prefix,
-                 # '--keys', 'SCRAM_COMPILER=gcc',
-                 # '--keys', 'PROJECT_GIT_HASH=' + cmssw_u_version,
-                 # '--arch', '%s' % self.scram_arch)
-            # scram('project', '-d', os.path.realpath(self.stage.path), '-b', 'config/bootsrc.xml')
-
-        # project_dir =join_path(os.path.realpath(self.stage.path),cmssw_u_version)
-        # with working_dir(project_dir, create=False):
-            # matches = []
-
-            # for f in glob('src/*/*/test/BuildFile*'):
-                # matches.append(f)
-            # for m in matches:
-                # if os.path.exists(m):
-                    # os.remove(m)
-
-# #            scram.add_default_env('LOCALTOP', project_dir)
-# #            scram.add_default_env('CMSSW_BASE', project_dir)
-            # scram.add_default_env(
-                # 'LD_LIBRARY_PATH', project_dir + '/lib/' + self.scram_arch)
-            # scram.add_default_env(
-                # 'LD_LIBRARY_PATH', self.spec['llvm'].prefix.lib)
-            # scram.add_default_env(
-                # 'LD_LIBRARY_PATH', self.spec['llvm'].prefix.lib64)
-            # scram('setup', 'self')
-            # scram('build', '-v', '-j8')
-            # shutil.rmtree('tmp')
-        # install_tree(project_dir,prefix+'/'+cmssw_u_version, symlinks=True)
-        # relrelink(prefix+'/'+cmssw_u_version+'external')
-
-
-        # with working_dir(join_path(prefix,cmssw_u_version), create=False):
-# #            os.environ[ 'LOCALTOP' ] = os.getcwd()
-# #            os.environ[ 'RELEASETOP' ] = os.getcwd()
-# #            os.environ[ 'CMSSW_RELEASE_BASE' ] = os.getcwd()
-# #            os.environ[ 'CMSSW_BASE' ] = os.getcwd()
-            # scram('build', 'ProjectRename')
-
-    def setup_dependent_environment(self, spack_env, run_env, dspec):
+    def old_setup_dependent_environment(self, spack_env, run_env, dspec):
         cmssw_version = 'CMSSW.' + str(self.version)
         cmssw_u_version = cmssw_version.replace('.', '_')
 #        spack_env.set('LOCALTOP', self.prefix + '/' + cmssw_u_version)
@@ -108,7 +81,7 @@ class Cmssw(Package):
         spack_env.append_path(
             'LD_LIBRARY_PATH', self.spec['llvm'].prefix.lib64)
 
-    def setup_environment(self, spack_env, run_env):
+    def old_setup_environment(self, spack_env, run_env):
         cmssw_version = 'CMSSW.' + str(self.version)
         cmssw_u_version = cmssw_version.replace('.', '_')
         project_dir = join_path(os.path.realpath(self.stage.path), cmssw_u_version)

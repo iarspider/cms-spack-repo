@@ -14,8 +14,12 @@ class ScramPackage(PackageBase):
 
     depends_on('scram', type='build')
     depends_on('cmssw-config', type='build')
+    depends_on('dwz', type='build')
 
-    # NOTICE: maybe dwz, once I figure it out
+    resource(name='cmssw-config', git='https://github.com/cms-sw/cmssw-config.git',
+             tag=self.configtag)
+             
+    configtag = 'V07-00-06'
 
     def __init__(self, spec):
         super().__init__(spec)
@@ -87,14 +91,13 @@ class ScramPackage(PackageBase):
         if self.cvssrc is None:
             self.cvssrc = self.toolname.replace('-patch', '').upper()
 
-        # placeholder, should be executed - see original spec
-        if self.buildarch is None:
-            self.buildarch = ':'
-
         if self.ucprojtype is None:
             self.ucprojtype = self.toolname.replace('-patch', '').upper()
 
         self.lcprojtype = self.ucprojtype.lower()
+        
+        if getattr(self, 'toolconf', None) is None:
+            self.toolconf = self.toolname.replace('-', '_').upper() + '_TOOL_CONF_ROOT'
 
     def edit(self, spec, prefix):
         bash = which('bash')
@@ -102,8 +105,8 @@ class ScramPackage(PackageBase):
         self.setup(spec, prefix)
         config_dir = join_path(self.stage.path, 'config')
         mkdirp(config_dir)
-        install_tree(spec['cmssw-config'].prefix, join_path(self.stage.path, 'config'))
-        shutil.move(self.stage.source_path, join_path(self.stage.path, 'src'))
+        shutil.move(self.stage[1].source_path, config_dir)
+        self.srctree = self.stage.source_path
         if getattr(self, 'PatchReleaseAdditionalPackages', None) is not None:
             with open('edit_PatchReleaseAdditionalPackages.sh', 'w') as f:
                 f.write('#!/bin/bash\n')
@@ -148,12 +151,15 @@ class ScramPackage(PackageBase):
         lines = [
             '#!/bin/bash -xe',
             'i=' + self.stage.path,
-            'srctree=' + join_path(str(self.spec.version), 'src'),
+            'srctree=' + self.srctree,
             'compileOptions=' + ('-k' if self.ignore_compile_errors else ''),
             'extraOptions=' + self.extraOptions,
             'buildtarget=' + self.buildtarget,
             'cmsroot=' + self.stage.path
         ]
+        
+        for fn in find(self.srctree):
+            filter_file('^#!.*perl(.*)', '#!/usr/bin/env perl$1', fn)
 
         if self.ignore_compile_errors:
             lines.append('ignore_compile_errors=/bin/true')
@@ -161,7 +167,7 @@ class ScramPackage(PackageBase):
             lines.append('ignore_compile_errors=/bin/false')
 
         lines.extend([
-            'rm -rf `find $i/$srctree -type d -name cmt`',
+            'rm -rf `find ' + self.srctree + ' -type d -name cmt`',
             r'grep -r -l -e "^#!.*perl.*" ${i}/${srctree} | xargs perl -p -i -e "s|^#!.*perl(.*)|#!/usr/bin/env '
             r'perl\$1|"',
             scramcmd + ' arch',
@@ -173,7 +179,7 @@ class ScramPackage(PackageBase):
 
         lines.extend(['export BUILD_LOG=yes',
                       'export SCRAM_NOPLUGINREFRESH=yes',
-                      'scram b clean',
+                      scramcmd + ' b clean',
                       'if [ $(uname) = Darwin ]; then',
                       '  # %scramcmd doesn\'t know the rpath variable on darwin...',
                       '  ' + scramcmd + ' b echo_null # ensure lib, bin exist',
@@ -296,7 +302,6 @@ class ScramPackage(PackageBase):
                 lines.append('ELF_DIRS="$i/lib/$cmsplatf $i/biglib/$cmsplatf $i/bin/$cmsplatf $i/test/$cmsplatf"')
                 lines.append('DROP_SYMBOLS_DIRS="$i/objs/$cmsplatf"')
 
-            # TODO: recipe for DWZ
             lines.extend(['for DIR in $ELF_DIRS $DROP_SYMBOLS_DIRS; do',
                           '  pushd $DIR',
                           '  mkdir -p .debug',
