@@ -28,7 +28,7 @@ class Dcap(AutotoolsPackage):
     drop_files = ['share']
     
     def patch(self):
-        filter_file('library_includedir.*', r'library_includedir=\$(includedir)', 'src/Makefile.am')
+        filter_file('library_includedir.*', r'library_includedir=$(includedir)', 'src/Makefile.am')
 
     def autoreconf(self, spec, prefix):
         bash = which('bash')

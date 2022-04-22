@@ -2,6 +2,7 @@
 # Spack Project Developers. See the top-level COPYRIGHT file for details.
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
+import os
 
 from spack import *
 
@@ -18,4 +19,9 @@ class Hydjet2(CMakePackage):
     depends_on('pyquen')
     depends_on('lhapdf')
     depends_on('root')
+
+    @run_after('install')
+    def move_data(self):
+        mkdirp(self.spec.prefix.data.externals.hydjet2)
+        os.rename(self.spec.prefix.share, self.spec.prefix.data.externals.hydjet2)
 

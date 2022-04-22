@@ -121,6 +121,7 @@ spack:
   view: false
   specs:
   - cms-config
+  - cmssw # TODO: version
   - alpgen@2.1.4 recipe=cms
   - alpaka@0.7.0
   - autoconf@2.69
@@ -162,9 +163,8 @@ spack:
   - das-client@v03.01.00
   - dasgoclient@v02.04.46
   - davix@0.7.6
-  - dcap@2.47.12
-  - dd4hep@1.19x+xercesc+geant4units~edm4hep # CMS: +geant4 is set internally to build static version of ddg4
-  - dmtcp@3.0.0-dev
+  - dd4hep@1.19x+xercesc+geant4units~edm4hep
+  - dmtcp@3.0.0-dev                          # CMS: +geant4 is set internally to build static version of ddg4
   - dwz@0.14-patches
   - eigen@3.4.90
   - elfutils@0.186~nls
@@ -249,8 +249,8 @@ spack:
   - libzmq@4.3.3~docs~libbsd
   - log4cplus@2.0.7
   - llvm@12.0.1.cms~cuda
-  - lwtnn@2.10 # NB: doesn't compile with our eigen: https://github.com/lwtnn/lwtnn/issues/161
-  - lz4@1.9.3
+  - lwtnn@2.10
+  - lz4@1.9.3  # NB: doesn't compile with our eigen: https://github.com/lwtnn/lwtnn/issues/161
   - m4@1.4.18~sigsegv
   - madgraph5amc@2.7.3.py3 +cms~ninja~collier+golem~syscalc nb_core=4
   - mcfm@6.3
@@ -261,14 +261,184 @@ spack:
   - mpc@1.1.0
   - mpfr@4.0.2+static
   - mxnet-predict@1.6.0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  # - mpfr-static@4.0.2
   - nasm@2.14.02
   - ninja@1.10.0
   - nlohmann-json@3.10.2
   - numactl@2.0.14
   - openblas@0.3.15
   - opencv@4.5.1+eigen+python3
-  - openldap@2.4.49+client_only~sasl  # 2.6.0 requires OpenSSL 1.1.1
-  - openloops@2.1.2
+  - openldap@2.4.49+client_only~sasl
+  - openloops@2.1.2                   # 2.6.0 requires OpenSSL 1.1.1
   - openloops-process@2.1.2
   - openmpi@4.1.1
   - oracle-instant-client@19.11.0.0.0
@@ -330,8 +500,8 @@ spack:
   - py-coverage@5.5
   - py-cppy@1.1.0
   - py-crashtest@0.3.1
-  - py-cryptography@3.2.1  # NB: newver versions need newer openssl
-  - py-cx-oracle@8.3.0
+  - py-cryptography@3.2.1
+  - py-cx-oracle@8.3.0     # NB: newver versions need newer openssl
   - py-cycler@0.11.0
   - py-cython@0.29.24
   - py-debugpy@1.4.1
@@ -346,8 +516,8 @@ spack:
   - py-downhill@0.4.0
   - py-entrypoints@0.3
   - py-fasteners@0.16.3
-  - py-filelock@3.5.0  # test
-  - py-fire@0.4.0
+  - py-filelock@3.5.0
+  - py-fire@0.4.0      # test
   - py-flake8@4.0.1
   - py-flatbuffers@2.0
   - py-flawfinder@2.0.19
@@ -360,9 +530,9 @@ spack:
   - py-gevent@1.5.0
   - py-gitdb@4.0.7
   - py-gitpython@3.1.18
-  - py-google-auth@1.6.3  # NB: py-tensorboard
-  - py-google-auth-oauthlib@0.4.1  # NB: py-google-auth < 2.0 for py-tensorboard
-  - py-google-pasta@0.2.0
+  - py-google-auth@1.6.3
+  - py-google-auth-oauthlib@0.4.1 # NB: py-tensorboard
+  - py-google-pasta@0.2.0          # NB: py-google-auth < 2.0 for py-tensorboard
   - py-greenlet@1.1.0
   - py-grpcio@1.39.0
   - py-grpcio-tools@1.39.0
@@ -382,8 +552,8 @@ spack:
   - py-ipaddress@1.0.23
   - py-ipykernel@6.4.1
   - py-ipython@7.28.0
-  - py-ipython-genutils@0.2.0  # NB: Not in cms, needed for almost all ipy/jupy packages
-  - py-isort@5.9.3
+  - py-ipython-genutils@0.2.0
+  - py-isort@5.9.3             # NB: Not in cms, needed for almost all ipy/jupy packages
   - py-jedi@0.18.0
   - py-jinja2@3.0.1
   - py-jinja2-time@0.2.0
@@ -491,8 +661,8 @@ spack:
   - py-python-daemon@2.3.0
   - py-python-ldap@3.3.1
   - py-python-rapidjson@1.5
-  - py-pythran@0.9.12 # NB: py-scipy
-  - py-pytools@2021.2.9
+  - py-pythran@0.9.12
+  - py-pytools@2021.2.9 # NB: py-scipy
   - py-pytz@2021.1
   - py-pyyaml@6.0~libyaml
   - py-pyzmq@22.3.0
@@ -513,13 +683,13 @@ spack:
   - py-send2trash@1.8.0
   - py-seaborn@0.11.2
   - py-secretstorage@3.3.1
-  - py-setuptools@57.4.0 # NB: py-scipy
-  - py-setuptools-rust@0.12.1
-  - py-setuptools-scm@5.0.2 # NB: py-lazy-object-proxy
-  - py-shellingham@1.4.0
+  - py-setuptools@57.4.0
+  - py-setuptools-rust@0.12.1 # NB: py-scipy
+  - py-setuptools-scm@5.0.2
+  - py-shellingham@1.4.0    # NB: py-lazy-object-proxy
   - py-simplegeneric@0.8.1
-  - py-six@1.15.0 # NB: py-tensorflow
-  - py-skl2onnx@1.10.3
+  - py-six@1.15.0
+  - py-skl2onnx@1.10.3 # NB: py-tensorflow
   - py-smmap@3.0.4
   - py-sniffio@1.2.0
   - py-soupsieve@2.2.1
@@ -528,12 +698,12 @@ spack:
   - py-subprocess32@3.5.4
   - py-sympy@1.8
   - py-tables@3.6.1
-  - py-tenacity@6.3.1 # NB: py-luigi
-  - py-typing-extensions@3.7.4.3 # NB: py-tensorflow; NB: keep this here
-  - py-tensorboard-plugin-wit@1.8.0 # wheel
-  - py-tensorboard@2.6.0 # wheel
-  - py-tensorboard-dataserver@0.6.1 # check spelling: py-tensorboard-data-server@0.6.1
-  - py-tensorflow@2.6.0.cms~cuda~nccl~only_python+mpi
+  - py-tenacity@6.3.1
+  - py-typing-extensions@3.7.4.3 # NB: py-luigi
+  - py-tensorboard-plugin-wit@1.8.0 # NB: py-tensorflow; NB: keep this here
+  - py-tensorboard@2.6.0            # wheel
+  - py-tensorboard-dataserver@0.6.1 # wheel
+  - py-tensorflow@2.6.0.cms~cuda~nccl~only_python+mpi # check spelling: py-tensorboard-data-server@0.6.1
   - py-termcolor@1.1.0
   - py-terminado@0.12.1
   - py-testpath@0.6.0
@@ -609,3 +779,4 @@ spack:
   - zlib@1.2.11.cms+optimize
   - zstd@1.4.5+shared~static~programs~legacy
   - cmsdist@12_4_X
+

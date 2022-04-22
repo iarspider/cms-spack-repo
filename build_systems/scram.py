@@ -1,7 +1,7 @@
 from llnl.util.filesystem import *
 
 from spack.package import PackageBase, run_after
-from spack.directives import depends_on
+from spack.directives import depends_on, resource
 from spack.util.executable import which, Executable
 
 import platform
@@ -13,13 +13,12 @@ class ScramPackage(PackageBase):
     phases = ['edit', 'build', 'install']
 
     depends_on('scram', type='build')
-    depends_on('cmssw-config', type='build')
     depends_on('dwz', type='build')
 
-    resource(name='cmssw-config', git='https://github.com/cms-sw/cmssw-config.git',
-             tag=self.configtag)
-             
     configtag = 'V07-00-06'
+
+    resource(name='cmssw-config', git='https://github.com/cms-sw/cmssw-config.git',
+             tag='V07-00-06')
 
     def __init__(self, spec):
         super().__init__(spec)
@@ -49,6 +48,8 @@ class ScramPackage(PackageBase):
         self.bootstrapfile = 'config/bootsrc.xml'
 
         self.build_system_class = 'ScramPackage'
+
+
 
     @property
     def build_directory(self):
@@ -95,9 +96,9 @@ class ScramPackage(PackageBase):
             self.ucprojtype = self.toolname.replace('-patch', '').upper()
 
         self.lcprojtype = self.ucprojtype.lower()
-        
+
         if getattr(self, 'toolconf', None) is None:
-            self.toolconf = self.toolname.replace('-', '_').upper() + '_TOOL_CONF_ROOT'
+            self.toolconf = self.toolname.replace('-', '_').upper() + '-tool-conf'
 
     def edit(self, spec, prefix):
         bash = which('bash')
@@ -105,7 +106,8 @@ class ScramPackage(PackageBase):
         self.setup(spec, prefix)
         config_dir = join_path(self.stage.path, 'config')
         mkdirp(config_dir)
-        shutil.move(self.stage[1].source_path, config_dir)
+        symlink(self.stage.source_path, join_path(self.stage.path, 'src'))
+        os.rename(self.stage[1].source_path, config_dir)
         self.srctree = self.stage.source_path
         if getattr(self, 'PatchReleaseAdditionalPackages', None) is not None:
             with open('edit_PatchReleaseAdditionalPackages.sh', 'w') as f:
@@ -143,7 +145,7 @@ class ScramPackage(PackageBase):
                     bash = which('bash')
                     bash('./edit_PartialBootstrapPatch.sh')
 
-            scram = Executable(self.spec['scram'].prefix.bin.scram)
+            scram = which('scram')
             scram('--arch', self.cmsplatf, 'project', '-d', self.stage.path, '-b', 'config/bootsrc.xml')
 
     def build(self, spec, prefix):
@@ -157,8 +159,9 @@ class ScramPackage(PackageBase):
             'buildtarget=' + self.buildtarget,
             'cmsroot=' + self.stage.path
         ]
-        
-        for fn in find(self.srctree):
+
+        for fn in find(self.srctree, '*'):
+            if os.path.isdir(fn): continue
             filter_file('^#!.*perl(.*)', '#!/usr/bin/env perl$1', fn)
 
         if self.ignore_compile_errors:

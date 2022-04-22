@@ -12,7 +12,7 @@ def local_file_url(fn):
 
 class CmsswToolConf(ScramToolfilePackage, CudaPackage):
     version('52.0')
-    
+
     resource(name='toolfiles',
              git='https://github.com/cms-sw/cmsdist.git',
              branch='CMSSW_12_4_X',
@@ -156,7 +156,7 @@ class CmsswToolConf(ScramToolfilePackage, CudaPackage):
     depends_on('gosam-contrib')
     depends_on('py-gosam')
     depends_on('madgraph5amc')
-    # depends_on('python_tools') # TODO
+    depends_on('python-tools')
     depends_on('dasgoclient')
     depends_on('mxnet-predict')
     depends_on('dablooms')

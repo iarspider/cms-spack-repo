@@ -25,7 +25,11 @@ class ScramToolfilePackage(BundlePackage):
                'frontier-client': 'frontier_client', 'py-onnx-runtime': 'onnxruntime', 'fftw': 'fftw3',
                'professor': 'professor2', 'fjcontrib': 'fastjet-contrib', 'opencl-clhpp': 'opencl-cpp',
                'gosam-contrib': 'gosamcontrib', 'py-gosam': 'gosam', 'madgraph5amc': 'madgraph5amcatnlo',
-               'oracle-instant-client': 'oracle'}
+               'oracle-instant-client': 'oracle', 'berkeley-db': 'db6', 'benchmark': 'google-benchmark',
+               'herwig': 'herwig6', 'herwig7': 'herwig3', 'csctrackfinderemulation': 'CSCTrackFinderEmulation',
+               'nlohmann-json': 'json', 'openblas': 'OpenBLAS', 'py-numpy': 'py3-numpy',
+               'py-bind11': 'py3-bind11', 'python-tools': 'python_tools', 'tauolapp': 'tauola',
+               'intel-tbb': 'tbb', 'py-tensorflow': 'tensorflow'}
 
     def get_all_deps(self, spec):
         res = {}
@@ -106,7 +110,8 @@ class ScramToolfilePackage(BundlePackage):
             dep_name = self.aliases.get(dep_name, dep_name)
             get_tools(toolbase, toolver, prefix, dep_name)
 
-        # get_tools(gcc_dir, str(self.compiler.real_version), prefix, 'gcc')
+        gcc_dir = os.path.dirname(os.path.dirname(self.compiler.cc))
+        get_tools(gcc_dir, str(self.compiler.real_version), prefix, 'gcc')
         get_tools("", "system", prefix, "systemtools")
 
         # TODO: vectorization

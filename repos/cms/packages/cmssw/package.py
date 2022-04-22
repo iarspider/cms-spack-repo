@@ -21,7 +21,6 @@ class Cmssw(ScramPackage):
     version('12.0.0', tag='CMSSW_12_0_0')
 
     depends_on('scram')
-    depends_on('cmssw-config')
     depends_on('cmssw-tool-conf')
     depends_on('gmake')
     depends_on('llvm')
@@ -36,7 +35,12 @@ class Cmssw(ScramPackage):
     # scram_arch = 'slc_amd64_gcc'
     # if sys.platform == 'darwin':
         # scram_arch = 'osx10_amd64_clang'
-        
+    def __init__(self, spec):
+        super().__init__(spec)
+
+        self.toolname = 'cmssw'
+        self.toolconf = 'cmssw-tool-conf'
+
     def edit(self, spec, prefix):
         if '_COVERAGE_X' in str(spec.version):
             self.release_usercxxflags = '-fprofile-arcs -ftest-coverage'
@@ -57,15 +61,15 @@ class Cmssw(ScramPackage):
         super().edit(spec, prefix)
 
         if '_UBSAN_X' in str(spec.version):
-            filter_file('</tool>', r'runtime name="UBSAN_OPTIONS" value="print_stacktrace=1"/>\n</tool>', 'config/Self.xml')
-            
+            filter_file('</tool>', 'runtime name="UBSAN_OPTIONS" value="print_stacktrace=1"/>\n</tool>', 'config/Self.xml')
+
         if '_ICC_X' in str(spec.version):
             self.scram_compiler = 'icc'
 
         if '_CLANG_X' in str(spec.version):
             self.scram_compiler = 'llvm'
             self.extra_tools = 'llvm-cxxcompiler llvm-f77compiler llvm-ccompiler'
-            
+
         if '_CXXMODULE_X' in str(spec.version):
             shutil.copy(join_path(os.path.dirname(__file__), 'CXXModules.mk'), 'config/SCRAM/GMake/CXXModules.mk')
 
@@ -87,7 +91,7 @@ class Cmssw(ScramPackage):
         project_dir = join_path(os.path.realpath(self.stage.path), cmssw_u_version)
 #        spack_env.set('LOCALTOP', project_dir)
 #        spack_env.set('CMSSW_BASE',project_dir)
-        spack_env.append_path('LD_LIBRARY_PATH', 
+        spack_env.append_path('LD_LIBRARY_PATH',
                               project_dir + '/lib/' + self.scram_arch)
         spack_env.append_path('LD_LIBRARY_PATH', self.spec['llvm'].prefix.lib)
         spack_env.append_path(

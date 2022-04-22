@@ -2,6 +2,7 @@
 # Spack Project Developers. See the top-level COPYRIGHT file for details.
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
+import os
 
 from spack import *
 
@@ -38,7 +39,8 @@ class Geant4data(BundlePackage):
                 uctool = dep.name.upper()
                 toolbase = dep.prefix
                 toolver = dep.version
-                f.write(f'  <runtime name=\"{uctool}_RUNTIME\" value=\"{toolbase}/share/data/{uctool}{toolver}\" type=\"path\"/>\n')
+                tooldata = join_path(toolbase, 'share', 'data', os.listdir(join_path(toolbase, 'share', 'data'))[0])
+                f.write(f'  <runtime name="{uctool}_RUNTIME" value="{tooldata}" type="path"/>\n')
 
             f.write('</tool>')
 

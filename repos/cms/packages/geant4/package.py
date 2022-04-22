@@ -2,6 +2,7 @@
 # Spack Project Developers. See the top-level COPYRIGHT file for details.
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
+import os
 
 from spack import *
 
@@ -188,3 +189,16 @@ class Geant4(CMakePackage):
                                                     'python'))
 
         return options
+
+    @run_after('install')
+    def geant4_static(self):
+        prefix = self.spec.prefix
+        mkdirp(prefix.lib.archive)
+        ar = which('ar', required=True)
+        with working_dir(prefix.lib.archive):
+            for fn in find(prefix.lib, '*a.'):
+                ar('-x', fn)
+            ofiles = find(prefix.lib.archive, '*.o')
+            ar('rcs', 'libgeant4-static.a', *ofiles)
+            for fn in ofiles:
+                os.unlink(fn)

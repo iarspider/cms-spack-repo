@@ -24,9 +24,7 @@ class Coral(ScramPackage):
 
     depends_on('scram')
     depends_on('gmake')
-    depends_on('cmssw-config')
     depends_on('coral-tool-conf')
-    # depends_on('perl')
 
     def __init__(self, spec):
         super().__init__(spec)
