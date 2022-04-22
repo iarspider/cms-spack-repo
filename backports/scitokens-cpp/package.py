@@ -20,6 +20,6 @@ class ScitokensCpp(CMakePackage):
     depends_on('curl')
     depends_on('uuid', type='build')
 
-    @when('os=centos9')
+    @when('^openssl@3:')
     def patch(self):
         filter_file(' -Werror','', 'CMakeLists.txt')
