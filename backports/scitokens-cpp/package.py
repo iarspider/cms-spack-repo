@@ -22,4 +22,4 @@ class ScitokensCpp(CMakePackage):
 
     @when('^openssl@3:')
     def patch(self):
-        filter_file(' -Werror','', 'CMakeLists.txt')
+        filter_file(' -Werror', '', 'CMakeLists.txt')
