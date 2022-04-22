@@ -19,6 +19,7 @@ class ScitokensCpp(CMakePackage):
     depends_on('curl')
     depends_on('uuid', type='build')
 
+    # https://github.com/scitokens/scitokens-cpp/issues/72
     @when('^openssl@3:')
     def patch(self):
         filter_file(' -Werror', '', 'CMakeLists.txt')
