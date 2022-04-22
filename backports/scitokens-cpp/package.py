@@ -4,7 +4,6 @@
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
 from spack import *
-import os
 
 
 class ScitokensCpp(CMakePackage):
@@ -22,4 +21,4 @@ class ScitokensCpp(CMakePackage):
 
     @when('^openssl@3:')
     def patch(self):
-        filter_file(' -Werror','', 'CMakeLists.txt')
+        filter_file(' -Werror', '', 'CMakeLists.txt')
