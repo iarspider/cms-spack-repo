@@ -21,5 +21,5 @@ class ScitokensCpp(CMakePackage):
     depends_on('uuid', type='build')
 
     @when('os=centos9')
-    def patch():
+    def patch(self):
         filter_file(' -Werror','', 'CMakeLists.txt')
