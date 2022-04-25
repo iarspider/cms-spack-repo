@@ -4,6 +4,8 @@
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 import os
 
+import os
+
 from spack import *
 
 
@@ -24,4 +26,3 @@ class Hydjet2(CMakePackage):
     def move_data(self):
         mkdirp(self.spec.prefix.data.externals.hydjet2)
         os.rename(self.spec.prefix.share, self.spec.prefix.data.externals.hydjet2)
-
