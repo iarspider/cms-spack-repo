@@ -43,7 +43,7 @@ bin/spack repo add --scope=site ${SCRIPT_DIR}/repos/cms
 echo Adding CMS mirror
 bin/spack mirror add --scope=site cms https://test-cms-spack.web.cern.ch/test-cms-spack/CMS/mirror
 echo Adding spack augment command
-bin/spack config add "config:extensions:${SCRIPT_DIR}/spack-scripting"
+bin/spack config --scope=site add "config:extensions:${SCRIPT_DIR}/spack-scripting"
 echo Forcing bootstrap of clingo
 bin/spack spec zlib > /dev/null
 echo Creating environment

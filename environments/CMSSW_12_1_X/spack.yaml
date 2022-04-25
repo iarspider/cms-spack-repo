@@ -563,7 +563,8 @@ spack:
   - py-jsonschema@3.2.0
   - py-jupyter-client@7.0.6
   - py-jupyter-core@4.7.1
-  - py-jupyter-packaging@0.10.6
+  - py-jupyter-packaging11 # py-jupyter-packaging@0.10.6
+  - py-jupyter-packaging7  # hack (here and above)
   - py-jupyter-server@1.11.2
   - py-jupyter-server-mathjax@0.2.3
   - py-jupyterlab-pygments@0.1.2
