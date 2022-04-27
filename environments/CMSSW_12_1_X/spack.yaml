@@ -300,6 +300,8 @@ spack:
   - py-atomicwrites@1.4.0
   - py-attrs@21.2.0
   - py-autopep8@1.6.0
+  - py-avro@1.11.0
+  - py-awkward@1.8.0
   - py-backcall@0.2.0
   - py-backports-entry-points-selectable@1.1.0
   - py-beautifulsoup4@4.10.0
@@ -352,6 +354,8 @@ spack:
   - py-flake8@4.0.1
   - py-flatbuffers@2.0
   - py-flawfinder@2.0.19
+  - py-fonttools@4.31.2
+  - py-frozenlist@1.3.0
   - py-flit@3.3.0
   - py-flit-core@3.3.0
   - py-fs@0.5.4
@@ -384,6 +388,7 @@ spack:
   - py-ipykernel@6.4.1
   - py-ipython@7.28.0
   - py-ipython-genutils@0.2.0  # NB: Not in cms, needed for almost all ipy/jupy packages
+  - py-ipywidgets@7.7.0
   - py-isort@5.9.3
   - py-jedi@0.18.0
   - py-jinja2@3.0.1
@@ -393,11 +398,13 @@ spack:
   - py-jsonpickle@2.0.0
   - py-jsonschema@3.2.0
   - py-jupyter-client@7.0.6
+  - py-jupyter-console@6.4.3
   - py-jupyter-core@4.7.1
   - py-jupyter-packaging@0.10.6
   - py-jupyter-server@1.11.2
   - py-jupyter-server-mathjax@0.2.3
   - py-jupyterlab-pygments@0.1.2
+  - py-jupyterlab-widgets@1.1.0
   - py-pyjwt@2.1.0
   - py-keras2onnx@1.7.0
   - py-keras-applications@1.0.8
