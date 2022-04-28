@@ -18,7 +18,7 @@ class Cmssw(ScramPackage):
 
     # variant('queue', default='', values=('', 'COVERAGE', 'EXPERIMENTAL', 'DBG', 'CMSDEPRECATED', 'FORTIFIED', 'UBSAN', 'ICC', 'CLANG', 'CXXMODULE'))
 
-    version('12.0.0', tag='CMSSW_12_0_0')
+    version('12.4.0.pre3', tag='CMSSW_12_4_0_pre3')
 
     depends_on('scram')
     depends_on('cmssw-tool-conf')
@@ -97,3 +97,6 @@ class Cmssw(ScramPackage):
         spack_env.append_path(
             'LD_LIBRARY_PATH', self.spec['llvm'].prefix.lib64)
 
+    # DEBUG
+    def patch(self):
+        filter_file('        level = logLevel,', '        level = logging.DEBUG,', 'CondFormats/Serialization/python/condformats_serialization_generate.py')

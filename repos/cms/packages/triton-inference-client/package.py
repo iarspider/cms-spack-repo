@@ -22,7 +22,6 @@ class TritonInferenceClient(CMakePackage, CudaPackage):
     variant('cms', default=False, description='Apply CMS-specific changes')
 
     patch('cms.patch', when='+cms')
-    patch('cms_cuda.patch', when='+cms +cuda')
 
     resource(name='model_config.h', expand=False, sha256='6b6f5b90603195b0165430a883829e79e62cbd01961d4940e79f0ee26efd918f',
              placement={'model_config.h':'src/c++/library/model_config.h'},
@@ -57,6 +56,6 @@ class TritonInferenceClient(CMakePackage, CudaPackage):
                 self.define_from_variant('TRITON_ENABLE_GPU', variant='cuda'),
                 define('TRITON_VERSION', '2.11.0'),
                 define('FETCHCONTENT_SOURCE_DIR_REPO-COMMON', repo_common_dir),
-                define('CMAKE_CXX_FLAGS', '-fPIC')]
+                define('CMAKE_CXX_FLAGS', '-Wno-error -fPIC')]
 
         return args

@@ -42,8 +42,10 @@ class CudaPackage(PackageBase):
 
     def cuda_flags_4(arch_list):
         flags = []
-        flags.extend( ('--generate-code arch=compute_{0},code=sm_{0}'.format(s) for s in arch_list) )
-        flags.extend( ('--generate-code arch=compute_{0},code=compute_{0}'.format(s) for s in arch_list) )
+        # --gpu-architecture=<arch> --gpu-code=<code>
+        for arch in arch_list:
+            flags.extend(['--generate-code', 'arch=compute_{0},code=sm_{0}'.format(arch)])
+            flags.extend(['--generate-code', 'arch=compute_{0},code=compute_{0}'.format(arch)])
         return flags
 
     # https://docs.nvidia.com/cuda/cuda-compiler-driver-nvcc/index.html#nvcc-examples

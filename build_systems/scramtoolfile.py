@@ -20,16 +20,17 @@ class ScramToolfilePackage(BundlePackage):
     depends_on('cmsdist', type='build')
     depends_on('scram', type='build')
 
+    # key: spack, value: scram
     aliases = {'python': 'python3', 'bzip2': 'bz2lib', 'scram': 'SCRAMV1', 'oracle-instant-client': 'oracle',
                'util-linux-uuid': 'libuuid', 'frontier-client': 'frontier_client', 'das-client': 'das_client',
                'frontier-client': 'frontier_client', 'py-onnx-runtime': 'onnxruntime', 'fftw': 'fftw3',
                'professor': 'professor2', 'fjcontrib': 'fastjet-contrib', 'opencl-clhpp': 'opencl-cpp',
                'gosam-contrib': 'gosamcontrib', 'py-gosam': 'gosam', 'madgraph5amc': 'madgraph5amcatnlo',
                'oracle-instant-client': 'oracle', 'berkeley-db': 'db6', 'benchmark': 'google-benchmark',
-               'herwig': 'herwig6', 'herwig7': 'herwig3', 'csctrackfinderemulation': 'CSCTrackFinderEmulation',
-               'nlohmann-json': 'json', 'openblas': 'OpenBLAS', 'py-numpy': 'py3-numpy',
-               'py-bind11': 'py3-bind11', 'python-tools': 'python_tools', 'tauolapp': 'tauola',
-               'intel-tbb': 'tbb', 'py-tensorflow': 'tensorflow'}
+               'herwig6': 'herwig', 'herwig3': 'herwig7', 'csctrackfinderemulation': 'CSCTrackFinderEmulation',
+               'nlohmann-json': 'json', 'openblas': 'OpenBLAS', 'python-tools': 'python_tools', 'tauola': 'tauolapp',
+               'tauola-f': 'tauola', 'intel-tbb': 'tbb', 'py-tensorflow': 'tensorflow', 'photos-f': 'photos',
+               'photos': 'photospp'}
 
     def get_all_deps(self, spec):
         res = {}
@@ -84,7 +85,7 @@ class ScramToolfilePackage(BundlePackage):
 
         # TODO: remember, the list is different for arm vs. everything else
         if 'cuda' in self.spec:
-            env.set('CUDA_FLAGS', CudaPackage.cuda_flags(self.spec.variants['cuda_arch'].value))
+            env.set('CUDA_FLAGS', ' '.join("'" + x + "'" for x in CudaPackage.cuda_flags(self.spec.variants['cuda_arch'].value)))
             env.set('CUDA_HOST_CXXFLAGS', CudaPackage.nvcc_stdcxx)
 
         # Technical variables
@@ -92,6 +93,9 @@ class ScramToolfilePackage(BundlePackage):
 
         python_dir = 'python{0}'.format(self.spec['python'].version.up_to(2))
         env.set('PYTHON3_LIB_SITE_PACKAGES', os.path.join('lib', python_dir, 'site-packages'))
+        if self.spec.satisfies('%gcc'):
+            env.set('GCC_ROOT', os.path.dirname(os.path.dirname(self.compiler.cc)))
+            env.set('GCC_VERSION', str(self.compiler.real_version))
 
     ## INCLUDE scram-tool-conf
     def install(self, spec, prefix):
@@ -107,10 +111,15 @@ class ScramToolfilePackage(BundlePackage):
             uctool = dep_name.upper().replace('-', '_')
             toolbase = dep['prefix']
             toolver = dep['version']
+            old_dep_name = dep_name
             dep_name = self.aliases.get(dep_name, dep_name)
+            if dep_name.startswith('py-'):
+                dep_name = dep_name.replace('py-', 'py3-')
+            tty.debug(f'SPACK {old_dep_name} -> SCRAM {dep_name}')
             get_tools(toolbase, toolver, prefix, dep_name)
 
         gcc_dir = os.path.dirname(os.path.dirname(self.compiler.cc))
+        # raise RuntimeError(gcc_dir)
         get_tools(gcc_dir, str(self.compiler.real_version), prefix, 'gcc')
         get_tools("", "system", prefix, "systemtools")
 
@@ -148,21 +157,23 @@ class ScramToolfilePackage(BundlePackage):
             if not dep_name.startswith("py-"):
                 continue
 
-            pk_name = dep_name.upper()
+            dep_version = dep['version']
+            dep_name = dep_name.replace('py-', 'py3-')
+            dep_name = self.aliases.get(dep_name, dep_name)
 
-            if os.path.isfile(join_path(prefix.tools.selected, pk_name + '.xml')):
+            if os.path.isfile(join_path(prefix.tools.selected, dep_name + '.xml')):
                 continue
 
-            uctool = pk_name.replace('-', '_')
-            with open(join_path(prefix.tools.selected, pk_name + '.xml'), 'w') as f:
-                f.write(f"<tool name=\"{pk_name}\" version=\"{dep['version']}\">\n")
+            uctool = dep_name.upper().replace('-', '_')
+            with open(join_path(prefix.tools.selected, dep_name + '.xml'), 'w') as f:
+                f.write(f"<tool name=\"{dep_name}\" version=\"{dep_version}\">\n")
                 if os.path.exists(join_path(dep['prefix'], 'bin')):
                     for b in os.listdir(join_path(dep['prefix'], 'bin')):
                         if b == '__pycache__':
                             continue
 
                         all_py_bin += [b]
-                        all_py_binpkg[b] += [pk_name]
+                        all_py_binpkg[b] += [dep_name]
 
                     f.write("  <client>\n")
                     f.write(f"    <environment name=\"${uctool}_BASE\" default=\"{dep['prefix']}\"/>\n")

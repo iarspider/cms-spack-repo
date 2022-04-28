@@ -44,10 +44,10 @@ class Cupla(Package, CudaPackage):
         CXXFLAGS.append("-Iinclude")
 
         HOST_FLAGS = ["-std=c++17", "-O2", "-pthread", "-fPIC", "-Wall", "-Wextra"]
-        NVCC_FLAGS = self.cuda_flags
+        NVCC_FLAGS = self.cuda_flags(self.spec.variants['cuda_arch'].value)
 
-        gpp = Executable(self.compiler.cxx)
-        nvcc = self.spec['cuda'].prefix.bin.nvcc if spec.satisfies('+cuda') else ''
+        gpp = which('g++')
+        nvcc = which('nvcc')
 
         # build the serial CPU backend
         mkdirp('build/serial')

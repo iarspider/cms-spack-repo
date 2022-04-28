@@ -28,6 +28,7 @@ class Root(CMakePackage):
 
     version('6.22.08.patches_cms_18c440c',    commit='5b76eded10db8060c87698bc6f34be4a72eca938')
     version('6.22.08.patches_cms_abd79a9716', commit='32c9dc53cf8f6b70df032f56fc8958f9beffd75d')
+    version('6.24.00.patches_cms_3c21b04',    commit='594f3935b4ea8871ecbe02b57e737dc47d179002')
 
     # ###################### Variants ##########################
     # See README.md for specific notes about what ROOT configuration
@@ -150,7 +151,7 @@ class Root(CMakePackage):
     depends_on('libpng')
     depends_on('lz4', when='@6.13.02:')  # See cmake_args, below.
     depends_on('ncurses')
-    depends_on('nlohmann-json', when='@6.24:')
+    # depends_on('nlohmann-json') # , when='@6.24:') -- cms
     depends_on('pcre')
     # depends_on('xxhash', when='@6.13.02:')  # See cmake_args, below. -- CMS
     depends_on('xz')
@@ -322,7 +323,7 @@ class Root(CMakePackage):
             define('builtin_llvm', True),
             define('builtin_lz4', False),
             define('builtin_lzma', False),
-            define('builtin_nlohmannjson', False),
+            define('builtin_nlohmannjson', True),  # -- CMS
             define('builtin_openssl', False),
             define('builtin_pcre', False),
             define('builtin_tbb', False),

@@ -106,9 +106,9 @@ class ScramPackage(PackageBase):
         self.setup(spec, prefix)
         config_dir = join_path(self.stage.path, 'config')
         mkdirp(config_dir)
-        symlink(self.stage.source_path, join_path(self.stage.path, 'src'))
+        os.rename(self.stage.source_path, join_path(self.stage.path, 'src'))
         os.rename(self.stage[1].source_path, config_dir)
-        self.srctree = self.stage.source_path
+        self.srctree = 'src'
         if getattr(self, 'PatchReleaseAdditionalPackages', None) is not None:
             with open('edit_PatchReleaseAdditionalPackages.sh', 'w') as f:
                 f.write('#!/bin/bash\n')
@@ -143,7 +143,7 @@ class ScramPackage(PackageBase):
                         f.write('\n'.join(self.PartialBootstrapPatch))
 
                     bash = which('bash')
-                    bash('./edit_PartialBootstrapPatch.sh')
+                    bash('-xe', './edit_PartialBootstrapPatch.sh')
 
             scram = which('scram')
             scram('--arch', self.cmsplatf, 'project', '-d', self.stage.path, '-b', 'config/bootsrc.xml')
@@ -152,17 +152,15 @@ class ScramPackage(PackageBase):
         scramcmd = self.spec['scram'].prefix.bin.scram + ' --arch ' + self.cmsplatf
         lines = [
             '#!/bin/bash -xe',
-            'i=' + self.stage.path,
+            'i=' + join_path(self.stage.path, str(spec.version)),
             'srctree=' + self.srctree,
             'compileOptions=' + ('-k' if self.ignore_compile_errors else ''),
             'extraOptions=' + self.extraOptions,
             'buildtarget=' + self.buildtarget,
-            'cmsroot=' + self.stage.path
+            'cmsroot=' + self.stage.path,
+            '#cd ' + join_path(self.stage.path, self.srctree),
+            'export SCRAM_DEBUG=1'
         ]
-
-        for fn in find(self.srctree, '*'):
-            if os.path.isdir(fn): continue
-            filter_file('^#!.*perl(.*)', '#!/usr/bin/env perl$1', fn)
 
         if self.ignore_compile_errors:
             lines.append('ignore_compile_errors=/bin/true')
@@ -170,11 +168,11 @@ class ScramPackage(PackageBase):
             lines.append('ignore_compile_errors=/bin/false')
 
         lines.extend([
-            'rm -rf `find ' + self.srctree + ' -type d -name cmt`',
-            r'grep -r -l -e "^#!.*perl.*" ${i}/${srctree} | xargs perl -p -i -e "s|^#!.*perl(.*)|#!/usr/bin/env '
+            'rm -rf `find $i/$srctree -type d -name cmt`',
+            'grep -r -l -e "^#!.*perl.*" ${i}/${srctree} | xargs perl -p -i -e "s|^#!.*perl(.*)|#!/usr/bin/env '
             r'perl\$1|"',
             scramcmd + ' arch',
-            'cd $i/' + str(self.spec.version)])
+            'cd ${i}/${srctree}'])
 
         extra_tools_ = getattr(self, 'extra_tools', [])
         for t in extra_tools_:
@@ -221,6 +219,7 @@ class ScramPackage(PackageBase):
         if getattr(self, 'postbuildtarget', None):
             lines.append(scramcmd + ' b --verbose -f ' + self.postbuildtarget + ' < /dev/null')
 
+        # Move the debug logs into the builddir, so that they do not get packaged.
         lines.extend(['LOG_WEB_DIR=$cmsroot/WEB/build-logs/${cmsplatf}/${v}',
                       'rm -rf ${LOG_WEB_DIR}',
                       'mkdir -p ${LOG_WEB_DIR}/logs/src',
@@ -263,20 +262,19 @@ class ScramPackage(PackageBase):
 
     def install(self, spec, prefix):
         scramcmd = self.spec['scram'].prefix.bin.scram + ' --arch ' + self.cmsplatf
-        install_tree(join_path(self.stage.path, str(self.spec.version)), prefix)
 
         lines = [
             '#!/bin/bash -xe',
-            'i=' + prefix,
+            'i=' + join_path(self.stage.path, str(spec.version)),
             '_builddir=$i',
-            'srctree=' + join_path(prefix, 'src'),
+            'srctree=' + self.srctree,
             'compileOptions=' + ('-k' if self.ignore_compile_errors else ''),
             'extraOptions=' + self.extraOptions,
             'buildtarget=' + self.buildtarget,
             'cmsroot=' + prefix,
             'cmsplatf=' + self.cmsplatf,
             'SCRAM_ARCH=$cmsplatf ; export SCRAM_ARCH',
-            'cd ' + prefix,
+            'cd $i',
             scramcmd + ' install -f',
             'rm -rf external/$cmsplatf; SCRAM_TOOL_HOME=' + self.spec[
                 'scram'].prefix + ' ./config/SCRAM/linkexternal.py --arch $cmsplatf'
@@ -294,7 +292,7 @@ class ScramPackage(PackageBase):
         if getattr(self, 'RelocatePatchReleaseSymlinks', None):
             lines.extend(self.RelocatePatchReleaseSymlinks)
 
-        # lines.append("tar czf src.tar.gz src")
+        lines.append("rm -fR tmp")
 
         if self.subpackageDebug:
             lines.append('touch $i/.SCRAM/$cmsplatf/subpackage-debug')
@@ -360,6 +358,15 @@ class ScramPackage(PackageBase):
         bash('-xe', './install.sh')
 
         self.post_(spec, prefix)
+        with working_dir(join_path(self.stage.path, str(spec.version))):
+            install_tree('.', prefix, )
+#        for _ in os.listdir(join_path(self.stage.path, str(spec.version))):
+#            if os.path.isdir(_):
+#                install_tree(join_path(self.stage.path, str(spec.version), _), prefix)
+#            else:
+#                install(join_path(self.stage.path, str(spec.version), _), prefix)
+
+        # install_tree(join_path(self.stage.path, 'src'), prefix) # No idea why...
 
     def post_(self, spec, prefix):
         # %post part of scram-project-build.file; probably not needed for spack
