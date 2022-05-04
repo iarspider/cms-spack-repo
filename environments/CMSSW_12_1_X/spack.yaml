@@ -586,6 +586,7 @@ spack:
   - rivet@3.1.4 hepmc=2
   - root@6.22.08.patches_cms_18c440c+davix+fftw~fits~graphviz+math+minuit+mlp~mysql+opengl~postgres~pythia6~pythia8+python~qt4+root7+roofit~sqlite+ssl+tmva+tbb~vdt~veccore+x+xrootd
   - rust@1.57.0~rustfmt~analysis~clippy~src
+  - scons@4.3.0
   - scram@3.0.36
   - sherpa@2.2.12+analysis+fastjet+hepmc2+rivet+lhapdf+blackhat+python+ufo+openloops+mpi+cms~hepmc3
   - sigcpp@3.2.0~doc
