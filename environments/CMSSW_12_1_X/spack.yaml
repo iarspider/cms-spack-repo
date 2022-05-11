@@ -428,6 +428,7 @@ spack:
   - py-mccabe@0.6.1
   - py-mistune@0.8.4
   - py-mock@4.0.3
+  - py-more-itertools@8.12.0
   - py-mpld3@0.5.5
   - py-mplhep@0.3.15
   - py-mplhep-data@0.0.3
@@ -439,6 +440,7 @@ spack:
   - py-nbconvert@6.2.0
   - py-nbformat@5.1.3
   - py-nest-asyncio@1.5.1
+  - py-networkx@2.7.1
   - py-neurolab@0.3.5
   - py-notebook@6.4.5
   - py-numba@0.54.0
@@ -462,12 +464,16 @@ spack:
   - py-pickleshare@0.7.5
   - py-pkgconfig@1.5.5
   - py-pkginfo@1.7.1
+  - py-plac@1.3.5
   - py-ply@3.11
   - py-pillow@8.0.0
   - py-pip@21.3.1
   - py-platformdirs@2.4.0
   - py-pluggy@1.0.0
-  - py-prompt-toolkit@3.0.24
+  - py-poetry@1.1.13
+  - py-poetry-core@1.0.8
+  - py-prettytable@3.2.0
+  - py-prompt-toolkit@3.0.29
   - py-prometheus-client@0.12.0
   - py-protobuf@3.15.1
   - py-psutil@5.8.0
@@ -488,6 +494,7 @@ spack:
   - py-pygithub@1.55
   - py-pygments@2.10.0
   - py-pylev@1.4.0
+  - py-pylint@2.13.5
   - py-pymongo@3.12.1
   - py-pyparsing@2.4.7
   - py-pyrsistent@0.18.0
