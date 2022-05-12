@@ -9,6 +9,8 @@ echo Setup Spack for CMS
 cd $WORKSPACE/cms-spack-repo
 bash -xe ./bootstrap.sh
 cd spack
+export SPACK_DISABLE_LOCAL_CONFIG=true
+export SPACK_USER_CACHE_PATH=$WORKSPACE
 # source share/spack/setup-env.sh
 echo Add signing key
 bin/spack buildcache keys --force --install --trust
