@@ -18,6 +18,7 @@ class Root(CMakePackage):
     executables = ['^root$', '^root-config$']
 
     tags = ['hep']
+    keep_archives = True
 
     maintainers = ['chissg', 'HadrienG2', 'drbenmorgan', 'vvolkl']
 
@@ -411,7 +412,8 @@ class Root(CMakePackage):
             define_from_variant('x11', 'x'),
             define_from_variant('xft', 'x'),
             define_from_variant('xml'),
-            define_from_variant('xrootd')
+            define_from_variant('xrootd'),
+            define('tmva-pymva', True) # -- CMS hack
         ]
 
         # Some special features
@@ -445,6 +447,10 @@ class Root(CMakePackage):
             options.append(define('PYTHON_EXECUTABLE',
                                   spec['python'].command.path))
 
+        # -- CMS
+        if '+xrootd' in self.spec:
+            options.append(define('XROOTD_INCLUDE_DIR', spec['xrootd'].prefix.include.xrootd))
+            options.append(define('XROOTD_ROOT_DIR', spec['xrootd'].prefix))
         return options
 
     def setup_build_environment(self, env):

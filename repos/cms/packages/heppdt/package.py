@@ -17,6 +17,7 @@ class Heppdt(AutotoolsPackage):
     git      = "https://github.com/cms-externals/heppdt.git"
 
     tags = ['hep']
+    keep_archives = True
 
     version('3.04.01.cms', commit='2b499cfb4302d48d1fd91911fddec88e94219a44')
     version('3.04.01', sha256='2c1c39eb91295d3ded69e0d3f1a38b1cb55bc3f0cde37b725ffd5d722f63c0f6')

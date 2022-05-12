@@ -19,6 +19,7 @@ class Meschach(Package):
     keep_archives = True
     patch('meschach-1.2-slc4.patch', level=0)
     patch('meschach-1.2b-fPIC.patch', level=0)
+    parallel = False
 
     def patch(self):
         if self.spec.satisfies('platform=darwin'):
@@ -30,4 +31,4 @@ class Meschach(Package):
         make()
 
         install('*.h', prefix.include)
-        install('meschach.a', prefix.lib)
+        install('meschach.a', join_path(prefix.lib, 'libmeschach.a'))

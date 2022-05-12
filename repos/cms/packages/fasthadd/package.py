@@ -38,7 +38,7 @@ class Fasthadd(MakefilePackage):
         root_flags = root_config('--cflags', '--libs', output=str).split()
 
         # TODO: lib64->lib after fixing protobuf
-        flags = ["-O2", "-o", prefix.bin.fastHadd, "ROOTFilePB.pb.cc", "./fastHadd.cc", "-I" + self.spec["protobuf"].prefix.include, "-L" + self.spec["protobuf"].prefix.lib64, "-lprotobuf"]
+        flags = ["-O2", "-o", prefix.bin.fastHadd, "ROOTFilePB.pb.cc", "./fastHadd.cc", "-I" + self.spec["protobuf"].prefix.include, "-L" + self.spec["protobuf"].prefix.lib, "-lprotobuf"]
         flags.extend(root_flags)
         gcc = Executable(self.compiler.cxx)
         gcc(*flags)

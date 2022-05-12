@@ -5,6 +5,8 @@
 
 
 from spack import *
+import shutil
+import glob
 
 
 class Gsl(AutotoolsPackage, GNUMirrorPackage):
@@ -41,6 +43,7 @@ class Gsl(AutotoolsPackage, GNUMirrorPackage):
 
     strip_files = ['lib']
     drop_files = ['lib/*.la', 'share']
+    keep_archives = True
 
     @property
     def force_autoreconf(self):
@@ -49,7 +52,7 @@ class Gsl(AutotoolsPackage, GNUMirrorPackage):
 
     def setup_build_environment(self, env):
         env.append_flags('CFLAGS', '-O2')
- 
+
     def configure_args(self):
         configure_args = ['--with-pic']  # -- CMS
         if self.spec.satisfies('+external-cblas'):
@@ -60,3 +63,12 @@ class Gsl(AutotoolsPackage, GNUMirrorPackage):
                                   % self.spec['blas'].libs.ld_flags)
 
         return configure_args
+
+    @run_after('install')
+    def move_cblas(self):
+        mkdirp(join_path(self.spec.prefix, 'cblas'))
+        for fn in glob.glob(join_path(self.spec.prefix.lib, 'libgslcblas*')):
+            shutil.move(fn, join_path(self.spec.prefix, 'cblas'))
+
+    def setup_run_environment(self, env):
+        env.set('GSL_CBLAS_LIB', '-L{0} -lopenblas'.format(self.spec['openblas'].prefix.lib))

@@ -17,6 +17,7 @@ class Dip(CMakePackage):
     # FIXME: git
     # git      = "ssh://git@gitlab.cern.ch:7999/industrial-controls/services/dip-hq/dip.git"
     manual_download = True
+    keep_archives = True
     url = 'file://{0}/dip-8693f00cc422b4a15858fcd84249acaeb07b6316.tgz'.format(os.getcwd())
 
     #FIXME: git

@@ -820,7 +820,7 @@ class PyTensorflow(Package, CudaPackage):
                         mode |= (stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
 
                     os.chmod(entry, mode)
-                    
+
 
             for root, dirs, files in os.walk(join_path(self.stage.source_path, 'tensorflow')):
                 for fn in files:
@@ -856,7 +856,7 @@ class PyTensorflow(Package, CudaPackage):
         for fn in glob.glob(join_path(srcdir, 'compiler', 'xla', 'lib*.so*')):
             install(fn, libdir)
 
-        realversion = str(self.spec.version)
+        realversion = str(self.spec.version).replace('.cms', '')
         majorversion = str(self.spec.version.up_to(1))
         for l in ('tensorflow_cc', 'tensorflow_framework', 'tensorflow'):
             if not os.path.exists(join_path(libdir, 'lib{0}.so.{1}'.format(l, realversion))):
@@ -866,7 +866,8 @@ class PyTensorflow(Package, CudaPackage):
             force_symlink(join_path(libdir, 'lib{0}.so.{1}'.format(l, majorversion)), join_path(libdir, 'lib{0}.so'.format(l)))
 
         for name in ('tensorflow', 'absl', 're2', 'third_party'):
-            install_tree(join_path(srcdir, 'include', name), incdir)
+            mkdirp(join_path(incdir, name))
+            install_tree(join_path(srcdir, 'include', name), join_path(incdir, name))
 
         def copy_headers(arg_1, arg_2):
             root_1 = arg_1.rstrip('/') + '/'

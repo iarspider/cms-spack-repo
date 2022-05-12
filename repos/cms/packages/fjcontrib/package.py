@@ -22,6 +22,7 @@ class Fjcontrib(AutotoolsPackage):
 
     build_targets = ['all', 'fragile-shared']
     install_targets = ['install', 'fragile-shared-install']
+    keep_archives = True
 
     def configure_args(self):
         args = ['--fastjet-config=' +

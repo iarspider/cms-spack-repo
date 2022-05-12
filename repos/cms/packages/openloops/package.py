@@ -28,6 +28,8 @@ class Openloops(Package):
 
     depends_on('python', type=("build", "run"))
 
+    keep_archives = True
+
     # NOTICE: update this line when openloops updates
     depends_on('openloops-process@2.1.2', when='@2.1.2')
 

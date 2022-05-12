@@ -20,6 +20,7 @@ class Geant4(CMakePackage):
     tags = ['hep']
 
     maintainers = ['drbenmorgan']
+    keep_archives = True
 
     version('11.0.1.cms', commit='271d2ffb2bd0a2aa26c4d15bc5e99e50f49cd232')
     version('10.7.2', sha256='593fc85883a361487b17548ba00553501f66a811b0a79039276bb75ad59528cf')
@@ -119,6 +120,19 @@ class Geant4(CMakePackage):
     patch('geant4-10.4.3-cxx17-removed-features.patch',
           level=1, when='@10.4.3 cxxstd=17')
 
+    def flag_handler(self, name, flags):
+        arch_build_flags = []
+        if self.spec.satisfies('target=aarch64:'):
+            arch_build_flags = 'march=armv8-a -mno-outline-atomics'.split()
+        elif self.spec.satisfies('target=ppc64le:'):
+            arch_build_flags = '-mcpu=power8 -mtune=power8 --param=l1-cache-size=64 --param=l1-cache-line-size=128 --param=l2-cache-size=512'
+
+        if name in ('cflags', 'cxxflags'):
+            flags.append('-fPIC')
+            flags.extend(arch_build_flags)
+
+        return (None, None, flags)
+
     def cmake_args(self):
         spec = self.spec
 
@@ -137,7 +151,8 @@ class Geant4(CMakePackage):
             '-DGEANT4_BUILD_BUILTIN_BACKTRACE=OFF',
             '-DGEANT4_BUILD_VERBOSE_CODE=OFF',
             '-DGEANT4_ENABLE_TESTING=OFF',
-            '-DGEANT4_BUILD_TLS_MODEL:STRING="global-dynamic"'
+            '-DGEANT4_BUILD_TLS_MODEL:STRING="global-dynamic"',
+            '-DCMAKE_INSTALL_LIBDIR=lib'
             # -- end cms
         ]
 
@@ -196,7 +211,7 @@ class Geant4(CMakePackage):
         mkdirp(prefix.lib.archive)
         ar = which('ar', required=True)
         with working_dir(prefix.lib.archive):
-            for fn in find(prefix.lib, '*a.'):
+            for fn in find(prefix.lib, '*.a'):
                 ar('-x', fn)
             ofiles = find(prefix.lib.archive, '*.o')
             ar('rcs', 'libgeant4-static.a', *ofiles)

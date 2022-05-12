@@ -13,11 +13,6 @@ def local_file_url(fn):
 class CmsswToolConf(ScramToolfilePackage, CudaPackage):
     version('52.0')
 
-    resource(name='toolfiles',
-             git='https://github.com/cms-sw/cmsdist.git',
-             branch='CMSSW_12_4_X',
-             dest='toolfiles')
-
     # these go into environment
     ## INSTALL_DEPENDENCIES cmsLHEtoEOSManager gcc-fixincludes cmssw-osenv cms-git-tools
     ## UPLOAD_DEPENDENCIES dqmgui
@@ -198,3 +193,11 @@ class CmsswToolConf(ScramToolfilePackage, CudaPackage):
 
     ## INCLUDE cmssw-drop-tools
     skipreqtools = ('jcompiler', 'icc-cxxcompiler', 'icc-ccompiler', 'icc-f77compiler', 'rivet2', 'opencl', 'opencl-cpp', 'nvidia-drivers', 'intel-vtune', 'jemalloc-debug')
+
+    def setup_build_environment(self, env):
+        super().setup_build_environment(env)
+        # ScramToolfilePackage.setup_build_environment(self, env)
+        if self.spec['geant4'].satisfies('+vecgeom'):
+            env.set('GEANT4_HAS_VECGEOM', "YES")
+        else:
+            env.unset('GEANT4_HAS_VECGEOM')

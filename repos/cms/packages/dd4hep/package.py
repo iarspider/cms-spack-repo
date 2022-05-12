@@ -25,7 +25,7 @@ class Dd4hep(CMakePackage):
     maintainers = ['vvolkl', 'drbenmorgan']
 
     tags = ['hep']
-    phases = ['cmake', 'build', 'install', 'install_static']
+    phases = ['cmake', 'build', 'install']
 
     version('master', branch='master')
     version('1.19x', commit='cc335b34e9eb2825ab18e20c531be813a92d141f')
@@ -46,6 +46,7 @@ class Dd4hep(CMakePackage):
     version('1.10', sha256='1d6b5d1c368dc8bcedd9c61b7c7e1a44bad427f8bd34932516aff47c88a31d95')
 
     generator = 'Ninja'
+    keep_archives = True
 
     # Workarounds for various TBB issues in DD4hep v1.11
     # See https://github.com/AIDASoft/DD4hep/pull/613 .
@@ -85,6 +86,11 @@ class Dd4hep(CMakePackage):
               msg='cmake version with buggy FindPython breaks dd4hep cmake config')
 
     cms_stage = 1
+
+    def flag_handler(self, name, flags):
+        if name == 'cxxflags':
+            flags.append('-fPIC')
+        return (None, None, flags)
 
     def cmake_args(self):
         spec = self.spec
@@ -155,7 +161,10 @@ class Dd4hep(CMakePackage):
                 ninja('test')
 
     # -- CMS: build static version of DDG4
-    def install_static(self, spec, prefix):
+    @run_after('install')
+    def install_static(self):
+        spec = self.spec
+        prefix = self.spec.prefix
         self.cms_stage = 2
         self.spec.variants['shared'].value = False
         self.spec.variants['geant4'].value = True
@@ -174,12 +183,13 @@ class Dd4hep(CMakePackage):
             elif self.generator == 'Ninja':
                 self.build_targets.append("-v")
                 inspect.getmodule(self).ninja(*self.build_targets)
-                
+
         # custom install stage
-        for fn in glob.glob(join_path(self.build_directory, 'lib', 'libDDG4*.a')):            
-            install(fn, join_path(self.prefix.lib, fn[:-2] + '-static.a'))
-            
-        install_tree(join_path(self.stage.source_path, 'DDG4', 'include', 'DDG4'), self.prefix.include.DDG4)
+        for fn in glob.glob(join_path(self.build_directory, 'lib', 'libDDG4*.a')):
+            libname = os.path.basename(fn)
+            install(fn, join_path(prefix, 'lib', libname[:-2] + '-static.a'))
+
+        install_tree(join_path(self.stage.source_path, 'DDG4', 'include', 'DDG4'), prefix.include.DDG4)
 
     @property
     def build_dirname(self):

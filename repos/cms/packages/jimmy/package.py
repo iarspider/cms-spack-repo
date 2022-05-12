@@ -18,6 +18,7 @@ class Jimmy(MakefilePackage):
 
     depends_on('herwig6')
     patch('jimmy-4.2-configure-update.patch', level=2)
+    keep_archives = True
 
     phases = ['configure', 'build', 'install']
 
@@ -35,6 +36,9 @@ class Jimmy(MakefilePackage):
     def install(self, spec, prefix):
         install_tree('lib', prefix.lib)
         install_tree('include', prefix.include)
+        for libname in find(prefix.lib.archive, '*.a'):
+            install(libname, prefix.lib)
+        shutil.rmtree(prefix.lib.archive)
 
     def do_stage(self, mirror_only=False):
         super(Jimmy, self).do_stage(mirror_only)

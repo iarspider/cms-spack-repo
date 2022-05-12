@@ -36,9 +36,10 @@ class MxnetPredict(CMakePackage):
                 define('USE_F16C', 'OFF'),
                 define('USE_CPP_PACKAGE', 'ON'),
                 define('BUILD_CPP_EXAMPLES', 'OFF'),
+                define('CMAKE_INSTALL_LIBDIR', 'lib'),
                 define('CMAKE_LIBRARY_OUTPUT_DIRECTORY', self.spec.prefix),
                 define('PYTHON_EXECUTABLE', str(python)),
-                define('INSTALL_PYTHON_VERSIONS', str(self.spec['python'].version.up_to(2).joined))
+                define('INSTALL_PYTHON_VERSIONS', str(self.spec['python'].version.up_to(2).joined)),
                ]
         return args
 

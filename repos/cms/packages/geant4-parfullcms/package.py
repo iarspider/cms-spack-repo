@@ -18,8 +18,9 @@ class Geant4Parfullcms(CMakePackage):
     depends_on('geant4data')
 
     def cmake_args(self):
-        args = []
-        args += [self.define('BUILD_SHARED_LIBS', False)]
-        args += [self.define('BUILD_STATIC_LIBS', True)]
-        args += [self.define('Geant4_USE_FILE', self.spec['geant4'].prefix)]
+        args = [self.define('BUILD_SHARED_LIBS', False),
+                self.define('BUILD_STATIC_LIBS', True),
+                self.define('Geant4_USE_FILE', self.spec['geant4'].prefix),
+                self.define('CMAKE_INSTALL_LIBDIR', 'lib')]
+
         return args

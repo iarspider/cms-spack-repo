@@ -17,6 +17,12 @@ class Fftjet(AutotoolsPackage):
     keep_archives = True  # -- CMS
     depends_on('fftw')
 
+    def flag_handler(self, name, flags):
+        if name in ['cflags', 'cxxflags', 'cppflags']:
+            flags.append('-fPIC')
+
+        return (None, flags, None)
+
     def configure_args(self):
         args = ["--disable-dependency-tracking", "--enable-threads",
                 "--enable-static", "--disable-shared",

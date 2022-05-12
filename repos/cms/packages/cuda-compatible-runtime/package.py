@@ -35,3 +35,4 @@ class CudaCompatibleRuntime(Package):
             install(join_path(os.path.dirname(__file__), 'cuda-compatible-runtime'), prefix.test.join('cuda-compatible-runtime'))
         else:
             install(join_path('build', 'cuda-compatible-runtime'), prefix.test.join('cuda-compatible-runtime'))
+        set_executable(prefix.test.join('cuda-compatible-runtime'))

@@ -45,6 +45,8 @@ class Llvm(CMakePackage, CudaPackage):
 
     build_targets = ['all', 'check-clang-tools']
 
+    keep_archives = True
+
     # NOTE: The debug version of LLVM is an order of magnitude larger than
     # the release version, and may take up 20-30 GB of space. If you want
     # to save space, build with `build_type=Release`.

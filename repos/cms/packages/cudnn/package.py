@@ -294,5 +294,5 @@ class Cudnn(Package):
                and not os.path.isdir(prefix.include):
                 symlink(target_include, prefix.include)
 
-            # -- CMS: onnxruntime is hardcoded to look for the cudnn libraries under .../lib64
-            shutil.move(prefix.lib, prefix.lib64)
+        # -- CMS: onnxruntime is hardcoded to look for the cudnn libraries under .../lib64
+        shutil.move(prefix.lib, prefix.lib64)

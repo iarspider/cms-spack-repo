@@ -40,6 +40,7 @@ class Lhapdf(AutotoolsPackage):
     depends_on('zlib', type='build')
 
     extends('python')
+    keep_archives = True
 
     def configure_args(self):
         args = ['FCFLAGS=-O3', 'CFLAGS=-O3', 'CXXFLAGS=-O3', '--enable-python']

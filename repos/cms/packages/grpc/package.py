@@ -12,6 +12,7 @@ class Grpc(CMakePackage):
 
     homepage = "https://grpc.io"
     url      = "https://github.com/grpc/grpc/archive/v1.39.0.tar.gz"
+    keep_archives = True
 
     version('1.39.0', sha256='b16992aa1c949c10d5d5ce2a62f9d99fa7de77da2943e643fb66dcaf075826d6')
     version('1.38.1', sha256='f60e5b112913bf776a22c16a3053cc02cf55e60bf27a959fd54d7aaf8e2da6e8')
@@ -70,7 +71,8 @@ class Grpc(CMakePackage):
             '-DgRPC_GFLAGS_PROVIDER:String=none',
             '-DgRPC_BENCHMARK_PROVIDER:String=none',
             # -- CMS: set cxx standard. hack, need to push upstream
-            '-DCMAKE_CXX_STANDARD:STRING=17'
+            '-DCMAKE_CXX_STANDARD:STRING=17',
+            '-DCMAKE_INSTALL_LIBDIR=lib'
         ]
         if self.spec.satisfies('@1.27.0:'):
             args.append('-DgRPC_ABSL_PROVIDER:String=package')

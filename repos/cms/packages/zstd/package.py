@@ -56,5 +56,6 @@ class Zstd(CMakePackage):
             self.define_from_variant('ZSTD_BUILD_STATIC', 'static'),
             self.define_from_variant('ZSTD_BUILD_SHARED', 'shared'),
             self.define_from_variant('ZSTD_LEGACY_SUPPORT', 'legacy'),
-            self.define_from_variant('ZSTD_MULTITHREAD_SUPPORT', 'multithread')
+            self.define_from_variant('ZSTD_MULTITHREAD_SUPPORT', 'multithread'),
+            self.define('CMAKE_INSTALL_LIBDIR', 'lib')
         ]

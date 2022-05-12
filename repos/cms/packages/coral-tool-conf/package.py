@@ -11,7 +11,7 @@ from collections import Counter, defaultdict
 from  spack.util.environment import *
 
 
-class CoralToolConf(ScramToolfilePackage):
+class CoralToolConf(ScramToolfilePackage, CudaPackage):
     version('10.0')
 
     depends_on('pcre')

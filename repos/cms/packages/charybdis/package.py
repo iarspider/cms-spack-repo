@@ -22,6 +22,8 @@ class Charybdis(MakefilePackage):
     patch('charybdis-1003-macosx.patch', level=3)
     patch('charybdis-1.003-archive-only.patch', level=3, when='platform=darwin')
 
+    keep_archives = True
+
     def do_stage(self, mirror_only=False):
         super(Charybdis, self).do_stage(mirror_only)
         dn = os.listdir(self.stage.source_path)[0]
@@ -39,7 +41,7 @@ class Charybdis(MakefilePackage):
         configure = Executable('./configure')
         configure('--lcgplatform=slc7_amd64_gcc900', '--pythia_hadronization')
         filter_file('FC = .*', 'FC = {0}'.format(self.compiler.fc), 'config.mk')
-        filter_file('FFLAGS = (.*)', r'FFLAGS = \1 -fPIC', 'config.mk')
+        filter_file('FFLAGS = (.*)', r'FFLAGS =   -fPIC', 'config.mk')
 
     def install(self, spec, prefix):
         install_tree('lib', prefix.lib)

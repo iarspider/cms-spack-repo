@@ -15,7 +15,7 @@ class Hepmc(CMakePackage):
     git      = "https://github.com/cms-externals/hepmc.git"
 
     tags = ['hep']
-    keep_archive = True
+    keep_archives = True
 
     version('2.06.10.cms', commit='91c4c217572ac25669e9ad8fdc0111d1d5c82289')
 

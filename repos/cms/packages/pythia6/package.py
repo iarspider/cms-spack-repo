@@ -36,6 +36,7 @@ class Pythia6(AutotoolsPackage):
     url = 'https://pythia.org/download/pythia6/pythia6428-split.tgz'
 
     tags = ['hep']
+    keep_archives = True
 
     maintainers = ['gartung', 'chissg']
 
@@ -43,7 +44,7 @@ class Pythia6(AutotoolsPackage):
             sha256='4dd75f551b7660c35f817c063abd74ca91b70259c0987905a06ebb2d21bcdf26')
 
     # install_libtool_archives = True
-    keep_archive = True
+    keep_archives = True
     configure_directory = '426'
 
     depends_on('autoconf', type='build')

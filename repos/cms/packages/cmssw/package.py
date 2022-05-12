@@ -40,6 +40,7 @@ class Cmssw(ScramPackage):
 
         self.toolname = 'cmssw'
         self.toolconf = 'cmssw-tool-conf'
+        self.ignore_compile_errors = True
 
     def edit(self, spec, prefix):
         if '_COVERAGE_X' in str(spec.version):
@@ -97,6 +98,6 @@ class Cmssw(ScramPackage):
         spack_env.append_path(
             'LD_LIBRARY_PATH', self.spec['llvm'].prefix.lib64)
 
-    # DEBUG
-    def patch(self):
-        filter_file('        level = logLevel,', '        level = logging.DEBUG,', 'CondFormats/Serialization/python/condformats_serialization_generate.py')
+    @run_after('install')
+    def my_abort(self):
+        raise RuntimeError('>> ABORT <<')

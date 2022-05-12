@@ -59,3 +59,10 @@ class TritonInferenceClient(CMakePackage, CudaPackage):
                 define('CMAKE_CXX_FLAGS', '-Wno-error -fPIC')]
 
         return args
+
+    @run_after('install')
+    def cms_post(self):
+        prefix = self.spec.prefix
+        sed = which('sed')
+        sed('-i', "/^#ifdef TRITON_ENABLE_GPU/i #define TRITON_ENABLE_GPU", join_path(prefix, 'include', 'ipc.h'))
+        os.unlink(join_path(prefix, 'include', 'triton', 'common', 'triton_json.h'))

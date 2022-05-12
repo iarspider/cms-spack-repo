@@ -13,6 +13,7 @@ class Thepeg(AutotoolsPackage):
     url      = "https://thepeg.hepforge.org/downloads/?f=ThePEG-2.2.1.tar.bz2"
 
     tags = ['hep']
+    keep_archives = True
 
     # The commented out versions exist, but may need patches
     # and/or recipe changes
@@ -129,3 +130,8 @@ class Thepeg(AutotoolsPackage):
         args.append('--disable-static')
 
         return args
+
+    @run_after('install')
+    def createSymlinkLesHouches(self):
+        with working_dir(prefix.lib.ThePEG):
+            symlink('LesHouches.so', 'libLesHouches.so')

@@ -16,6 +16,7 @@ class Vecgeom(CMakePackage, CudaPackage):
     git = "https://gitlab.cern.ch/VecGeom/VecGeom.git"
 
     tags = ['hep']
+    keep_archives = True
 
     maintainers = ['drbenmorgan', 'sethrj']
 
@@ -103,6 +104,7 @@ class Vecgeom(CMakePackage, CudaPackage):
             self.define_from_variant('GDML'),
             self.define_from_variant('GEANT4'),
             self.define_from_variant('ROOT'),
+            self.define('CMAKE_INSTALL_LIBDIR', 'lib')
         ]
 
         # Set testing flags

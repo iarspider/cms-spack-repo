@@ -16,6 +16,7 @@ class Herwig6(AutotoolsPackage):
     url      = "http://cern.ch/service-spi/external/MCGenerators/distribution/herwig/herwig-6.521-src.tgz"
 
     version('6.521', sha256='98aec5b8e5b50791af864436b13d5802b7371befac5ade5bc5773e112d2532a0')
+    keep_archives = True
 
     depends_on('lhapdf')
     depends_on('photos')

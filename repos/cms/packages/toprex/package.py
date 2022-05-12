@@ -23,7 +23,7 @@ class Toprex(MakefilePackage):
 
     depends_on('pythia6')
 
-    keep_archives=True
+    keep_archives = True
 
     def do_stage(self, mirror_only=False):
         super().do_stage(mirror_only)
@@ -36,8 +36,8 @@ class Toprex(MakefilePackage):
         filter_file('-fno-globals', '', 'configure')
         filter_file('-finit-local-zero', '', 'configure')
         filter_file('-fugly-logint', '', 'configure')
-        filter_file('export FC=(.*)', r'#export FC=\1', 'configure')
-        filter_file('export CC=(.*)', r'#export CC=\1', 'configure')
+        filter_file('export FC=(.*)', r'#export FC= ', 'configure')
+        filter_file('export CC=(.*)', r'#export CC= ', 'configure')
         filter_file('export FFLAGS_OPT="-O2 -Wuninitialized"', 'export FFLAGS_OPT="-O2 -Wuninitialized -fPIC"', 'configure', string=True)
         filter_file('export CFLAGS_OPT="-O2"', 'export CFLAGS_OPT="-O2 -fPIC"', 'configure', string=True)
         filter_file('export CXXFLAGS_OPT="-O2', 'export CXXFLAGS_OPT="-O2 -fPIC ', 'configure', string=True)
