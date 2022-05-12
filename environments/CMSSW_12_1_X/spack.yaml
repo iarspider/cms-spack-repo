@@ -299,6 +299,8 @@ spack:
   - py-atomicwrites@1.4.0
   - py-attrs@21.2.0
   - py-autopep8@1.6.0
+  - py-avro@1.11.0
+  - py-awkward@1.8.0
   - py-backcall@0.2.0
   - py-backports-entry-points-selectable@1.1.0
   - py-beautifulsoup4@4.10.0
@@ -351,6 +353,8 @@ spack:
   - py-flake8@4.0.1
   - py-flatbuffers@2.0
   - py-flawfinder@2.0.19
+  - py-fonttools@4.31.2
+  - py-frozenlist@1.3.0
   - py-flit@3.3.0
   - py-flit-core@3.3.0
   - py-fs@0.5.4
@@ -382,8 +386,9 @@ spack:
   - py-ipaddress@1.0.23
   - py-ipykernel@6.4.1
   - py-ipython@7.28.0
-  - py-ipython-genutils@0.2.0
-  - py-isort@5.9.3             # NB: Not in cms, needed for almost all ipy/jupy packages
+  - py-ipython-genutils@0.2.0  # NB: Not in cms, needed for almost all ipy/jupy packages
+  - py-ipywidgets@7.7.0
+  - py-isort@5.9.3
   - py-jedi@0.18.0
   - py-jinja2@3.0.1
   - py-jinja2-time@0.2.0
@@ -392,12 +397,14 @@ spack:
   - py-jsonpickle@2.0.0
   - py-jsonschema@3.2.0
   - py-jupyter-client@7.0.6
+  - py-jupyter-console@6.4.3
   - py-jupyter-core@4.7.1
   - py-jupyter-packaging11 # py-jupyter-packaging@0.10.6
   - py-jupyter-packaging7  # hack (here and above)
   - py-jupyter-server@1.11.2
   - py-jupyter-server-mathjax@0.2.3
   - py-jupyterlab-pygments@0.1.2
+  - py-jupyterlab-widgets@1.1.0
   - py-pyjwt@2.1.0
   - py-keras2onnx@1.7.0
   - py-keras-applications@1.0.8
@@ -421,6 +428,7 @@ spack:
   - py-mccabe@0.6.1
   - py-mistune@0.8.4
   - py-mock@4.0.3
+  - py-more-itertools@8.12.0
   - py-mpld3@0.5.5
   - py-mplhep@0.3.15
   - py-mplhep-data@0.0.3
@@ -432,6 +440,7 @@ spack:
   - py-nbconvert@6.2.0
   - py-nbformat@5.1.3
   - py-nest-asyncio@1.5.1
+  - py-networkx@2.7.1
   - py-neurolab@0.3.5
   - py-notebook@6.4.5
   - py-numba@0.54.0
@@ -455,12 +464,16 @@ spack:
   - py-pickleshare@0.7.5
   - py-pkgconfig@1.5.5
   - py-pkginfo@1.7.1
+  - py-plac@1.3.5
   - py-ply@3.11
   - py-pillow@8.0.0
   - py-pip@21.3.1
   - py-platformdirs@2.4.0
   - py-pluggy@1.0.0
-  - py-prompt-toolkit@3.0.24
+  - py-poetry@1.1.13
+  - py-poetry-core@1.0.8
+  - py-prettytable@3.2.0
+  - py-prompt-toolkit@3.0.29
   - py-prometheus-client@0.12.0
   - py-protobuf@3.15.1
   - py-psutil@5.8.0
@@ -481,6 +494,7 @@ spack:
   - py-pygithub@1.55
   - py-pygments@2.10.0
   - py-pylev@1.4.0
+  - py-pylint@2.13.5
   - py-pymongo@3.12.1
   - py-pyparsing@2.4.7
   - py-pyrsistent@0.18.0
@@ -492,8 +506,9 @@ spack:
   - py-python-daemon@2.3.0
   - py-python-ldap@3.3.1
   - py-python-rapidjson@1.5
-  - py-pythran@0.9.12
-  - py-pytools@2021.2.9 # NB: py-scipy
+  - py-pythran@0.9.12 # NB: py-scipy
+  - py-pytoml@0.1.21
+  - py-pytools@2021.2.9
   - py-pytz@2021.1
   - py-pyyaml@6.0~libyaml
   - py-pyzmq@22.3.0
@@ -579,6 +594,7 @@ spack:
   - root@6.24.00.patches_cms_3c21b04+davix+fftw~fits~graphviz+math+minuit+mlp~mysql+opengl~postgres~pythia6~pythia8+python~qt4+root7+roofit~sqlite+ssl+tmva+tbb~vdt~veccore+x+xrootd+spectrum
   - rust@1.57.0~rustfmt~analysis~clippy~src
   - scitokens-cpp@0.7.0
+  - scons@4.3.0
   - scram@3.0.36
   - sherpa@2.2.12+analysis+fastjet+hepmc2+rivet+lhapdf+blackhat+python+ufo+openloops+mpi+cms~hepmc3
   - sigcpp@3.2.0~doc
