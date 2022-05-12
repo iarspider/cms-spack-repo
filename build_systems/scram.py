@@ -106,15 +106,10 @@ class ScramPackage(PackageBase):
         self.setup(spec, prefix)
         config_dir = join_path(self.stage.path, 'config')
         mkdirp(config_dir)
-<<<<<<< HEAD
         os.rename(self.stage.source_path, join_path(self.stage.path, 'src'))
         os.rename(self.stage[1].source_path, config_dir)
         self.srctree = 'src'
-=======
-        symlink(self.stage.source_path, join_path(self.stage.path, 'src'))
-        os.rename(self.stage[1].source_path, config_dir)
-        self.srctree = self.stage.source_path
->>>>>>> Fixes...
+
         if getattr(self, 'PatchReleaseAdditionalPackages', None) is not None:
             with open('edit_PatchReleaseAdditionalPackages.sh', 'w') as f:
                 f.write('#!/bin/bash\n')
@@ -167,13 +162,6 @@ class ScramPackage(PackageBase):
             '#cd ' + join_path(self.stage.path, self.srctree),
             'export SCRAM_DEBUG=1'
         ]
-<<<<<<< HEAD
-=======
-
-        for fn in find(self.srctree, '*'):
-            if os.path.isdir(fn): continue
-            filter_file('^#!.*perl(.*)', '#!/usr/bin/env perl$1', fn)
->>>>>>> Fixes...
 
         if self.ignore_compile_errors:
             lines.append('ignore_compile_errors=/bin/true')

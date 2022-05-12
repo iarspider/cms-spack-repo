@@ -3,10 +3,10 @@
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
-import re
 import os
+import shutil
 
-import spack.build_environment
+from spack import *
 from spack.pkg.builtin.cmake import Cmake as BuiltinCmake
 
 
@@ -17,4 +17,4 @@ class Cmake(BuiltinCmake):
     def patch(self):
         if (getattr(super(), 'patch', None) is not None):
             super().patch()
-        copy(join_path(os.path.dirname(__file__), 'build-flags.cmake'), 'build-flags.cmake')
+        shutil.copy(join_path(os.path.dirname(__file__), 'build-flags.cmake'), 'build-flags.cmake')
