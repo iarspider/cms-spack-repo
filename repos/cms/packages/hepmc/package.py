@@ -25,7 +25,7 @@ class Hepmc(CMakePackage):
             description='Unit of momentum')
 
     depends_on('cmake@2.8.9:', type='build')
-    
+
     drop_files = ['share']
 
     def cmake_args(self):

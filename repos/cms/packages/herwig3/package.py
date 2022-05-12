@@ -77,7 +77,7 @@ class Herwig3(AutotoolsPackage):
                 # '--with-njet=' + self.spec['njet'].prefix,
                 # '--with-vbfnlo=' + self.spec['vbfnlo'].prefix,
                 # '--with-gsl=' + self.spec['gsl'].prefix
-                ] 
+                ]
 
         if not self.spec.satisfies('arch=ppc64le'):
             args.append('--with-openloops=' + self.spec['openloops'].prefix)
@@ -93,10 +93,10 @@ class Herwig3(AutotoolsPackage):
             # flags.append('-std=legacy') -- CMS
             if self.spec.satisfies('%gcc@10:'):
                 flags.append('-fallow-argument-mismatch')
-                
+
             if not self.spec.satisfies('arch=x86_64'):
                 flags.append('-fno-range-check')
-                
+
             return (None, flags, None)
         elif name in ['cflags', 'cxxflags', 'cppflags']:
             flags.append(self.compiler.cc_pic_flag)
