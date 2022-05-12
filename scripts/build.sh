@@ -41,6 +41,8 @@ export CORES
 echo Setup Spack for CMS
 cd $WORKSPACE/cms-spack-repo
 [ ! -d spack ] && bash -xe ./bootstrap.sh
+export SPACK_DISABLE_LOCAL_CONFIG=true
+export SPACK_USER_CACHE_PATH=$WORKSPACE
 cd spack
 echo Add signing key
 if [ ! -z ${SPACK_GPG_KEY+x} ]; then bin/spack gpg trust $SPACK_GPG_KEY; fi
