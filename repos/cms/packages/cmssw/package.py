@@ -40,7 +40,6 @@ class Cmssw(ScramPackage):
 
         self.toolname = 'cmssw'
         self.toolconf = 'cmssw-tool-conf'
-        self.ignore_compile_errors = False
 
     def edit(self, spec, prefix):
         if '_COVERAGE_X' in str(spec.version):
