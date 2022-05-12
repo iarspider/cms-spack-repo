@@ -47,7 +47,7 @@ bin/spack buildcache keys --install --trust
 echo Adding spack augment command
 bin/spack config --scope=site add "config:extensions:${SCRIPT_DIR}/spack-scripting"
 echo Forcing bootstrap of clingo
-bin/spack spec zlib > /dev/null
+bin/spack -d spec zlib > /dev/null
 echo Creating environment
 bin/spack env create ${SPACK_ENV_NAME} ${SCRIPT_DIR}/environments/${SPACK_ENV_NAME}/spack.yaml
 echo Done
