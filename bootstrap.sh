@@ -20,7 +20,7 @@ echo Adding SCRAM build system support
 cp ${SCRIPT_DIR}/build_systems/scram.py lib/spack/spack/build_systems/
 echo "from spack.build_systems.scram import ScramPackage" >> lib/spack/spack/pkgkit.py
 echo Adding SCRAM toolfile package class
-cp ${SCRIPT_DIR}/build_systems/scramtoolfilepackage.py lib/spack/spack/build_systems/
+cp ${SCRIPT_DIR}/build_systems/scramtoolfile.py lib/spack/spack/build_systems/
 echo "from spack.build_systems.scramtoolfile import ScramToolfilePackage" >> lib/spack/spack/pkgkit.py
 echo Adding Crab package type
 cp ${SCRIPT_DIR}/build_systems/crab.py lib/spack/spack/build_systems/
