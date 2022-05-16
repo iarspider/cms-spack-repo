@@ -2,12 +2,12 @@ import glob
 import os
 from llnl.util.filesystem import join_path
 
-def post_install(spec): 
+def post_install(spec):
     pkg = spec.package
-    keep_archive = getattr(pkg, 'keep_archive', False)
+    keep_archive = getattr(pkg, 'keep_archives', False)
     if keep_archive:
         return
-              
+
     for file in glob.glob(join_path(spec.prefix, 'lib', '*.a')):
         os.unlink(file)
 
