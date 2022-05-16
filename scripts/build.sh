@@ -56,7 +56,7 @@ echo Start the installation
 SPACK_MON_ARGS=""
 export SPACKMON_USER="cmsbuild"
 if [ ! -z ${SPACKMON_TOKEN} ]; then SPACK_MON_ARGS="--monitor --monitor-save-local --monitor-tags ${SPACK_ENV_NAME}"; export SPACKMON_TOKEN; fi;
-bin/spack --show-cores=minimized -e ${SPACK_ENV_NAME} -d install -j$CORES $SPACK_MON_ARGS
+bin/spack --show-cores=minimized -e ${SPACK_ENV_NAME} -d install -j$CORES --fail-fast $SPACK_MON_ARGS
 echo Upload monitor data
 if [ ! -z ${SPACKMON_TOKEN} ]; then retry 5 bin/spack monitor --monitor-host http://cms-spackmon.cern.ch/cms-spackmon --monitor-keep-going --monitor-tags ${SPACK_ENV_NAME} upload $WORKSPACE/monitor; fi;
 if [ ${UPLOAD_BUILDCACHE-x} = "true" ]; then

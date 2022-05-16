@@ -120,8 +120,8 @@ spack:
       variants: [crypto=openssl]
   view: false
   specs:
-  - cms-config
-  - cmssw # TODO: version
+  - cms-config # TODO: do we need it? we have cmssw and cmssw-tool-conf
+  - cmssw@CMSSW_12.4.0.pre3
   - alpgen@2.1.4 recipe=cms
   - alpaka@0.7.0
   - autoconf@2.69
