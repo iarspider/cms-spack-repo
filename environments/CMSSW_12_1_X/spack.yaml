@@ -626,4 +626,4 @@ spack:
   - yoda@1.9.0+root
   - zlib@1.2.11.cms+optimize
   - zstd@1.4.5+shared~static~programs~legacy
-  - cmsdist@12_4_X
+  - cmsdist@12.4.0.pre3

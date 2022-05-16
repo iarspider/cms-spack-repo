@@ -13,11 +13,11 @@ class Cmsdist(Package):
     homepage = "https://www.example.com"
     git      = "https://github.com/cms-sw/cmsdist.git"
 
-    version('12_4_X', commit='ec8cd99')
-    version('12_4_0_pre3', tag='REL/CMSSW_12_4_0_pre3/slc7_amd64_gcc10')
+    version('12.4.devel', commit='ec8cd99')
+    version('12.4.0.pre3', tag='REL/CMSSW_12_4_0_pre3/slc7_amd64_gcc10')
 
     def patch(self):
-        if not self.spec.satisfies('@12_4_0_pre3'):
+        if not self.spec.satisfies('@12.4.0.pre3'):
             return
         prefix = self.stage.source_path
         filter_file('</tool>', '  <use name="veccore"/>\n</tool>',
