@@ -22,11 +22,11 @@ class Dcap(AutotoolsPackage):
     depends_on('libtool',  type='build')
     depends_on('m4',       type='build')
     depends_on('zlib',     type=('build', 'run'))
-    
+
     # -- CMS hook
     strip_files = ['lib']
     drop_files = ['share']
-    
+
     def patch(self):
         filter_file('library_includedir.*', r'library_includedir=$(includedir)', 'src/Makefile.am')
 
@@ -37,10 +37,10 @@ class Dcap(AutotoolsPackage):
     def configure_args(self):
         args = ['CFLAGS=-I' + self.spec['zlib'].prefix.include, 'LDFLAGS=-L' + self.spec['zlib'].prefix.lib]
         return args
-        
+
     def build(self, spec, prefix):
         make('-C', 'src')
-    
+
     def install(self, spec, prefix):
         make('-C', 'src', 'install')
         shutil.rmtree(join_path(prefix, 'share'))

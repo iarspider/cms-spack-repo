@@ -23,7 +23,6 @@ class PyOnnxRuntime(CMakePackage, PythonPackage):
     version('1.7.2',  tag='v1.7.2',  submodules=True)
 
     variant('cuda', default=False, description='Build with CUDA support')
-    variant('cms', default=False, description='Apply CMS patches')
 
     depends_on('cmake@3.1:', type='build')
     depends_on('ninja', type='build')
@@ -32,8 +31,12 @@ class PyOnnxRuntime(CMakePackage, PythonPackage):
     depends_on('py-protobuf', type=('build', 'run'))
     depends_on('py-setuptools', type='build')
     depends_on('py-numpy@1.16.6:', type=('build', 'run'))
+    depends_on('py-sympy@1.1:', type=('build', 'run'))
+    depends_on('py-packaging', type=('build', 'run'))
+    depends_on('py-cerberus', type=('build', 'run'))
     depends_on('py-wheel', type='build')
     depends_on('py-onnx', type=('build', 'run'))
+    depends_on('py-flatbuffers'. type=('build', 'run'))
     depends_on('zlib')
     depends_on('libpng')
     depends_on('py-pybind11', type='build')
@@ -45,11 +48,11 @@ class PyOnnxRuntime(CMakePackage, PythonPackage):
     extends('python')
     # Adopted from CMS experiment's fork of onnxruntime
     # https://github.com/cms-externals/onnxruntime/compare/5bc92df...d594f80
-    patch('cms.patch', level=1, when='@1.7.2 +cms')
+    patch('cms.patch', level=1, when='@1.7.2')
     # https://github.com/cms-externals/onnxruntime/compare/0d9030e...7a6355a
-    patch('cms_1_10.patch', level=1, when='@1.10.0 +cms')
+    patch('cms_1_10.patch', whe='@1.10')
     # https://github.com/microsoft/onnxruntime/issues/4234#issuecomment-698077636
-    patch('libiconv.patch', level=0, when='~cms') # -- CMS: not needed with libc iconv
+    patch('libiconv.patch', level=0, when='@1.7.2')
     # https://github.com/microsoft/onnxruntime/commit/de4089f8cbe0baffe56a363cc3a41595cc8f0809.patch
     patch('gcc11.patch', level=1, when='@1.7.2')
 
@@ -61,6 +64,7 @@ class PyOnnxRuntime(CMakePackage, PythonPackage):
 
     generator = 'Ninja'
     root_cmakelists_dir = 'cmake'
+    build_directory = '.'
 
     def setup_build_environment(self, env):
         value = self.spec.variants['dynamic_cpu_arch'].value
@@ -112,8 +116,4 @@ class PyOnnxRuntime(CMakePackage, PythonPackage):
 
     @run_after('install')
     def install_python(self):
-        args = ['-c', 'cd', self.build_directory, '&&', pip.command]
-        args.extend(PythonPackage._std_args(self))
-        args.append('--prefix=' + self.spec.prefix)
-        bash = which('bash')
-        bash(*args)
+        PythonPackage.install(self, self.spec, self.prefix)

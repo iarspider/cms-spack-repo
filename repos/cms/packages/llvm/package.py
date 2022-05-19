@@ -192,7 +192,11 @@ class Llvm(CMakePackage, CudaPackage):
         # Hack
         #python_platlib = join_path(self.prefix, self.spec['python'].package.platlib)
         # install_tree("llvm/bindings/python", python_platlib)
-        install_tree("clang/bindings/python", site_packages_dir)
+        BINDINGS_PATH = site_packages_dir.replace('/lib/', '/lib64')
+        PYTHONVERSION = self.spec['python'].version.up_to(2)
+        install_tree("clang/bindings/python", BINDINGS_PATH)
+        with open(join_path(BINDINGS_PATH, 'clang-{0}-py{1}.egg-info'.format(self.spec.version, PYTHONVERSION)), 'w') as f:
+            f.write('Metadata-Version: 1.1\nName: clang\nVersion: ' + str(self.spec.version))
 
         for fn in glob.glob(join_path(self.build_directory, 'clang', 'tools', 'scan-build', 'set-xcode*')):
             force_remove(fn)

@@ -64,11 +64,13 @@ class Gsl(AutotoolsPackage, GNUMirrorPackage):
 
         return configure_args
 
+    # CMS
     @run_after('install')
     def move_cblas(self):
         mkdirp(join_path(self.spec.prefix, 'cblas'))
         for fn in glob.glob(join_path(self.spec.prefix.lib, 'libgslcblas*')):
             shutil.move(fn, join_path(self.spec.prefix, 'cblas'))
 
-    def setup_run_environment(self, env):
+    # CMS
+    def setup_dependent_build_environment(self, env, dependent_spec):
         env.set('GSL_CBLAS_LIB', '-L{0} -lopenblas'.format(self.spec['openblas'].prefix.lib))

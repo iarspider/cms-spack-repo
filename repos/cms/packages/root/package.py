@@ -413,7 +413,13 @@ class Root(CMakePackage):
             define_from_variant('xft', 'x'),
             define_from_variant('xml'),
             define_from_variant('xrootd'),
-            define('tmva-pymva', True) # -- CMS hack
+            # -- CMS
+            define('tmva-pymva', True),
+            define('GSL_CBLAS_LIBRARY', spec['blas'].libs.joined()),
+            define('GSL_CBLAS_LIBRARY_DEBUG', spec['blas'].libs.joined()),
+            define('XROOTD_INCLUDE_DIR', spec['xrootd'].prefix.include.xrootd),
+            define('XROOTD_ROOT_DIR', spec['xrootd'].prefix)
+            # -- end CMS
         ]
 
         # Some special features
@@ -509,3 +515,8 @@ class Root(CMakePackage):
         env.prepend_path('PATH', self.prefix.bin)
         if "+rpath" not in self.spec:
             env.prepend_path('LD_LIBRARY_PATH', self.prefix.lib)
+
+    def flag_handler(self, name, flags):
+        if name in ['cflags', 'cxxflags', 'cppflags']:
+            flags.append('-D__ROOFIT_NOBANNER')
+        return (None, None, flags)

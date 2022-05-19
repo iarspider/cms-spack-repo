@@ -4,7 +4,6 @@
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
 from spack import *
-from spack.pkg.builtin.boost import Boost
 
 
 class Yoda(AutotoolsPackage):
@@ -71,7 +70,7 @@ class Yoda(AutotoolsPackage):
     # TODO: replace this with an explicit list of components of Boost,
     # for instance depends_on('boost +filesystem')
     # See https://github.com/spack/spack/pull/22303 for reference
-    depends_on(Boost.with_default_variants, when='@:1.6.0', type=('build', 'run'))
+    # depends_on(Boost.with_default_variants, when='@:1.6.0', type=('build', 'run'))
     depends_on('py-cython@0.18:', type='build', when='@:1.4.0')
     depends_on('py-cython@0.20:', type='build', when='@1.4.0:1.6.5')
     depends_on('py-cython@0.23.5:', type='build', when='@1.6.5:1.8.0')
