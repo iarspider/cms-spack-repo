@@ -37,6 +37,9 @@ class Cmsdist(Package):
         with open(join_path(xmldir, 'veccore.xml'), 'w') as f:
             f.write(tpl)
 
+        filter_file('export GCC_ROOT=.*',
+                    'export GCC_ROOT=' + os.path.dirname(os.path.dirname(self.compiler.cc)),
+                    join_path(prefix, 'scram-tools.file', 'tools', 'llvm', 'env.sh'))
 
     def install(self, spec, prefix):
         mkdir(prefix.join('scram-tools.file'))
