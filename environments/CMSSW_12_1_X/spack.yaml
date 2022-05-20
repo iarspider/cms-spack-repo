@@ -108,6 +108,9 @@ spack:
     libc:
       externals: [{spec: libc@1.0+iconv, prefix: /usr}]
       buildable: false
+    coreutils:
+      externals: [{spec: coreutils@0.83, prefix: /usr}]
+      buildable: false
     libiconv:
       buildable: false
     mesa:
@@ -270,7 +273,7 @@ spack:
   - openldap@2.4.49+client_only~sasl
   - openloops@2.1.2                   # 2.6.0 requires OpenSSL 1.1.1
   - openloops-process@2.1.2
-  - openmpi@4.1.3
+  - openmpi@4.1.3+cuda+cxx+cxx_exceptions~internal-hwloc~java~static fabrics=ucx
   - oracle-instant-client@19.11.0.0.0
   - oracleocci-abi-hack-cms
   - pacparser@1.3.8
