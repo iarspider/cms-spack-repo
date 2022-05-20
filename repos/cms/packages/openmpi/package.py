@@ -811,6 +811,9 @@ class Openmpi(AutotoolsPackage, CudaPackage):
             config_args.append(
                 '--with-wrapper-ldflags={0}'.format(' '.join(wrapper_ldflags)))
 
+        # -- CMS
+        config_args.extend(['--without-x', '--with-pic', '--with-gnu-ld', '--enable-openib-rdmacm-ibaddr'])
+
         return config_args
 
     @when('+wrapper-rpath')
