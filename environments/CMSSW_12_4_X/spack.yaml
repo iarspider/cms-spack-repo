@@ -131,7 +131,7 @@ spack:
   - benchmark@develop
   - bison@3.5
   - blackhat@0.9.9
-  - boost@1.78.0.cms~icu~atomic~container~context~coroutine~exception~graph~locale~log~math~random~wave+shared+multithreaded~debug+mpi+python+iostreams
+  - boost@1.78.0.cms~icu+atomic~container~context~coroutine+exception+graph+locale+log+math+random+wave+shared+multithreaded~debug+mpi+python+iostreams
   - bzip2@1.0.6
   - cascade@2.2.04
   - catch2@2.13.7
@@ -204,7 +204,7 @@ spack:
   - git@2.23.0~man~nls
   - glimpse@4.18.7-6
   - gmake@4.3~nls
-  - gmp@6.2.0+static
+  - gmp@6.2.0 libs=static
   - gnuplot@5.2.8~cairo~X~wx~gd~pbm~libcerf
   - go@1.16
   - py-gosam@2.1.1
@@ -260,7 +260,7 @@ spack:
   - meschach@1.2.pCMS1
   - millepede@04-11-01
   - mpc@1.1.0
-  - mpfr@4.0.2+static
+  - mpfr@4.0.2 libs=static
   - mxnet-predict@1.6.0
   - nasm@2.14.02
   - ninja@1.10.0
@@ -592,7 +592,7 @@ spack:
   - rdma-core@39.1
   - re2c@0.13.5
   - rivet@3.1.4 hepmc=2
-  - root@6.24.00.patches_cms_3c21b04+davix+fftw~fits~graphviz+gsl+math+minuit+mlp~mysql+opengl~postgres~pythia6~pythia8+python~qt4+root7+roofit~sqlite+ssl+tmva+tbb~vdt~veccore+x+xrootd+spectrum
+  - root@6.24.00.patches_cms_3c21b04+davix+fftw~fits~graphviz+gsl+math+minuit+mlp~mysql+opengl~postgres~pythia6~pythia8+python~qt4+root7+roofit~sqlite+ssl+tmva+tbb~vdt~veccore+x+xrootd+spectrum cxxstd=17
   - rust@1.57.0~rustfmt~analysis~clippy~src
   - scitokens-cpp@0.7.0
   - scons@4.3.0
@@ -609,7 +609,7 @@ spack:
   - tkonlinesw@4.2.0-1_gcc7
   - toprex@4.23
   - triton-inference-client@2.11.0+cuda
-  - ucx@1.12.0~static+shared+openmp+ucg+cma+thread_multiple+pic~java+cuda~rocm+gdrcopy+rc+ud+dc+mlx5-dv+ib-hw-tm+dm+rdmacm~knem~xpmem~examples
+  - ucx@1.12.0 libs=shared +openmp+ucg+cma+thread_multiple+pic~java+cuda~rocm+gdrcopy+rc+ud+dc+mlx5_dv+ib_hw_tm+dm+rdmacm~knem~xpmem~examples
     opt=3
   - util-linux-uuid@2.34
   - utm@utm_0.10.0
