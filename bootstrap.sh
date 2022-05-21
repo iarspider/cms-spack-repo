@@ -1,5 +1,5 @@
 #!/bin/bash
-SPACK_VERSION="v0.17.1"
+SPACK_VERSION="develop"
 SPACK_ENV_NAME=${SPACK_ENV_NAME:-CMSSW_12_1_X}
 ###############################################################################
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
@@ -31,12 +31,12 @@ echo "from spack.build_systems.cmsdata import CMSDataPackage" >> lib/spack/spack
 echo Copying backported recipes
 ##spack repo add --scope=site ${SCRIPT_DIR}/repos/backport
 find ${SCRIPT_DIR}/repos/backport/packages -maxdepth 1 -type 'd' -exec cp -r -f {} ${SCRIPT_DIR}/spack/var/spack/repos/builtin/packages \;
-echo Copying backported PythonPackage class
-cp ${SCRIPT_DIR}/build_systems/python.py lib/spack/spack/build_systems/
-cp ${SCRIPT_DIR}/develop/build_environment.py lib/spack/spack/build_environment.py
+##echo Copying backported PythonPackage class
+##cp ${SCRIPT_DIR}/build_systems/python.py lib/spack/spack/build_systems/
+##cp ${SCRIPT_DIR}/develop/build_environment.py lib/spack/spack/build_environment.py
 echo Copying patched CudaPackage class
 cp ${SCRIPT_DIR}/build_systems/cuda.py lib/spack/spack/build_systems/
-echo Initializing Spack
+#echo Initializing Spack
 #source share/spack/setup-env.sh
 echo Adding CMS repository
 bin/spack repo add --scope=site ${SCRIPT_DIR}/repos/cms
