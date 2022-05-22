@@ -102,9 +102,6 @@ spack:
     diffutils:
       externals: [{spec: diffutils@3.3, prefix: /usr}]
       buildable: false
-    libelf:
-      externals: [{spec: libelf@0.176, prefix: /usr}]
-      buildable: false
     libc:
       externals: [{spec: libc@1.0+iconv, prefix: /usr}]
       buildable: false
@@ -224,7 +221,7 @@ spack:
   - hls@2019.08
   - hydjet@1.9.1
   - hydjet2@2.4.3
-  - hwloc@2.4.0~cuda~nvml+libxml2~cairo~netloc+pci
+  - hwloc@2.4.0+cuda+nvml+libxml2~cairo~netloc+pci
   - igprof@5.9.16
   - intel-tbb@2021.3.0
   - intel-vtune@2018.0.2.525261
@@ -452,7 +449,7 @@ spack:
   - py-oauthlib@3.1.1~extras
   - py-onnx@1.8.1
   - py-onnxmltools@1.10.0
-  - py-onnx-runtime@1.10.0
+  - py-onnx-runtime@1.10.0+cuda
   - py-onnxconverter-common@1.9.0
   - py-opt-einsum@3.3.0
   - py-packaging@20.9  # NB: py-poetry
@@ -556,7 +553,7 @@ spack:
   - py-termcolor@1.1.0
   - py-terminado@0.12.1
   - py-testpath@0.6.0
-  - py-theano@1.0.5
+  - py-theano@1.0.5~cuda
   - py-threadpoolctl@3.0.0
   - py-toml@0.10.2
   - py-tomli@1.2.1
@@ -610,7 +607,7 @@ spack:
   - thepeg@2.2.2 hepmc=2
   - tkonlinesw@4.2.0-1_gcc7
   - toprex@4.23
-  - triton-inference-client@2.11.0
+  - triton-inference-client@2.11.0+cuda
   - ucx@1.12.0~static+shared+openmp+ucg+cma+thread_multiple+pic~java+cuda~rocm+gdrcopy+rc+ud+dc+mlx5-dv+ib-hw-tm+dm+rdmacm~knem~xpmem~examples
     opt=3
   - util-linux-uuid@2.34

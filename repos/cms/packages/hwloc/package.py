@@ -121,7 +121,7 @@ class Hwloc(AutotoolsPackage):
             # (Alternatively, we could require OpenCL as dependency.)
             "--disable-opencl",
             # -- CMS
-            "--disable-static", 
+            "--disable-static",
             "--enable-plugins=cuda,nvml",
             "--with-pic",
             "--with-gnu-ld",
@@ -140,3 +140,8 @@ class Hwloc(AutotoolsPackage):
         args.extend(self.enable_or_disable('shared'))
 
         return args
+
+    def flag_handler(self, name, flags):
+        if name in ['cflags', 'cxxflags', 'cppflags'] and self.spec.satisfies('+nvml'):
+            flags.append('-L{0}'.format(self.spec['cuda'].prefix.lib64.stubs))
+        return (None, None, flags)
