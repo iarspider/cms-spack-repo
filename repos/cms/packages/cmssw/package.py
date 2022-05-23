@@ -40,6 +40,7 @@ class Cmssw(ScramPackage):
 
         self.toolname = 'cmssw'
         self.toolconf = 'cmssw-tool-conf'
+        self.ignore_compile_errors = True
 
     def edit(self, spec, prefix):
         if '_COVERAGE_X' in str(spec.version):
@@ -96,3 +97,7 @@ class Cmssw(ScramPackage):
         spack_env.append_path('LD_LIBRARY_PATH', self.spec['llvm'].prefix.lib)
         spack_env.append_path(
             'LD_LIBRARY_PATH', self.spec['llvm'].prefix.lib64)
+
+    @run_after('install')
+    def my_abort(self):
+        raise InstallError('!! ABORTED !!')

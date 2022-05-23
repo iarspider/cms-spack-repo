@@ -43,6 +43,7 @@ class Cmsdist(Package):
             add_toolfile('veccore')
             add_toolfile('abseil-cpp')
             add_toolfile('c-ares')
+            add_toolfile('re2')
 
             filter_file('if grep VECGEOM_ROOT ${TOOL_ROOT}/etc/profile.d/dependencies-setup.sh >/dev/null 2>&1  ; then',
                         'if [ "x$GEANT4_HAS_VECGEOM" != "x" ]; then',
@@ -50,7 +51,7 @@ class Cmsdist(Package):
                                   'geant4', 'env.sh'),
                         string=True)
 
-            filter_file('</tool>', '  <use name="abseil-cpp"/>\n  <use name="ares-c"/>\n</tool>',
+            filter_file('</tool>', '  <use name="abseil-cpp"/>\n  <use name="ares-c"/>\n  <use name="re2"/>\n</tool>',
                         join_path(prefix, 'scram-tools.file', 'tools',
                                   'grpc', 'grpc.xml'),
                         string=True)
