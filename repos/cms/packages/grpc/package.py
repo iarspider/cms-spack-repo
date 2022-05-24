@@ -50,6 +50,7 @@ class Grpc(CMakePackage):
     depends_on('abseil-cpp', when='@1.27:')
     depends_on('re2+shared', when='@1.33.1:+shared')
     depends_on('re2', when='@1.33.1:')
+    depends_on('pcre')
 
     def cmake_args(self):
         args = [
