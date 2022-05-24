@@ -54,11 +54,11 @@ echo Start the installation
 # bin/spack env activate ${SPACK_ENV_NAME}
 # bin/spack -e ${SPACK_ENV_NAME} -d --show-cores=minimized concretize
 SPACK_MON_ARGS=""
-export SPACKMON_USER="cmsbuild"
-if [ ! -z ${SPACKMON_TOKEN} ]; then SPACK_MON_ARGS="--monitor --monitor-save-local --monitor-tags ${SPACK_ENV_NAME}"; export SPACKMON_TOKEN; fi;
-bin/spack --show-cores=minimized -e ${SPACK_ENV_NAME} -v install -j$CORES --fail-fast $SPACK_MON_ARGS
+#export SPACKMON_USER="cmsbuild"
+#if [ ! -z ${SPACKMON_TOKEN} ]; then SPACK_MON_ARGS="--monitor --monitor-save-local --monitor-tags ${SPACK_ENV_NAME}"; export SPACKMON_TOKEN; fi;
+bin/spack --show-cores=minimized -e ${SPACK_ENV_NAME} -v install --require-full-hash-match -j$CORES --fail-fast --no-cache $SPACK_MON_ARGS
 echo Upload monitor data
-if [ ! -z ${SPACKMON_TOKEN} ]; then retry 5 bin/spack monitor --monitor-host http://cms-spackmon.cern.ch/cms-spackmon --monitor-keep-going --monitor-tags ${SPACK_ENV_NAME} upload $WORKSPACE/monitor; fi;
+#if [ ! -z ${SPACKMON_TOKEN} ]; then retry 5 bin/spack monitor --monitor-host http://cms-spackmon.cern.ch/cms-spackmon --monitor-keep-going --monitor-tags ${SPACK_ENV_NAME} upload $WORKSPACE/monitor; fi;
 if [ ${UPLOAD_BUILDCACHE-x} = "true" ]; then
   echo Prepare mirror and buildcache
   bin/spack -e ${SPACK_ENV_NAME} mirror create -d $WORKSPACE/mirror --all --dependencies
@@ -66,6 +66,6 @@ if [ ${UPLOAD_BUILDCACHE-x} = "true" ]; then
   bin/spack -e ${SPACK_ENV_NAME} gpg publish -d $WORKSPACE/mirror --rebuild-index
   cd $WORKSPACE
   echo Upload mirror
-  rsync -e "ssh -o StrictHostKeyChecking=no -o GSSAPIAuthentication=yes -o GSSAPIDelegateCredentials=yes" --recursive --links --ignore-existing mirror/ cmsbuild@lxplus:/eos/user/r/razumov/www/CMS/mirror
+  rsync -e "ssh -o StrictHostKeyChecking=no -o GSSAPIAuthentication=yes -o GSSAPIDelegateCredentials=yes" --recursive --links --ignore-times --delete mirror/ cmsbuild@lxplus:/eos/user/r/razumov/www/CMS/mirror
 fi
 echo Done
