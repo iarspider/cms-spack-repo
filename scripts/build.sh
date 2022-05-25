@@ -56,12 +56,12 @@ echo Start the installation
 SPACK_MON_ARGS="--monitor --monitor-save-local"
 #export SPACKMON_USER="cmsbuild"
 #if [ ! -z ${SPACKMON_TOKEN} ]; then SPACK_MON_ARGS="--monitor --monitor-save-local --monitor-tags ${SPACK_ENV_NAME}"; export SPACKMON_TOKEN; fi;
-bin/spack --show-cores=minimized -e ${SPACK_ENV_NAME} -v install --require-full-hash-match -j$CORES --fail-fast $SPACK_MON_ARGS
+bin/spack -d --stacktrace --show-cores=minimized -e ${SPACK_ENV_NAME} -v install --require-full-hash-match -j$CORES --fail-fast $SPACK_MON_ARGS
 if [ $? -ne 0 ]; then
     echo Build falied, uploading monitor data
     cd $WORKSPACE
     tar -zcf monitor.tar.gz $WORKSPACE/monitor
-    scp monitor.tar.gz msbuild@lxplus:/eos/user/r/razumov/www/CMS
+    scp monitor.tar.gz cmsbuild@lxplus:/eos/user/r/razumov/www/CMS
     rm monitor.tar.gz
 fi
 #echo Upload monitor data
