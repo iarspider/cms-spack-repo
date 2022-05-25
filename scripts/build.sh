@@ -59,9 +59,8 @@ SPACK_MON_ARGS="--monitor --monitor-save-local"
 bin/spack --show-cores=minimized -e ${SPACK_ENV_NAME} install --show-log-on-error --require-full-hash-match -j$CORES --fail-fast $SPACK_MON_ARGS
 if [ $? -ne 0 ]; then
     echo Build falied, uploading monitor data
-    cd $WORKSPACE
-    tar -zcf monitor.tar.gz $WORKSPACE/monitor
-    scp monitor.tar.gz cmsbuild@lxplus:/eos/user/r/razumov/www/CMS
+    tar -zcf $WORKSPACE/monitor.tar.gz $WORKSPACE/monitor
+    scp $WORKSPACE/monitor.tar.gz cmsbuild@lxplus:/eos/user/r/razumov/www/CMS
     rm monitor.tar.gz
 fi
 #echo Upload monitor data
@@ -73,6 +72,6 @@ if [ ${UPLOAD_BUILDCACHE-x} = "true" ]; then
   bin/spack -e ${SPACK_ENV_NAME} gpg publish -d $WORKSPACE/mirror --rebuild-index
   cd $WORKSPACE
   echo Upload mirror
-  rsync -e "ssh -o StrictHostKeyChecking=no -o GSSAPIAuthentication=yes -o GSSAPIDelegateCredentials=yes" --recursive --links --ignore-times --ignore-existing mirror/ cmsbuild@lxplus:/eos/user/r/razumov/www/CMS/mirror
+  rsync -e "ssh -o StrictHostKeyChecking=no -o GSSAPIAuthentication=yes -o GSSAPIDelegateCredentials=yes" --recursive --links --ignore-times --ignore-existing $WORKSPACE/mirror cmsbuild@lxplus:/eos/user/r/razumov/www/CMS/mirror
 fi
 echo Done
