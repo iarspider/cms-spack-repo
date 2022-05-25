@@ -56,7 +56,7 @@ echo Start the installation
 SPACK_MON_ARGS="--monitor --monitor-save-local"
 #export SPACKMON_USER="cmsbuild"
 #if [ ! -z ${SPACKMON_TOKEN} ]; then SPACK_MON_ARGS="--monitor --monitor-save-local --monitor-tags ${SPACK_ENV_NAME}"; export SPACKMON_TOKEN; fi;
-bin/spack -d --stacktrace --show-cores=minimized -e ${SPACK_ENV_NAME} -v install --require-full-hash-match -j$CORES --fail-fast $SPACK_MON_ARGS
+bin/spack --show-cores=minimized -e ${SPACK_ENV_NAME} install --show-log-on-error --require-full-hash-match -j$CORES --fail-fast $SPACK_MON_ARGS
 if [ $? -ne 0 ]; then
     echo Build falied, uploading monitor data
     cd $WORKSPACE
