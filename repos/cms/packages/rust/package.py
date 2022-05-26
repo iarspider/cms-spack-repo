@@ -474,7 +474,7 @@ class Rust(Package):
                 )
 
     executables = ['^rustc$']
-    
+
     cargo_dir = ''
 
     @classmethod
@@ -654,6 +654,6 @@ sysconfdir = "etc"
             env.set('OPENSSL_NO_PKG_CONFIG', '1')
             env.set('OPENSSL_DIR', self.spec['openssl'].prefix)
             env.set('OPENSSL_LIB_DIR', self.spec['openssl'].prefix.lib64)
-        
-    def setup_run_environment(self, spec, prefix):
+
+    def setup_run_environment(self, env):
         env.set('CARGO_HOME', self.cargo_dir)
