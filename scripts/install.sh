@@ -26,10 +26,11 @@ bin/spack -e ${SPACK_ENV_NAME} install -j$CORES --fail-fast --cache-only
 if [[ ${SPACK_ENV_NAME} == CMSSW* ]]; then
     source share/spack/setup-env.sh
     spack env activate ${SPACK_ENV_NAME}
-    spack load root
-    root --version
-    spack unload root
-    spack load coral
-    python -c "import LCG"
-    spack unload coral
+    spack find -p root | grep cvmfs
+#    spack load root
+#    root --version
+#    spack unload
+#    spack load coral
+#    python -c "import LCG"
+#    spack unload coral
 fi
