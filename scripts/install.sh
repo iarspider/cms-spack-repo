@@ -15,22 +15,13 @@ export SPACK_USER_CACHE_PATH=$WORKSPACE
 echo Add signing key
 bin/spack buildcache keys --force --install --trust
 echo Set install root
-mkdir -p $WORKSPACE/install
-bin/spack config add "config:install_tree:root:$WORKSPACE/install"
+bin/spack config add "config:install_tree:root:/cvmfs/cms-ib.cern.ch/spack"
+mkdir -p /cvmfs/cms-ib.cern.ch/spack
 echo Start the installation
+cvmfs_server transaction cms-ib.cern.ch
 #spack env activate ${SPACK_ENV_NAME}
 # CMS post-install
-if [ -z ${RPM_INSTALL_PREFIX+x} ]; then export RPM_INSTALL_PREFIX=$WORKSPACE/root; fi
+if [ -z ${RPM_INSTALL_PREFIX+x} ]; then export RPM_INSTALL_PREFIX=/cvmfs/cms-ib.cern.ch/spack; fi
 bin/spack -e ${SPACK_ENV_NAME} install -j$CORES --fail-fast --cache-only
-# Tests
-if [[ ${SPACK_ENV_NAME} == CMSSW* ]]; then
-    source share/spack/setup-env.sh
-    spack env activate ${SPACK_ENV_NAME}
-    spack find -p root | grep cvmfs
-#    spack load root
-#    root --version
-#    spack unload
-#    spack load coral
-#    python -c "import LCG"
-#    spack unload coral
-fi
+if [$? -eq 0 ]; then echo Installation complete; cvmfs_server publish cms-ib.cern.ch; else echo "ERROR: Installation failed"; cvmfs_server abort cms-ib.cern.ch; fi
+
