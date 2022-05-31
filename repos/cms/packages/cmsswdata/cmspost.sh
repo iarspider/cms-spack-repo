@@ -4,17 +4,18 @@ directpkgreqs=""
 prefix=""
 ### END CONFIG
 
-echo "${BaseTool}_ROOT='$prefix'" > prefix/etc/profile.d/init.sh
-echo "set ${BaseTool}_ROOT='$prefix'" > prefix/etc/profile.d/init.csh
-echo "${BaseTool}_PKGREQUIRED='$directpkgreqs'" >> prefix/etc/profile.d/init.sh
-echo "set ${BaseTool}_PKGREQUIRED='$directpkgreqs'" >> prefix/etc/profile.d/init.csh
+mkdir -p prefix/etc/profile.d
+echo "${BaseTool}_ROOT='$prefix'" > $prefix/etc/profile.d/init.sh
+echo "${BaseTool}_PKGREQUIRED='$directpkgreqs'" >> $prefix/etc/profile.d/init.sh
+echo "set ${BaseTool}_ROOT='$prefix'" > $prefix/etc/profile.d/init.csh
+echo "set ${BaseTool}_PKGREQUIRED='$directpkgreqs'" >> $prefix/etc/profile.d/init.csh
 
 for DATA_PATH in $directpkgreqs; do
   PKG_DIR=$(echo $DATA_PATH | cut -d/ -f2)
   [ $(echo $PKG_DIR | grep '^data-' | wc -l) -eq 1 ] || continue
   PKG_DIR=$(echo $PKG_DIR | sed 's|^data-||;s|-|/|')
   SOURCE=$prefix/$DATA_PATH
-  DES_PATH=$(echo $DATA_PATH | cut -d/ -f1,2)/$(echo $DATA_PATH | cut -d/ -f3 | tr '-' '\n' | grep '^V[0-9][0-9]$\|^[0-9][0-9]$' | tr '\n' '-' | sed 's|-$||')
+  DES_PATH='cms'/$(echo $DATA_PATH | cut -d/ -f1)/$(echo $DATA_PATH | cut -d/ -f2 | tr '-' '\n' | grep '^V[0-9][0-9]$\|^[0-9][0-9]$' | tr '\n' '-' | sed 's|-$||')
   PKG_DATA=$(echo $PKG_DIR | cut -d/ -f1)
   if [ ! -e $RPM_INSTALL_PREFIX/share/$DES_PATH/$PKG_DIR ] ; then
     rm -rf $RPM_INSTALL_PREFIX/share/$DES_PATH

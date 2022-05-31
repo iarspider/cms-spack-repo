@@ -112,7 +112,7 @@ class Cmsswdata(BundlePackage):
     def install(self, spec, prefix):
         searchpath_xml = StringIO("")
         mkdirp(prefix.etc.join('scram.d'))
-        
+
         with open(join_path(prefix.etc.join('scram.d'), 'cmsswdata.xml'), 'w') as f:
             f.write(cmsswdata_xml.substitute({'v': str(spec.version), 'prefix': prefix}))
 
@@ -121,15 +121,20 @@ class Cmsswdata(BundlePackage):
 
             for pkg, pkgver in data_versions[str(spec.version)].items():
                 pack = pkg.replace('data-', '').replace('-', '/')
-                f.write(Template("    <flags CMSSW_DATA_PACKAGE=\"$pack=$toolver\"/>\n").substitute(pack=pack, toolver=pkgver))
-                searchpath_xml.write(Template("    <runtime name=\"CMSSW_SEARCH_PATH\" default=\"$prefix\" type=\"path\"/>\n").substitute(prefix=prefix))
+                f.write("      <flags CMSSW_DATA_PACKAGE=\"{pack}/{pkgver}\"/>\n")
+                searchpath_xml.write(f"    <runtime name=\"CMSSW_SEARCH_PATH\" default=\"{spec[pkg].prefix}\" type=\"path\"/>\n")
 
             f.write(searchpath_xml.getvalue())
             searchpath_xml.close()
             f.write("  </tool>\n")
-            
+
         install(join_path(os.path.dirname(__file__), 'cmspost.sh'), prefix)
         filter_file('BaseTool=""', 'BaseTool="CMSSW_DATA"', prefix.join('cmspost.sh'), backup=False, stop_at='## END CONFIG')
-        directpkgreqs = ' '.join('cms/'+k for k in data_versions[str(spec.version)].keys())
+        directpkgreqs = []
+        for k in data_versions[str(spec.version)]:
+            prefix = os.path.basename(spec[k].prefix.rstrip('/'))
+            hash = prefix.rsplit('-', 1)[1]
+# TODO            req = k + '/' + 
+        directpkgreqs = ' '.join(os.path.basename(spec[k].prefix.rstrip('/')) for k in data_versions[str(spec.version)])
         filter_file('directpkgreqs=""', 'directpkgreqs="' + directpkgreqs + '"', prefix.join('cmspost.sh'), backup=False, stop_at='## END CONFIG')
         filter_file('prefix=""', 'prefix=' + prefix, prefix.join('cmspost.sh'), backup=False, stop_at='## END CONFIG')

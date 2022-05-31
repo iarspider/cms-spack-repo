@@ -5,6 +5,7 @@
 
 from spack import *
 import os
+import shutil
 
 class CmsswOsenv(Package):
     """FIXME: Put a proper description of your package here."""
@@ -16,6 +17,7 @@ class CmsswOsenv(Package):
 
     def install(self, spec, prefix):
         mkdirp(prefix.common)
+        shutil.rmtree('.git')
         install_tree('.', prefix.common)
         install(join_path(os.path.dirname(__file__), 'cmspost.sh'), prefix)
         filter_file('^pkgname=.*', 'pkgname="'+os.path.basename(os.path.dirname(__file__))+'"', prefix.join('cmspost.sh'), backup=False, stop_at='## END CONFIG')
