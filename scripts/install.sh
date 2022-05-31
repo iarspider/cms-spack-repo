@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# if [ -z ${RPM_INSTALL_PREFIX+x} ]; then export RPM_INSTALL_PREFIX=/cvmfs/cms-ib.cern.ch/spack; fi
+if [[ "${RPM_INSTALL_PREFIX}" != /* ]]; then RPM_INSTALL_PREFIX=${WORKSPACE}/${RPM_INSTALL_PREFIX}; fi
+
 if [ `uname` == "Darwin" ]; then
 	CORES=`sysctl -n hw.ncpu`
 elif [ `uname` == "Linux" ]; then
@@ -15,13 +19,19 @@ export SPACK_USER_CACHE_PATH=$WORKSPACE
 echo Add signing key
 bin/spack buildcache keys --force --install --trust
 echo Set install root
-bin/spack config add "config:install_tree:root:/cvmfs/cms-ib.cern.ch/spack"
-mkdir -p /cvmfs/cms-ib.cern.ch/spack
+bin/spack config add "config:install_tree:root:${RPM_INSTALL_PREFIX}"
+mkdir -p ${RPM_INSTALL_PREFIX}
 echo Start the installation
-cvmfs_server transaction cms-ib.cern.ch
+if [[ "${RPM_INSTALL_PREFIX}" == /cvmfs* ]]; then cvmfs_server transaction cms-ib.cern.ch; fi
 #spack env activate ${SPACK_ENV_NAME}
 # CMS post-install
-if [ -z ${RPM_INSTALL_PREFIX+x} ]; then export RPM_INSTALL_PREFIX=/cvmfs/cms-ib.cern.ch/spack; fi
 bin/spack -e ${SPACK_ENV_NAME} install -j$CORES --fail-fast --cache-only
-if [$? -eq 0 ]; then echo Installation complete; cvmfs_server publish cms-ib.cern.ch; else echo "ERROR: Installation failed"; cvmfs_server abort cms-ib.cern.ch; fi
-
+if [$? -eq 0 ]; then
+    echo Installation complete
+    if [[ "${RPM_INSTALL_PREFIX}" == /cvmfs* ]]; then cvmfs_server publish cms-ib.cern.ch; fi
+else
+    echo "ERROR: Installation failed";
+    if [[ "${RPM_INSTALL_PREFIX}" == /cvmfs* ]]; then cvmfs_server abort cms-ib.cern.ch; fi
+fi
+# Simple test
+bin/spack -e ${SPACK_ENV_NAME} find -p cmssw
