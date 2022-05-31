@@ -122,7 +122,7 @@ class Cmsswdata(BundlePackage):
             for pkg, pkgver in data_versions[str(spec.version)].items():
                 pack = pkg.replace('data-', '').replace('-', '/')
                 f.write("      <flags CMSSW_DATA_PACKAGE=\"{pack}/{pkgver}\"/>\n")
-                searchpath_xml.write(f"    <runtime name=\"CMSSW_SEARCH_PATH\" default=\"{spec[pkg].prefix}\" type=\"path\"/>\n")
+                searchpath_xml.write(f"    <runtime name=\"CMSSW_SEARCH_PATH\" default=\"{spec[pkg.lower()].prefix}\" type=\"path\"/>\n")
 
             f.write(searchpath_xml.getvalue())
             searchpath_xml.close()
@@ -130,11 +130,25 @@ class Cmsswdata(BundlePackage):
 
         install(join_path(os.path.dirname(__file__), 'cmspost.sh'), prefix)
         filter_file('BaseTool=""', 'BaseTool="CMSSW_DATA"', prefix.join('cmspost.sh'), backup=False, stop_at='## END CONFIG')
-        directpkgreqs = []
-        for k in data_versions[str(spec.version)]:
-            prefix = os.path.basename(spec[k].prefix.rstrip('/'))
-            hash = prefix.rsplit('-', 1)[1]
-# TODO            req = k + '/' + 
-        directpkgreqs = ' '.join(os.path.basename(spec[k].prefix.rstrip('/')) for k in data_versions[str(spec.version)])
-        filter_file('directpkgreqs=""', 'directpkgreqs="' + directpkgreqs + '"', prefix.join('cmspost.sh'), backup=False, stop_at='## END CONFIG')
-        filter_file('prefix=""', 'prefix=' + prefix, prefix.join('cmspost.sh'), backup=False, stop_at='## END CONFIG')
+        lines = []
+        for k, v in data_versions[str(spec.version)].items():
+            des_path = f'cms/{k}/{v}'
+            pkg_dir = '{1}/{2}'.format(*(k.split('-')))
+            pkg_data = pkg_dir.split('/', 1)[0]
+            source = spec[k.lower()].prefix
+            lines.append(f'  if [ ! -e $RPM_INSTALL_PREFIX/share/{des_path}/{pkg_dir} ] ; then')
+            lines.append(f'    rm -rf $RPM_INSTALL_PREFIX/share/{des_path}')
+            lines.append(f'    mkdir -p $RPM_INSTALL_PREFIX/share/{des_path}')
+            lines.append(f'    if [ -L {source}/{pkg_data} ]; then')
+            lines.append(f'      ln -fs {source}/{pkg_data} $RPM_INSTALL_PREFIX/share/{des_path}/{pkg_dir}')
+            lines.append(f'    else')
+            lines.append(f'      echo Moving cms/{k}/{v} to share')
+            lines.append(f'      rsync -aq --no-t --size-only {source}/{pkg_data}/ $RPM_INSTALL_PREFIX/share/{des_path}/{pkg_data}')
+            lines.append(f'    fi')
+            lines.append(f'  fi')
+            lines.append(f'if [ ! -L {source}/{pkg_data} ] ; then')
+            lines.append(f'  rm -rf {source}/{pkg_data} && ln -fs $RPM_INSTALL_PREFIX/share/{des_path}/{pkg_data} {source}/{pkg_data}')
+            lines.append(f'fi')
+
+        with open(join_path(prefix, 'cmspost.sh'), 'a') as f:
+            f.write('\n'.join(lines))
