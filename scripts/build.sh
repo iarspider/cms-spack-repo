@@ -58,10 +58,10 @@ SPACK_MON_ARGS="--monitor --monitor-save-local"
 #if [ ! -z ${SPACKMON_TOKEN} ]; then SPACK_MON_ARGS="--monitor --monitor-save-local --monitor-tags ${SPACK_ENV_NAME}"; export SPACKMON_TOKEN; fi;
 bin/spack --show-cores=minimized -e ${SPACK_ENV_NAME} install --show-log-on-error --require-full-hash-match -j$CORES --fail-fast $SPACK_MON_ARGS
 if [ $? -ne 0 ]; then
-#    echo Build falied, uploading monitor data
-#    tar -zcf $WORKSPACE/monitor.tar.gz $WORKSPACE/monitor
-#    scp $WORKSPACE/monitor.tar.gz cmsbuild@lxplus:/eos/user/r/razumov/www/CMS
-#    rm monitor.tar.gz
+    echo Build falied, uploading monitor data
+    tar -zcf $WORKSPACE/monitor.tar.gz $WORKSPACE/monitor
+    scp $WORKSPACE/monitor.tar.gz cmsbuild@lxplus:/eos/user/r/razumov/www/CMS/mirror
+    rm monitor.tar.gz
     exit 1
 fi
 #echo Upload monitor data
