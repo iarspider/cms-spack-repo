@@ -177,7 +177,7 @@ class CmsswToolConf(ScramToolfilePackage, CudaPackage):
     depends_on('oracle-instant-client', when='platform=linux target=x86_64:')
     depends_on('intel-vtune', when='platform=linux target=x86_64:')
     depends_on('cmsmon-tools', when='platform=linux target=x86_64:')
-    # depends_on('dip', when='platform=linux target=x86_64:') # TODO: need access
+    depends_on('dip', when='platform=linux target=x86_64:')
 
     # TODO
     # depends_on('tkonlinesw-fake', when='platform=linux target=aarch64:')

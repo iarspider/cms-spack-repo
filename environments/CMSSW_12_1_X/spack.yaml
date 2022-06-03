@@ -164,6 +164,7 @@ spack:
   - dasgoclient@v02.04.46
   - davix@0.7.6
   - dd4hep@1.19x+xercesc+geant4units~edm4hep
+  - dip@8693f00cc422b4a15858fcd84249acaeb07b6316
   - dmtcp@3.0.0-dev                          # CMS: +geant4 is set internally to build static version of ddg4
   - dwz@0.14-patches
   - eigen@3.4.90
