@@ -16,9 +16,9 @@ class Dip(CMakePackage):
     homepage = "https://www.example.com"
     # FIXME: git
     # git      = "ssh://git@gitlab.cern.ch:7999/industrial-controls/services/dip-hq/dip.git"
-    manual_download = True
+    # manual_download = True
     keep_archives = True
-    url = 'file://{0}/dip-8693f00cc422b4a15858fcd84249acaeb07b6316.tgz'.format(os.getcwd())
+    url = 'https://cmsrep.cern.ch/cmssw/download/dip/8693f00cc422b4a15858fcd84249acaeb07b6316/dip-8693f00cc422b4a15858fcd84249acaeb07b6316.tgz'
 
     #FIXME: git
     version('8693f00cc422b4a15858fcd84249acaeb07b6316', sha256='bac54edf593de5b4dfabd8f9f26cb67e4bf552329a258da22b08f230259a78f6')
@@ -28,7 +28,7 @@ class Dip(CMakePackage):
              # FIXME: git
              # git='ssh://git@gitlab.cern.ch:7999/industrial-controls/services/dip-hq/platform-dependent.git',
              # commit='f41e221f8fb95830fc001dad975b4db770f5d29d',
-             url='file://{0}/platform-dependent-{1}.tgz'.format(os.getcwd(), platform_tag),
+             url='https://cmsrep.cern.ch/cmssw/download/dip/8693f00cc422b4a15858fcd84249acaeb07b6316/platform-dependent-f41e221f8fb95830fc001dad975b4db770f5d29d.tgz'),
              dest='platform-dependent',
              sha256='2e5baaf7689b0aa0bcf5b067c6e386aeaf7fbbbb454dd0cb7e73d56bdf970611')
 
