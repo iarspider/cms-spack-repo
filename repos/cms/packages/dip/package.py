@@ -2,6 +2,7 @@
 # Spack Project Developers. See the top-level COPYRIGHT file for details.
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
+import inspect
 import os
 import shutil
 
@@ -15,7 +16,7 @@ class Dip(CMakePackage):
     """Put a proper description of your package here."""
 
     homepage = "https://www.example.com"
-    git      = "ssh://git@gitlab.cern.ch:7999/industrial-controls/services/dip-hq/dip.git"
+    # git      = "ssh://git@gitlab.cern.ch:7999/industrial-controls/services/dip-hq/dip.git"
     keep_archives = True
     url = 'https://cmsrep.cern.ch/cmssw/download/dip/8693f00cc422b4a15858fcd84249acaeb07b6316/dip-8693f00cc422b4a15858fcd84249acaeb07b6316.tgz'
 
@@ -27,14 +28,14 @@ class Dip(CMakePackage):
              sha256='2e5baaf7689b0aa0bcf5b067c6e386aeaf7fbbbb454dd0cb7e73d56bdf970611')
 
     keep_archives = True
-    depends_on('log4cpp')
-    
+    depends_on('log4cplus')
+
     cms_stage = 1
-    
+
     @property
     def root_cmakelists_dir(self):
         return 'platform-dependent' if self.cms_stage == 1 else self.stage.source_path
-        
+
     @property
     def build_directory(self):
         return 'build/platform-dependent' if self.cms_stage == 1 else 'build/dip'
@@ -48,14 +49,14 @@ class Dip(CMakePackage):
         f.filter('log4cplus', 'log4cplusS')
 
     def flag_handler(self, name, flags):
-        if name in ['cflags', 'cxxflags', 'cppflags']:
+        if name == 'cxxflags':
             flags.append('-I' + self.spec.prefix.include)
-            return (None, flags, None)
-        elif name == 'ldflags':
-            flags.append('-I' + self.spec.prefix.lib)
-            return (None, flags, None)
+            flags.append('-I' + self.spec['log4cplus'].prefix.include)
+            flags.append('-L' + self.spec['log4cplus'].prefix.lib64)
+            flags.append('-L' + self.spec.prefix.lib)
+            return (None, None, flags)
 
-        return (flags, None, None)
+        return (None, flags, None)
 
     @run_after('install')
     def stage_two(self):
