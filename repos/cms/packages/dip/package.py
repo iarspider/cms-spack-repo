@@ -8,33 +8,36 @@ import shutil
 from spack import *
 
 
-platform_tag = 'f41e221f8fb95830fc001dad975b4db770f5d29d'
+# platform_tag = 'f41e221f8fb95830fc001dad975b4db770f5d29d'
+# NB: URL must point to cmsrep for now, unitl access to git is fixed
 
 class Dip(CMakePackage):
     """Put a proper description of your package here."""
 
     homepage = "https://www.example.com"
-    # FIXME: git
-    # git      = "ssh://git@gitlab.cern.ch:7999/industrial-controls/services/dip-hq/dip.git"
-    # manual_download = True
+    git      = "ssh://git@gitlab.cern.ch:7999/industrial-controls/services/dip-hq/dip.git"
     keep_archives = True
     url = 'https://cmsrep.cern.ch/cmssw/download/dip/8693f00cc422b4a15858fcd84249acaeb07b6316/dip-8693f00cc422b4a15858fcd84249acaeb07b6316.tgz'
 
-    #FIXME: git
     version('8693f00cc422b4a15858fcd84249acaeb07b6316', sha256='bac54edf593de5b4dfabd8f9f26cb67e4bf552329a258da22b08f230259a78f6')
-    #, commit='8693f00cc422b4a15858fcd84249acaeb07b6316')
 
     resource(name='platform',
-             # FIXME: git
-             # git='ssh://git@gitlab.cern.ch:7999/industrial-controls/services/dip-hq/platform-dependent.git',
-             # commit='f41e221f8fb95830fc001dad975b4db770f5d29d',
              url='https://cmsrep.cern.ch/cmssw/download/dip/8693f00cc422b4a15858fcd84249acaeb07b6316/platform-dependent-f41e221f8fb95830fc001dad975b4db770f5d29d.tgz',
              dest='platform-dependent',
              sha256='2e5baaf7689b0aa0bcf5b067c6e386aeaf7fbbbb454dd0cb7e73d56bdf970611')
 
     keep_archives = True
     depends_on('log4cpp')
-    root_cmakelists_dir = 'platform-dependent'
+    
+    cms_stage = 1
+    
+    @property
+    def root_cmakelists_dir(self):
+        return 'platform-dependent' if self.cms_stage == 1 else self.stage.source_path
+        
+    @property
+    def build_directory(self):
+        return 'build/platform-dependent' if self.cms_stage == 1 else 'build/dip'
 
     def patch(self):
         sed = which('sed')
@@ -44,7 +47,41 @@ class Dip(CMakePackage):
         f.filter('CONAN_PKG::', '')
         f.filter('log4cplus', 'log4cplusS')
 
+    def flag_handler(self, name, flags):
+        if name in ['cflags', 'cxxflags', 'cppflags']:
+            flags.append('-I' + self.spec.prefix.include)
+            return (None, flags, None)
+        elif name == 'ldflags':
+            flags.append('-I' + self.spec.prefix.lib)
+            return (None, flags, None)
+
+        return (flags, None, None)
+
     @run_after('install')
-    def post_install(self):
+    def stage_two(self):
+        spec = self.spec
         prefix = self.spec.prefix
+        self.cms_stage = 2
+
+        options = self.std_cmake_args
+        options += self.cmake_args()
+        options.append(os.path.abspath(self.root_cmakelists_dir))
+        with working_dir(self.build_directory, create=True):
+            inspect.getmodule(self).cmake(*options)
+
+        # build stage
+        with working_dir(self.build_directory):
+            if self.generator == 'Unix Makefiles':
+                inspect.getmodule(self).make(*self.build_targets)
+            elif self.generator == 'Ninja':
+                self.build_targets.append("-v")
+                inspect.getmodule(self).ninja(*self.build_targets)
+
+        # install stage
+        with working_dir(self.build_directory):
+            if self.generator == 'Unix Makefiles':
+                inspect.getmodule(self).make(*self.install_targets)
+            elif self.generator == 'Ninja':
+                inspect.getmodule(self).ninja(*self.install_targets)
+
         shutil.rmtree(join_path(prefix, 'lib', 'cmake'))
