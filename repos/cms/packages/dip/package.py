@@ -28,7 +28,7 @@ class Dip(CMakePackage):
              # FIXME: git
              # git='ssh://git@gitlab.cern.ch:7999/industrial-controls/services/dip-hq/platform-dependent.git',
              # commit='f41e221f8fb95830fc001dad975b4db770f5d29d',
-             url='https://cmsrep.cern.ch/cmssw/download/dip/8693f00cc422b4a15858fcd84249acaeb07b6316/platform-dependent-f41e221f8fb95830fc001dad975b4db770f5d29d.tgz'),
+             url='https://cmsrep.cern.ch/cmssw/download/dip/8693f00cc422b4a15858fcd84249acaeb07b6316/platform-dependent-f41e221f8fb95830fc001dad975b4db770f5d29d.tgz',
              dest='platform-dependent',
              sha256='2e5baaf7689b0aa0bcf5b067c6e386aeaf7fbbbb454dd0cb7e73d56bdf970611')
 
