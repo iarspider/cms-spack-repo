@@ -13,7 +13,7 @@ spack:
       buildable: true
       compiler: [gcc@9.3.0]
       target:
-      - prescott
+      - broadwell
       version: []
       variants: [cxxstd=17, build_type=Release, +cms, 'cuda_arch=60,70,75']
       providers:
