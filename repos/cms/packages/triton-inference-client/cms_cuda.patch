@@ -1,0 +1,10 @@
+--- client/src/c++/library/ipc.h.orig	2022-03-10 12:05:40.865192600 +0100
++++ client/src/c++/library/ipc.h	2022-03-10 13:16:20.857043100 +0100
+@@ -25,6 +25,7 @@
+ // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ #pragma once
+ 
++#define TRITON_ENABLE_GPU
+ #ifdef TRITON_ENABLE_GPU
+ #include <cuda_runtime_api.h>
+ #else

@@ -1,0 +1,19 @@
+if ( -f {pkginstroot}/etc/profile.d/dependencies-setup.csh ) source {pkginstroot}/etc/profile.d/dependencies-setup.csh; endif
+set CORAL_ROOT="{pkginstroot}"
+set CORAL_VERSION="{pkgversion}"
+set CORAL_REVISION="1"
+set CORAL_CATEGORY="cms"
+if ( -d {pkginstroot}/bin ) then
+  if ( ${{?PATH}} ) then
+    setenv PATH "{pkginstroot}/bin:$PATH"
+  else
+    setenv PATH "{pkginstroot}/bin"
+  endif
+endif
+if ( -d {pkginstroot}/lib ) then
+  if ( ${{?{dynamic_path_var}}} ) then
+    setenv {dynamic_path_var} "{pkginstroot}/lib:${dynamic_path_var}"
+  else
+    setenv {dynamic_path_var} "{pkginstroot}/lib"
+  endif
+endif

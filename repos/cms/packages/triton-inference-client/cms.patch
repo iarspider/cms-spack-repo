@@ -1,0 +1,228 @@
+--- client/src/c++/CMakeLists.txt.orig	2022-03-10 12:05:51.754065200 +0100
++++ client/src/c++/CMakeLists.txt	2022-03-10 12:14:01.033369800 +0100
+@@ -67,7 +67,6 @@
+     GIT_TAG ${TRITON_CORE_REPO_TAG}
+     GIT_SHALLOW ON 
+   ) 
+-  FetchContent_MakeAvailable(repo-core)
+ endif() # TRITON_ENABLE_CC_GRPC OR TRITON_ENABLE_PERF_ANALYZER
+ 
+ FetchContent_MakeAvailable(repo-common)
+--- client/src/c++/library/CMakeLists.txt.orig	2022-03-10 12:05:40.859118400 +0100
++++ client/src/c++/library/CMakeLists.txt	2022-03-10 12:08:58.818150900 +0100
+@@ -45,20 +45,6 @@
+ #
+ # json_utils
+ #
+-find_package(RapidJSON CONFIG REQUIRED)
+-add_library(
+-    json-utils-library EXCLUDE_FROM_ALL OBJECT
+-    json_utils.h json_utils.cc
+-)
+-target_include_directories(
+-  json-utils-library
+-  PUBLIC ${RapidJSON_INCLUDE_DIRS}
+-)
+-target_link_libraries(
+-  json-utils-library
+-  PRIVATE:
+-    client-common-library
+-)
+ 
+ #
+ # shm_utils
+@@ -82,12 +68,12 @@
+   # libgrpcclient object build
+   set(
+       REQUEST_SRCS
+-      grpc_client.cc common.cc
++      grpc_client.cc common.cc model_config.cc
+   )
+ 
+   set(
+       REQUEST_HDRS
+-      grpc_client.h common.h ipc.h
++      grpc_client.h common.h model_config.h ipc.h
+   )
+ 
+   add_library(
+@@ -102,7 +88,6 @@
+   target_link_libraries(
+     grpc-client-library
+     PUBLIC
+-      triton-common-json        # from repo-common
+   )
+ 
+   # libgrpcclient_static.a
+@@ -126,7 +111,6 @@
+       grpcclient_static
+       PRIVATE gRPC::grpc++
+       PRIVATE gRPC::grpc
+-      PRIVATE triton-common-json
+       PUBLIC protobuf::libprotobuf
+       PUBLIC Threads::Threads
+   )
+@@ -143,19 +127,12 @@
+   )
+ 
+   if (NOT WIN32)
+-     set_target_properties(
+-       grpcclient
+-       PROPERTIES
+-         LINK_DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/libgrpcclient.ldscript
+-         LINK_FLAGS "-Wl,--version-script=libgrpcclient.ldscript"
+-     )
+   endif() # NOT WIN32
+ 
+   target_link_libraries(
+       grpcclient
+       PRIVATE gRPC::grpc++
+       PRIVATE gRPC::grpc
+-      PRIVATE triton-common-json
+       PUBLIC protobuf::libprotobuf
+       PUBLIC Threads::Threads
+   )
+@@ -169,12 +146,6 @@
+       $<$<CXX_COMPILER_ID:MSVC>:/W4 /D_WIN32_WINNT=0x0A00 /EHsc>
+     )
+ 
+-    set_target_properties(
+-      ${_client_target}
+-      PROPERTIES
+-        POSITION_INDEPENDENT_CODE ON
+-    )
+-
+     target_include_directories(
+       ${_client_target}
+       PUBLIC
+@@ -204,10 +175,6 @@
+   if (NOT WIN32)
+     install(
+       DIRECTORY
+-        ${CMAKE_CURRENT_BINARY_DIR}/../../_deps/repo-third-party-build/curl/src/curl-build/lib/
+-        ${CMAKE_CURRENT_BINARY_DIR}/../../_deps/repo-third-party-build/grpc/src/grpc-build/
+-        ${CMAKE_CURRENT_BINARY_DIR}/../../_deps/repo-third-party-build/protobuf/src/protobuf-build/
+-        ${CMAKE_CURRENT_BINARY_DIR}/../../_deps/repo-third-party-build/c-ares/src/c-ares-build/lib/
+       DESTINATION ${CMAKE_INSTALL_LIBDIR}
+       FILES_MATCHING
+         PATTERN "*\.a"
+@@ -220,10 +187,6 @@
+   else()
+     install(
+       DIRECTORY
+-        ${CMAKE_CURRENT_BINARY_DIR}/../../_deps/repo-third-party-build/curl/src/curl-build/lib
+-        ${CMAKE_CURRENT_BINARY_DIR}/../../_deps/repo-third-party-build/grpc/src/grpc-build
+-        ${CMAKE_CURRENT_BINARY_DIR}/../../_deps/repo-third-party-build/protobuf/src/protobuf-build
+-        ${CMAKE_CURRENT_BINARY_DIR}/../../_deps/repo-third-party-build/c-ares/src/c-ares-build/lib
+       DESTINATION ${CMAKE_INSTALL_LIBDIR}
+       FILES_MATCHING
+         PATTERN "*\.lib"
+@@ -237,8 +200,6 @@
+ 
+   install(
+     DIRECTORY
+-      ${CMAKE_CURRENT_BINARY_DIR}/../../third-party/grpc/include/
+-      ${CMAKE_CURRENT_BINARY_DIR}/../../third-party/protobuf/include/
+       DESTINATION include
+   )
+ 
+@@ -279,7 +240,6 @@
+   target_link_libraries(
+     http-client-library
+     PUBLIC
+-      triton-common-json        # from repo-common
+   )
+ 
+   # libhttpclient_static.a
+@@ -293,7 +253,6 @@
+ 
+   target_link_libraries(
+       httpclient_static
+-      PRIVATE triton-common-json
+       PRIVATE CURL::libcurl
+       PUBLIC Threads::Threads
+   )
+@@ -308,17 +267,10 @@
+   )
+ 
+   if (NOT WIN32)
+-     set_target_properties(
+-       httpclient
+-       PROPERTIES
+-         LINK_DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/libhttpclient.ldscript
+-         LINK_FLAGS "-Wl,--version-script=libhttpclient.ldscript"
+-     )
+   endif() # NOT WIN32
+ 
+   target_link_libraries(
+       httpclient
+-      PRIVATE triton-common-json
+       PRIVATE CURL::libcurl
+       PUBLIC Threads::Threads
+   )
+@@ -332,12 +284,6 @@
+       $<$<CXX_COMPILER_ID:MSVC>:/W4 /D_WIN32_WINNT=0x0A00 /EHsc>
+     )
+ 
+-    set_target_properties(
+-      ${_client_target}
+-      PROPERTIES
+-        POSITION_INDEPENDENT_CODE ON
+-    )
+-
+     target_include_directories(
+       ${_client_target}
+       PUBLIC
+@@ -378,6 +324,7 @@
+   install(
+       FILES
+       ${CMAKE_CURRENT_SOURCE_DIR}/common.h
++${CMAKE_CURRENT_SOURCE_DIR}/model_config.h
+       ${CMAKE_CURRENT_SOURCE_DIR}/ipc.h
+       DESTINATION include
+   )
+--- client/repo-common/CMakeLists.txt.orig	2022-03-10 12:16:29.676000500 +0100
++++ client/repo-common/CMakeLists.txt	2022-03-10 12:17:09.136949500 +0100
+@@ -37,8 +37,6 @@
+ option(TRITON_COMMON_ENABLE_PROTOBUF "Build protobuf artifacts" OFF)
+ option(TRITON_COMMON_ENABLE_GRPC "Build grpc artifacts" OFF)
+ 
+-find_package(RapidJSON CONFIG REQUIRED)
+-message(STATUS "RapidJSON found. Headers: ${RAPIDJSON_INCLUDE_DIRS}")
+ 
+ if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+   message("Using MSVC as compiler, default target on Windows 10. "
+@@ -122,24 +120,6 @@
+ target_link_libraries(triton-common-async-work-queue PRIVATE common-compile-settings)
+ 
+ #
+-# JSON utilities
+-#
+-add_library(
+-  triton-common-json INTERFACE
+-)
+-
+-add_library(
+-  TritonCommon::triton-common-json ALIAS triton-common-json
+-)
+-
+-target_include_directories(
+-  triton-common-json
+-  INTERFACE
+-    $<INSTALL_INTERFACE:include>
+-    $<INSTALL_INTERFACE:${RAPIDJSON_INCLUDE_DIRS}>
+-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+-    $<BUILD_INTERFACE:${RAPIDJSON_INCLUDE_DIRS}>
+-)
+ 
+ #
+ # Table Printer
+@@ -209,7 +189,6 @@
+     triton-common-async-work-queue
+     triton-common-error
+     triton-common-sync-queue
+-    triton-common-json
+     triton-common-table-printer
+     common-compile-settings
+   EXPORT
+

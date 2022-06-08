@@ -1,0 +1,19 @@
+# Copyright 2013-2022 Lawrence Livermore National Security, LLC and other
+# Spack Project Developers. See the top-level COPYRIGHT file for details.
+#
+# SPDX-License-Identifier: (Apache-2.0 OR MIT)
+
+from spack import *
+
+
+class Hydjet(CMakePackage):
+    """Hydjet Monte-Carlo generator"""
+
+    homepage = "https://www.example.com"
+    url      = "http://cern.ch/lokhtin/hydro/hydjet-1.9.1.tar.gz"
+
+    depends_on('pyquen')
+    depends_on('pythia6')
+    depends_on('lhapdf')
+
+    version('1.9.1', sha256='902ffc19825b4d19edf3c8751456db9cee113d855096112b13d29f5129d203eb')
