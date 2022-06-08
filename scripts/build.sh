@@ -46,7 +46,6 @@ export S3_ENDPOINT_URL=https://s3.cern.ch
 export SPACK_DISABLE_LOCAL_CONFIG=true
 export SPACK_USER_CACHE_PATH=$WORKSPACE
 cd spack
-source share/spack/setup-env.sh 
 echo Add signing key
 if [ ! -z ${SPACK_GPG_KEY+x} ]; then
   if [ -e ${SPACK_GPG_KEY} ]; then

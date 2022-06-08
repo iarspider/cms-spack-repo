@@ -1,1 +1,0 @@
-Use CMS fork; remove patches
