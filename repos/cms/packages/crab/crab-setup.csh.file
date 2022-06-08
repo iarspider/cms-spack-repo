@@ -1,0 +1,27 @@
+#!/bin/tcsh
+#CMSDIST_FILE_REVISION=2
+setenv CRABCLIENT_TYPE ""
+switch ("X$1Y")
+  case XprodY:
+  case XpreY:
+  case XdevY:
+    setenv CRABCLIENT_TYPE "$1"
+    breaksw
+  case XY:
+    setenv CRABCLIENT_TYPE "prod"
+    breaksw
+  default:
+    echo "ERROR: Invalid CRAB type '$1' provided. Valid values are prod, pre and dev."
+    echo "Usage: $0 [prod|pre|dev]"
+    breaksw
+endsw
+if (${?CRABCLIENT_TYPE}) then
+  set crab_shared_dir="@CMS_PATH@/share/cms/crab/@CRAB_COMMON_VERSION@"
+  if (${?PYTHONPATH}) then
+    setenv PYTHONPATH "${crab_shared_dir}/lib/${CRABCLIENT_TYPE}:$PYTHONPATH"
+  else
+    setenv PYTHONPATH "${crab_shared_dir}/lib/${CRABCLIENT_TYPE}"
+  endif
+  unset crab_shared_dir
+endif
+setenv DBS3_CLIENT_ROOT `python -c 'from CRABClient import CRABInstallationPath as p; print(p)'`

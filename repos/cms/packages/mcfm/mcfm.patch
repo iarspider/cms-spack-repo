@@ -1,0 +1,59 @@
+diff --git a/QCDLoop/ff/makefile b/QCDLoop/ff/makefile
+index 6835a0c..61e97d7 100644
+--- a/QCDLoop/ff/makefile
++++ b/QCDLoop/ff/makefile
+@@ -1,5 +1,5 @@
+ FC            = gfortran 
+-FFLAGS        = 
++FFLAGS        = -std=legacy  
+ 
+ LFLAGS	      = $(FFLAGS)
+ 
+diff --git a/QCDLoop/makefile b/QCDLoop/makefile
+index a2a05a8..6e6fd6b 100644
+--- a/QCDLoop/makefile
++++ b/QCDLoop/makefile
+@@ -1,5 +1,5 @@
+ FC = gfortran
+-FFLAGS =  
++FFLAGS = -std=legacy   
+ HERE   = $(PWD)
+ QLDIR  = $(HERE)/ql
+ FFDIR  = $(HERE)/ff
+@@ -11,7 +11,7 @@ TEST= \
+ test.o 
+ 
+ .f.o:	
+-		$(FC) $(F77FLAGS) -c $*.f
++		$(FC) $(FFLAGS) -c $*.f
+ 
+ 
+ # -----------------------------------------------------------------------------
+diff --git a/QCDLoop/ql/makefile b/QCDLoop/ql/makefile
+index 5e1d025..268c93c 100644
+--- a/QCDLoop/ql/makefile
++++ b/QCDLoop/ql/makefile
+@@ -1,5 +1,5 @@
+ FC = gfortran
+-FFLAGS 	= 
++FFLAGS 	= -std=legacy  
+ HERE = $(PWD)
+ LIBDIR = $(HERE)/../ff/
+ LIBRARY	      = libqcdloop.a
+diff --git a/makefile b/makefile
+index e9fd764..4faf8dc 100644
+--- a/makefile
++++ b/makefile
+@@ -28,10 +28,10 @@ PDFROUTINES = NATIVE
+ NTUPLES = NO
+ 
+ FC = gfortran
+-FFLAGS 	= -fno-automatic -fPIC -DPIC -O0 -I$(INCPATH) -Iobj
++FFLAGS 	= -std=legacy  -fno-automatic -fPIC -DPIC -O0 -I$(INCPATH) -Iobj
+ 
+ F90 = gfortran
+-F90FLAGS = -fno-automatic -fno-f2c -O2 -I$(INCPATH) -Iobj -Jobj
++F90FLAGS = -std=legacy -fno-automatic -fno-f2c -O2 -I$(INCPATH) -Iobj -Jobj
+ 
+ 
+ # If using FROOT package for ROOT ntuples, first specify C++ compiler:
