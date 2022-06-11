@@ -628,3 +628,4 @@ spack:
   - zlib@1.2.11.cms+optimize
   - zstd@1.4.5+shared~static~programs~legacy
   - cmsdist@12.4.0.pre3
+  - patchelf
