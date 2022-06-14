@@ -7,6 +7,18 @@
 #   - py-tensorflow-estimator@2.6.0 -> part of tf
 #   - py-rep@0.6.6
 spack:
+  install_tree:
+    padded_length: 128
+    allow_sgid: False
+    shared_linking: runpath
+    projections:
+      all: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}-${HASH}
+    build_stage::
+      $spack/stage
+    test_stage::
+      $spack/test_stage
+    misc_cache::
+      $spack/cache
   concretization: together
   packages:
     all:
