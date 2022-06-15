@@ -5,7 +5,7 @@ from spack.pkg.builtin.freetype import Freetype as BuiltinFreetype
 class Freetype(BuiltinFreetype):
     __doc__ = BuiltinFreetype.__doc__
 
-   strip_files = ['lib']
+    strip_files = ['lib']
 
     # -- CMS
     @run_after('install')

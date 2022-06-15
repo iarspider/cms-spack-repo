@@ -8,6 +8,6 @@ class Clhep(BuiltinClhep):
     def patch(self):
         return
 
-    @BuiltinClhep.root_cmakelists_dir.getter
+    @property
     def root_cmakelists_dir(self):
         return self.stage.source_path

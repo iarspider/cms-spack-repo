@@ -16,5 +16,5 @@ class Hwloc(BuiltinHwloc):
             "--with-pic",
             "--with-gnu-ld",
             "--without-x"))
-         return args
+        return args
 
