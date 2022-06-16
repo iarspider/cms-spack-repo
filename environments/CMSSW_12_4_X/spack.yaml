@@ -283,7 +283,7 @@ spack:
   - openldap@2.4.49+client_only~sasl
   - openloops@2.1.2                   # 2.6.0 requires OpenSSL 1.1.1
   - openloops-process@2.1.2
-  - openmpi@4.1.3+cuda+cxx+cxx_exceptions~internal-hwloc~java~static fabrics=ucx
+  - "openmpi@4.1.3+cuda+cxx+cxx_exceptions~internal-hwloc~java~static fabrics=verbs,xpmem,ucx,cma"
   - oracle-instant-client@19.11.0.0.0
   - oracleocci-abi-hack-cms
   - pacparser@1.3.8
@@ -638,5 +638,5 @@ spack:
   - yaml-cpp@0.7.0+shared
   - yoda@1.9.0+root
   - zlib@1.2.11.cms+optimize
-  - zstd@1.4.5+shared~static~programs~legacy
+  - zstd@1.4.5 libs=shared ~programs~legacy
   - cmsdist@12.4.0.pre3
