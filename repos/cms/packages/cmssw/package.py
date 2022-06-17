@@ -18,7 +18,7 @@ class Cmssw(ScramPackage):
 
     # variant('queue', default='', values=('', 'COVERAGE', 'EXPERIMENTAL', 'DBG', 'CMSDEPRECATED', 'FORTIFIED', 'UBSAN', 'ICC', 'CLANG', 'CXXMODULE'))
 
-    version('CMSSW_12.4.0.pre3', tag='CMSSW_12_4_0_pre3')
+    version('CMSSW_12_4_0_pre3', tag='CMSSW_12_4_0_pre3')
 
     depends_on('scram')
     depends_on('cmssw-tool-conf')

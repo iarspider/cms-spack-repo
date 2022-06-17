@@ -66,8 +66,8 @@ class Llvm(CMakePackage, CudaPackage):
     depends_on('zlib')
     depends_on('cuda', when='+cuda')
 
-    variant('cuda', default=False)
-    variant('cuda_arch', default='foo')
+#    variant('cuda', default=False)
+#    variant('cuda_arch', default='foo')
     variant('clang', default=True) # dummy
     variant('flang', default=False) # dummy
     variant('shared_libs', default=True) # dummy
