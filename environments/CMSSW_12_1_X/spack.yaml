@@ -121,7 +121,7 @@ spack:
   view: false
   specs:
   - cms-config # TODO: do we need it? we have cmssw and cmssw-tool-conf
-  - cmssw@CMSSW_12.4.0.pre3
+  - cmssw@CMSSW_12_4_0_pre3
   - alpgen@2.1.4 recipe=cms
   - alpaka@0.7.0
   - autoconf@2.69
@@ -249,7 +249,7 @@ spack:
   - libxslt@1.1.33~crypto~python
   - libzmq@4.3.3~docs~libbsd
   - log4cplus@2.0.7
-  - llvm@12.0.1.cms~cuda
+  - llvm@12.0.1.cms~cuda build_type=Release
   - lwtnn@2.13
   - lz4@1.9.3  # NB: doesn't compile with our eigen: https://github.com/lwtnn/lwtnn/issues/161
   - m4@1.4.18~sigsegv
@@ -628,3 +628,51 @@ spack:
   - zlib@1.2.11.cms+optimize
   - zstd@1.4.5+shared~static~programs~legacy
   - cmsdist@12.4.0.pre3
+  config:
+    install_tree:
+      projections:
+        cmslhetoeosmanager: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        cmssw: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        cmssw-osenv: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        cmssw-wm-tools: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        crab-dev: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        crab-pre: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        crab-prod: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        data-calibpps-esproducers: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        data-calibration-tools: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        data-calibtracker-sistripdcs: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        data-condformats-jetmetobjects: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        data-dataformats-patcandidates: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        data-dqm-dtmonitorclient: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        data-dqm-physicshww: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        data-eventfilter-l1trawtodigi: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        data-fastsimulation-trackingrechitproducer: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        data-hltrigger-jetmet: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        data-l1trigger-csctriggerprimitives: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        data-l1trigger-l1tglobal: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        data-l1trigger-l1thgcal: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        data-physicstools-nanoaod: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        data-recobtag-ctagging: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        data-recobtag-secondaryvertex: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        data-recobtag-softlepton: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        data-recohi-hijetalgos: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        data-recojets-jetproducers: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        data-recomuon-trackerseedgenerator: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        data-recoparticleflow-pftracking: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        data-recotautag-trainingfiles: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        data-simtransport-hectorproducer: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        geant4data: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        g4abla: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        g4emlow: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        g4ensdfstate: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        g4incl: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        g4ndl: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        g4particlexs: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        g4photonevaporation: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        g4radioactivedecay: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        g4realsurface: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        g4saiddata: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        intel-vtune: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        lcov: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        scram: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
+        all: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}-${HASH}
