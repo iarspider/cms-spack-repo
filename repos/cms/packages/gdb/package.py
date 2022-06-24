@@ -4,6 +4,7 @@
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
 import os
+import shutil
 
 from spack import *
 
@@ -105,7 +106,7 @@ class Gdb(AutotoolsPackage, GNUMirrorPackage):
         args.append('CFLAGS=-Wno-error=strict-aliasing')
         if '~doc' in self.spec:
             args.append('MAKEINFO=true')
-            
+
         return args
 
     @run_after('install')
@@ -116,3 +117,12 @@ class Gdb(AutotoolsPackage, GNUMirrorPackage):
                 mkdir(self.prefix.etc)
                 with open(self.prefix.etc.gdbinit, 'w') as gdbinit:
                     gdbinit.write('add-auto-load-safe-path {0}\n'.format(tool))
+
+    @run_after('install')
+    def gdbwrapper(self):
+        if '+python' in self.spec:
+            shutil.rename(self.spec.prefix.join("bin/gdb"), self.spec.prefix.join("bin/gdb-" + str(self.spec.version)))
+            with open(self.spec.prefix.join("bin/gdb"), 'w') as f:
+                print('PYTHONHOME={0} gdb-{1} "$@"'.format(self.spec['python'].prefix, str(self.spec.version)), file=f)
+
+            set_executable(self.spec.prefix.join("bin/gdb-" + str(self.spec.version)))

@@ -1,6 +1,5 @@
-import glob
 import os
-from llnl.util.filesystem import join_path
+from llnl.util.filesystem import join_path, find
 
 def post_install(spec):
     pkg = spec.package
@@ -8,8 +7,8 @@ def post_install(spec):
     if keep_archive:
         return
 
-    for file in glob.glob(join_path(spec.prefix, 'lib', '*.a')):
+    for file in find(spec.prefix.lib, '*.a'):
         os.unlink(file)
 
-    for file in glob.glob(join_path(spec.prefix, 'lib', '*.la')):
+    for file in find(spec.prefix.lib, '*.la'):
         os.unlink(file)

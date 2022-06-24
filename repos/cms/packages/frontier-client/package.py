@@ -10,7 +10,8 @@ class FrontierClient(MakefilePackage):
     version('2_8_20', sha256='81b0f45762d96a33f156e0238631a60eef910a176644e95c6c19a36824bef7e1')
     # -- CMS
     version('2.8.20.cms', git='https://github.com/cms-externals/frontier_client.git', branch='cms/2.8.20')
-    version('2.9.1.cms', git='https://github.com/cms-externals/frontier_client.git', branch='cms/2.9.1')
+    version('2.9.1.cms', git='https://github.com/cms-externals/frontier_client.git',
+            commit='7259a2c8efaf79b5d2ca78cb7f3bb39318ff4400')
 
     depends_on('openssl')
     depends_on('expat')
