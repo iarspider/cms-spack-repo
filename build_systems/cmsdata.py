@@ -27,8 +27,10 @@ class CMSDataPackage(PackageBase):
 
         mkdirp(join_path(install_root, data_dir))
         install_tree('.', join_path(install_root, data_dir))
-        if os.environ.get('RPM_INSTALL_PREFIX', None):
-            d = data_repo.split('-', 1)[0]
-            symlink(join_path(os.environ.get('RPM_INSTALL_PREFIX'),
-                              'share', 'cms', n, str(spec.version), d),
-                    join_path(prefix, d))
+        gitdirs = []
+        for fn in find(install_root, '.git'):
+            gitdirs.append(fn)
+
+        for fn in gitdirs:
+            if os.path.isdir(fn):
+                shutil.rmtree(fn)
