@@ -67,6 +67,10 @@ echo Start the installation
 # bin/spack env activate ${SPACK_ENV_NAME}
 # bin/spack -e ${SPACK_ENV_NAME} -d --show-cores=minimized concretize
 SPACK_MON_ARGS="--monitor --monitor-save-local"
+SPACK_DEBUG_FLAG=""
+if [ ! -z ${SPACK_DEBUG+x} ]; then
+  SPACK_DEBUG_FLAG="-d"
+fi
 #export SPACKMON_USER="cmsbuild"
 #if [ ! -z ${SPACKMON_TOKEN} ]; then SPACK_MON_ARGS="--monitor --monitor-save-local --monitor-tags ${SPACK_ENV_NAME}"; export SPACKMON_TOKEN; fi;
 bin/spack --show-cores=minimized -e ${SPACK_ENV_NAME} install --show-log-on-error --require-full-hash-match -j$CORES --fail-fast $SPACK_MON_ARGS
