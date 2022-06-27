@@ -7,8 +7,8 @@ def post_install(spec):
     if keep_archive:
         return
 
-    for file in find(spec.prefix.lib, '*.a'):
+    for file in find(spec.prefix.lib, '*.a', recursive=False):
         os.unlink(file)
 
-    for file in find(spec.prefix.lib, '*.la'):
+    for file in find(spec.prefix.lib, '*.la', recursive=False):
         os.unlink(file)
