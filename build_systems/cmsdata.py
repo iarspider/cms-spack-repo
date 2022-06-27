@@ -12,7 +12,7 @@ class CMSDataPackage(PackageBase):
     def install(self, spec, prefix):
         data = getattr(self, 'data', None) or "data"
         n = self.n
-        data_repo = getattr(self, 'data_repo', n.replace('data-', '')
+        data_repo = getattr(self, 'data_repo', n.replace('data-', ''))
         data_dir = getattr(self, 'data_dir', None)
         data_dir = data_dir or join_path(data_repo.replace('-', '/'), data)
 
