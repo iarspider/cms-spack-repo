@@ -121,7 +121,7 @@ class Gdb(AutotoolsPackage, GNUMirrorPackage):
     @run_after('install')
     def gdbwrapper(self):
         if '+python' in self.spec:
-            shutil.rename(self.spec.prefix.join("bin/gdb"), self.spec.prefix.join("bin/gdb-" + str(self.spec.version)))
+            os.rename(self.spec.prefix.join("bin/gdb"), self.spec.prefix.join("bin/gdb-" + str(self.spec.version)))
             with open(self.spec.prefix.join("bin/gdb"), 'w') as f:
                 print('PYTHONHOME={0} gdb-{1} "$@"'.format(self.spec['python'].prefix, str(self.spec.version)), file=f)
 

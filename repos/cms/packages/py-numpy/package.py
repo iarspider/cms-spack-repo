@@ -5,6 +5,8 @@ from spack.pkg.builtin.py_numpy import PyNumpy as BuiltinPyNumpy
 class PyNumpy(BuiltinPyNumpy):
     __doc__ = BuiltinPyNumpy.__doc__
 
+    keep_archives = True
+
     @run_after('install')
     def symlink_c_api(self):
         prefix = self.spec.prefix
