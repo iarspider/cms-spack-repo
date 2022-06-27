@@ -20,10 +20,10 @@ bash -xe ${WORKSPACE}/cms-spack-repo/bootstrap.sh
 
 ${WORKSPACE}/cms-bot/docker_launcher.sh ${WORKSPACE}/cms-spack-repo/scripts/build.sh
 if [ -e ${WORKSPACE}/fail ]; then
-    echo Build falied, uploading monitor data
-    tar -zcf ${WORKSPACE}/monitor.tar.gz ${WORKSPACE}/monitor
-    scp ${WORKSPACE}/monitor.tar.gz cmsbuild@lxplus:/eos/user/r/razumov/www/CMS/mirror
-    rm ${WORKSPACE}/monitor.tar.gz
+#    echo Build falied, uploading monitor data
+#    tar -zcf ${WORKSPACE}/monitor.tar.gz ${WORKSPACE}/monitor
+#    scp ${WORKSPACE}/monitor.tar.gz cmsbuild@lxplus:/eos/user/r/razumov/www/CMS/mirror
+#    rm ${WORKSPACE}/monitor.tar.gz
     touch ${WORKSPACE}/fail
     exit 1
 fi
