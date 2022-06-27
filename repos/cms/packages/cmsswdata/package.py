@@ -121,7 +121,7 @@ class Cmsswdata(BundlePackage):
 
             for pkg, pkgver in data_versions[str(spec.version)].items():
                 pack = pkg.replace('data-', '').replace('-', '/')
-                f.write("      <flags CMSSW_DATA_PACKAGE=\"{pack}/{pkgver}\"/>\n")
+                f.write(f"      <flags CMSSW_DATA_PACKAGE=\"{pack}/{pkgver}\"/>\n")
                 searchpath_xml.write(f"    <runtime name=\"CMSSW_SEARCH_PATH\" default=\"{spec[pkg.lower()].prefix}\" type=\"path\"/>\n")
 
             f.write(searchpath_xml.getvalue())
