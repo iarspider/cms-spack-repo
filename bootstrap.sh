@@ -52,7 +52,7 @@ echo Initializing Spack
 echo Adding CMS repository
 bin/spack repo add --scope=site ${WORKSPACE}/cms-spack-repo/repos/cms
 echo Adding CMS mirror
-bin/spack mirror add --scope=site cms https://test-cms-spack.web.cern.ch/test-cms-spack/CMS/mirror
+bin/spack mirror add --scope=site cms https://test-cms-spack.webtest.cern.ch/test-cms-spack/CMS/mirror/
 echo Adding CMS buildcache
 bin/spack mirror add --scope=site cms-s3 s3://cms-spack
 echo Adding CMS Spack signing key to trusted list
