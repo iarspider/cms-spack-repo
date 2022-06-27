@@ -109,7 +109,7 @@ class Sherpa(AutotoolsPackage):
         args = []
         args.append('--enable-shared')
         args.append('--enable-binreloc')
-        args.append('--enable-static')
+        args.append('--disable-static')  # -- CMS
         args.append('--enable-hepevtsize=200000')
         args.append('--with-sqlite3=' + self.spec['sqlite'].prefix)
         args.extend(self.enable_or_disable('mpi'))
@@ -120,6 +120,7 @@ class Sherpa(AutotoolsPackage):
         args.extend(self.enable_or_disable('pythia'))
         hepmc_root = lambda x: self.spec['hepmc'].prefix
         args.extend(self.enable_or_disable('hepmc2', activation_value=hepmc_root))
+        # -- CMS
         # args.extend(self.enable_or_disable('hepmc3', activation_value='prefix'))
         if self.spec.satisfies('+hepmc3'):
             args.append('--enable-hepmc3=' + self.spec['hepmc3'].prefix)
@@ -129,7 +130,9 @@ class Sherpa(AutotoolsPackage):
         args.extend(self.enable_or_disable('recola', activation_value='prefix'))
         args.extend(self.enable_or_disable('root', activation_value='prefix'))
         args.extend(self.enable_or_disable('lhapdf', activation_value='prefix'))
+        # -- CMS
         # args.extend(self.enable_or_disable('hztool', activation_value='prefix'))
+        # -- Not implemented
         # args.extend(self.enable_or_disable('cernlib', activation_value='prefix'))
         args.extend(self.enable_or_disable('blackhat', activation_value='prefix'))
         args.extend(self.enable_or_disable('ufo'))
