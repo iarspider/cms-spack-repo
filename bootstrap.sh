@@ -1,6 +1,6 @@
 #!/bin/bash
 SPACK_VERSION=${SPACK_VERSION:-v0.18.0}
-SPACK_ENV_NAME=${SPACK_ENV_NAME:-CMSSW_12_4_X}
+SPACK_ENV_NAME=${SPACK_ENV_NAME:-CMSSW_12_5_0_pre2}
 ###############################################################################
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 WORKSPACE=${WORKSPACE:-$(cd $SCRIPT_DIR/..; pwd)}
@@ -48,7 +48,7 @@ spack repo add --scope=site ${SCRIPT_DIR}/repos/cms
 echo Adding CMS mirror
 spack mirror add --scope=site cms https://test-cms-spack.web.cern.ch/test-cms-spack/CMS/mirror
 echo Adding CMS buildcache
-spack mirror add --scope=site cms-s3 s3://cms-spack
+#spack mirror add --scope=site cms-s3 s3://cms-spack
 echo Adding CMS Spack signing key to trusted list
 ##spack buildcache keys --install --trust
 # Temporary workaround until `spack gpg publish` works!

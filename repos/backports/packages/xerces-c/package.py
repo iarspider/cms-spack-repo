@@ -1,10 +1,11 @@
-# Copyright 2013-2021 Lawrence Livermore National Security, LLC and other
+# Copyright 2013-2022 Lawrence Livermore National Security, LLC and other
 # Spack Project Developers. See the top-level COPYRIGHT file for details.
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
-from spack import *
 import sys
+
+from spack.package import *
 
 
 class XercesC(AutotoolsPackage):
@@ -49,9 +50,8 @@ class XercesC(AutotoolsPackage):
     else:
         default_transcoder = 'gnuiconv'
 
-    # -- CMS: added 'none' for transcoder
     variant('transcoder', default=default_transcoder,
-            values=('gnuiconv', 'iconv', 'icu', 'macos', 'windows', 'none'), 
+            values=('gnuiconv', 'iconv', 'icu', 'macos', 'windows', 'none'),
             multi=False,
             description='Use the specified transcoder')
 
@@ -83,26 +83,17 @@ class XercesC(AutotoolsPackage):
         if 'netaccessor=curl' in spec:
             args.append('--enable-netaccessor-curl')
         else:
-            args.append('--without-curl') # -- CMS: change argument
+            args.append('--disable-network')
 
-        if 'transcoder=gnuiconv' in spec:
-            args.append('--enable-transcoder-gnuiconv')
-
-        if 'transcoder=iconv' in spec:
-            args.append('--enable-transcoder-iconv')
-
-        if 'transcoder=icu' in spec:
-            args.append('--enable-transcoder-icu')
-            args.append('--with-icu=%s' % spec['icu4c'].prefix)
-
-        if 'transcoder=macos' in spec:
-            args.append('--enable-transcoder-macosunicodeconverter')
-
-        if 'transcoder=windows' in spec:
-            args.append('--enable-transcoder-windows')
-            
-        # -- CMS
-        if 'transcoder=none' in spec:
+        transcoder = spec.variants['transcoder'].value
+        if transcoder == 'none':
             args.append('--without-icu')
+        elif transcoder == 'icu':
+            args.extend(['--enable-transcoder-icu',
+                         '--with-icu=' + spec['icu4c'].prefix])
+        elif transcoder == 'macos':
+            args.append('--enable-transcoder-macosunicodeconverter')
+        else:
+            args.append('--enable-transcoder-' + transcoder)
 
         return args

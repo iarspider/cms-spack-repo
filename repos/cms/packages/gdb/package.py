@@ -7,6 +7,7 @@ class Gdb(BuiltinGdb):
 
     depends_on('expat')  # -- CMS
     depends_on('zlib')  # -- CMS
+    variant('doc', default=True)
 
     drop_files = ['lib', 'bin/gdbserver', 'bin/gdbtui', 'share/man', 'share/info', 'share/locale']  # -- CMS
 
