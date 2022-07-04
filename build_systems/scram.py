@@ -371,6 +371,7 @@ class ScramPackage(PackageBase):
 
     def post_(self, spec, prefix):
         # %post part of scram-project-build.file; probably not needed for spack
+        python('./config/SCRAM/projectAreaRename.py', self.stage.path, prefix, self.cmsplatf)
         return
 
     run_after('build')(PackageBase._run_default_build_time_test_callbacks)

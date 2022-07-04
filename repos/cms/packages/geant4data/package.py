@@ -40,7 +40,7 @@ class Geant4data(BundlePackage):
                 toolbase = dep.prefix
                 toolver = dep.version
                 tooldata = join_path(toolbase, 'share', 'data', os.listdir(join_path(toolbase, 'share', 'data'))[0])
-                f.write(f'  <runtime name="{uctool}_RUNTIME" value="{tooldata}" type="path"/>\n')
+                f.write(f'  <runtime name="{uctool}" value="{tooldata}" type="path"/>\n')
 
             f.write('</tool>')
 

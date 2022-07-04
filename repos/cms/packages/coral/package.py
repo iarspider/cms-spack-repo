@@ -68,8 +68,8 @@ class Coral(ScramPackage):
         if not os.path.exists(join_path(prefix.etc.scramrc, 'coral.map')):
             mkdirp(prefix.etc.scramrc)
             with open(join_path(prefix.etc.scramrc, 'coral.map'), 'w') as f:
-                f.write('{ucprojtype}=$SCRAM_ARCH/{pkgcategory}/{pkgname}/{ucprojtype}_*'.format(
-                    ucprojtype=self.ucprojtype, pkgcategory='cms', pkgname='coral'))
+                f.write('{ucprojtype}=$SCRAM_ARCH/{pkgname}/{ucprojtype}_*'.format(
+                    ucprojtype=self.ucprojtype, pkgname='coral'))
 
     def setup_run_environment(self, spack_env):
         # spack_env.set('LOCALTOP', self.prefix + '/' +

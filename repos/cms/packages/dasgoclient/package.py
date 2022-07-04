@@ -28,10 +28,14 @@ class Dasgoclient(Package):
             version(ver, sha256=pkg[0], url=pkg[1], expand=False)
 
     def install(self, spec, prefix):
+        cmsplatf = os.environ.get('SCRAM_ARCH')
+
         mkdirp(join_path(prefix.etc, 'profile.d'))
         mkdirp(prefix.bin)
         install('dasgoclient_*', prefix.bin)
         install(join_path(os.path.dirname(__file__), 'dasgoclient'), prefix.etc)
+        filter_file('%{cmsplatf}', cmsplatf, prefix.etc.dasgoclient)
+        filter_file('%{v}', str(self.spec.version), prefix.etc.dasgoclient)
         set_executable(prefix.etc.dasgoclient)
         install(join_path(os.path.dirname(__file__), 'cmspost.sh'), prefix)
         filter_file('%{PREFIX}', prefix, join_path(prefix, 'cmspost.sh'), backup=False, string=True)
