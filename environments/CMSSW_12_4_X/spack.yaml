@@ -19,7 +19,7 @@ spack:
       providers:
         iconv: [libc]
     mesa-glu:
-      externals: [{spec: mesa-glu@9.0.0, prefix: /usr}]
+      externals: [{spec: mesa-glu@9.0.0 arch=linux-almalinux8-broadwell, prefix: /usr}]
       buildable: false
     binutils:
       externals: [{spec: binutils@2.30 arch=linux-almalinux8-broadwell, prefix: /cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/gcc/9.3.0}]
@@ -52,10 +52,10 @@ spack:
       externals: [{spec: libxpm@3.5.12 arch=linux-almalinux8-broadwell, prefix: /usr}]
       buildable: false
     xextproto:
-      externals: [{spec: xextproto@7.3.0, prefix: /usr}]
+      externals: [{spec: xextproto@7.3.0 arch=linux-almalinux8-broadwell, prefix: /usr}]
       buildable: false
     krb5:
-      externals: [{spec: krb5@1.15.1, prefix: /usr}]
+      externals: [{spec: krb5@1.15.1 arch=linux-almalinux8-broadwell, prefix: /usr}]
       buildable: false
     perl:
       externals: [{spec: perl@5.26.3~cpanm+shared+threads arch=linux-almalinux8-broadwell, prefix: /usr}]
@@ -88,7 +88,7 @@ spack:
       externals: [{spec: texinfo@6.5 arch=linux-almalinux8-broadwell, prefix: /usr}]
       buildable: false
     openjdk:
-      externals: [{spec: openjdk@1.8.0_322-b06, prefix: /usr}]
+      externals: [{spec: openjdk@1.8.0_322-b06 arch=linux-almalinux8-broadwell, prefix: /usr}]
       buildable: false
     zip:
       externals: [{spec: zip@3.0 arch=linux-almalinux8-broadwell, prefix: /usr}]
@@ -103,7 +103,7 @@ spack:
       externals: [{spec: diffutils@3.6 arch=linux-almalinux8-broadwell, prefix: /usr}]
       buildable: false
     libc:
-      externals: [{spec: libc@1.0+iconv, prefix: /usr}]
+      externals: [{spec: libc@1.0+iconv arch=linux-almalinux8-broadwell, prefix: /usr}]
       buildable: false
     coreutils:
       externals: [{spec: coreutils@8.30 arch=linux-almalinux8-broadwell, prefix: /usr}]
