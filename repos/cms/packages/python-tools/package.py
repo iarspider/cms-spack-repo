@@ -47,8 +47,9 @@ class PythonTools(BundlePackage):
     depends_on("py-bottleneck")
     depends_on("py-downhill")
     depends_on("py-xgboost")
-    depends_on("py-llvmlite")
-    depends_on("py-numba")
+#   Not compatible with llvm 12, dropped from cmsdist
+#    depends_on("py-llvmlite")
+#    depends_on("py-numba")
     depends_on("py-hep-ml")
     depends_on("py-uncertainties")
     depends_on("py-seaborn")

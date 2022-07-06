@@ -8,6 +8,8 @@ class Dd4hep(BuiltinDd4hep):
     keep_archives = True
     cms_stage = 1
 
+    version('1.19x', commit='cc335b34e9eb2825ab18e20c531be813a92d141f')
+
     def flag_handler(self, name, flags):
         if name == 'cxxflags':
             flags.append('-fPIC')

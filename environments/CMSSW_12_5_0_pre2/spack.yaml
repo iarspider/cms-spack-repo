@@ -4,15 +4,18 @@
 # configuration settings.
 # NOTICE: 
 #   - intel-tbb should not be replaced with intel-oneapi-tbb, the latter one is pre-built and not configurable
-#   - py-typing@3.7.4.3 NB: not needed for py 3.7+
 #   - py-tensorflow-estimator@2.6.0 -> part of tf
 #   - py-rep@0.6.6
 #   - py-google-auth < 2.0 for py-tensorboard2.6.0
+#   - py-astroid@2.5.6, py-pylint@2.8.2, py-typing-extensions@3.7.4.3, py-lazy-object-proxy@1.4.3 because py-tensorflow requires py-typing-extensions@3.7.4.3
+#   - py-six@0.15.0, py-numpy@1.19.5, py-h5py@3.1.0 because py-tensorflow
+#   - py-fs@0.5.4 because py-xrootdpyfs
+#   - py-setuptools@57.4.0 because py-fs  
 spack:
   config:
     install_tree:
       padded_length: 128
-      allow_sgid: False
+      allow_sgid: false
       shared_linking: runpath
       projections:
         all: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}-${HASH}
@@ -116,12 +119,9 @@ spack:
         intel-vtune: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
         lcov: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
         scram: ${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}
-      build_stage::
-        $spack/stage
-      test_stage::
-        $spack/test_stage
-      misc_cache::
-        $spack/cache
+      'build_stage:': $spack/stage
+      'test_stage:': $spack/test_stage
+      'misc_cache:': $spack/cache
   concretizer:
     unify: true
   packages:
@@ -237,7 +237,7 @@ spack:
   view: false
   specs:
   - cms-config # TODO: do we need it? we have cmssw and cmssw-tool-conf
-  - cmssw@CMSSW_12.5.0.pre3
+  - cmssw@CMSSW_12_5_0_pre3
   - alpgen@2.1.4 recipe=cms
   - alpaka@develop-20220503
   - autoconf@2.71
@@ -263,7 +263,7 @@ spack:
   - cmssw-tool-conf@1.0 # FIXME!
   - cmssw-wm-tools@211210
   - cmsswdata@40.0
-  - coral@2.3.21py3
+  - coral@2_3_21
   - coral-tool-conf@10.0
   - cppunit@1.15.x
   - crab@1.0
@@ -389,7 +389,7 @@ spack:
   - openldap@2.4.49+client_only~sasl
   - openloops@2.1.2                   # 2.6.0 requires OpenSSL 1.1.1
   - openloops-process@2.1.2
-  - "openmpi@4.1.4+cuda+cxx+cxx_exceptions~internal-hwloc~java~static fabrics=verbs,xpmem,ucx,cma"
+  - openmpi@4.1.4+cuda+cxx+cxx_exceptions~internal-hwloc~java~static fabrics=verbs,xpmem,ucx,cma
   - oracle-instant-client@19.11.0.0.0
   - oracleocci-abi-hack-cms
   - pacparser@1.4.0
@@ -476,7 +476,7 @@ spack:
   - py-frozenlist@1.3.0
   - py-flit@3.3.0
   - py-flit-core@3.3.0
-  - py-fs@2.4.13
+  - py-fs@0.5.4
   - py-funcsigs@1.0.2
   - py-future@0.18.2
   - py-gast@0.5.2
@@ -489,7 +489,7 @@ spack:
   - py-greenlet@1.1.0
   - py-grpcio@1.39.0
   - py-grpcio-tools@1.39.0
-  - py-h5py@3.4.0
+  - py-h5py@3.1.0
   - py-hepdata-lib@0.9.0
   - py-hep-ml@0.7.0
   - py-hist@2.5.2
@@ -532,11 +532,10 @@ spack:
   - py-keyring@23.1.0
   - py-kiwisolver@1.3.2
   - py-law@0.1.6
-  - py-lazy-object-proxy@1.6.0 # py-astroid
+  - py-lazy-object-proxy@1.4.3
   - py-lizard@1.17.9
-  - py-llvmlite@0.37.0
   - py-lockfile@0.12.2
-  - py-luigi@3.0.3
+  - py-luigi@3.1.0
   - py-lxml@4.6.5
   - py-lz4@3.1.3
   - py-make@0.1.6.post2
@@ -563,9 +562,8 @@ spack:
   - py-networkx@2.7.1
   - py-neurolab@0.3.5
   - py-notebook@6.4.10
-  - py-numba@0.54.0
   - py-numexpr@2.8.1
-  - py-numpy@1.22.4
+  - py-numpy@1.19.5
   - py-oauthlib@3.1.1~extras
   - py-onnx@1.10.1
   - py-onnxmltools@1.10.0
@@ -649,14 +647,14 @@ spack:
   - py-send2trash@1.8.0
   - py-seaborn@0.11.2
   - py-secretstorage@3.3.1
-  - py-setuptools@60.9.3
+  - py-setuptools@57.4.0
   - py-setuptools-rust@1.1.2 # NB: py-scipy
   - py-setuptools-scm@6.3.1
   - py-shellingham@1.4.0    # NB: py-lazy-object-proxy
   - py-simplegeneric@0.8.1
   - py-singledispatch@3.7.0
-  - py-six@1.16.0
-  - py-skl2onnx@1.10.3 # NB: py-tensorflow
+  - py-six@1.15.0
+  - py-skl2onnx@1.10.3
   - py-smmap@4.0.0
   - py-sniffio@1.2.0
   - py-soupsieve@2.2.1
@@ -666,7 +664,7 @@ spack:
   - py-sympy@1.8
   - py-tables@3.6.1
   - py-tenacity@8.0.1
-  - py-typing-extensions@3.10.0.2 # NB: py-tensorflow
+  - py-typing-extensions@3.7.4.3 # NB: py-tensorflow
   - py-tensorboard-plugin-wit@1.8.0 # NB: py-tensorflow; NB: keep this here
   - py-tensorboard@2.6.0            # wheel
   - py-tensorboard-dataserver@0.6.1 # wheel
@@ -712,12 +710,14 @@ spack:
   - rdma-core@39.1
   - re2c@0.13.5
   - rivet@3.1.6 hepmc=2
-  - root@6.24.00.patches_cms_b5aa8fd+davix+fftw~fits~graphviz+gsl+math+minuit+mlp~mysql+opengl~postgres~pythia6~pythia8+python~qt4+root7+roofit~sqlite+ssl+tmva+tbb~vdt~veccore+x+xrootd+spectrum cxxstd=17
+  - root@6.24.00.patches_cms_b5aa8fd+davix+fftw~fits~graphviz+gsl+math+minuit+mlp~mysql+opengl~postgres~pythia6~pythia8+python~qt4+root7+roofit~sqlite+ssl+tmva+tbb~vdt~veccore+x+xrootd+spectrum
+    cxxstd=17
   - rust@1.57.0~rustfmt~analysis~clippy~src
   - scitokens-cpp@0.7.0
   - scons@4.3.0
   - scram@3.0.41
-  - sherpa@2.2.11+analysis+fastjet+hepmc2+rivet+lhapdf+blackhat+python+ufo+openloops+mpi+cms~hepmc3 libs=static
+  - sherpa@2.2.11+analysis+fastjet+hepmc2+rivet+lhapdf+blackhat+python+ufo+openloops+mpi+cms~hepmc3
+    libs=static
   - sigcpp@3.2.0~doc
   - sloccount@2.26
   - sqlite@3.36.0~fts
@@ -829,4 +829,3 @@ spack:
   - data-recohi-hijetalgos@V01-00-01
   - data-recoparticleflow-pftracking@V13-01-00
   - data-simtransport-hectorproducer@V01-00-01
-
