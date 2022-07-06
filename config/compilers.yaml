@@ -17,7 +17,7 @@ compilers:
     environment:
       prepend_path:
         PATH: /cvmfs/cms.cern.ch/slc7_ppc64le_gcc9/external/gcc/9.3.0/bin
-        LD_LIBRARY_PATH: /cvmfs/cms.cern.ch/slc7_ppc64le_gcc9/external/gcc/9.3.0/lib64:/cvmfs/cms.cern.ch/slc7_ppc64l
+        LD_LIBRARY_PATH: /cvmfs/cms.cern.ch/slc7_ppc64le_gcc9/external/gcc/9.3.0/lib64:/cvmfs/cms.cern.ch/slc7_ppc64le_gcc9/external/gcc/9.3.0/lib
     modules: []
     operating_system: centos7
     spec: gcc@9.3.0
