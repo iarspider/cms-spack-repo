@@ -119,5 +119,5 @@ class CmsmonTools(Package):
 
         shared_arch=self.spec.old_format('${ARCHITECTURE}')
 
-        filter_file('SHARED_ARCH=.*', f'SHARED_ARCH="{shared_arch}"', join_path(prefix, 'cmsmon-tools'))
+        filter_file('SHARED_ARCH=.*', f'SHARED_ARCH="{shared_arch}"', join_path(prefix, '.cmsmon-tools'))
 
