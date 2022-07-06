@@ -50,8 +50,8 @@ class Scram(Package):
         mkdirp(join_path(prefix.etc, 'default-scram'))
         install(join_path(os.path.dirname(__file__), 'cmspost.sh'), prefix)
         cmspost = join_path(prefix, 'cmspost.sh')
-        filter_file('cmsplatf', self.scram_arch, cmspost)
-        filter_file('realversion', str(self.spec.version), cmspost)
+        filter_file('cmsplatf=.*', f'cmsplatf={self.scram_arch}', cmspost)
+        filter_file('realversion=.*', 'realversion='+str(self.spec.version), cmspost)
 
     def setup_dependent_environment(self, spack_env, run_env, dspec):
         spack_env.set('SCRAM_ARCH', self.scram_arch)

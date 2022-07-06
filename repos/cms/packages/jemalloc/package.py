@@ -29,6 +29,9 @@ class Jemalloc(BuiltinJemalloc):
         options += getattr(self, 'configure_flag_args', [])
         options += ['--prefix={0}'.format(prefix)]
         options += self.configure_args()
+        for i, opt in enumerate(options):
+            if opt.endswith('documentation'):
+                options[i] = opt.replace('documentation', 'doc')
 
         with working_dir(self.build_directory, create=True):
             which('bash')(*options)

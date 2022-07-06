@@ -1,4 +1,5 @@
 import os
+import shutil
 
 from llnl.util.filesystem import *
 
