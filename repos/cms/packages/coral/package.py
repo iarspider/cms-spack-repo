@@ -16,7 +16,7 @@ class Coral(ScramPackage):
     homepage = "http://cms-sw.github.io"
     url = "https://github.com/cms-externals/coral.tgz"
 
-    version('2.3.21py3', git='https://github.com/cms-externals/coral',
+    version('CORAL_2_3_21', git='https://github.com/cms-externals/coral',
             branch='cms/CORAL_2_3_21py3')
 
     patch('coral-2_3_21-gcc8.patch')
@@ -68,8 +68,8 @@ class Coral(ScramPackage):
         if not os.path.exists(join_path(prefix.etc.scramrc, 'coral.map')):
             mkdirp(prefix.etc.scramrc)
             with open(join_path(prefix.etc.scramrc, 'coral.map'), 'w') as f:
-                f.write('{ucprojtype}=$SCRAM_ARCH/{pkgcategory}/{pkgname}/{ucprojtype}_*'.format(
-                    ucprojtype=self.ucprojtype, pkgcategory='cms', pkgname='coral'))
+                f.write('{ucprojtype}=$SCRAM_ARCH/{pkgname}/{ucprojtype}_*'.format(
+                    ucprojtype=self.ucprojtype, pkgname='coral'))
 
     def setup_run_environment(self, spack_env):
         # spack_env.set('LOCALTOP', self.prefix + '/' +

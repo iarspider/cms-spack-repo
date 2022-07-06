@@ -51,7 +51,7 @@ class Cmsdist(Package):
                                   'geant4', 'env.sh'),
                         string=True)
 
-            filter_file('</tool>', '  <use name="abseil-cpp"/>\n  <use name="ares-c"/>\n  <use name="re2"/>\n</tool>',
+            filter_file('</tool>', '  <use name="abseil-cpp"/>\n  <use name="c-ares"/>\n  <use name="re2"/>\n</tool>',
                         join_path(prefix, 'scram-tools.file', 'tools',
                                   'grpc', 'grpc.xml'),
                         string=True)
