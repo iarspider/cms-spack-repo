@@ -41,9 +41,13 @@ class Scram(Package):
         filter_file('BASEPATH = .*', 'BASEPATH = "' + prefix + '"',
                     join_path(self.stage.source_path, 'SCRAM', '__init__.py'))
         # %install
-        mkdirp(prefix.bin)
+        mkdirp(prefix.docs)
+        install_tree(join_path('docs', 'man'), prefix.docs)
+
         mkdirp(prefix.SCRAM)
         install_tree('SCRAM', prefix.SCRAM)
+
+        mkdirp(prefix.bin)
         install(join_path('cli', 'scram'), prefix.bin)
         install(join_path('cli', 'scram.py'), prefix.bin)
 
