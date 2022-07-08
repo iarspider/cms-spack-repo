@@ -39,7 +39,8 @@ class Charybdis(MakefilePackage):
     def edit(self, spec, prefix):
         filter_file('/bin/sh', '/bin/bash', 'configure')
         configure = Executable('./configure')
-        configure('--lcgplatform=slc7_amd64_gcc900', '--pythia_hadronization')
+        lcgplatform = os.environ['SCRAM_ARCH']
+        configure(f'--lcgplatform={lcgplatform}', '--pythia_hadronization')
         filter_file('FC = .*', 'FC = {0}'.format(self.compiler.fc), 'config.mk')
         filter_file('FFLAGS = (.*)', r'FFLAGS =   -fPIC', 'config.mk')
 
