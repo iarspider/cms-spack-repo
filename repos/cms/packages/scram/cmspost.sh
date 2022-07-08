@@ -13,10 +13,10 @@ pkgdir="lcg/scram/${realversion}"
 pkgcategory="lcg"
 pkgname="scram"
 
-sed -i -e "s|^BASEPATH = .*|BASEPATH = '$CMS_INSTALL_PREFIX'|" ${pkgrel}/SCRAM/__init__.py
-echo "SCRAMV1_ROOT='$CMS_INSTALL_PREFIX/${pkgrel}'" > ${pkgrel}/etc/profile.d/init.sh
+sed -i -e "s|^BASEPATH = .*|BASEPATH = '$RPM_INSTALL_PREFIX'|" ${pkgrel}/SCRAM/__init__.py
+echo "SCRAMV1_ROOT='$RPM_INSTALL_PREFIX/${pkgrel}'" > ${pkgrel}/etc/profile.d/init.sh
 echo "SCRAMV1_VERSION='${realversion}'" >> ${pkgrel}/etc/profile.d/init.sh
-echo "set SCRAMV1_ROOT='$CMS_INSTALL_PREFIX/${pkgrel}'" > ${pkgrel}/etc/profile.d/init.csh
+echo "set SCRAMV1_ROOT='$RPM_INSTALL_PREFIX/${pkgrel}'" > ${pkgrel}/etc/profile.d/init.csh
 echo "set SCRAMV1_VERSION='${realversion}'" >> ${pkgrel}/etc/profile.d/init.csh
 
 if [ ! -d $RPM_INSTALL_PREFIX/etc/scramrc ] ; then
