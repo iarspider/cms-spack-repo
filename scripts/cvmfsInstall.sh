@@ -1,6 +1,6 @@
 #!/bin/bash -x
-export CMSARCH=${CMSARCH:-slc7_amd64_gcc900}
-export SCRAM_ARCH=$CMSARCH
+export SCRAM_ARCH=${SCRAM_ARCH:-slc7_amd64_gcc900}
+export SCRAM_ARCH=$SCRAM_ARCH
 export CVMFS_REPOSITORY=cms-ib.cern.ch
 export BASEDIR=/cvmfs/$CVMFS_REPOSITORY
 export USE_SINGULARITY=true
