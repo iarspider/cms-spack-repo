@@ -66,5 +66,6 @@ bin/spack gpg trust ${WORKSPACE}/cms-spack.pub
 #echo Forcing bootstrap of clingo
 #bin/spack -d spec zlib > /dev/null
 echo Creating environment ${SPACK_ENV_NAME}
+sed -i -e "s#@SCRAM_ARCH@#${SCRAM_ARCH}#g" ${WORKSPACE}/cms-spack-repo/environments/${SPACK_ENV_NAME}/spack.yaml
 bin/spack env create ${SPACK_ENV_NAME} ${WORKSPACE}/cms-spack-repo/environments/${SPACK_ENV_NAME}/spack.yaml
 echo Done

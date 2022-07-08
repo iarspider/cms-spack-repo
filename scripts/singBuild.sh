@@ -1,4 +1,9 @@
 #!/bin/bash -x
+[ -z ${WORKSPACE+x} ] && (echo 'ERROR: WORKSPACE not set, quitting'; exit 1)
+[ -z ${RPM_INSTALL_PREFIX+x} ] && (echo 'ERROR: RPM_INSTALL_PREFIX not set, quitting'; exit 2)
+[ -z ${SPACK_ENV_NAME+x} ] && (echo 'ERROR: SPACK_ENV_NAME not set, quitting'; exit 3)
+[ -z ${CMSARCH+x} ] && (echo 'ERROR: CMSARCH not set, quitting'; exit 4)
+
 export CMSARCH=${CMSARCH:-slc7_amd64_gcc900}
 export SCRAM_ARCH=$CMSARCH
 export USE_SINGULARITY=true
