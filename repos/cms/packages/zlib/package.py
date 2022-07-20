@@ -14,12 +14,12 @@ class Zlib(Package):
 
     homepage = "http://zlib.net"
 
-    if platform.machine() == "aarch64": 
-        git = "https://github.com/madler/zlib.git"
-        version('1.2.11.cms', tag='v1.2.11')
-    else:
+    if platform.machine() == "x86_64": 
         git = "https://github.com/cms-externals/zlib.git"
         version('1.2.11.cms', commit='822f7f5a8c57802faf8bbfe16266be02eff8c2e2')
+    else:
+        git = "https://github.com/madler/zlib.git"
+        version('1.2.11.cms', tag='v1.2.11')
 
     variant('pic', default=True,
             description='Produce position-independent code (for shared libs)')
