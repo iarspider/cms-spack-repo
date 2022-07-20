@@ -20,16 +20,11 @@ class CmsCommon(Package):
 
     revision = '1219'
 
-    def patch(self):
-        filter_file('srbase=${cms_basedir}/share/lcg/SCRAMV1/${sver}',
-                    'srbase=${cms_basedir}/share/scram/${sver}',
-                    'common/scram',
-                    string=True)
-
 
     def install(self, spec, prefix):
         cmsplatf = os.environ.get('SCRAM_ARCH', 'slc7_amd64_gcc900')
-        # shutil.rmtree('.git')
+        if os.path.exists('.git'):
+            shutil.rmtree('.git')
         for root, dirs, files in os.walk('.'):
             for fn in files:
                 if os.path.isfile(join_path(root, fn)):
