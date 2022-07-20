@@ -74,6 +74,11 @@ class Cmssw(ScramPackage):
         if '_CXXMODULE_X' in str(spec.version):
             shutil.copy(join_path(os.path.dirname(__file__), 'CXXModules.mk'), 'config/SCRAM/GMake/CXXModules.mk')
 
+    @run_after('install')
+    def cleanup_extra_data_dirs(self):
+        for dirname in glob.glob(join_path(self.spec.prefix, 'external', self.cmsplatf, 'data?*')):
+            shutil.rmtree(dirname)
+
     def old_setup_dependent_environment(self, spack_env, run_env, dspec):
         cmssw_version = 'CMSSW.' + str(self.version)
         cmssw_u_version = cmssw_version.replace('.', '_')

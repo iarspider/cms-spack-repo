@@ -25,6 +25,10 @@ class Scram(Package):
     if sys.platform == 'darwin':
         scram_arch = 'osx10_amd64_clang'
 
+    def patch(self):
+        filter_file('/cms/cms-common', '/cms-common', 'SCRAM/Core/ProjectDB.py')
+
+
     def install(self, spec, prefix):
         mkdirp(join_path(prefix.etc, 'profile.d'))
         with open(join_path(prefix.etc, 'profile.d', 'init.sh'), 'w') as f:
@@ -42,7 +46,7 @@ class Scram(Package):
                     join_path(self.stage.source_path, 'SCRAM', '__init__.py'))
         # %install
         mkdirp(prefix.docs)
-        install_tree(join_path('docs', 'man'), prefix.docs)
+        install_tree(join_path('docs', 'man'), prefix.docs.man)
 
         mkdirp(prefix.SCRAM)
         install_tree('SCRAM', prefix.SCRAM)

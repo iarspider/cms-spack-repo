@@ -5,6 +5,8 @@
 import os
 
 from spack import *
+import spack.user_environment as uenv
+from spack.util.environment import *
 
 
 class Geant4data(BundlePackage):
@@ -27,6 +29,35 @@ class Geant4data(BundlePackage):
     depends_on("g4realsurface")
     depends_on("g4incl")
 
+    def get_g4_environment(self, spec):
+        with spack.store.db.read_transaction():
+            specs = [dep for dep in spec.traverse(order='post')]
+
+        env_mod = spack.util.environment.EnvironmentModifications()
+
+        for _spec in specs:
+            env_mod.extend(uenv.environment_modifications_for_spec(_spec))
+            env_mod.prepend_path(uenv.spack_loaded_hashes_var, _spec.dag_hash())
+
+        modifications = env_mod.group_by_name()
+        new_env = {}
+        env_set_not_prepend = {}
+
+        for name, actions in sorted(modifications.items()):
+            if not name.startswith('G4'):
+                continue
+            env_set_not_prepend[name] = False
+            for x in actions:
+                env_set_not_prepend[name] = env_set_not_prepend[name] or isinstance(x, (SetPath, SetEnv))
+                # set a dictionary with the environment variables
+                x.execute(new_env)
+            if env_set_not_prepend[name] and len(actions) > 1:
+                tty.warn("Var " + name + "is set multiple times!" )
+
+
+        return new_env
+
+
     def install(self, spec, prefix):
         mkdirp(prefix.etc.join('scram.d'))
         with open(prefix.etc.join(join_path('scram.d', 'geant4data.xml')), 'w') as f:
@@ -35,12 +66,10 @@ class Geant4data(BundlePackage):
             f.write(f'    <environment name="GEANT4DATA_BASE" default="{prefix}"/>\n')
             f.write(' </client>\n')
 
-            for dep in spec.dependencies():
-                uctool = dep.name.upper()
-                toolbase = dep.prefix
-                toolver = dep.version
-                tooldata = join_path(toolbase, 'share', 'data', os.listdir(join_path(toolbase, 'share', 'data'))[0])
-                f.write(f'  <runtime name="{uctool}" value="{tooldata}" type="path"/>\n')
+            g4env = self.get_g4_environment(spec)
+
+            for k, v in g4env.items():
+                f.write(f'  <runtime name="{k}" value="{v}" type="path"/>\n')
 
             f.write('</tool>')
 
