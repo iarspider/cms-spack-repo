@@ -110,7 +110,7 @@ class PyTensorflow(Package, CudaPackage):
     depends_on('py-enum34@1.1.6:', type=('build', 'run'), when='@1.5: ^python@:3.3')
     depends_on('py-enum34@1.1.6:', type=('build', 'run'), when='@1.4.0:1.4.1')
 
-    depends_on('py-gast@0.4.0:', type=('build', 'run'), when='@2.5.0.cms:')
+    depends_on('py-gast@0.4.0', type=('build', 'run'), when='@2.5.0.cms:')
     #depends_on('py-gast@0.3.3', type=('build', 'run'), when='@2.2:2.4')
     #depends_on('py-gast@0.2.2', type=('build', 'run'), when='@1.15:2.1')
     #depends_on('py-gast@0.2.0:', type=('build', 'run'), when='@1.6:1.14')
@@ -193,6 +193,8 @@ class PyTensorflow(Package, CudaPackage):
     depends_on('py-scipy@1.2.2', type=('build', 'run'), when='@2.1.0:2.1.1,2.2.0,2.3.0 ^python@:2')
     depends_on('py-scipy@1.4.1', type=('build', 'run'), when='@2.1.0:2.1.1,2.2.0,2.3.0 ^python@3:')
 
+    # -- CMS: loosen py-typing-extensions requirement to match tf source code
+    depends_on('py-typing-extensions@3.7:3.10', type=('build',  'run'), when='@2.6.4:')
     depends_on('py-typing-extensions@3.7.4:3.7', type=('build', 'run'), when='@2.4.0:')
     # depends_on('py-grpcio@1.8.6:', type=('build', 'run'), when='@1.6:1.7')
 

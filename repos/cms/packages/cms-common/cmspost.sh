@@ -21,8 +21,8 @@ for file in $(find . -name '*'); do
     mkdir -p $RPM_INSTALL_PREFIX/$file
   else
     rm -f $RPM_INSTALL_PREFIX/$file
-    cp -P $file $RPM_INSTALL_PREFIX/$file
     sed -ie "s#@CMS_PREFIX@#${RPM_INSTALL_PREFIX}#g" $file
+    cp -P $file $RPM_INSTALL_PREFIX/$file
   fi
 done
 echo ${pkgrevision} > $RPM_INSTALL_PREFIX/etc/${pkgname}/revision

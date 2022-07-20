@@ -1,19 +1,22 @@
 #!/bin/bash
 pkgrel=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+pkgrel=$(echo $pkgrel | sed -e "s#$RPM_INSTALL_PREFIX##g")
+echo $pkgrel
+exit 0
 cmsplatf='ChAnGeMe'
 realversion=""
 #############################################################################
 SCRAM_ALL_VERSIONS='V[0-9][0-9]*_[0-9][0-9]*_[0-9][0-9]*'
 SCRAM_REL_MINOR=$(echo ${realversion} | grep "${SCRAM_ALL_VERSIONS}" | sed 's|^\(V[0-9][0-9]*_[0-9][0-9]*\)_.*|\1|')
 SCRAM_REL_MAJOR=$(echo ${realversion} | sed 's|^\(V[0-9][0-9]*\)_.*|\1|')
-pkgdir="scram/${realversion}"
+pkgdir="lcg/scram/${realversion}"
 pkgcategory="lcg"
 pkgname="scram"
 
-sed -i -e "s|^BASEPATH = .*|BASEPATH = '$CMS_INSTALL_PREFIX'|" ${pkgrel}/SCRAM/__init__.py
-echo "SCRAMV1_ROOT='$CMS_INSTALL_PREFIX/${pkgrel}'" > ${pkgrel}/etc/profile.d/init.sh
+sed -i -e "s|^BASEPATH = .*|BASEPATH = '$RPM_INSTALL_PREFIX'|" ${pkgrel}/SCRAM/__init__.py
+echo "SCRAMV1_ROOT='$RPM_INSTALL_PREFIX/${pkgrel}'" > ${pkgrel}/etc/profile.d/init.sh
 echo "SCRAMV1_VERSION='${realversion}'" >> ${pkgrel}/etc/profile.d/init.sh
-echo "set SCRAMV1_ROOT='$CMS_INSTALL_PREFIX/${pkgrel}'" > ${pkgrel}/etc/profile.d/init.csh
+echo "set SCRAMV1_ROOT='$RPM_INSTALL_PREFIX/${pkgrel}'" > ${pkgrel}/etc/profile.d/init.csh
 echo "set SCRAMV1_VERSION='${realversion}'" >> ${pkgrel}/etc/profile.d/init.csh
 
 if [ ! -d $RPM_INSTALL_PREFIX/etc/scramrc ] ; then
@@ -70,7 +73,7 @@ done
 echo $vers | tr ' ' '\n' | grep -v '^$' | sort  | tail -1 | sed 's|.*:||' > etc/$VERSION_FILE
 [ -s etc/$VERSION_FILE ] || rm -f etc/$VERSION_FILE
 
-if [ `cat $RPM_INSTALL_PREFIX/share/etc/default-scramv1-version` == '${realversion}' ] ; then
+if [ `cat $RPM_INSTALL_PREFIX/share/etc/default-scramv1-version` == "${realversion}" ] ; then
   mkdir -p $RPM_INSTALL_PREFIX/share/man/man1
   cp -f $RPM_INSTALL_PREFIX/share/${pkgdir}/docs/man/man1/scram.1 ${RPM_INSTALL_PREFIX}/share/man/man1/scram.1
 fi

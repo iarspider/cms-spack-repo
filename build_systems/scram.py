@@ -26,7 +26,7 @@ class ScramPackage(PackageBase):
         self.subpackageDebug = True
         self.vectorized_build = False  # at buildtime
         self.package_vectorization = ""
-        self.cmsplatf = 'slc7_ppc64le_gcc9'
+        self.cmsplatf = os.environ['SCRAM_ARCH']
         self.buildtarget = 'release-build'
         self.cvstag = None  # at buildtime
         self.scram_compiler = 'gcc'  # at buildtime
