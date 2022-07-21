@@ -1,7 +1,7 @@
 #!/bin/bash
 # copy wrapper script into common if latest version is same as this version
 mkdir -p $RPM_INSTALL_PREFIX/common
-if [ "`find ${RPM_INSTALL_PREFIX}/ -wholename '*/etc/dasgoclient' | sed 's|.*/dasgoclient-\(v.*\?\)-.*/\?|\1|' | sort | tail -1`" = "%v" ] ; then
+if [ "`ls ${RPM_INSTALL_PREFIX}/*/dasgoclient/v*/etc/profile.d/init.sh | sed 's|.*/dasgoclient/||;s|/etc/profile.d/init.sh||' | sort | tail -1`" = "%v" ] ; then
   /bin/cp -f %{PREFIX}/etc/dasgoclient $RPM_INSTALL_PREFIX/common/dasgoclient.tmp
   mv $RPM_INSTALL_PREFIX/common/dasgoclient.tmp $RPM_INSTALL_PREFIX/common/dasgoclient
 fi
