@@ -70,7 +70,9 @@ class CrabPackage(PackageBase):
         #List of CRAB python pakcages for which we need to create ProxyPackage symlink
         with open(prefix.etc.join('crab_py_pkgs.txt'), 'w') as f:
             for fn in glob.glob('CRABClient/src/python/*/__init__.py'):
-                f.write(os.path.dirname(fn) + "\n")
+                pname = re.sub('/__init__.py$', '', fn)
+                pname = re.sub('.*/', '', pname)
+                f.write(os.path.dirname(pname) + "\n")
             f.write('dbs\n')
             f.write('RestClient\n')
 

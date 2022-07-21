@@ -1,8 +1,6 @@
 #!/bin/bash
 pkgrel=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 pkgrel=$(echo $pkgrel | sed -e "s#$RPM_INSTALL_PREFIX##g")
-echo $pkgrel
-exit 0
 cmsplatf='ChAnGeMe'
 realversion=""
 #############################################################################
