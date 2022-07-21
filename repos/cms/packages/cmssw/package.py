@@ -76,7 +76,7 @@ class Cmssw(ScramPackage):
 
     @run_after('install')
     def cleanup_extra_data_dirs(self):
-        for dirname in glob.glob(join_path(self.spec.prefix, 'external', self.cmsplatf, 'data?*')):
+        for dirname in glob(join_path(self.spec.prefix, 'external', self.cmsplatf, 'data?*')):
             shutil.rmtree(dirname)
 
     def old_setup_dependent_environment(self, spack_env, run_env, dspec):
