@@ -66,8 +66,8 @@ class Llvm(CMakePackage, CudaPackage):
     depends_on('zlib')
     depends_on('cuda', when='+cuda')
 
-    variant('cuda', default=False)
-    variant('cuda_arch', default='foo')
+#    variant('cuda', default=False)
+#    variant('cuda_arch', default='foo')
     variant('clang', default=True) # dummy
     variant('flang', default=False) # dummy
     variant('shared_libs', default=True) # dummy
@@ -148,6 +148,8 @@ class Llvm(CMakePackage, CudaPackage):
         if "+clang" in self.spec:
             env.set("CC", join_path(self.spec.prefix.bin, "clang"))
             env.set("CXX", join_path(self.spec.prefix.bin, "clang++"))
+        env.prepend_path('PYTHONPATH', site_packages_dir.replace('/lib/', '/lib64/'))
+        env.prepend_path('PYTHON3PATH', site_packages_dir.replace('/lib/', '/lib64/'))
 
     root_cmakelists_dir = "llvm"
 
@@ -192,9 +194,9 @@ class Llvm(CMakePackage, CudaPackage):
         BINDINGS_PATH = site_packages_dir.replace('/lib/', '/lib64/')
         PYTHONVERSION = self.spec['python'].version.up_to(2)
 
-        install_tree("clang/bindings/python", site_packages_dir)
-        mkdirp(os.path.dirname(BINDINGS_PATH))
-        symlink(site_packages_dir, BINDINGS_PATH)
+        mkdirp(BINDINGS_PATH)
+        install_tree("clang/bindings/python/clang", join_path(BINDINGS_PATH, 'clang'))
+        # symlink(site_packages_dir, BINDINGS_PATH)
         with open(join_path(site_packages_dir, 'clang-{0}-py{1}.egg-info'.format(self.spec.version, PYTHONVERSION)), 'w') as f:
             f.write('Metadata-Version: 1.1\nName: clang\nVersion: ' + str(self.spec.version))
 
@@ -211,7 +213,7 @@ class Llvm(CMakePackage, CudaPackage):
         # Avoid dependency on /usr/bin/python, Darwin + Xcode specific
         force_remove(join_path(prefix.bin, 'set-xcode-analyzer'))
 
-        for fn in glob.glob(prefix.lib64.join('*.a')):
+        for fn in find(prefix.lib64, '*.a'):
             if fnmatch.fnmatch('libomptarget-*.a', fn):
                 continue
             force_remove(fn)

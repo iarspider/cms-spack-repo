@@ -47,7 +47,7 @@ class Madgraph5amc(Package):
     variant('thepeg', default=False)
     variant('root', default=False)
 
-    conflicts('%gcc@10:', when='@2.7.3')
+    # conflicts('%gcc@10:', when='@2.7.3') -- CMS
 
     depends_on('syscalc', when='+syscalc')
     depends_on('gosam-contrib', when='+ninja')

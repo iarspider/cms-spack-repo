@@ -1,0 +1,28 @@
+diff --git a/lib/spack/spack/s3_handler.py b/lib/spack/spack/s3_handler.py
+index 8f93227..8f9bcfa 100644
+--- a/lib/spack/spack/s3_handler.py
++++ b/lib/spack/spack/s3_handler.py
+@@ -25,7 +25,7 @@ def __init__(self, raw):
+         raw.readable = lambda: True
+         raw.writable = lambda: False
+         raw.seekable = lambda: False
+-        raw.closed = False
++#        raw.closed = False
+         raw.flush = lambda: None
+         super(WrapStream, self).__init__(raw)
+ 
+diff --git a/lib/spack/spack/util/web.py b/lib/spack/spack/util/web.py
+index f1b01ae..d04afd4 100644
+--- a/lib/spack/spack/util/web.py
++++ b/lib/spack/spack/util/web.py
+@@ -537,8 +537,8 @@ def _urlopen(req, *args, **kwargs):
+ 
+     # Note: 'context' parameter was only introduced starting
+     # with versions 2.7.9 and 3.4.3 of Python.
+-    if __UNABLE_TO_VERIFY_SSL:
+-        del kwargs['context']
++#    if __UNABLE_TO_VERIFY_SSL:
++    del kwargs['context']
+ 
+     opener = urlopen
+     if url_util.parse(url).scheme == 's3':

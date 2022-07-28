@@ -18,6 +18,5 @@ class Pyquen(CMakePackage):
     depends_on('lhapdf')
 
     def cmake_args(self):
-        args = []
-        args += [self.define('PYTHIA6_DIR', self.spec['pythia6'].prefix)]
-        return args
+        return [self.define('PYTHIA6_DIR', self.spec['pythia6'].prefix)]
+
