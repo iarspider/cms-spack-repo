@@ -1,6 +1,6 @@
 #!/bin/bash
-SPACK_VERSION=${SPACK_VERSION:-v0.18.0}
-SPACK_ENV_NAME=${SPACK_ENV_NAME:-CMSSW_12_5_0_pre2}
+SPACK_VERSION=${SPACK_VERSION:-v0.18.1}
+SPACK_ENV_NAME=${SPACK_ENV_NAME:-CMSSW_12_5_0_pre4}
 ###############################################################################
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 WORKSPACE=${WORKSPACE:-$(cd $SCRIPT_DIR/..; pwd)}
