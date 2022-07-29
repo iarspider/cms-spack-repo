@@ -21,8 +21,10 @@ class PyTensorboard(Package):
     depends_on('py-setuptools@41.0.0:', type=('build', 'run'))
     depends_on('py-absl-py@0.4:', type=('build', 'run'))
     depends_on('py-grpcio@1.24.3:', type=('build', 'run'))
-    depends_on('py-google-auth@1.6.3:1', type=('build', 'run'), when='@2.6.0:')
-    depends_on('py-google-auth-oauthlib@0.4.1:0.4', type=('build', 'run'))
+    # -- begin CMS
+    depends_on('py-google-auth@1.6.3:', type=('build', 'run'), when='@2.6.0:')
+    depends_on('py-google-auth-oauthlib@0.4.1:', type=('build', 'run'))
+    # -- end CMS
     depends_on('py-markdown@2.6.8:', type=('build', 'run'))
     depends_on('py-numpy@1.12.0:', type=('build', 'run'))
     depends_on('py-protobuf@3.6.0:', type=('build', 'run'))

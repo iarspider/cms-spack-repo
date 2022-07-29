@@ -1,6 +1,6 @@
 #!/bin/bash
-SPACK_VERSION=${SPACK_VERSION:-v0.17.1}
-SPACK_ENV_NAME=${SPACK_ENV_NAME:-CMSSW_12_1_X}
+SPACK_VERSION=${SPACK_VERSION:-v0.18.1}
+SPACK_ENV_NAME=${SPACK_ENV_NAME:-CMSSW_12_5_0_pre4}
 ###############################################################################
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )/cms-spack-repo"
 cd ${WORKSPACE}
@@ -37,14 +37,12 @@ echo Adding CMSData package type
 cp ${WORKSPACE}/cms-spack-repo/build_systems/cmsdata.py lib/spack/spack/build_systems/
 echo "from spack.build_systems.cmsdata import CMSDataPackage" >> lib/spack/spack/pkgkit.py
 echo Copying backported recipes
-find ${WORKSPACE}/cms-spack-repo/repos/backport/packages -maxdepth 1 -type 'd' -exec cp -r -f {} ${WORKSPACE}/spack/var/spack/repos/builtin/packages \;
+find ${WORKSPACE}/cms-spack-repo/repos/backports/packages -maxdepth 1 -type 'd' -exec cp -r -f {} ${WORKSPACE}/spack/var/spack/repos/builtin/packages \;
 echo Copying backported PythonPackage class
 cp ${WORKSPACE}/cms-spack-repo/build_systems/python.py lib/spack/spack/build_systems/
 cp ${WORKSPACE}/cms-spack-repo/develop/build_environment.py lib/spack/spack/build_environment.py
 echo Copying patched CudaPackage class
 cp ${WORKSPACE}/cms-spack-repo/build_systems/cuda.py lib/spack/spack/build_systems/
-echo Patching spack.util.web and spack.s3_handler
-patch -s -p1 < ${WORKSPACE}/cms-spack-repo/s3.patch
 echo Patching spack.buildcache to only relocate things that needs to be relocated
 patch -s -p1 < ${WORKSPACE}/cms-spack-repo/31074_buildcache.patch
 echo Initializing Spack
@@ -61,7 +59,7 @@ echo Adding CMS Spack signing key to trusted list
 # Temporary workaround until `spack gpg publish` works!
 wget https://test-cms-spack.web.cern.ch/test-cms-spack/CMS/mirror/build_cache/_pgp/A9541E16BC04DEA9624B99B43E5E5DB6F48CB63F.pub -O ${WORKSPACE}/cms-spack.pub
 bin/spack gpg trust ${WORKSPACE}/cms-spack.pub
-(bin/spack gpg list --trusted | grep -e "4096R/F48CB63F") || exit 1
+#(bin/spack gpg list --trusted | grep -e "4096R/F48CB63F") || exit 1
 #echo Adding spack augment command
 #bin/spack config --scope=site add "config:extensions:${WORKSPACE}/cms-spack-repo/spack-scripting"
 #echo Forcing bootstrap of clingo

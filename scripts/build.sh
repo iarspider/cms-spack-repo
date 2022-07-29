@@ -78,7 +78,7 @@ if [ ! -z ${SPACK_DEBUG+x} ]; then
 fi
 #export SPACKMON_USER="cmsbuild"
 #if [ ! -z ${SPACKMON_TOKEN} ]; then SPACK_MON_ARGS="--monitor --monitor-save-local --monitor-tags ${SPACK_ENV_NAME}"; export SPACKMON_TOKEN; fi;
-bin/spack --show-cores=minimized -e ${SPACK_ENV_NAME} install --show-log-on-error --require-full-hash-match -j$CORES --fail-fast $SPACK_MON_ARGS
+bin/spack -e ${SPACK_ENV_NAME} install --show-log-on-error -j$CORES --fail-fast $SPACK_MON_ARGS
 exit_code=$?
 if [ ${exit_code} -ne 0 ]; then
     touch $WORKSPACE/fail

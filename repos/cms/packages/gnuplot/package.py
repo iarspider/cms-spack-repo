@@ -53,7 +53,7 @@ class Gnuplot(AutotoolsPackage):
             description='Build with QT')
 
     # required dependencies
-    # depends_on('readline') -- CMS
+    depends_on('readline')
     depends_on('pkgconfig', type='build')
     depends_on('libxpm')
     depends_on('iconv')

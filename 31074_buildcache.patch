@@ -1,38 +1,32 @@
-From 30544c8cbc18266d4d343dcf4f32278d1613ac15 Mon Sep 17 00:00:00 2001
-From: Ivan Razumov <iarspider@gmail.com>
-Date: Thu, 9 Jun 2022 13:23:49 +0200
-Subject: [PATCH 1/3] Add filename to text_to_relocate only if it needs to be
- relocated
-
----
- lib/spack/spack/binary_distribution.py | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
-
 diff --git a/lib/spack/spack/binary_distribution.py b/lib/spack/spack/binary_distribution.py
-index a0b0e75b8308..0fd71e38b96e 100644
+index f9aa2df4036d..b24c98472f24 100644
 --- a/lib/spack/spack/binary_distribution.py
 +++ b/lib/spack/spack/binary_distribution.py
-@@ -628,6 +628,8 @@ def get_buildfile_manifest(spec):
+@@ -6,6 +6,7 @@
+ import codecs
+ import collections
+ import hashlib
++import io
+ import json
+ import os
+ import shutil
+@@ -628,6 +629,9 @@ def get_buildfile_manifest(spec):
  
-     blacklist = (".spack", "man")
+     exclude_list = (".spack", "man")
  
-+    prefixes = [d.prefix for d in spec.traverse(root=True, deptype='all')]
++    prefixes = [d.prefix for d in spec.traverse(root=False, deptype='all')]
++    prefixes.append(spec.prefix)
 +
      # Do this at during tarball creation to save time when tarball unpacked.
      # Used by make_package_relative to determine binaries to change.
      for root, dirs, files in os.walk(spec.prefix, topdown=True):
-@@ -667,8 +669,17 @@ def get_buildfile_manifest(spec):
+@@ -667,8 +671,12 @@ def get_buildfile_manifest(spec):
                      added = True
  
              if relocate.needs_text_relocation(m_type, m_subtype):
 -                data['text_to_relocate'].append(rel_path_name)
 -                added = True
-+                try:
-+                    contents = open(filename, 'r', errors='ignore').read()
-+                except IOError as e:
-+                    tty.warn("Could not check if {0} needs to be relocated: {1}".format(
-+                        filename, str(e)))
-+                    continue
++                contents = io.open(path_name, 'r', errors='ignore').read()
 +                for prefix in prefixes:
 +                    if prefix in contents:
 +                        data['text_to_relocate'].append(rel_path_name)
@@ -41,59 +35,63 @@ index a0b0e75b8308..0fd71e38b96e 100644
  
              if not added:
                  data['other'].append(path_name)
-
-From 8f2dc927e3bbe5025efed6ada94bc01b9390155a Mon Sep 17 00:00:00 2001
-From: Ivan Razumov <iarspider@gmail.com>
-Date: Thu, 9 Jun 2022 13:32:04 +0200
-Subject: [PATCH 2/3] Fix py2 compatibility
-
----
- lib/spack/spack/binary_distribution.py | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/lib/spack/spack/binary_distribution.py b/lib/spack/spack/binary_distribution.py
-index 0fd71e38b96e..221b856dc5e3 100644
---- a/lib/spack/spack/binary_distribution.py
-+++ b/lib/spack/spack/binary_distribution.py
-@@ -670,7 +670,7 @@ def get_buildfile_manifest(spec):
- 
-             if relocate.needs_text_relocation(m_type, m_subtype):
-                 try:
--                    contents = open(filename, 'r', errors='ignore').read()
-+                    contents = codecs.open(filename, 'r', errors='ignore').read()
-                 except IOError as e:
-                     tty.warn("Could not check if {0} needs to be relocated: {1}".format(
-                         filename, str(e)))
-
-From c601b5e2fd945f8a8682d7c4588f18549aed75d2 Mon Sep 17 00:00:00 2001
-From: Ivan Razumov <iarspider@gmail.com>
-Date: Thu, 9 Jun 2022 15:35:44 +0200
-Subject: [PATCH 3/3] Use path_name, not filename
-
----
- lib/spack/spack/binary_distribution.py | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/lib/spack/spack/binary_distribution.py b/lib/spack/spack/binary_distribution.py
-index 221b856dc5e3..47926f253ef7 100644
---- a/lib/spack/spack/binary_distribution.py
-+++ b/lib/spack/spack/binary_distribution.py
-@@ -628,7 +628,8 @@ def get_buildfile_manifest(spec):
- 
-     blacklist = (".spack", "man")
- 
--    prefixes = [d.prefix for d in spec.traverse(root=True, deptype='all')]
-+    prefixes = [d.prefix for d in spec.traverse(root=False, deptype='all')]
-+    prefixes.append(spec.prefix)
- 
-     # Do this at during tarball creation to save time when tarball unpacked.
-     # Used by make_package_relative to determine binaries to change.
-@@ -670,7 +671,7 @@ def get_buildfile_manifest(spec):
- 
-             if relocate.needs_text_relocation(m_type, m_subtype):
-                 try:
--                    contents = codecs.open(filename, 'r', errors='ignore').read()
-+                    contents = codecs.open(path_name, 'r', errors='ignore').read()
-                 except IOError as e:
-                     tty.warn("Could not check if {0} needs to be relocated: {1}".format(
-                         filename, str(e)))
+diff --git a/lib/spack/spack/test/binary_distribution.py b/lib/spack/spack/test/binary_distribution.py
+new file mode 100644
+index 000000000000..e233f7375a03
+--- /dev/null
++++ b/lib/spack/spack/test/binary_distribution.py
+@@ -0,0 +1,22 @@
++# Copyright 2013-2022 Lawrence Livermore National Security, LLC and other
++# Spack Project Developers. See the top-level COPYRIGHT file for details.
++#
++# SPDX-License-Identifier: (Apache-2.0 OR MIT)
++
++from llnl.util.filesystem import join_path
++
++from spack.binary_distribution import get_buildfile_manifest
++from spack.main import SpackCommand
++from spack.spec import Spec
++
++install = SpackCommand('install')
++
++
++def test_text_relocate_if_needed(install_mockery, mock_fetch, monkeypatch, capfd):
++    spec = Spec('needs-text-relocation').concretized()
++    install(str(spec))
++
++    manifest = get_buildfile_manifest(spec)
++    assert join_path('bin', 'exe') in manifest['text_to_relocate']
++    assert join_path('bin', 'otherexe') not in manifest['text_to_relocate']
++    assert join_path('bin', 'secretexe') not in manifest['text_to_relocate']
+diff --git a/var/spack/repos/builtin.mock/packages/needs-text-relocation/package.py b/var/spack/repos/builtin.mock/packages/needs-text-relocation/package.py
+new file mode 100644
+index 000000000000..7371ea72894c
+--- /dev/null
++++ b/var/spack/repos/builtin.mock/packages/needs-text-relocation/package.py
+@@ -0,0 +1,26 @@
++# Copyright 2013-2022 Lawrence Livermore National Security, LLC and other
++# Spack Project Developers. See the top-level COPYRIGHT file for details.
++#
++# SPDX-License-Identifier: (Apache-2.0 OR MIT)
++from spack.package import *
++
++
++class NeedsTextRelocation(Package):
++    """A dumy package that encodes its prefix."""
++    homepage  = 'https://www.cmake.org'
++    url       = 'https://cmake.org/files/v3.4/cmake-3.4.3.tar.gz'
++
++    version('0.0.0', '12345678qwertyuiasdfghjkzxcvbnm0')
++
++    def install(self, spec, prefix):
++        mkdirp(prefix.bin)
++
++        exe = join_path(prefix.bin, 'exe')
++        with open(exe, 'w') as f:
++            f.write(prefix)
++        set_executable(exe)
++
++        otherexe = join_path(prefix.bin, 'otherexe')
++        with open(otherexe, 'w') as f:
++            f.write("Lorem Ipsum")
++        set_executable(otherexe)

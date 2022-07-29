@@ -20,7 +20,6 @@ class Cmsdist(Package):
     git      = "https://github.com/cms-sw/cmsdist.git"
 
     version('12.4.devel', branch='REL/CMSSW_12_4_X/master')
-    version('12.5.0.pre2', tag='REL/CMSSW_12_5_0_pre2/slc7_amd64_gcc10')
     version('12.4.0.pre3', tag='REL/CMSSW_12_4_0_pre3/slc7_amd64_gcc10')
 
     def patch(self):

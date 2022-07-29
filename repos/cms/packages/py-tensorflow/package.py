@@ -24,6 +24,7 @@ class PyTensorflow(Package, CudaPackage):
     maintainers = ['adamjstewart', 'aweits']
     import_modules = ['tensorflow']
 
+    version('2.6.4.cms',  commit='0b5069862cb4347fcb482f285a323b26d6453a98')
     version('2.6.0.cms',  commit='719e00b6f9553de2662b6df2c353d6934e941103')
     version('2.5.0.cms',  commit='9b69eda15062cfec1b9c2d6f78c0fecbf9e67a34')
 
@@ -121,8 +122,9 @@ class PyTensorflow(Package, CudaPackage):
     depends_on('py-google-pasta@0.1.2:', type=('build', 'run'), when='@1.12.1')
     # propagate the mpi variant setting for h5py/hdf5 to avoid unexpected crashes
     #TODO
-    depends_on('py-h5py@3.1.0:3.1+mpi', type=('build', 'run'), when='@2.6:+mpi')
-    depends_on('py-h5py@3.1.0:3.1~mpi', type=('build', 'run'), when='@2.6:~mpi')
+    # CMS: loosen py-h5py dependency
+    depends_on('py-h5py@3.1.0: +mpi', type=('build', 'run'), when='@2.6:+mpi')
+    depends_on('py-h5py@3.1.0: ~mpi', type=('build', 'run'), when='@2.6:~mpi')
     depends_on('py-h5py@2.10.0:2.10+mpi', type=('build', 'run'), when='@2.2:2.5+mpi')
     depends_on('py-h5py@2.10.0:2.10~mpi', type=('build', 'run'), when='@2.2:2.5~mpi')
 
@@ -139,7 +141,8 @@ class PyTensorflow(Package, CudaPackage):
     depends_on('py-keras-preprocessing@1.0.5:', type=('build', 'run'), when='@1.12:2.0')
     depends_on('py-keras-preprocessing@1.0.3:', type=('build', 'run'), when='@1.11:1.11')
     # https://github.com/tensorflow/tensorflow/issues/40688
-    depends_on('py-numpy@1.19.2:1.19',  type=('build', 'run'), when='@2.4.0:')
+    # CMS: loosen numpy dependency
+    depends_on('py-numpy@1.19.2:',  type=('build', 'run'), when='@2.4.0:')
     depends_on('py-numpy@1.16.0:1.18',  type=('build', 'run'), when='@1.13.2,1.15:2.3')
     depends_on('py-numpy@1.14.5:1.18',  type=('build', 'run'), when='@1.12.1,1.14.0')
     depends_on('py-numpy@1.13.3:1.14.5', type=('build', 'run'), when='@1.10.0:1.10.1')

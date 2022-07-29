@@ -3,8 +3,11 @@
 # It describes a set of packages to be installed, along with
 # configuration settings.
 # NOTICE: intel-tbb should not be replaced with intel-oneapi-tbb, the latter one is pre-built and not configurable
+# py-numby: limited by py-numba
+# py-packaging: limited by py-poetry
 spack:
-  concretization: together
+  concretizer:
+    unify: true
   packages:
     all:
       buildable: true
@@ -162,7 +165,7 @@ spack:
   - dasgoclient@v02.04.49
   - davix@0.8.1
   - dd4hep@1.19x+xercesc+geant4units~edm4hep
-  - dip@8693f00cc422b4a15858fcd84249acaeb07b6316
+  - dip@c8693f00cc422b4a15858fcd84249acaeb07b6316
   - dmtcp@3.0.0-dev                          # CMS: +geant4 is set internally to build static version of ddg4
   - dwz@0.14-patches
   - eigen@82dd3710dac619448f50331c1d6a35da673f764a
@@ -202,7 +205,7 @@ spack:
   - git@2.35.3~man~nls
   - glimpse@4.18.7-6
   - gmake@4.3~nls
-  - gmp@6.2.1+static
+  - gmp@6.2.1 libs=static
   - gnuplot@5.2.8~cairo~X~wx~gd~pbm~libcerf
   - go@1.16
   - py-gosam@2.1.1
@@ -259,7 +262,7 @@ spack:
   - meschach@1.2.pCMS1
   - millepede@04-11-01
   - mpc@1.2.0
-  - mpfr@4.1.0+static
+  - mpfr@4.1.0 libs=static
   - mxnet-predict@1.6.0
   - nasm@2.14.02
   - ninja@1.10.0
@@ -442,16 +445,16 @@ spack:
   - py-networkx@2.7.1
   - py-neurolab@0.3.5
   - py-notebook@6.4.12
-  - py-numba@0.54.0
+  - py-numba@0.55.0
   - py-numexpr@2.8.1
-  - py-numpy@1.22.4
+  - py-numpy@1.21.6
   - py-oauthlib@3.1.1~extras
   - py-onnx@1.10.1
   - py-onnxmltools@1.10.0
   - py-onnx-runtime@1.10.0+cuda
   - py-onnxconverter-common@1.9.0
   - py-opt-einsum@3.3.0
-  - py-packaging@21.0
+  - py-packaging@20.9
   - py-pandas@1.3.4
   - py-pandocfilters@1.5.0
   - py-parsimonious@0.8.1
@@ -590,7 +593,6 @@ spack:
   - rdma-core@39.1
   - re2c@0.13.5
   - rivet@3.1.6 hepmc=2
-  # TODO: ROOT version
   - root@6.24.00.patches_cms_3c21b04+davix+fftw~fits~graphviz+gsl+math+minuit+mlp~mysql+opengl~postgres~pythia6~pythia8+python~qt4+root7+roofit~sqlite+ssl+tmva+tbb~vdt~veccore+x+xrootd+spectrum
   - rust@1.57.0~rustfmt~analysis~clippy~src
   - scitokens-cpp@0.7.0
@@ -608,8 +610,7 @@ spack:
   - tkonlinesw@4.2.0-1_gcc7
   - toprex@4.23
   - triton-inference-client@2.11.0+cuda
-  - ucx@1.12.1~static+shared+openmp+ucg+cma+thread_multiple+pic~java+cuda~rocm+gdrcopy+rc+ud+dc+mlx5-dv+ib-hw-tm+dm+rdmacm~knem~xpmem~examples
-    opt=3
+  - ucx@1.12.1 libs=shared +openmp+ucg+cma+thread_multiple+pic~java+cuda~rocm+gdrcopy+rc+ud+dc+mlx5_dv+ib_hw_tm+dm+rdmacm~knem~xpmem~examples opt=3
   - util-linux-uuid@2.34
   - utm@utm_0.10.0
   - valgrind@3.17.0~mpi libs=shared
@@ -630,104 +631,104 @@ spack:
   config:
     install_tree:
       projections:
-        cmslhetoeosmanager: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        cmssw: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        cmssw-osenv: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        cmssw-wm-tools: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        crab-dev: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        crab-pre: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        crab-prod: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-alignment-offlinevalidation: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-calibcalorimetry-calomiscalibtools: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-calibcalorimetry-ecaltrivialcondmodules: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-calibpps-esproducers: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-calibration-tools: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-calibtracker-sipixelesproducers: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-calibtracker-sistripdcs: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-condformats-jetmetobjects: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-condtools-siphase2tracker: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-condtools-sistrip: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-configuration-generator: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-dataformats-patcandidates: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-detectordescription-schema: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-dqm-dtmonitorclient: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-dqm-ecalmonitorclient: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-dqm-physicshww: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-dqm-sistripmonitorclient: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-egammaanalysis-electrontools: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-eventfilter-l1trawtodigi: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-fastsimulation-materialeffects: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-fastsimulation-trackingrechitproducer: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-fireworks-geometry: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-fwcore-modules: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-generatorinterface-evtgeninterface: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-generatorinterface-reggegribovpartonmcinterface: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-geometry-dtgeometrybuilder: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-geometry-testreference: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-heterogeneouscore-sonictriton: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-hltrigger-jetmet: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-iopool-input: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-l1trigger-csctriggerprimitives: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-l1trigger-dttriggerphase2: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-l1trigger-l1tcalorimeter: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-l1trigger-l1tglobal: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-l1trigger-l1thgcal: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-l1trigger-l1tmuon: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-l1trigger-phase2l1particleflow: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-l1trigger-rpctrigger: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-l1trigger-trackfindingtmtt: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-l1trigger-trackfindingtracklet: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-l1trigger-tracktrigger: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-magneticfield-engine: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-magneticfield-interpolation: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-physicstools-nanoaod: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-physicstools-patutils: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-recobtag-combined: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-recobtag-ctagging: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-recobtag-secondaryvertex: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-recobtag-softlepton: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-recoctpps-totemrplocal: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-recoecal-egammaclusterproducers: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-recoegamma-electronidentification: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-recoegamma-photonidentification: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-recohgcal-ticl: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-recohi-hijetalgos: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-recojets-jetproducers: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-recolocalcalo-ecaldeadchannelrecoveryalgos: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-recomet-metpusubtraction: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-recomtd-timingidtools: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-recomuon-muonidentification: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-recomuon-trackerseedgenerator: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-recoparticleflow-pfblockproducer: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-recoparticleflow-pfproducer: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-recoparticleflow-pftracking: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-recotautag-trainingfiles: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-recotracker-finaltrackselectors: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-recotracker-mkfit: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-recotracker-tkseedgenerator: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-simg4cms-calo: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-simg4cms-forward: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-simg4cms-hgcaltestbeam: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-simpps-ppspixeldigiproducer: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-simtracker-sistripdigitizer: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-simtransport-hectorproducer: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-simtransport-ppsprotontransport: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-simtransport-totemrpprotontransportparametrization: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-slhcupgradesimulations-geometry: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-validation-geometry: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        data-validation-hgcalvalidation: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        geant4data: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        g4abla: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        g4emlow: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        g4ensdfstate: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        g4incl: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        g4ndl: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        g4particlexs: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        g4photonevaporation: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        g4radioactivedecay: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        g4realsurface: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        g4saiddata: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        intel-vtune: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        lcov: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        scram: @SCRAM_ARCH@/${PACKAGE}/${VERSION}
-        all: @SCRAM_ARCH@/${PACKAGE}/${VERSION}-${HASH}
+        cmslhetoeosmanager: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        cmssw: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        cmssw-osenv: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        cmssw-wm-tools: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        crab-dev: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        crab-pre: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        crab-prod: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-alignment-offlinevalidation: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-calibcalorimetry-calomiscalibtools: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-calibcalorimetry-ecaltrivialcondmodules: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-calibpps-esproducers: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-calibration-tools: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-calibtracker-sipixelesproducers: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-calibtracker-sistripdcs: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-condformats-jetmetobjects: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-condtools-siphase2tracker: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-condtools-sistrip: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-configuration-generator: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-dataformats-patcandidates: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-detectordescription-schema: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-dqm-dtmonitorclient: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-dqm-ecalmonitorclient: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-dqm-physicshww: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-dqm-sistripmonitorclient: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-egammaanalysis-electrontools: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-eventfilter-l1trawtodigi: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-fastsimulation-materialeffects: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-fastsimulation-trackingrechitproducer: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-fireworks-geometry: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-fwcore-modules: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-generatorinterface-evtgeninterface: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-generatorinterface-reggegribovpartonmcinterface: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-geometry-dtgeometrybuilder: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-geometry-testreference: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-heterogeneouscore-sonictriton: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-hltrigger-jetmet: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-iopool-input: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-l1trigger-csctriggerprimitives: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-l1trigger-dttriggerphase2: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-l1trigger-l1tcalorimeter: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-l1trigger-l1tglobal: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-l1trigger-l1thgcal: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-l1trigger-l1tmuon: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-l1trigger-phase2l1particleflow: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-l1trigger-rpctrigger: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-l1trigger-trackfindingtmtt: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-l1trigger-trackfindingtracklet: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-l1trigger-tracktrigger: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-magneticfield-engine: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-magneticfield-interpolation: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-physicstools-nanoaod: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-physicstools-patutils: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-recobtag-combined: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-recobtag-ctagging: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-recobtag-secondaryvertex: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-recobtag-softlepton: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-recoctpps-totemrplocal: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-recoecal-egammaclusterproducers: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-recoegamma-electronidentification: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-recoegamma-photonidentification: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-recohgcal-ticl: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-recohi-hijetalgos: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-recojets-jetproducers: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-recolocalcalo-ecaldeadchannelrecoveryalgos: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-recomet-metpusubtraction: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-recomtd-timingidtools: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-recomuon-muonidentification: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-recomuon-trackerseedgenerator: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-recoparticleflow-pfblockproducer: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-recoparticleflow-pfproducer: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-recoparticleflow-pftracking: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-recotautag-trainingfiles: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-recotracker-finaltrackselectors: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-recotracker-mkfit: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-recotracker-tkseedgenerator: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-simg4cms-calo: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-simg4cms-forward: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-simg4cms-hgcaltestbeam: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-simpps-ppspixeldigiproducer: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-simtracker-sistripdigitizer: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-simtransport-hectorproducer: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-simtransport-ppsprotontransport: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-simtransport-totemrpprotontransportparametrization: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-slhcupgradesimulations-geometry: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-validation-geometry: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        data-validation-hgcalvalidation: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        geant4data: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        g4abla: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        g4emlow: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        g4ensdfstate: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        g4incl: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        g4ndl: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        g4particlexs: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        g4photonevaporation: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        g4radioactivedecay: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        g4realsurface: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        g4saiddata: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        intel-vtune: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        lcov: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        scram: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
+        all: slc7_amd64_gcc10/${PACKAGE}/${VERSION}-${HASH}
