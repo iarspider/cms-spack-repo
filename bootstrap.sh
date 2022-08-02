@@ -11,9 +11,6 @@ export RPM_INSTALL_PREFIX=${WORKSPACE}/install
 
 echo This script will install Spack and configure it for CMS needs
 [ -d ${WORKSPACE}/spack ] && (echo Skipping bootstrap; exit 0)
-#echo Cloning cms spack recipes from branch ${VERSION_MAIN}...
-#git clone --quiet https://github.com/iarspider/cms-spack-repo.git
-#cd ${WORKSPACE}/cms-spack-repo; git checkout --quiet ${VERSION_MAIN}; cd ${WORKSPACE}
 echo Cloning spack from branch ${SPACK_VERSION}...
 git clone --quiet https://github.com/spack/spack.git ${WORKSPACE}/spack
 cd ${WORKSPACE}/spack; git checkout --quiet ${SPACK_VERSION}
@@ -38,14 +35,11 @@ cp ${WORKSPACE}/cms-spack-repo/build_systems/cmsdata.py lib/spack/spack/build_sy
 echo "from spack.build_systems.cmsdata import CMSDataPackage" >> lib/spack/spack/pkgkit.py
 echo Copying backported recipes
 find ${WORKSPACE}/cms-spack-repo/repos/backports/packages -maxdepth 1 -type 'd' -exec cp -r -f {} ${WORKSPACE}/spack/var/spack/repos/builtin/packages \;
-echo Copying backported PythonPackage class
-cp ${WORKSPACE}/cms-spack-repo/build_systems/python.py lib/spack/spack/build_systems/
-cp ${WORKSPACE}/cms-spack-repo/develop/build_environment.py lib/spack/spack/build_environment.py
 echo Copying patched CudaPackage class
 cp ${WORKSPACE}/cms-spack-repo/build_systems/cuda.py lib/spack/spack/build_systems/
 echo Patching spack.buildcache to only relocate things that needs to be relocated
 patch -s -p1 < ${WORKSPACE}/cms-spack-repo/31074_buildcache.patch
-echo Initializing Spack
+#echo Initializing Spack
 #source share/spack/setup-env.sh
 echo Adding CMS repository
 bin/spack repo add --scope=site ${WORKSPACE}/cms-spack-repo/repos/cms
