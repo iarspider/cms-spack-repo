@@ -47,7 +47,8 @@ class Madgraph5amc(Package):
     variant('thepeg', default=False)
     variant('root', default=False)
 
-    conflicts('%gcc@10:', when='@2.7.3')
+    # Works for CMS
+    # conflicts('%gcc@10:', when='@2.7.3')
 
     depends_on('syscalc', when='+syscalc')
     depends_on('gosam-contrib', when='+ninja')
@@ -132,15 +133,10 @@ class Madgraph5amc(Package):
             set_parameter('cluster_queue', '1nh')
             set_parameter('cluster_size', "150")
             set_parameter('pjfry', 'None')
-            
+
         filter_file("SHFLAG = -fPIC", "SHFLAG = -fPIC -fcommon", join_path(self.stage.source_path, 'vendor/StdHEP/src/stdhep_arch'))
 
     def build(self, spec, prefix):
-        with working_dir(join_path('vendor', 'CutTools')):
-            make(parallel=False)
-
-        with working_dir(join_path('vendor', 'StdHEP')):
-            make(parallel=False)
 
         if '+atlas' in spec:
             if os.path.exists(join_path('bin', 'compile.py')):
@@ -150,7 +146,13 @@ class Madgraph5amc(Package):
 
             compile_py()
 
-        if '+cms' in spec:
+        if '~cms' in spec:
+            with working_dir(join_path('vendor', 'CutTools')):
+                make(parallel=False)
+
+            with working_dir(join_path('vendor', 'StdHEP')):
+                make(parallel=False)
+
             shutil.copy('input/mg5_configuration.txt', 'input/mg5_configuration_patched.txt')
             # compile_py = Executable(join_path('bin', 'compile.py'))
             py = which('python')
@@ -158,12 +160,20 @@ class Madgraph5amc(Package):
             # compile_py()
             os.remove(join_path('bin', 'compile.py'))
             shutil.move('input/mg5_configuration_patched.txt', 'input/mg5_configuration.txt')
+        else:
+            with open('basiceventgeneration.txt', 'w') as f:
+                print('generate p p > t t~ [QCD]', file=f)
+                print('output basiceventgeneration', file=f)
+                print('launch', file=f)
+                print('set nevents 5', file=f)
+            mg5 = Executable('./bin/mg5_aMC')
+            mg5('./basiceventgeneration.txt')
 
     @when('+cms')
     def install(self, spec, prefix):
         for fn in glob.glob(join_path(prefix, '**', '*.tgz')):
             os.remove(fn)
-            
+
         install_tree('.', prefix)
 
     @when('~cms')
