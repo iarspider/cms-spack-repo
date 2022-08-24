@@ -77,8 +77,4 @@ bin/spack config add "config:install_tree:root:${RPM_INSTALL_PREFIX}"
 echo Creating environment ${SPACK_ENV_NAME}
 sed -i -e "s#@SCRAM_ARCH@#${SCRAM_ARCH}#g" ${WORKSPACE}/cms-spack-repo/environments/${SPACK_ENV_NAME}/spack.yaml
 bin/spack env create ${SPACK_ENV_NAME} ${WORKSPACE}/cms-spack-repo/environments/${SPACK_ENV_NAME}/spack.yaml
-echo List compilers
-bin/spack compilers
-echo Forcing bootstrap of clingo
-bin/spack -d spec zlib > /dev/null
 echo Done
