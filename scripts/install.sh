@@ -20,7 +20,7 @@ echo Add signing key
 spack buildcache keys --force --install --trust
 # echo Set install root
 # spack config add 'config:install_tree:projections:all:${ARCHITECTURE}/${COMPILERNAME}-${COMPILERVER}/${PACKAGE}/${VERSION}-${HASH}'
-spack config add "config:install_tree:root:${RPM_INSTALL_PREFIX}"
+# spack config add "config:install_tree:root:${RPM_INSTALL_PREFIX}"
 echo Force bootstrap
 spack -d solve zlib || exit 1
 echo Get patchelf
@@ -34,7 +34,8 @@ spack env activate ${SPACK_ENV_NAME}
 spack -e "${SPACK_ENV_NAME}" install -j"$CORES" --fail-fast --cache-only --require-full-hash-match
 exit_code=$?
 if [ ${exit_code} -eq 0 ]; then
-    echo Installation complete
+    echo Installation complete, starting postinstall
+    bash -xe $WORKSPACE/cms-spack-repo/scripts/runpost.sh
 else
     echo "ERROR: Installation failed"
     touch $WORKSPACE/fail
