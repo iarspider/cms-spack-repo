@@ -64,6 +64,9 @@ fi
 
 echo Setup spack
 . share/spack/setup-env.sh
+echo Force bootstrap
+spack compiler list
+spack -d solve zlib || exit 1
 echo Start the installation
 SPACK_DEBUG_FLAG=""
 if [ ! -z ${SPACK_DEBUG+x} ]; then
