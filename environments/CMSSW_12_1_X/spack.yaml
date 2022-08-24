@@ -13,7 +13,7 @@ spack:
       buildable: true
       compiler: [gcc@10.3.0]
       target:
-      - broadwell
+      - x86_64
       version: []
       variants: [cxxstd=17, build_type=Release, +cms, 'cuda_arch=60,70,75']
       providers:
@@ -112,8 +112,6 @@ spack:
       buildable: false
     mesa:
       variants: [~llvm]
-    llvm:
-      variants: [~gold]
     gdk-pixbuf:
       variants: [~x11]
     libarchive:
@@ -250,7 +248,7 @@ spack:
   - libxslt@1.1.33~crypto~python
   - libzmq@4.3.3~docs~libbsd
   - log4cplus@2.0.7
-  - llvm@12.0.1.cms~cuda build_type=Release
+  - llvm@12.0.1.cms~cuda~gold build_type=Release
   - lwtnn@2.13
   - lz4@1.9.3
   - m4@1.4.18~sigsegv # NB: doesn't compile with our eigen: https://github.com/lwtnn/lwtnn/issues/161

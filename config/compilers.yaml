@@ -2,28 +2,14 @@ compilers:
 - compiler:
     environment:
       prepend_path:
-        PATH: /cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/gcc/9.3.0/bin
-        LD_LIBRARY_PATH: /cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/gcc/9.3.0/lib64:/cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/gcc/9.3.0/lib
+        PATH: /cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gcc/10.3.0/bin
+        LD_LIBRARY_PATH: /cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gcc/10.3.0/lib64:/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gcc/10.3.0/lib
     modules: []
     operating_system: centos7
-    spec: gcc@9.3.0
+    spec: gcc@10.3.0
     paths:
-      cc: /cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/gcc/9.3.0/bin/gcc
-      cxx: /cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/gcc/9.3.0/bin/g++
-      f77: /cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/gcc/9.3.0/bin/gfortran
-      fc: /cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/gcc/9.3.0/bin/gfortran
+      cc: /cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gcc/10.3.0/bin/gcc
+      cxx: /cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gcc/10.3.0/bin/g++
+      f77: /cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gcc/10.3.0/bin/gfortran
+      fc: /cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gcc/10.3.0/bin/gfortran
     target: x86_64
-- compiler:
-    environment:
-      prepend_path:
-        PATH: /cvmfs/cms.cern.ch/slc7_ppc64le_gcc9/external/gcc/9.3.0/bin
-        LD_LIBRARY_PATH: /cvmfs/cms.cern.ch/slc7_ppc64le_gcc9/external/gcc/9.3.0/lib64:/cvmfs/cms.cern.ch/slc7_ppc64le_gcc9/external/gcc/9.3.0/lib
-    modules: []
-    operating_system: centos7
-    spec: gcc@9.3.0
-    paths:
-      cc: /cvmfs/cms.cern.ch/slc7_ppc64le_gcc9/external/gcc/9.3.0/bin/gcc
-      cxx: /cvmfs/cms.cern.ch/slc7_ppc64le_gcc9/external/gcc/9.3.0/bin/g++
-      f77: /cvmfs/cms.cern.ch/slc7_ppc64le_gcc9/external/gcc/9.3.0/bin/gfortran
-      fc: /cvmfs/cms.cern.ch/slc7_ppc64le_gcc9/external/gcc/9.3.0/bin/gfortran
-    target: ppc64le

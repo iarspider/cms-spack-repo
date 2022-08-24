@@ -10,10 +10,11 @@ export S3_ENDPOINT_URL=https://s3.cern.ch
 export RPM_INSTALL_PREFIX=${WORKSPACE}/install
 
 echo This script will install Spack and configure it for CMS needs
-[ -d ${WORKSPACE}/spack ] && (echo Skipping bootstrap; exit 0)
-#echo Cloning cms spack recipes from branch ${VERSION_MAIN}...
-#git clone --quiet https://github.com/iarspider/cms-spack-repo.git
-#cd ${WORKSPACE}/cms-spack-repo; git checkout --quiet ${VERSION_MAIN}; cd ${WORKSPACE}
+if [ -d ${WORKSPACE}/spack ] ; then
+  echo Skipping bootstrap
+  exit 0
+fi
+
 echo Cloning spack from branch ${SPACK_VERSION}...
 git clone --quiet https://github.com/spack/spack.git ${WORKSPACE}/spack
 cd ${WORKSPACE}/spack; git checkout --quiet ${SPACK_VERSION}
@@ -47,7 +48,9 @@ echo Patching spack.util.web and spack.s3_handler
 patch -s -p1 < ${WORKSPACE}/cms-spack-repo/s3.patch
 echo Patching spack.buildcache to only relocate things that needs to be relocated
 patch -s -p1 < ${WORKSPACE}/cms-spack-repo/31074_buildcache.patch
-echo Initializing Spack
+echo Patching microarchitecture definition for x86_64
+cp ${WORKSPACE}/cms-spack-repo/microarchitectures.json ${WORKSPACE}/spack/lib/spack/external/archspec/json/cpu/microarchitectures.json
+#echo Initializing Spack
 #source share/spack/setup-env.sh
 echo Adding CMS repository
 bin/spack repo add --scope=site ${WORKSPACE}/cms-spack-repo/repos/cms
@@ -62,10 +65,15 @@ echo Adding CMS Spack signing key to trusted list
 wget https://test-cms-spack.web.cern.ch/test-cms-spack/CMS/mirror/build_cache/_pgp/A9541E16BC04DEA9624B99B43E5E5DB6F48CB63F.pub -O ${WORKSPACE}/cms-spack.pub
 bin/spack gpg trust ${WORKSPACE}/cms-spack.pub
 (bin/spack gpg list --trusted | grep -e "4096R/F48CB63F") || exit 1
-#echo Adding spack augment command
-#bin/spack config --scope=site add "config:extensions:${WORKSPACE}/cms-spack-repo/spack-scripting"
-#echo Forcing bootstrap of clingo
-#bin/spack -d spec zlib > /dev/null
+if [ ! -z ${SPACK_DEVELOP} ]; then
+  echo Adding spack augment command
+  bin/spack config --scope=site add "config:extensions:${WORKSPACE}/cms-spack-repo/spack-scripting"
+else
+  echo Add padding to install_tree
+  bin/spack config add "config:install_tree:padded_length:128"
+fi
+echo Set install directory
+bin/spack config add "config:install_tree:root:${RPM_INSTALL_PREFIX}"
 echo Creating environment ${SPACK_ENV_NAME}
 sed -i -e "s#@SCRAM_ARCH@#${SCRAM_ARCH}#g" ${WORKSPACE}/cms-spack-repo/environments/${SPACK_ENV_NAME}/spack.yaml
 bin/spack env create ${SPACK_ENV_NAME} ${WORKSPACE}/cms-spack-repo/environments/${SPACK_ENV_NAME}/spack.yaml
