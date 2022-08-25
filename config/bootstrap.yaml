@@ -27,8 +27,12 @@ bootstrap:
       Specs built from sources by Spack. May take a long time.
   - name: 'cms-mirror'
     type: buildcache
+    description: |
+      CMS buildcache
     info:
       url: https://test-razumov.web.cern.ch/test-razumov/CMS/mirror-bootstrap
+      homepage: https://test-razumov.web.cern.ch/test-razumov
+      releases: https://test-razumov.web.cern.ch/test-razumov
   trusted:
     # By default we trust bootstrapping from sources and from binaries
     # produced on Github via the workflow

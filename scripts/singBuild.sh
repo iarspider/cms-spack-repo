@@ -29,7 +29,7 @@ if [ -e ${WORKSPACE}/fail ]; then
     find ${WORKSPACE} -name 'spack-build-out.txt' > logs.txt
     find ${WORKSPACE} -name 'spec.json' >> logs.txt
     echo ${WORKSPACE}/spack/var/spack/environments/${SPACK_ENV_NAME}/spack.lock >> logs.txt
-    echo Compressing ${wc -l logs.txt) files
+    echo Compressing $(wc -l logs.txt) files
     tar -zcf ${WORKSPACE}/logs.tar.gz -T log.txt
 #    tar -zcf ${WORKSPACE}/monitor.tar.gz ${WORKSPACE}/monitor
     scp ${WORKSPACE}/monitor.tar.gz cmsbuild@lxplus:/eos/user/r/razumov/www/CMS/mirror
