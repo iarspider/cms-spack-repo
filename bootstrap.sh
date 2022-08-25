@@ -24,7 +24,7 @@ echo Adding external gcc
 mkdir -p etc/spack/linux
 cp ${WORKSPACE}/cms-spack-repo/config/compilers.yaml etc/spack/linux/compilers.yaml
 echo Adding CMS bootstrap mirror
-cp ${WORKSPACE}/cms-spack-repo/config/.yaml etc/spack/linux/compilers.yaml
+cp ${WORKSPACE}/cms-spack-repo/config/bootstrap.yaml etc/spack/defaults/bootstrap.yaml
 echo Adding CMS hooks
 cp ${WORKSPACE}/cms-spack-repo/hook/* lib/spack/spack/hooks/
 echo Adding SCRAM build system support
