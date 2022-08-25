@@ -25,7 +25,8 @@ mkdir -p etc/spack/linux
 cp ${WORKSPACE}/cms-spack-repo/config/compilers.yaml etc/spack/linux/compilers.yaml
 echo Adding CMS bootstrap mirror
 cp ${WORKSPACE}/cms-spack-repo/config/bootstrap.yaml etc/spack/defaults/bootstrap.yaml
-pushd share/spack/bootstrap/cms-mirror/
+mkdir -p share/spack/bootstrap/cms-mirror
+pushd share/spack/bootstrap/cms-mirror
 wget -q https://test-razumov.web.cern.ch/test-razumov/CMS/mirror-bootstrap/metadata/binaries/clingo.json
 wget -q https://test-razumov.web.cern.ch/test-razumov/CMS/mirror-bootstrap/metadata/binaries/gnupg.json
 popd
