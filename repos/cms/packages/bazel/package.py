@@ -114,8 +114,8 @@ class Bazel(Package):
     # https://github.com/bazelbuild/bazel/commit/5cff4f1edf8b95bf0612791632255852332f72b5
     # https://github.com/bazelbuild/bazel/commit/ab62a6e097590dac5ec946ad7a796ea0e8593ae0
     patch('linux_ppc-0.29.1.patch', when='@0.29.1')
-    
     patch('bazel-3.7.0-patches.patch', when='@3.7.0:')  # -- CMS
+    patch('bazel-3.7.2-gcc11.patch', when='@3.7.2:')  # -- CMS
 
     # Pass Spack environment variables to the build
     patch('bazelruleclassprovider-0.25.patch', when='@0.25:')
@@ -173,15 +173,18 @@ class Bazel(Package):
 
     def setup_build_environment(self, env):
         # -- CMS: fix building with external Java
-        env.set('JAVA_HOME', '/usr/lib/jvm/java')
+        # env.set('JAVA_HOME', '/usr/lib/jvm/java')
         # fix the broken linking (on power9)
         # https://github.com/bazelbuild/bazel/issues/10327
         env.set('BAZEL_LINKOPTS', '')
         env.set('BAZEL_LINKLIBS', '-lstdc++')
 
         env.set('EXTRA_BAZEL_ARGS',
+                # Fix for openjdk 17
+                # '--host_jvm_args=--add-opens=java.base/java.nio=ALL-UNNAMED'
+                # ' --host_jvm_args=--add-opens=java.base/java.lang=ALL-UNNAMED'
                 # Spack's logs don't handle colored output well
-                '--color=no'
+                ' --color=no'
                 # -- CMS
                 ' --host_javabase=@local_jdk//:jdk'
                 # Enable verbose output for failures
