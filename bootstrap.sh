@@ -26,7 +26,7 @@ cp ${WORKSPACE}/cms-spack-repo/config/compilers.yaml etc/spack/linux/compilers.y
 echo Forcing use of external gcc for bootstrapping
 mkdir -p ${WORKSPACE}/bootstrap/config/linux
 cp ${WORKSPACE}/cms-spack-repo/config/compilers.yaml ${WORKSPACE}/bootstrap/config/linux/
-if [ "${SCRAM_ARCH}" = *"amd64"* ]; then
+if [[ "${SCRAM_ARCH}" = *"amd64"* ]]; then
    sed -i -e 's/core2/x86_64/g' ${WORKSPACE}/bootstrap/config/linux/compilers.yaml
 fi
 echo Adding CMS hooks
