@@ -13,7 +13,7 @@ spack:
       buildable: true
       compiler: [gcc@10.3.0]
       target:
-      - x86_64
+      - core2
       version: []
       variants: [cxxstd=17, build_type=Release, +cms, 'cuda_arch=60,70,75']
       providers:

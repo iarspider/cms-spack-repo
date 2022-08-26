@@ -23,13 +23,6 @@ cp ${WORKSPACE}/cms-spack-repo/config/config.yaml etc/spack/
 echo Adding external gcc
 mkdir -p etc/spack/linux
 cp ${WORKSPACE}/cms-spack-repo/config/compilers.yaml etc/spack/linux/compilers.yaml
-echo Adding CMS bootstrap mirror
-cp ${WORKSPACE}/cms-spack-repo/config/bootstrap.yaml etc/spack/defaults/bootstrap.yaml
-mkdir -p share/spack/bootstrap/cms-mirror
-pushd share/spack/bootstrap/cms-mirror
-wget -q https://test-razumov.web.cern.ch/test-razumov/CMS/mirror-bootstrap/metadata/binaries/clingo.json
-wget -q https://test-razumov.web.cern.ch/test-razumov/CMS/mirror-bootstrap/metadata/binaries/gnupg.json
-popd
 echo Adding CMS hooks
 cp ${WORKSPACE}/cms-spack-repo/hook/* lib/spack/spack/hooks/
 echo Adding SCRAM build system support
@@ -55,17 +48,12 @@ echo Patching spack.util.web and spack.s3_handler
 patch -s -p1 < ${WORKSPACE}/cms-spack-repo/s3.patch
 echo Patching spack.buildcache to only relocate things that needs to be relocated
 patch -s -p1 < ${WORKSPACE}/cms-spack-repo/31074_buildcache.patch
-echo Patching microarchitecture definition for x86_64
-cp ${WORKSPACE}/cms-spack-repo/microarchitectures.json ${WORKSPACE}/spack/lib/spack/external/archspec/json/cpu/microarchitectures.json
-#echo Initializing Spack
-#source share/spack/setup-env.sh
 echo Adding CMS repository
 bin/spack repo add --scope=site ${WORKSPACE}/cms-spack-repo/repos/cms
 echo Adding CMS mirror
 bin/spack mirror add --scope=site cms https://test-cms-spack.webtest.cern.ch/test-cms-spack/CMS/mirror/
 echo Adding CMS buildcache
 bin/spack mirror add --scope=site cms-s3 s3://cms-spack
-# bin/spack mirror add --scope=site 20220719 file:///build/razumov/mirror-20220719
 echo Adding CMS Spack signing key to trusted list
 #bin/spack buildcache keys --install --trust
 # Temporary workaround until `spack gpg publish` works!

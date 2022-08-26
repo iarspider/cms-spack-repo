@@ -12,4 +12,4 @@ compilers:
       cxx: /cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gcc/10.3.0/bin/g++
       f77: /cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gcc/10.3.0/bin/gfortran
       fc: /cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gcc/10.3.0/bin/gfortran
-    target: x86_64
+    target: core2
