@@ -19,7 +19,7 @@ class Rivet(BuiltinRivet):
             # flags.append('-faligned-new')
             flags.append('-std=c++17')
             flags.append('-g')
-            if self.spec.satisfies('arch=amd64'):
+            if self.spec.satisfies('target=x86_64:'):
                 flags.append('-msse3')
 
             return (None, None, flags)
