@@ -61,4 +61,6 @@ bin/spack gpg trust ${WORKSPACE}/cms-spack.pub
 echo Creating environment ${SPACK_ENV_NAME}
 sed -i -e "s#@SCRAM_ARCH@#${SCRAM_ARCH}#g" ${WORKSPACE}/cms-spack-repo/environments/${SPACK_ENV_NAME}/spack.yaml
 bin/spack env create ${SPACK_ENV_NAME} ${WORKSPACE}/cms-spack-repo/environments/${SPACK_ENV_NAME}/spack.yaml
+echo Bootstrapping clingo
+scripts/singBuild_clingo.sh
 echo Done
