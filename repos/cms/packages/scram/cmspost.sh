@@ -1,6 +1,6 @@
 #!/bin/bash
 pkgrel=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-pkgrel=$(echo $pkgrel | sed -e "s#$RPM_INSTALL_PREFIX##g")
+pkgrel=$(echo $pkgrel | sed -e "s#$RPM_INSTALL_PREFIX/##g")
 cmsplatf='ChAnGeMe'
 realversion=""
 #############################################################################
@@ -20,17 +20,17 @@ echo "set SCRAMV1_VERSION='${realversion}'" >> ${pkgrel}/etc/profile.d/init.csh
 if [ ! -d $RPM_INSTALL_PREFIX/etc/scramrc ] ; then
   mkdir -p $RPM_INSTALL_PREFIX/etc/scramrc
   touch $RPM_INSTALL_PREFIX/etc/scramrc/links.db
-  echo 'CMSSW=$cmsplatf/cmssw/CMSSW_*'       > $RPM_INSTALL_PREFIX/etc/scramrc/cmssw.map
-  echo 'CMSSW=$cmsplatf/cmssw-patch/CMSSW_*' > $RPM_INSTALL_PREFIX/etc/scramrc/cmssw-patch.map
-  echo 'CORAL=$cmsplatf/coral/CORAL_*'       > $RPM_INSTALL_PREFIX/etc/scramrc/coral.map
+  echo 'CMSSW=\$SCRAM_ARCH/cmssw/CMSSW_*'       > $RPM_INSTALL_PREFIX/etc/scramrc/cmssw.map
+  echo 'CMSSW=\$SCRAM_ARCH/cmssw-patch/CMSSW_*' > $RPM_INSTALL_PREFIX/etc/scramrc/cmssw-patch.map
+  echo 'CORAL=\$SCRAM_ARCH/coral/CORAL_*'       > $RPM_INSTALL_PREFIX/etc/scramrc/coral.map
   # TODO [ ! -f $RPM_INSTALL_PREFIX/%{OldDB} ] || grep '%{OldDB} *$' $RPM_INSTALL_PREFIX/%{OldDB} | awk '{print $2}' | sed 's|%{OldDB}.*||' > $RPM_INSTALL_PREFIX/etc/scramrc/links.db
 fi
 
 touch $RPM_INSTALL_PREFIX/etc/scramrc/site.cfg
 
-## prob not needed for spack -- Shahzad
-##mkdir -p $RPM_INSTALL_PREFIX/share/etc/default-scram
+mkdir -p $RPM_INSTALL_PREFIX/share/etc/default-scram
 ##
+## prob not needed for spack -- Shahzad
 ### BackwardCompatibilityVersionPolicy
 ##touch $RPM_INSTALL_PREFIX/share/etc/default-scram/${SCRAM_REL_MINOR}
 ##for ver in `find etc/default-scram -maxdepth 1 -mindepth 1 -name "${SCRAM_REL_MAJOR}_[0-9]*" -type f |  xargs -I '{}' basename '{}' | grep 'V[0-9][0-9]*_[0-9][0-9]*$' `; do

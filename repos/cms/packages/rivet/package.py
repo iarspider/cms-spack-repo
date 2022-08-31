@@ -5,6 +5,10 @@ from spack.pkg.builtin.rivet import Rivet as BuiltinRivet
 class Rivet(BuiltinRivet):
     __doc__ = BuiltinRivet.__doc__
 
+    version('3.1.5',  sha256='6217175b781a6fbcf7109777a8678f7a995511aa55e1ae56288735e758505d9a')
+
+    patch('rivet-140-313.patch', level=0)
+
     @run_before('configure')
     def disable_openmp_arm(self):
         if not self.spec.satisfies('arch=aarch64'):
