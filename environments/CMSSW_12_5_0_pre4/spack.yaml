@@ -11,7 +11,7 @@ spack:
   packages:
     all:
       buildable: true
-      compiler: [gcc@10.3.0]
+      compiler: [gcc@11.2.1]
       target:
       - broadwell
       version: []
@@ -22,7 +22,7 @@ spack:
       externals: [{spec: mesa-glu@9.0.0, prefix: /usr}]
       buildable: false
     binutils:
-      externals: [{spec: binutils@2.36.1, prefix: /cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gcc/10.3.0}]
+      externals: [{spec: binutils@2.36.1, prefix: /cvmfs/cms.cern.ch/el8_amd64_gcc11/external/gcc/11.2.1-f9b9dfdd886f71cd63f5538223d8f161/}]
       buildable: false
     openssl:
       externals: [{spec: openssl@1.0.2k-fips, prefix: /usr}]
