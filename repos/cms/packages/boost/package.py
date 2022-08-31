@@ -99,26 +99,26 @@ class Boost(Package):
                                 'wave'])
 
     with_default_variants = 'boost' + ''.join([
-        '+atomic',
+        '~atomic',
         '+chrono',
         '+date_time',
-        '+exception',
+        '~exception',
         '+filesystem',
-        '+graph',
+        '~graph',
         '+iostreams',
-        '+locale',
-        '+log',
-        '+math',
+        '~locale',
+        '~log',
+        '~math',
         '+program_options',
-        '+random',
+        '~random',
         '+regex',
         '+serialization',
         '+signals',
-        '+system',
+        '~system',
         '+test',
-        '+thread',
+        '~thread',
         '+timer',
-        '+wave'])
+        '~wave'])
 
     # mpi/python are not installed by default because they pull in many
     # dependencies and/or because there is a great deal of customization
@@ -297,10 +297,6 @@ class Boost(Package):
     # and https://github.com/spack/spack/pull/21408
     patch("bootstrap-toolset.patch", when="@1.75")
 
-    # -- CMS
-    patch("1.75-added-Intel-compiler-check.patch", when="@1.75")
-    patch("boost-1.75.0-disable-statx.patch", when="@1.75")
-
     def patch(self):
         # Disable SSSE3 and AVX2 when using the NVIDIA compiler
         if self.spec.satisfies('%nvhpc'):
@@ -316,6 +312,10 @@ class Boost(Package):
 
         with open('user-config.jam', 'w') as jam:
             jam.write('using mpi ;\n')
+            if self.spec.satisfies('target=aarch64:'):
+                jam.write('using gcc : : : <cxxflags>"-march=armv8-a -mno-outline-atomics" <cflags>"-march=armv8-a -mno-outline-atomics" ;\n')
+            if self.spec.satisfies('target=ppc64le:'):
+                jam.write('using gcc : : : <cxxflags>"-mcpu=power8 -mtune=power8 --param=l1-cache-size=64 --param=l1-cache-line-size=128 --param=l2-cache-size=512" <cflags>"-mcpu=power8 -mtune=power8 --param=l1-cache-size=64 --param=l1-cache-line-size=128 --param=l2-cache-size=512" ;\n')
 
     def url_for_version(self, version):
         if version >= Version('1.63.0'):

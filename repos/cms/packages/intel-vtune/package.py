@@ -14,11 +14,11 @@ class RPMTemplate(Template):
 xmldata = RPMTemplate("""<tool name="intel-vtune" version="%{realversion}">
   <info url="https://software.intel.com/en-us/intel-vtune-amplifier-xe"/>
   <client>
-    <environment name="INTEL_VTUNE_BASE" default="/cvmfs/projects.cern.ch/intelsw/psxe/linux/x86_64/2018/vtune_amplifier_%{realversion}"/>
+    <environment name="INTEL_VTUNE_BASE" default="/cvmfs/projects.cern.ch/intelsw/oneAPI/linux/x86_64/%{realversion}/vtune/latest/bin64"/>
     <environment name="BINDIR" default="$INTEL_VTUNE_BASE/bin64"/>
   </client>
   <runtime name="PATH" value="$INTEL_VTUNE_BASE/bin64" type="path"/>
-  <runtime name="VTUNE_AMPLIFIER_2018_DIR" value="$INTEL_VTUNE_BASE"/>
+  <runtime name="VTUNE_PROFILER_%{realversion}_DIR" value="$INTEL_VTUNE_BASE"/>
 </tool>
 """)
 
@@ -28,7 +28,7 @@ class IntelVtune(Package):
 
     url      = "file://" + os.path.dirname(__file__) + '/junk.xml'
 
-    version('2018.0.2.525261', sha256='2cae8b754a9f824ddd27964d11732941fd88f52f0880d7f685017caba7fea6b7',
+    version('2022', sha256='2cae8b754a9f824ddd27964d11732941fd88f52f0880d7f685017caba7fea6b7',
             expand=False)
 
     def install(self, spec, prefix):

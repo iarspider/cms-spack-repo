@@ -29,6 +29,11 @@ class Git(AutotoolsPackage):
     # You can find the source here: https://mirrors.edge.kernel.org/pub/software/scm/git/sha256sums.asc
     releases = [
         {
+            'version': '2.35.3',
+            'sha256': 'cad708072d5c0b390c71651f5edb44143f00b357766973470bf9adebc0944c03',
+            'sha256_manpages': 'a0ecb468c80229776f240a56e188060be37411467fdfe41973766351747c5205'
+        },
+        {
             'version': '2.31.1',
             'sha256': '46d37c229e9d786510e0c53b60065704ce92d5aedc16f2c5111e3ed35093bfa7',
             'sha256_manpages': 'd330498aaaea6928b0abbbbb896f6f605efd8d35f23cbbb2de38c87a737d4543'
@@ -242,6 +247,7 @@ class Git(AutotoolsPackage):
     depends_on('pcre2', when='@2.14:')
     depends_on('perl')
     depends_on('zlib')
+    depends_on('python') # -- CMS
     depends_on('openssh', type='run')
 
     depends_on('autoconf', type='build')
@@ -273,6 +279,8 @@ class Git(AutotoolsPackage):
 
     # See the comment in setup_build_environment re EXTLIBS.
     def patch(self):
+        filter_file('$(sysconfdir)/git', 'etc/git', 'Makefile',
+                    string=True)
         filter_file(r'^EXTLIBS =$',
                     '#EXTLIBS =',
                     'Makefile')
@@ -312,7 +320,7 @@ class Git(AutotoolsPackage):
             '--with-openssl={0}'.format(spec['openssl'].prefix),
             '--with-perl={0}'.format(spec['perl'].command.path),
             '--with-zlib={0}'.format(spec['zlib'].prefix),
-            '--without-python'  # -- CMS
+            '--with-python={0}'.format(spec['python'].prefix)  # -- CMS
         ]
 
         if '+perl' in self.spec:

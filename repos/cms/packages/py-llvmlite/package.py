@@ -12,6 +12,7 @@ class PyLlvmlite(PythonPackage):
     homepage = "https://llvmlite.readthedocs.io/en/latest/index.html"
     pypi = "llvmlite/llvmlite-0.23.0.tar.gz"
 
+    version('0.38.0', sha256='a99d166ccf3b116f3b9ed23b9b70ba2415640a9c978f3aaa13fad49c58f4965c')
     version('0.37.0', sha256='6392b870cd018ec0c645d6bbb918d6aa0eeca8c62674baaee30862d6b6865b15')
     version('0.34.0', sha256='f03ee0d19bca8f2fe922bb424a909d05c28411983b0c2bc58b020032a0d11f63')
     version('0.33.0', sha256='9c8aae96f7fba10d9ac864b443d1e8c7ee4765c31569a2b201b3d0b67d8fc596')
@@ -41,11 +42,11 @@ class PyLlvmlite(PythonPackage):
     depends_on('llvm@6.0.0:6.0', when='@0.23.0:0.26')
     depends_on('llvm@4.0.0:4.0', when='@0.17.0:0.20')
     depends_on('binutils', type='build')
-    
+
     # -- begin CMS: patches
-    patch("py3-llvmlite-fpic-flag.patch", when='@0.37.0')
-    patch("py3-llvmlite-removeMethod.patch", when='@0.37.0')
-    patch("py3-llvmlite-version.patch", when='@0.37.0')
+    patch("py3-llvmlite-fpic-flag.patch", when='@0.37.0:')
+    patch("py3-llvmlite-removeMethod.patch", when='@0.37.0:', level=0)
+    patch("py3-llvmlite-version.patch", when='@0.37.0:')
     # -- end CMS
 
     def setup_build_environment(self, env):

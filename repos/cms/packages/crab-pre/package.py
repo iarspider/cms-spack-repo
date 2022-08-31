@@ -15,10 +15,10 @@ class CrabPre(Package):
     homepage = "https://www.example.com"
     url = "file://" + os.path.dirname(__file__) + '/junk.xml'
 
-    wmcore_version = '1.5.3'
-    crab_client_version = 'v3.211130'
-    crab_client_revision = '00'
-    crab_server_version = 'v3.211025'
+    #wmcore_version = '1.5.3'
+    crab_client_version = 'v3.220210'
+    crab_client_revision = '01'
+    crab_server_version = 'v3.220107'
     dbs_version = '3.14.0'
     thisdir = os.path.dirname(__file__)
 
@@ -28,12 +28,12 @@ class CrabPre(Package):
         tag=crab_client_version,
         destination='.'
     )
-    resource(
-        name='WMCore',
-        git='https://github.com/dmwm/WMCore.git',
-        tag=wmcore_version,
-        destination='.'
-    )
+    #resource(
+    #    name='WMCore',
+    #    git='https://github.com/dmwm/WMCore.git',
+    #    tag=wmcore_version,
+    #    destination='.'
+    #)
     resource(
         name='CRABServer',
         git='https://github.com/dmwm/CRABServer.git',
@@ -49,8 +49,8 @@ class CrabPre(Package):
 
     version(crab_client_version + '.' + crab_client_revision, sha256='af147dd4a6c715dde7e0f13f4fb990029c13833d73fffc281a09709ce422c46b', expand=False)
 
-    wmcore_packages = ("PSetTweaks", "Utils", "WMCore")
-    crabserver_packages = ("RESTInteractions.py", "ServerUtilities.py")
+    # wmcore_packages = ("PSetTweaks", "Utils", "WMCore")
+    crabserver_packages = ("ServerUtilities.py", )
     dbs_packages = ("Client/src/python/dbs", "PycurlClient/src/python/RestClient")
 
     def install(self, spec, prefix):

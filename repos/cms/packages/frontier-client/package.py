@@ -3,15 +3,16 @@ import sys,os
 
 class FrontierClient(MakefilePackage):
     url      = "https://github.com/fermitools/frontier/archive/v2_9_1.tar.gz"
+    homepage = "https://github.com/fermitools/frontier"
 
     version('2_9_1',  sha256='d21370fbe142807966e3c2218ce361ea3bb573498e1b8387b801fb6641c3ed22')
     version('2_9_0',  sha256='e58dba3f177c5b74609f244101a22a5c14d42bf019013fe2dba72c09f819c62a')
     version('2_8_21', sha256='7df9ba61c3e1778aca75c5da6e45ee4d00b5c061d3f7162208e2fbd2ec266a9e')
     version('2_8_20', sha256='81b0f45762d96a33f156e0238631a60eef910a176644e95c6c19a36824bef7e1')
     # -- CMS
-    version('2.8.20.cms', git='https://github.com/cms-externals/frontier_client.git', branch='cms/2.8.20')
     version('2.9.1.cms', git='https://github.com/cms-externals/frontier_client.git',
-            commit='7259a2c8efaf79b5d2ca78cb7f3bb39318ff4400')
+            commit='9a63575736ae2da49b51e630796a3b3a65e9bd37')
+    version('2.8.20.cms', git='https://github.com/cms-externals/frontier_client.git', branch='cms/2.8.20')
 
     depends_on('openssl')
     depends_on('expat')

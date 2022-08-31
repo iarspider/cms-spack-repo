@@ -10,6 +10,10 @@ from spack import *
 
 
 _versions = {
+    'v02.04.49': {
+        'Linux-aarch64': ('a02c788ea3f6a24a09a2a439488d942b2437a2ba9be1f94df59fe2f7e7137367', 'https://github.com/dmwm/dasgoclient/releases/download/v02.04.49/dasgoclient_aarch64'),
+        'Linux-x86_64':  ('6daebca730e2b106c55295ecd49b7337c772c8859227c5a50a8a2336292c9d00', 'https://github.com/dmwm/dasgoclient/releases/download/v02.04.49/dasgoclient_amd64'),
+        'Linux-ppc64le': ('959a87f1ec28fa899e6cb2df19851f43a1087fbc67d5f4f5f8e3ad540516ef5a', 'https://github.com/dmwm/dasgoclient/releases/download/v02.04.49/dasgoclient_ppc64le')},
     'v02.04.46': {
         'Linux-aarch64': ('3b85ee7931d9c8cb2768ef6183a22530ed217ff0c650de071acc47501058490a', 'https://github.com/dmwm/dasgoclient/releases/download/v02.04.26/dasgoclient_aarch64'),
         'Linux-x86_64':  ('6a174b43294c122faad9c223f0a4548d0c50c56ddfa4af41b57902453950b1ce', 'https://github.com/dmwm/dasgoclient/releases/download/v02.04.26/dasgoclient_amd64'),

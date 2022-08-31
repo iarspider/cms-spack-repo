@@ -13,6 +13,6 @@ class PyNumpy(BuiltinPyNumpy):
         mkdirp(prefix.join('c-api'))
         numpy_include = join_path(
             self.spec.prefix,
-            self.spec['python'].package.site_packages_dir,
+            self.spec['python'].package.platlib,
             'numpy', 'core')
         symlink(numpy_include, join_path(prefix, 'c-api', 'core'))

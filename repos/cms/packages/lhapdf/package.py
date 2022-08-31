@@ -16,6 +16,9 @@ class Lhapdf(AutotoolsPackage):
 
     tags = ['hep']
 
+    setsversion = '6.4.0e'
+
+    version('6.4.0', sha256='7d2f0267e2d65b0ddee048553b342d7c893a6dbabe1e326cad62de0010dd810c')
     version('6.3.0', sha256='ed4d8772b7e6be26d1a7682a13c87338d67821847aa1640d78d67d2cef8b9b5d')
     version('6.2.3', sha256='d6e63addc56c57b6286dc43ffc56d901516f4779a93a0f1547e14b32cfd82dd1')
 
@@ -65,7 +68,7 @@ class Lhapdf(AutotoolsPackage):
             code_dir = os.path.dirname(__file__)
             set_executable(join_path(code_dir, 'lhapdf_makeLinks.sh'))
             makeLinks = Executable(join_path(code_dir, 'lhapdf_makeLinks.sh'))
-            makeLinks('6.3.0f')
+            makeLinks(self.setsversion)
 
             os.remove('pdfsets.index')
 

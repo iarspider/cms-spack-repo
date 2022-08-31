@@ -222,11 +222,15 @@ class Cuda(Package):
         mkdirp(prefix.drivers)
         install(join_path(prefix.build.drivers, 'libcuda.so.{0}'.format(driver_version)), prefix.drivers)
         install(join_path(prefix.build.drivers, 'libnvidia-ptxjitcompiler.so.{0}'.format(driver_version)), prefix.drivers)
+        install(join_path(prefix.nvvm.lib64, 'libnvvm.so.4.0.0'), prefix.drivers)
         with working_dir(prefix):
             force_symlink('libcuda.so.{0}'.format(driver_version), join_path('drivers', 'libcuda.so.1'))
             force_symlink('libcuda.so.1', join_path('drivers', 'libcuda.so'))
             force_symlink('libnvidia-ptxjitcompiler.so.{0}'.format(driver_version), join_path('drivers', 'libnvidia-ptxjitcompiler.so.1'))
-            force_symlink('libnvidia-ptxjitcompiler.so.1', join_path('drivers', 'libnvidia-ptxjitcompiler.so')) 
+            force_symlink('libnvidia-ptxjitcompiler.so.1', join_path('drivers', 'libnvidia-ptxjitcompiler.so'))
+        with working_dir(prefix.drivers):
+            force_symlink('libnvvm.so.4.0.0', 'libnvvm.so.4')
+            force_symlink('libnvvm.so.4', 'libnvvm.so')
 
         filter_file(r'\$(_HERE_)', '$(TOP)/bin', join_path(prefix, 'bin', 'nvcc.profile'))
         filter_file(r'/\$(_TARGET_DIR_)', '', join_path(prefix, 'bin', 'nvcc.profile'))

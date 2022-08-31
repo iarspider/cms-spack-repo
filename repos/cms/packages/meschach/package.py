@@ -19,7 +19,7 @@ class Meschach(Package):
     keep_archives = True
     patch('meschach-1.2-slc4.patch', level=0)
     patch('meschach-1.2b-fPIC.patch', level=0)
-    parallel = False
+    patch('meschach-1.2b-parallel-build.patch')
 
     def patch(self):
         if self.spec.satisfies('platform=darwin'):

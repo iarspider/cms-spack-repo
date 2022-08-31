@@ -20,6 +20,11 @@ class Fftjet(AutotoolsPackage):
     def flag_handler(self, name, flags):
         if name in ['cflags', 'cxxflags', 'cppflags']:
             flags.append('-fPIC')
+            flags.append('-O2')
+            if self.spec.satisfies('arch=aarch64:'):
+                flagss.extend(('-march=armv8-a', '-mno-outline-atomics'))
+            elif self.spec.satisfies('arch=ppc64le:'):
+                flags.extend('-mcpu=power8 -mtune=power8 --param=l1-cache-size=64 --param=l1-cache-line-size=128 --param=l2-cache-size=512'.split())
 
         return (None, flags, None)
 

@@ -198,7 +198,7 @@ class PyTensorflow(Package, CudaPackage):
 
     # -- CMS: loosen py-typing-extensions requirement to match tf source code
     depends_on('py-typing-extensions@3.7:3.10', type=('build',  'run'), when='@2.6.4:')
-    depends_on('py-typing-extensions@3.7.4:3.7', type=('build', 'run'), when='@2.4.0:')
+    depends_on('py-typing-extensions@3.7.4:3.7', type=('build', 'run'), when='@2.4.0:2.6.3')
     # depends_on('py-grpcio@1.8.6:', type=('build', 'run'), when='@1.6:1.7')
 
     if sys.byteorder == 'little':
@@ -289,7 +289,7 @@ class PyTensorflow(Package, CudaPackage):
         env.set('PYTHON_BIN_PATH', spec['python'].command.path)
 
         # Please input the desired Python library path to use
-        env.set('PYTHON_LIB_PATH', site_packages_dir)
+        env.set('PYTHON_LIB_PATH', python_platlib)
 
         # Ensure swig is in PATH or set SWIG_PATH
         env.set('SWIG_PATH', spec['swig'].prefix.bin.swig)
@@ -804,6 +804,7 @@ class PyTensorflow(Package, CudaPackage):
             args.extend(['--copt=-mcpu=native', '--copt=-mtune=native'])
 
         args.append('--cxxopt=-std=c++17')
+        args.append('--host_cxxopt=-std=c++17')
         # -- end CMS
 
         args.append('//tensorflow/tools/pip_package:build_pip_package')

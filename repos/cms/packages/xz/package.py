@@ -31,15 +31,15 @@ class Xz(AutotoolsPackage, SourceforgePackage):
 
     variant('libs', default='shared,static', values=('shared', 'static'),
             multi=True, description='Build shared libs, static libs or both')
-            
+
     # -- CMS hooks
     strip_files = ['lib']
     drop_files = ['share']
 
     def configure_args(self):
-        args = ['--disable-nls', '--disable-doc']  # -- CMS
+        args = ['--disable-nls', '--disable-doc', '--no-po4a']  # -- CMS
         args.extend(self.enable_or_disable('libs'))
-        
+
         return args
 
     def flag_handler(self, name, flags):

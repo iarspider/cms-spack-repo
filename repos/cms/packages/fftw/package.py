@@ -90,10 +90,10 @@ class FftwBase(AutotoolsPackage):
             '--enable-shared',
             '--enable-threads'
         ]
-        
+
         # -- CMS: always disable fortran; no type prefix
         options.append("--disable-fortran")
-        
+
         # Variants that affect every precision
         if '+openmp' in spec:
             options.append('--enable-openmp')

@@ -43,6 +43,9 @@ class Grpc(CMakePackage):
             description='Builds code generation plugins for protobuf '
                         'compiler (protoc)')
 
+    patch('grpc-ssl-fix.patch', when='^openssl')
+#    patch('grpc-gcc11.patch')
+
     depends_on('protobuf')
     depends_on('openssl')
     depends_on('zlib')

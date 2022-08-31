@@ -22,7 +22,7 @@ class Libffi(AutotoolsPackage, SourcewarePackage):
     # ref.: https://github.com/libffi/libffi/pull/561
     patch('powerpc-3.3.patch', when='@3.3')
 
-    drop_files = ['share'] 
+    drop_files = ['share']
 
     depends_on('autoconf', type='build', when='@3.4.2')
     depends_on('automake', type='build', when='@3.4.2')

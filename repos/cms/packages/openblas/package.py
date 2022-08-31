@@ -264,23 +264,21 @@ class Openblas(MakefilePackage):
 
         # Add target and architecture flags
         # -- CMS: override some flags
+        make_defs.extend(['BINARY=64', 'NUM_THREADS=256', 'DYNAMIC_ARCH=0'])
         if self.spec.target.family == 'x86_64':
-            make_defs.extend(['BINARY=64', 'TARGET=CORE2', 
-                              'NUM_THREADS=256', 'DYNAMIC_ARCH=0'])
+            make_defs.append('TARGET=CORE2')
         elif self.spec.target.family == 'aarch64':
-            make_defs.extend(['BINARY=64', 'TARGET=ARMV8', 
-                              'NUM_THREADS=256', 'DYNAMIC_ARCH=0'])
+            make_defs.append('TARGET=ARMV8')
         elif self.spec.target.family == 'ppc64le':
-            make_defs.extend(['BINARY=64', 'NUM_THREADS=256', 
-                              'DYNAMIC_ARCH=0', '-mlong-double-64', 
-                              '-mcpu=power8', '-mtune=power8', 
-                              '--param=l1-cache-size=64', 
-                              '--param=l1-cache-line-size=128', 
-                              '--param=l2-cache-size=51'])
+            make_defs.append('CFLAGS="-mlong-double-64 '
+                              '-mcpu=power8 -mtune=power8 ',
+                              '--param=l1-cache-size=64 ',
+                              '--param=l1-cache-line-size=128 ',
+                              '--param=l2-cache-size=51"')
         else:
             # -- CMS: Fallback to Spack behaviour
             make_defs += self._microarch_target_args()
-            
+
         if '~shared' in self.spec:
             if '+pic' in self.spec:
                 make_defs.extend([

@@ -10,7 +10,7 @@ class Classlib(AutotoolsPackage):
     homepage = "https://www.example.com"
     git      = "https://github.com/cms-externals/classlib.git"
 
-    version('3.1.3', branch='cms/3.1.3')
+    version('3.1.3', commit='76cff1e3c0be6c24a2a9c02fb2a0670b7a19c444')
 
     depends_on('pcre')
 

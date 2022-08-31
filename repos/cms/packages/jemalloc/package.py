@@ -7,6 +7,7 @@ from spack.pkg.builtin.jemalloc import Jemalloc as BuiltinJemalloc
 class Jemalloc(BuiltinJemalloc):
     __doc__ = BuiltinJemalloc.__doc__
     git = "https://github.com/cms-externals/jemalloc.git"
+    version('5.3.0.cms', commit="54eaed1d8b56b1aa528be3bdd1877e59c56fa90c")
     version('5.2.1.cms', commit="de1caefb587217f0b519eb425d7a9b3570e5ba28")
 
     depends_on('autoconf', type='build')

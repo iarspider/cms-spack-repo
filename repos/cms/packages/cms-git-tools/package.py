@@ -13,6 +13,7 @@ class CmsGitTools(Package):
     homepage = "https://www.example.com"
     git      = "https://github.com/cms-sw/cms-git-tools.git"
 
+    version('220325.0', commit='8f8dca853a35fe3345639bda767b28a12bec7842')
     version('211007.0', commit='797b095ca09a955b2caa35645d00c1b9e6a93246')
 
     def install(self, spec, prefix):

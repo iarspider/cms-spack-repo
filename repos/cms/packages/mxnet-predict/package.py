@@ -24,6 +24,10 @@ class MxnetPredict(CMakePackage):
     depends_on('python')
     depends_on('py-numpy')
 
+    def patch(self):
+        filter_file(' python ', ' python3 ', 'cpp-package/cpp-package.mk')
+        filter_file(' python ', ' python3 ', 'cpp-package/CMakeLists.txt')
+
     def cmake_args(self):
         define = self.define
         args = [define('USE_CUDA', 'OFF'),

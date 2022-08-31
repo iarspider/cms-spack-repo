@@ -15,4 +15,3 @@ class DataFastsimulationMaterialeffects(CMSDataPackage):
     def url_for_version(self, version):
         url = self.url.rsplit('/', 1)[0]
         return url + '/data-FastSimulation-MaterialEffects-' + str(version) + '.tar.gz'
-

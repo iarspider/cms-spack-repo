@@ -152,7 +152,9 @@ class Geant4(CMakePackage):
             '-DGEANT4_BUILD_VERBOSE_CODE=OFF',
             '-DGEANT4_ENABLE_TESTING=OFF',
             '-DGEANT4_BUILD_TLS_MODEL:STRING="global-dynamic"',
-            '-DCMAKE_INSTALL_LIBDIR=lib'
+            # '-DCMAKE_INSTALL_LIBDIR=lib'
+            '-DCMAKE_AR=' + str(which('gcc-ar')),
+            '-DCMAKE_RANLIB=' + str(which('gcc-ranlib'))
             # -- end cms
         ]
 
@@ -208,12 +210,12 @@ class Geant4(CMakePackage):
     @run_after('install')
     def geant4_static(self):
         prefix = self.spec.prefix
-        mkdirp(prefix.lib.archive)
-        ar = which('ar', required=True)
-        with working_dir(prefix.lib.archive):
-            for fn in find(prefix.lib, '*.a'):
-                ar('-x', fn)
-            ofiles = find(prefix.lib.archive, '*.o')
+        mkdirp(prefix.lib64.archive)
+        ar = which('gcc-ar', required=True)
+        with working_dir(prefix.lib64.archive):
+            for fn in find(prefix.lib64, '*.a'):
+                ar('x', fn)
+            ofiles = find(prefix.lib64.archive, '*.o')
             ar('rcs', 'libgeant4-static.a', *ofiles)
             for fn in ofiles:
                 os.unlink(fn)

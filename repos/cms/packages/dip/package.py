@@ -20,7 +20,7 @@ class Dip(CMakePackage):
     keep_archives = True
     url = 'https://cmsrep.cern.ch/cmssw/download/dip/8693f00cc422b4a15858fcd84249acaeb07b6316/dip-8693f00cc422b4a15858fcd84249acaeb07b6316.tgz'
 
-    version('8693f00cc422b4a15858fcd84249acaeb07b6316', sha256='bac54edf593de5b4dfabd8f9f26cb67e4bf552329a258da22b08f230259a78f6')
+    version('c8693f00cc422b4a15858fcd84249acaeb07b6316', sha256='bac54edf593de5b4dfabd8f9f26cb67e4bf552329a258da22b08f230259a78f6')
 
     resource(name='platform',
              url='https://cmsrep.cern.ch/cmssw/download/dip/8693f00cc422b4a15858fcd84249acaeb07b6316/platform-dependent-f41e221f8fb95830fc001dad975b4db770f5d29d.tgz',
@@ -31,6 +31,10 @@ class Dip(CMakePackage):
     depends_on('log4cplus')
 
     cms_stage = 1
+
+    # TODO: Fix me
+    def url_for_version(self, version):
+        return self.url
 
     @property
     def root_cmakelists_dir(self):

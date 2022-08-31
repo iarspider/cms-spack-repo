@@ -16,9 +16,9 @@ class CmsCommon(Package):
     homepage = "https://www.example.com"
     git      = "https://github.com/cms-sw/cms-common.git"
 
-    version('1.0', commit='9505d2624c75659a537bba9bc46b5c3c7f5d201f')
+    version('1.0', commit='8b1f2895f58cc6c204a8508560daa210b603aa26')
 
-    revision = '1219'
+    revision = '1222'
 
 
     def install(self, spec, prefix):

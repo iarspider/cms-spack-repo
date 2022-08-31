@@ -13,7 +13,7 @@ from spack import *
 _versions = {
     # cuDNN 8.3.3
     '8.3.3.40-11.5': {
-        'Linux-x86_64': 'd6ef2f6b5f3be625a7f5fba5c01bcb77902aa45e6ac068ac5a1df3fcae3a668a',
+        'Linux-x86_64': 'eabe96c75cf03ea4f5379894d914f1f8ae14ceab121989e84b0836d927fb7731',
         'Linux-ppc64le': '2b99d47454366c5d21fec2cbb9a6541153b7c8f34d369d2a2c74733d6453034c',
         'Linux-aarch64': 'c96415fd06db25ed7c966757157670ba7c9bc423994f1dcbf64b33e91407eef4'},
 
@@ -283,21 +283,6 @@ class Cudnn(Package):
 
     def install(self, spec, prefix):
         install_tree('.', prefix)
-
-        if 'target=ppc64le: platform=linux' in spec:
-            target_lib = os.path.join(prefix, 'targets',
-                                      'ppc64le-linux', 'lib')
-            if os.path.isdir(target_lib) and not os.path.isdir(prefix.lib):
-                symlink(target_lib, prefix.lib)
-            target_include = os.path.join(prefix, 'targets',
-                                          'ppc64le-linux', 'include')
-            if os.path.isdir(target_include) \
-               and not os.path.isdir(prefix.include):
-                symlink(target_include, prefix.include)
-
-        # -- CMS: remove static libraries
-        for fn in glob.glob(prefix.lib.join('*.a')):
-            os.unlink(fn)
 
         # -- CMS: onnxruntime is hardcoded to look for the cudnn libraries under .../lib64
         shutil.move(prefix.lib, prefix.lib64)

@@ -19,6 +19,7 @@ class Cmsdist(Package):
     homepage = "https://www.example.com"
     git      = "https://github.com/cms-sw/cmsdist.git"
 
+    version('12.5.0.pre4', tag='REL/CMSSW_12_5_0_pre4/slc7_amd64_gcc10')
     version('12.4.devel', branch='REL/CMSSW_12_4_X/master')
     version('12.4.0.pre3', tag='REL/CMSSW_12_4_0_pre3/slc7_amd64_gcc10')
 

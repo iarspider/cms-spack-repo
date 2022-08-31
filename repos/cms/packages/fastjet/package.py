@@ -103,4 +103,11 @@ class Fastjet(AutotoolsPackage):
         else:
             extra_args.append('--enable-thread-safety')
 
+        if self.spec.satisfies('arch=x86_64:'):
+            extra_args.append('CXXFLAGS=-msse3')
+        elif self.spec.satisfies('arch=aarch64:'):
+            extra_args.append('CXXFLAGS=-march=armv8-a -mno-outline-atomics')
+        elif self.spec.satisfies('arch=ppc64le:'):
+            extra_args.append('CXXFLAGS=-mcpu=power8 -mtune=power8 --param=l1-cache-size=64 --param=l1-cache-line-size=128 --param=l2-cache-size=512')
+
         return extra_args

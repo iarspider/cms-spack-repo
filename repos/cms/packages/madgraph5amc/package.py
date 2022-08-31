@@ -47,7 +47,7 @@ class Madgraph5amc(Package):
     variant('thepeg', default=False)
     variant('root', default=False)
 
-    conflicts('%gcc@10:', when='@2.7.3')
+    conflicts('%gcc@10:', when='@2.7.3 ~cms')
 
     depends_on('syscalc', when='+syscalc')
     depends_on('gosam-contrib', when='+ninja')
@@ -70,7 +70,6 @@ class Madgraph5amc(Package):
     patch('madgraph5amc-2.8.0.atlas.patch', level=0, when='@2.8.0+atlas')
     patch('madgraph5amc-2.8.0.atlas.patch', level=0, when='@2.8.1+atlas')
 
-    patch('madgraph5amcatnlo-compile.patch', level=1, when='+cms')
     patch('madgraph5amcatnlo-py39.patch', level=1, when='@2.7.3.py3 ^python@3.9:')
 
     phases = ['edit', 'build', 'install']
@@ -132,16 +131,10 @@ class Madgraph5amc(Package):
             set_parameter('cluster_queue', '1nh')
             set_parameter('cluster_size', "150")
             set_parameter('pjfry', 'None')
-            
+
         filter_file("SHFLAG = -fPIC", "SHFLAG = -fPIC -fcommon", join_path(self.stage.source_path, 'vendor/StdHEP/src/stdhep_arch'))
 
     def build(self, spec, prefix):
-        with working_dir(join_path('vendor', 'CutTools')):
-            make(parallel=False)
-
-        with working_dir(join_path('vendor', 'StdHEP')):
-            make(parallel=False)
-
         if '+atlas' in spec:
             if os.path.exists(join_path('bin', 'compile.py')):
                 compile_py = Executable(join_path('bin', 'compile.py'))
@@ -150,7 +143,13 @@ class Madgraph5amc(Package):
 
             compile_py()
 
-        if '+cms' in spec:
+        if '~cms' in spec:
+            with working_dir(join_path('vendor', 'CutTools')):
+                make(parallel=False)
+
+            with working_dir(join_path('vendor', 'StdHEP')):
+                make(parallel=False)
+
             shutil.copy('input/mg5_configuration.txt', 'input/mg5_configuration_patched.txt')
             # compile_py = Executable(join_path('bin', 'compile.py'))
             py = which('python')
@@ -163,7 +162,7 @@ class Madgraph5amc(Package):
     def install(self, spec, prefix):
         for fn in glob.glob(join_path(prefix, '**', '*.tgz')):
             os.remove(fn)
-            
+
         install_tree('.', prefix)
 
     @when('~cms')
@@ -198,7 +197,7 @@ class Madgraph5amc(Package):
             print("output basiceventgeneration", file=f)
             print("launch", file=f)
             print("set nevents 5", file=f)
-            
+
         mg5 = Executable(join_path(self.prefix.bin, 'mg5_aMC'))
         mg5(join_path(self.prefix, 'basiceventgeneration.txt'))
         os.remove(join_path(self.prefix, 'basiceventgeneration.txt'))

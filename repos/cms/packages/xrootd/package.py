@@ -17,3 +17,10 @@ class Xrootd(BuiltinXrootd):
     def patch(self):
         super().patch()
         filter_file('UUID REQUIRED', 'UUID ', 'cmake/XRootDFindLibs.cmake')
+
+    def cmake_args(self):
+        args = super().cmake_args()
+        args.append('-DFORCE_ENABLED=TRUE')
+        args.append('-DENABLE_VOMS=FALSE')
+        args.append('-DXRDCL_ONLY=TRUE')
+        return args

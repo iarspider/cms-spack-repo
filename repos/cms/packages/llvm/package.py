@@ -148,8 +148,8 @@ class Llvm(CMakePackage, CudaPackage):
         if "+clang" in self.spec:
             env.set("CC", join_path(self.spec.prefix.bin, "clang"))
             env.set("CXX", join_path(self.spec.prefix.bin, "clang++"))
-        env.prepend_path('PYTHONPATH', site_packages_dir.replace('/lib/', '/lib64/'))
-        env.prepend_path('PYTHON3PATH', site_packages_dir.replace('/lib/', '/lib64/'))
+        env.prepend_path('PYTHONPATH', python_platlib.replace('/lib/', '/lib64/'))
+        env.prepend_path('PYTHON3PATH', python_platlib.replace('/lib/', '/lib64/'))
 
     root_cmakelists_dir = "llvm"
 
@@ -191,13 +191,13 @@ class Llvm(CMakePackage, CudaPackage):
 
     @run_after('install')
     def post_inst(self):
-        BINDINGS_PATH = site_packages_dir.replace('/lib/', '/lib64/')
+        BINDINGS_PATH = python_platlib.replace('/lib/', '/lib64/')
         PYTHONVERSION = self.spec['python'].version.up_to(2)
 
         mkdirp(BINDINGS_PATH)
         install_tree("clang/bindings/python/clang", join_path(BINDINGS_PATH, 'clang'))
-        # symlink(site_packages_dir, BINDINGS_PATH)
-        with open(join_path(site_packages_dir, 'clang-{0}-py{1}.egg-info'.format(self.spec.version, PYTHONVERSION)), 'w') as f:
+        # symlink(python_platlib, BINDINGS_PATH)
+        with open(join_path(python_platlib, 'clang-{0}-py{1}.egg-info'.format(self.spec.version, PYTHONVERSION)), 'w') as f:
             f.write('Metadata-Version: 1.1\nName: clang\nVersion: ' + str(self.spec.version))
 
         for fn in glob.glob(join_path(self.build_directory, 'clang', 'tools', 'scan-build', 'set-xcode*')):
