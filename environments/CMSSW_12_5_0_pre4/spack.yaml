@@ -3,7 +3,7 @@
 # It describes a set of packages to be installed, along with
 # configuration settings.
 # NOTICE: intel-tbb should not be replaced with intel-oneapi-tbb, the latter one is pre-built and not configurable
-# py-numby: limited by py-numba
+# py-numpy: limited by py-numba
 # py-packaging: limited by py-poetry
 spack:
   concretizer:
@@ -122,8 +122,9 @@ spack:
   specs:
   - cms-config # For platform-dependent packages
   - cmssw@CMSSW_12_5_0_pre4
+  - abseil-cpp@20210324.2
   - alpgen@2.1.4 recipe=cms
-  - alpaka@develop-20220621
+  - alpaka@20220621
   - autoconf@2.71
   - automake@1.16.3
   - bazel@3.7.2
@@ -131,11 +132,9 @@ spack:
   - benchmark@develop
   - bison@3.7.6
   - blackhat@0.9.9
-  - boost@1.78.0.cms~icu~atomic~container~context~coroutine~exception~graph~locale~log~math~random~wave+shared+multithreaded~debug+mpi+python+iostreams
+  - boost@1.78.0.cms+atomic~icu~container~context~coroutine+exception+graph+locale+log+math+random+wave+shared+multithreaded~debug+mpi+python+iostreams
   - bzip2@1.0.6
-  - cascade@2.2.04
   - catch2@2.13.7
-  - charybdis@1.003
   - classlib@3.1.3
   - clhep@2.4.5.1.cms
   - cmake@3.21.4~ownlibs~ncurses
@@ -143,8 +142,8 @@ spack:
   - cms-git-tools@220325.0
   - cmslhetoeosmanager  # NB: version detected automatically
   - cmsmon-tools@0.5.35
-  - cmssw-osenv@211125.0
-  - cmssw-tool-conf@1.0 # FIXME!
+  - cmssw-osenv@220601.0
+  - cmssw-tool-conf@52.0
   - cmssw-wm-tools@211210
   - cmsswdata@40.0
   - coral@CORAL_2_3_21
@@ -158,8 +157,7 @@ spack:
   - cuda@11.5.2
   - cudnn@8.3.3.40-11.5 # NB: version includes CUDA version
   - cuda-compatible-runtime@1.0
-  - cupla@0.3.0
-  - curl@7.79.0~libssh2+gssapi~libidn2
+  - curl@7.79.0~libssh2+gssapi~libidn2 tls=openssl
   - dablooms@0.9.1
   - das-client@v03.01.00
   - dasgoclient@v02.04.49
@@ -167,7 +165,7 @@ spack:
   - dd4hep@1.19x+xercesc+geant4units~edm4hep
   - dip@c8693f00cc422b4a15858fcd84249acaeb07b6316
   - dmtcp@3.0.0-dev                          # CMS: +geant4 is set internally to build static version of ddg4
-  - dwz@0.14-patches
+  - dwz@0.14-20220401
   - eigen@82dd3710dac619448f50331c1d6a35da673f764a
   - elfutils@0.186~nls
   - evtgen@02.00.00+pythia8+tauola+photos
@@ -199,7 +197,6 @@ spack:
   - geant4@10.7.2+threads+vecgeom~opengl~x11~qt~python~motif
   - geant4data@10.0
   - geant4-parfullcms@2014.01.27
-  - gengetopt@2.22.6
   - gettext@0.21~bzip2~xz~curses~libxml2~libunistring
   - giflib@5.2.0
   - git@2.35.3~man~nls
@@ -219,20 +216,18 @@ spack:
   - hepmc3@3.2.5
   - heppdt@3.04.01.cms
   - herwig3@7.2.2
-  - herwig6@6.521
   - highfive@2.3.1
   - hls@2019.08
   - hydjet@1.9.1
   - hydjet2@2.4.3
-  - hwloc@2.8.0+cuda+nvml+libxml2~cairo~netloc+pci
+  - hwloc@2.8.0+cuda+nvml+libxml2~cairo~netloc+pci~rocm libs=static,shared # Temp without rocm
   - igprof@5.9.16
   - intel-tbb@2021.5
-  - intel-vtune@2012
+  - intel-vtune@2022
   - isl@0.24
   - ittnotify@16.06.18
   - jemalloc@5.3.0.cms~documentation+stats~debug libs=shared
   - jemalloc-debug@5.3.0.cms~documentation+stats+debug libs=shared
-  - jimmy@4.2
   - ktjet@1.06
   - lcov@1.15
   - lhapdf@6.4.0
@@ -261,7 +256,7 @@ spack:
   - md5@1.0.0
   - meschach@1.2.pCMS1
   - millepede@04-11-01
-  - mpc@1.2.0
+  - mpc@1.2.1
   - mpfr@4.1.0 libs=static
   - mxnet-predict@1.6.0
   - nasm@2.14.02
@@ -269,7 +264,7 @@ spack:
   - nlohmann-json@3.10.2
   - numactl@2.0.14
   - openblas@0.3.15
-  - opencv@4.5.5+eigen+python3
+  - opencv@4.6.0+eigen+python3~vtk
   - openldap@2.4.49+client_only~sasl
   - openloops@2.1.2                   # 2.6.0 requires OpenSSL 1.1.1
   - openloops-process@2.1.2
@@ -283,7 +278,7 @@ spack:
   - photos-f@215.5
   - pkg-config@0.29.2+internal_glib
   - professor@2.3.3~interactive
-  - protobuf@3.17.3
+  - protobuf@3.15.1
   - py-absl-py@0.13.0
   - py-aiohttp@3.8.1
   - py-aiosignal@1.2.0
@@ -295,7 +290,7 @@ spack:
   - py-arrow@1.2.1
   - py-asn1crypto@1.4.0
   - py-astor@0.8.1
-  - py-astroid@2.11.2
+  - py-astroid@2.11.6
   - py-astunparse@1.6.3
   - py-async-lru@1.0.2
   - py-async-timeout@4.0.2
@@ -322,7 +317,7 @@ spack:
   - py-charset-normalizer@2.0.7
   - py-click@8.0.1
   - py-clikit@0.6.2
-  # - py-climate@0.1.0
+  - py-climate@0.1.0
   - py-cleo@0.8.1
   - py-cloudpickle@1.6.0
   - py-cmake@3.21.4
@@ -414,9 +409,9 @@ spack:
   - py-keyring@23.1.0
   - py-kiwisolver@1.3.2
   - py-law@0.1.6
-  - py-lazy-object-proxy@1.6.0
+  - py-lazy-object-proxy@1.7.1
   - py-lizard@1.17.9
-  - py-llvmlite@0.37.0
+  - py-llvmlite@0.38.0
   - py-lockfile@0.12.2
   - py-luigi@3.1.0
   - py-lxml@4.9.1
@@ -445,8 +440,8 @@ spack:
   - py-networkx@2.7.1
   - py-neurolab@0.3.5
   - py-notebook@6.4.12
-  - py-numba@0.55.0
-  - py-numexpr@2.8.1
+  - py-numba@0.55.2
+  - py-numexpr@2.8.3
   - py-numpy@1.21.6
   - py-oauthlib@3.1.1~extras
   - py-onnx@1.10.1
@@ -477,7 +472,7 @@ spack:
   - py-prettytable@3.2.0
   - py-prompt-toolkit@3.0.29
   - py-prometheus-client@0.12.0
-  - py-protobuf@3.17.3
+  - py-protobuf@3.15.1
   - py-psutil@5.8.0
   - py-ptyprocess@0.7.0
   - py-prwlock@0.4.1
@@ -503,12 +498,12 @@ spack:
   - py-pysqlite3@0.4.6
   - py-pytest-runner@5.3.1
   - py-pytest@6.2.5
-  - py-pytest-cov@2.12.1
+  - py-pytest-cov@3.0.0
   - py-python-dateutil@2.8.2
   - py-python-daemon@2.3.0
   - py-python-ldap@3.4.0
   - py-python-rapidjson@1.5
-  - py-pythran@0.9.12.post1 # NB: py-scipy
+  - py-pythran@0.11.0 # NB: py-scipy
   - py-pytoml@0.1.21
   - py-pytools@2021.2.9
   - py-pytz@2021.1
@@ -526,14 +521,14 @@ spack:
   - py-scikit-build@0.12.0
   - py-scikit-learn@0.24.2
   - py-scinum@1.2.0
-  - py-scipy@1.7.2
+  - py-scipy@1.8.1
   - py-semantic-version@2.8.5
   - py-send2trash@1.8.0
   - py-seaborn@0.11.2
   - py-secretstorage@3.3.1
   - py-setuptools@57.4.0 # NB: py-scipy
   - py-setuptools-rust@1.1.2 # NB: py-scipy
-  - py-setuptools-scm@5.0.2 # NB: py-scipy?
+  - py-setuptools-scm@6.3.2
   - py-shellingham@1.4.0    # NB: py-lazy-object-proxy
   - py-simplegeneric@0.8.1
   - py-singledispatch@3.7.0
@@ -586,7 +581,7 @@ spack:
   - py-zipp@3.6.0
   - pyquen@1.5.4
   - pythia6@6.4.26
-  - pythia8@8.306+hepmc+hepmc3+lhapdf
+  - pythia8@8.306+hepmc+hepmc3+lhapdf+madgraph5amc
   - python@3.9.6~libxml2~debug
   - qd@2.3.13
   - qgraf@3.4.2
@@ -605,31 +600,30 @@ spack:
   - starlight@r193
   - swig@4.0.2
   - tauola@1.1.8 +hepmc+lhapdf+pythia8
-  - tauola-f@27.121.5
   - thepeg@2.2.2 hepmc=2
   - tkonlinesw@4.2.0-1_gcc7
-  - toprex@4.23
   - triton-inference-client@2.11.0+cuda
-  - ucx@1.12.1 libs=shared +openmp+ucg+cma+thread_multiple+pic~java+cuda~rocm+gdrcopy+rc+ud+dc+mlx5_dv+ib_hw_tm+dm+rdmacm~knem~xpmem~examples
+  - ucx@1.12.1 libs=shared +openmp+ucg+cma+thread_multiple+pic~java+cuda~rocm+gdrcopy+rc+ud+dc+mlx5_dv+ib_hw_tm+dm+rdmacm~knem+xpmem~examples
     opt=3
   - util-linux-uuid@2.34
   - utm@utm_0.10.0
-  - valgrind@3.17.0~mpi libs=shared
+  - valgrind@3.17.0~mpi~boost libs=shared
   - vdt@0.4.3+preload
   - veccore@0.8.0
   - vecgeom@1.1.18 ~root~geant4~cuda vector=sse3 # NB explicit ~cuda
   - xerces-c@3.1.3 netaccessor=none transcoder=none
   - xgboost@1.3.3~cuda # NB explicit ~cuda
-  - xrootd@5.4.2.cms+http~readline+python+scitokens-cpp
+  - xpmem@2.6.6-20220308~kernel-module
+  - xrootd@5.4.2.cms+http+readline+python+scitokens-cpp
   - xtensor@0.24.1~xsimd~tbb
   - xtl@0.7.4
   - xz@5.2.5 libs=shared
-  - yaml-cpp@0.7.0+shared
   - yoda@1.9.5+root
   - zlib@1.2.11.cms+optimize
   - zstd@1.4.5+shared~static~programs~legacy
-  - cmsdist@12.4.0.pre3
+  - cmsdist@12.5.0.pre4
   config:
+    build_jobs: 16
     install_tree:
       projections:
         cmslhetoeosmanager: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
@@ -733,3 +727,33 @@ spack:
         lcov: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
         scram: slc7_amd64_gcc10/${PACKAGE}/${VERSION}
         all: slc7_amd64_gcc10/${PACKAGE}/${VERSION}-${HASH}
+      padded_length: 128
+      root: $spack/opt/spack
+    allow_sgid: false
+    shared_linking: runpath
+    'build_stage:': $spack/stage
+    'test_stage:': $spack/test_stage
+    'misc_cache:': $spack/cache
+    monitor_dir: /build/razumov/18-spack/monitor
+    template_dirs:
+    - $spack/share/spack/templates
+
+  # Directory where licenses should be located
+    license_dir: $spack/etc/spack/licenses
+    source_cache: $spack/var/spack/cache
+    connect_timeout: 10
+    verify_ssl: true
+    suppress_gpg_warnings: false
+    install_missing_compilers: false
+    checksum: true
+    deprecated: false
+    dirty: false
+    build_language: C
+    locks: true
+    url_fetch_method: urllib
+    ccache: false
+    concretizer: clingo
+    db_lock_timeout: 3
+    package_lock_timeout: null
+    terminal_title: false
+    debug: false
