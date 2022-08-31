@@ -37,7 +37,7 @@ class Xz(AutotoolsPackage, SourceforgePackage):
     drop_files = ['share']
 
     def configure_args(self):
-        args = ['--disable-nls', '--disable-doc', '--no-po4a']  # -- CMS
+        args = ['--disable-nls', '--disable-doc']  # -- CMS
         args.extend(self.enable_or_disable('libs'))
 
         return args

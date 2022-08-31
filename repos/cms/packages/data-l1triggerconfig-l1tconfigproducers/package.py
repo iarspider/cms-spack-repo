@@ -6,7 +6,7 @@
 from spack import *
 
 
-class DataL1triggerconfigL1tconfigproducers(Package):
+class DataL1triggerconfigL1tconfigproducers(CMSDataPackage):
     """FIXME: Put a proper description of your package here."""
 
     n = 'data-L1TriggerConfig-L1TConfigProducers'

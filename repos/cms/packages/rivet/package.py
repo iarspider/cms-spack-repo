@@ -16,7 +16,7 @@ class Rivet(BuiltinRivet):
         if self.spec.satisfies('@3.1.2:') and name == 'cxxflags':
             flags.append('-faligned-new')
             flags.append('-std=c++17')
-            if self.spec.satisfies('arch=amd64'):
+            if self.spec.satisfies('arch=x86_64:'):
                 flags.append('-msse3')
 
             return (None, None, flags)

@@ -6,7 +6,7 @@
 from spack import *
 
 
-class DataDqmIntegration(Package):
+class DataDqmIntegration(CMSDataPackage):
     """FIXME: Put a proper description of your package here."""
 
     n = 'data-DQM-Integration'

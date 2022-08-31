@@ -757,3 +757,5 @@ spack:
     package_lock_timeout: null
     terminal_title: false
     debug: false
+    extensions:
+    - /build/razumov/18-spack/cms-spack-repo/spack-scripting
