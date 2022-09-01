@@ -10,4 +10,6 @@ class DataRecotautagTrainingfiles(CMSDataPackage):
     """FIXME: Put a proper description of your package here."""
     n = 'data-RecoTauTag-TrainingFiles'
     git = "https://github.com/cms-data/{0}.git".format(n.replace('data-', ''))
+
+    version('V00-06-00', tag='V00-06-00')
     version('V00-03-00', tag='V00-03-00')

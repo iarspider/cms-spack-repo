@@ -10,4 +10,6 @@ class DataRecoegammaElectronidentification(CMSDataPackage):
     """FIXME: Put a proper description of your package here."""
     n = 'data-RecoEgamma-ElectronIdentification'
     git = "https://github.com/cms-data/{0}.git".format(n.replace('data-', ''))
+
+    version('V01-11-00', tag='V01-11-00')
     version('V01-09-00', tag='V01-09-00')
