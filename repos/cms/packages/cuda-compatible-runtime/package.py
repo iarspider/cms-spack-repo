@@ -13,8 +13,7 @@ class CudaCompatibleRuntime(Package):
     homepage = "https://github.com/cms-patatrack/cuda-compatible-runtime"
     git      = "https://github.com/cms-patatrack/cuda-compatible-runtime.git"
 
-    version('1.0', commit='bfe5537537428ab4a72ae929c77977a55501c576',
-            git='https://:@gitlab.cern.ch:8443/cms-patatrack/cuda-compatible-runtime.git')
+    version('1.0', commit='dcedd95392c092795b443a10c82c26a995e6dfc0')
 
     depends_on('cuda')
 

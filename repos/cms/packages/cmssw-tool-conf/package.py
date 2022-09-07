@@ -196,6 +196,12 @@ class CmsswToolConf(ScramToolfilePackage, CudaPackage):
     depends_on('xgboost')
 
     # TODO: cmssw-vectorization
+    depends_on('zlib')
+    depends_on('fastjet')
+    depends_on('vecgeom')
+    depends_on('py-tensorflow')
+    depends_on('openblas')
+    depends_on('rivet')
 
     ## INCLUDE cmssw-drop-tools
     skipreqtools = ('jcompiler', 'icc-cxxcompiler', 'icc-ccompiler', 'icc-f77compiler', 'rivet2', 'opencl', 'opencl-cpp', 'nvidia-drivers', 'intel-vtune', 'jemalloc-debug')

@@ -30,7 +30,7 @@ class Coral(ScramPackage):
         super().__init__(spec)
 
         self.cvssrc = 'coral'
-        self.subpackageDebug = True
+        self.subpackageDebug = False
 
         # custom
         self.toolname = 'coral'
@@ -82,6 +82,8 @@ class Coral(ScramPackage):
         spack_env.append_path('PYTHONPATH', '%s/%s/python' %
                               (self.prefix, self.cmsplatf))
 
+    def setup_build_environment(self, env):
+        env.unset('PYTHONHOME')
     # @run_after('install')
     # def make_links(self):
     # with working_dir(self.spec.prefix):

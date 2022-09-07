@@ -34,7 +34,7 @@ echo Adding CMSData package type
 cp ${WORKSPACE}/cms-spack-repo/build_systems/cmsdata.py lib/spack/spack/build_systems/
 echo "from spack.build_systems.cmsdata import CMSDataPackage" >> lib/spack/spack/pkgkit.py
 echo Copying backported recipes
-find ${WORKSPACE}/cms-spack-repo/repos/backports/packages -maxdepth 1 -type 'd' -exec cp -r -f {} ${WORKSPACE}/spack/var/spack/repos/builtin/packages \;
+find ${WORKSPACE}/cms-spack-repo/repos/backports/packages -maxdepth 1 -mindepth 1 -type 'd' -exec cp -r -f {} ${WORKSPACE}/spack/var/spack/repos/builtin/packages \;
 echo Copying patched CudaPackage class
 cp ${WORKSPACE}/cms-spack-repo/build_systems/cuda.py lib/spack/spack/build_systems/
 echo Patching spack.buildcache to only relocate things that needs to be relocated

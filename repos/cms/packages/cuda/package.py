@@ -252,3 +252,6 @@ class Cuda(Package):
             if 'compat' not in parts and 'stubs' not in parts:
                 filtered_libs.append(lib)
         return LibraryList(filtered_libs)
+
+    def setup_dependent_build_environment(self, env, dependent_spec):
+        env.append_path('LD_LIBRARY_PATH', self.spec.prefix.lib64.stubs)

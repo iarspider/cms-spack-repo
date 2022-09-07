@@ -42,6 +42,7 @@ class Cmssw(ScramPackage):
         self.toolname = 'cmssw'
         self.toolconf = 'cmssw-tool-conf'
         self.ignore_compile_errors = False
+        self.subpackage_debug = False
 
     def edit(self, spec, prefix):
         if '_COVERAGE_X' in str(spec.version):
@@ -107,3 +108,6 @@ class Cmssw(ScramPackage):
 #    @run_after('install')
 #    def my_abort(self):
 #        raise InstallError('!! ABORTED !!')
+
+    def setup_build_environment(self, env):
+        env.unset('PYTHONHOME')

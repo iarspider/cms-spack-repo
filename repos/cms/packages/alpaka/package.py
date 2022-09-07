@@ -14,4 +14,5 @@ class Alpaka(BuiltinAlpaka):
         return
 
     def install(self, spec, prefix):
-        install_tree('include', prefix)
+        mkdirp(prefix.include)
+        install_tree('include', prefix.include)
