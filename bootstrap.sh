@@ -47,8 +47,7 @@ bin/spack repo add --scope=site ${WORKSPACE}/cms-spack-repo/repos/cms
 echo Adding CMS mirror
 bin/spack mirror add --scope=site cms https://test-cms-spack.webtest.cern.ch/test-cms-spack/CMS/mirror/
 echo Adding CMS buildcache
-bin/spack mirror add --scope=site cms-s3 s3://cms-spack
-bin/spack mirror add --scope=site 20220719 file:///build/razumov/mirror-20220719
+bin/spack mirror add --scope=site cms-s3 s3://cms-spack/${SCRAM_ARCH}
 echo Adding CMS Spack signing key to trusted list
 #bin/spack buildcache keys --install --trust
 # Temporary workaround until `spack gpg publish` works!
@@ -60,6 +59,5 @@ bin/spack gpg trust ${WORKSPACE}/cms-spack.pub
 #echo Forcing bootstrap of clingo
 #bin/spack -d spec zlib > /dev/null
 echo Creating environment ${SPACK_ENV_NAME}
-sed -i -e "s#@SCRAM_ARCH@#${SCRAM_ARCH}#g" ${WORKSPACE}/cms-spack-repo/environments/${SPACK_ENV_NAME}/spack.yaml
 bin/spack env create ${SPACK_ENV_NAME} ${WORKSPACE}/cms-spack-repo/environments/${SPACK_ENV_NAME}/spack.yaml
 echo Done
