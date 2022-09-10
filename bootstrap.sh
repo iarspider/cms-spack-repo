@@ -57,7 +57,7 @@ bin/spack gpg trust ${WORKSPACE}/cms-spack.pub
 #echo Adding spack augment command
 #bin/spack config --scope=site add "config:extensions:${WORKSPACE}/cms-spack-repo/spack-scripting"
 echo Forcing bootstrap of clingo
-${WORKSPACE}/scripts/singBuild_clingo.sh
+${WORKSPACE}/cms-spack-repo/scripts/singBuild_clingo.sh
 echo Creating environment ${SPACK_ENV_NAME}
 bin/spack env create ${SPACK_ENV_NAME} ${WORKSPACE}/cms-spack-repo/environments/${SPACK_ENV_NAME}/spack.yaml
 echo Done

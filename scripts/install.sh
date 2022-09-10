@@ -20,13 +20,13 @@ source share/spack/setup-env.sh
 #spack buildcache keys --force --install --trust
 echo Set install root
 spack config add "config:install_tree:root:${RPM_INSTALL_PREFIX}"
-echo Force bootstrap
-spack -d solve zlib || exit 1
-echo Get patchelf
-GCC_VER=$(gcc --version | head -1 | cut -d ' ' -f 3)
-spack compiler find --scope=site
-spack install --reuse --cache-only patchelf%gcc@${GCC_VER} || exit 1
-spack load patchelf%gcc@${GCC_VER}
+#echo Force bootstrap
+#spack -d solve zlib || exit 1
+#echo Get patchelf
+#GCC_VER=$(gcc --version | head -1 | cut -d ' ' -f 3)
+#spack compiler find --scope=site
+#spack install --reuse --cache-only patchelf%gcc@${GCC_VER} || exit 1
+#spack load patchelf%gcc@${GCC_VER}
 echo Start the installation
 mkdir -p "${RPM_INSTALL_PREFIX}"
 spack env activate ${SPACK_ENV_NAME}
