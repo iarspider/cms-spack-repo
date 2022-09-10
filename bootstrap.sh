@@ -39,7 +39,7 @@ echo Copying patched CudaPackage class
 cp ${WORKSPACE}/cms-spack-repo/build_systems/cuda.py lib/spack/spack/build_systems/
 echo Patching spack itself
 #patch -s -p1 < ${WORKSPACE}/cms-spack-repo/31074_buildcache.patch
-find ${WORKSPACE}/cms-spack-repo/pathes/ -type 'f' -exec patch -s -p1 -i {} \;
+find ${WORKSPACE}/cms-spack-repo/patches/ -type 'f' -exec patch -s -p1 -i {} \;
 #echo Initializing Spack
 #source share/spack/setup-env.sh
 echo Adding CMS repository
@@ -56,8 +56,8 @@ bin/spack gpg trust ${WORKSPACE}/cms-spack.pub
 #(bin/spack gpg list --trusted | grep -e "4096R/F48CB63F") || exit 1
 #echo Adding spack augment command
 #bin/spack config --scope=site add "config:extensions:${WORKSPACE}/cms-spack-repo/spack-scripting"
-#echo Forcing bootstrap of clingo
-#bin/spack -d spec zlib > /dev/null
+echo Forcing bootstrap of clingo
+${WORKSPACE}/scripts/singBuild_clingo.sh
 echo Creating environment ${SPACK_ENV_NAME}
 bin/spack env create ${SPACK_ENV_NAME} ${WORKSPACE}/cms-spack-repo/environments/${SPACK_ENV_NAME}/spack.yaml
 echo Done

@@ -17,23 +17,8 @@ if [ x$DOCKER_IMG == "x" ]; then
 fi
 export DOCKER_IMG
 
-# cp ${WORKSPACE}/cms-spack-repo/bootstrap/packages-$(cmsos).yaml ${WORKSPACE}/bootstrap/config/packages.yaml
+cp ${WORKSPACE}/cms-spack-repo/bootstrap/packages-$(cmsos).yaml ${WORKSPACE}/bootstrap/config/packages.yaml
 
 ${WORKSPACE}/cms-bot/docker_launcher.sh ${WORKSPACE}/cms-spack-repo/scripts/build_clingo.sh
 echo I AM DONE FOR NOW, ADD COMMANDS TO UPLOAD BUILDCACHE
 exit 0
-if [ -e ${WORKSPACE}/fail ]; then
-#    echo Build falied, uploading monitor data
-#    tar -zcf ${WORKSPACE}/monitor.tar.gz ${WORKSPACE}/monitor
-#    scp ${WORKSPACE}/monitor.tar.gz cmsbuild@lxplus:/eos/user/r/razumov/www/CMS/mirror
-#    rm ${WORKSPACE}/monitor.tar.gz
-    touch ${WORKSPACE}/fail
-    exit 1
-fi
-if [ ${UPLOAD_BUILDCACHE-x} = "true" ]; then
-  echo Prepare mirror and buildcache
-  # TODO: create mirror and sync to s3
-  # TODO: push gpg key to mirror (broken in 0.17, should be working in 0.18)
-  bin/spack -e ${SPACK_ENV_NAME} buildcache create -r -a --mirror-url s3://cms-spack/
-fi
-echo All done
