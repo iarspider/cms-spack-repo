@@ -37,8 +37,9 @@ echo Copying backported recipes
 find ${WORKSPACE}/cms-spack-repo/repos/backports/packages -maxdepth 1 -mindepth 1 -type 'd' -exec cp -r -f {} ${WORKSPACE}/spack/var/spack/repos/builtin/packages \;
 echo Copying patched CudaPackage class
 cp ${WORKSPACE}/cms-spack-repo/build_systems/cuda.py lib/spack/spack/build_systems/
-echo Patching spack.buildcache to only relocate things that needs to be relocated
-patch -s -p1 < ${WORKSPACE}/cms-spack-repo/31074_buildcache.patch
+echo Patching spack itself
+#patch -s -p1 < ${WORKSPACE}/cms-spack-repo/31074_buildcache.patch
+find pathes/ -type 'f' -exec patch -s -p1 -i {} \;
 #echo Initializing Spack
 #source share/spack/setup-env.sh
 echo Adding CMS repository

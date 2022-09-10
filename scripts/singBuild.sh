@@ -18,8 +18,8 @@ fi
 export DOCKER_IMG
 
 rm -f ${WORKSPACE}/fail
-rm -f ${WORKSPACE}/spack/var/spack/environments/${SPACK_ENV_NAME}/spack.lock
-rm -rf ${WORKSPACE}/spack/var/spack/environments/${SPACK_ENV_NAME}/.spack-env/
+#rm -f ${WORKSPACE}/spack/var/spack/environments/${SPACK_ENV_NAME}/spack.lock
+#rm -rf ${WORKSPACE}/spack/var/spack/environments/${SPACK_ENV_NAME}/.spack-env/
 
 [ ! -e ${WORKSPACE}/spack ] && bash -xe ${WORKSPACE}/cms-spack-repo/bootstrap.sh
 
