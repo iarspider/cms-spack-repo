@@ -1,5 +1,5 @@
 #!/bin/bash -x
-export SCRAM_ARCH=${SCRAM_ARCH:-slc7_amd64_gcc900}
+# export SCRAM_ARCH=${SCRAM_ARCH:-slc7_amd64_gcc900}
 export SCRAM_ARCH=$SCRAM_ARCH
 export CVMFS_REPOSITORY=cms-ib.cern.ch
 export BASEDIR=/cvmfs/$CVMFS_REPOSITORY
@@ -11,8 +11,8 @@ export RPM_INSTALL_PREFIX=$BASEDIR/$weekno/spack
 
 rm -f ${WORKSPACE}/fail
 
-cd $WORKSPACE/cms-bot
-./spack/bootstrap.sh
+cd $WORKSPACE/cms-spack-repo
+./bootstrap.sh
 ./cvmfs_deployment/start_transaction.sh
 
 # Check if the transaction really happened
@@ -25,9 +25,13 @@ else
 fi
 
 # Use dockerrun since we may need to use qemu
-source ${WORKSPACE}/cms-bot/dockerrun.sh ; dockerrun ${WORKSPACE}/cms-bot/spack/install.sh
+source ${WORKSPACE}/cms-bot/dockerrun.sh ; dockerrun ${WORKSPACE}/cms-spack-repo/scripts/install.sh
 exit_code=$?
-[ -e ${WORKSPACE}/fail -o ${exit_code} -ne 0 ] && ./cvmfs_deployment/abort_transaction.sh || 
-${WORKSPACE}/cms-bot/cvmfs/cms-ib.cern.ch/cvmfsdirtab.sh
-./cvmfs_deployment/publish_transaction.sh
+if [ -e ${WORKSPACE}/fail -o ${exit_code} -ne 0 ]; then 
+  echo "Aborting transaction"
+  ${WORKSPACE}/cms-bot/cvmfs_deployment/abort_transaction.sh
+else 
+  ${WORKSPACE}/cms-bot/cvmfs/cms-ib.cern.ch/cvmfsdirtab.sh
+  ${WORKSPACE}/cms-bot/cvmfs_deployment/publish_transaction.sh
+fi
 exit ${exit_code}
