@@ -39,7 +39,7 @@ echo Copying patched CudaPackage class
 cp ${WORKSPACE}/cms-spack-repo/build_systems/cuda.py lib/spack/spack/build_systems/
 echo Patching spack itself
 #patch -s -p1 < ${WORKSPACE}/cms-spack-repo/31074_buildcache.patch
-find pathes/ -type 'f' -exec patch -s -p1 -i {} \;
+find ${WORKSPACE}/cms-spack-repo/pathes/ -type 'f' -exec patch -s -p1 -i {} \;
 #echo Initializing Spack
 #source share/spack/setup-env.sh
 echo Adding CMS repository
