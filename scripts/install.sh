@@ -16,8 +16,8 @@ cd ${WORKSPACE}/spack
 export SPACK_DISABLE_LOCAL_CONFIG=true
 export SPACK_USER_CACHE_PATH=$WORKSPACE
 source share/spack/setup-env.sh
-echo Add signing key
-spack buildcache keys --force --install --trust
+#echo Add signing key
+#spack buildcache keys --force --install --trust
 echo Set install root
 spack config add "config:install_tree:root:${RPM_INSTALL_PREFIX}"
 echo Force bootstrap

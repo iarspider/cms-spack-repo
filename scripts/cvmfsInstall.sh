@@ -13,7 +13,7 @@ rm -f ${WORKSPACE}/fail
 
 cd $WORKSPACE/cms-spack-repo
 ./bootstrap.sh
-./cvmfs_deployment/start_transaction.sh
+${WORKSPACE}/cms-bot/cvmfs_deployment/start_transaction.sh
 
 # Check if the transaction really happened
 if [ `touch $BASEDIR/is_writable 2> /dev/null; echo "$?"` -eq 0 ]; then
