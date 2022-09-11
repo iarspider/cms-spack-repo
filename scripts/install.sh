@@ -30,7 +30,7 @@ spack config add "config:install_tree:root:${RPM_INSTALL_PREFIX}"
 echo Start the installation
 mkdir -p "${RPM_INSTALL_PREFIX}"
 spack env activate ${SPACK_ENV_NAME}
-spack -e "${SPACK_ENV_NAME}" install -j"$CORES" --fail-fast --cache-only --require-full-hash-match
+spack -e "${SPACK_ENV_NAME}" install -j"$CORES" --fail-fast --cache-only --reuse
 exit_code=$?
 if [ ${exit_code} -eq 0 ]; then
     echo Installation complete
