@@ -12,7 +12,7 @@ export RPM_INSTALL_PREFIX=$BASEDIR/$weekno/spack
 rm -f ${WORKSPACE}/fail
 
 cd $WORKSPACE/cms-spack-repo
-./bootstrap.sh
+/bin/bash -x bootstrap.sh
 ${WORKSPACE}/cms-bot/cvmfs_deployment/start_transaction.sh
 
 # Check if the transaction really happened
