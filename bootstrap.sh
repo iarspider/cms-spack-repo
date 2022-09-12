@@ -10,7 +10,11 @@ export S3_ENDPOINT_URL=https://s3.cern.ch
 export RPM_INSTALL_PREFIX=${WORKSPACE}/install
 
 echo This script will install Spack and configure it for CMS needs
-[ -d ${WORKSPACE}/spack ] && (echo Skipping bootstrap; exit 0)
+if [ -d ${WORKSPACE}/spack ]; then
+  echo Skipping bootstrap
+  exit 0
+fi
+
 echo Cloning spack from branch ${SPACK_VERSION}...
 git clone --quiet https://github.com/spack/spack.git ${WORKSPACE}/spack
 cd ${WORKSPACE}/spack; git checkout --quiet ${SPACK_VERSION}
