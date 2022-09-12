@@ -7,7 +7,6 @@ cd ${WORKSPACE}
 # For boto3
 export PYTHONPATH=/cvmfs/cms-ib.cern.ch/share/python3/lib/python3.6/site-packages:$PYTHONPATH
 export S3_ENDPOINT_URL=https://s3.cern.ch
-export RPM_INSTALL_PREFIX=${WORKSPACE}/install
 
 echo This script will install Spack and configure it for CMS needs
 if [ -d ${WORKSPACE}/spack ]; then
