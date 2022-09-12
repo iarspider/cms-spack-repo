@@ -70,7 +70,8 @@ fi
 echo Setup spack
 . share/spack/setup-env.sh
 echo Add padding to install_tree
-bin/spack config add "config:install_tree:padded_length:128"
+bun/spack ${SPACK_DEBUG_FLAG} -e ${SPACK_ENV_NAME} config add "config:install_tree:root:${RPM_INSTALL_PREFIX}"
+bin/spack ${SPACK_DEBUG_FLAG} -e ${SPACK_ENV_NAME} config add "config:install_tree:padded_length:128"
 echo Start the installation
 bin/spack ${SPACK_DEBUG_FLAG} -e ${SPACK_ENV_NAME} concretize
 bin/spack ${SPACK_DEBUG_FLAG} -e ${SPACK_ENV_NAME} install --fresh --show-log-on-error -j$CORES --cache-only --fail-fast
