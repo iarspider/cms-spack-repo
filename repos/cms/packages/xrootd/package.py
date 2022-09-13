@@ -14,7 +14,7 @@ class Xrootd(BuiltinXrootd):
 
     def setup_build_environment(self, env):
         # hack
-        env.set('USER_VERSION', 'v'+str(self.spec.version).replace('.cms', ''))
+        env.set('USER_VERSION', str(self.spec.version).replace('.cms', ''))
 
     def patch(self):
         super().patch()

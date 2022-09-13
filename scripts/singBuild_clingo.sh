@@ -17,7 +17,7 @@ if [ x$DOCKER_IMG == "x" ]; then
 fi
 export DOCKER_IMG
 
-cp ${WORKSPACE}/cms-spack-repo/bootstrap/packages-$(cmsos).yaml ${WORKSPACE}/bootstrap/config/packages.yaml
+# cp ${WORKSPACE}/cms-spack-repo/bootstrap/packages-$(cmsos).yaml ${WORKSPACE}/bootstrap/config/packages.yaml
 
 ${WORKSPACE}/cms-bot/docker_launcher.sh ${WORKSPACE}/cms-spack-repo/scripts/build_clingo.sh
 echo I AM DONE FOR NOW, ADD COMMANDS TO UPLOAD BUILDCACHE

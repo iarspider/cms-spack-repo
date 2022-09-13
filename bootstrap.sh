@@ -63,5 +63,5 @@ echo Forcing bootstrap of clingo
 ${WORKSPACE}/cms-spack-repo/scripts/singBuild_clingo.sh
 echo Creating environment ${SPACK_ENV_NAME}
 bin/spack env create ${SPACK_ENV_NAME} ${WORKSPACE}/cms-spack-repo/environments/${SPACK_ENV_NAME}/spack.yaml
-sed -i -e "s/SCRAM_ARCH/${SCRAM_ARCH}" ${WORKSPACE}/spack/var/spack/environments/${SPACK_ENV_NAME}/spack.yaml
+sed -i -e "s/SCRAM_ARCH/${SCRAM_ARCH}/g" ${WORKSPACE}/spack/var/spack/environments/${SPACK_ENV_NAME}/spack.yaml
 echo Done

@@ -15,10 +15,10 @@ class ScramPackage(PackageBase):
     depends_on('scram', type='build')
     depends_on('dwz', type='build')
 
-    configtag = 'V07-00-06'
+    configtag = 'V07-03-05'
 
     resource(name='cmssw-config', git='https://github.com/cms-sw/cmssw-config.git',
-             tag='V07-00-06')
+             tag='V07-03-05')
 
     def __init__(self, spec):
         super().__init__(spec)
@@ -295,7 +295,7 @@ class ScramPackage(PackageBase):
 
         lines.append("rm -fR tmp")
 
-        if self.subpackageDebug:
+        if self.subpackageDebug and False:
             lines.append('touch $i/.SCRAM/$cmsplatf/subpackage-debug')
             if self.toolname == 'coral':
                 lines.append('ELF_DIRS="$i/$cmsplatf/lib $i/$cmsplatf/tests/bin"')
