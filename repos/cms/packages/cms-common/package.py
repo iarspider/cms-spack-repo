@@ -20,6 +20,8 @@ class CmsCommon(Package):
 
     revision = '1222'
 
+    def patch(self):
+        filter_file('SCRAMV1', 'scram', 'common/scram')
 
     def install(self, spec, prefix):
         cmsplatf = os.environ.get('SCRAM_ARCH', 'slc7_amd64_gcc900')
