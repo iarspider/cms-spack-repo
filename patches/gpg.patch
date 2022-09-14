@@ -1,0 +1,12 @@
+diff --git a/lib/spack/spack/util/gpg.py b/lib/spack/spack/util/gpg.py
+index 9496e6b..26ecaf4 100644
+--- a/lib/spack/spack/util/gpg.py
++++ b/lib/spack/spack/util/gpg.py
+@@ -347,6 +347,7 @@ def _verify_exe_or_raise(exe):
+ 
+ 
+ def _gpgconf():
++    return None
+     exe = spack.util.executable.which('gpgconf', 'gpg2conf', 'gpgconf2')
+     _verify_exe_or_raise(exe)
+ 

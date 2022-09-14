@@ -1,0 +1,10 @@
+--- ffi/targets.cpp.orig	2022-08-26 11:57:53.978762396 +0200
++++ ffi/targets.cpp	2022-08-26 11:58:08.574695976 +0200
+@@ -233,7 +233,6 @@
+         rm = Reloc::DynamicNoPIC;
+ 
+     TargetOptions opt;
+-    opt.PrintMachineCode = PrintMC;
+     opt.MCOptions.ABIName = ABIName;
+ 
+     bool jit = JIT;

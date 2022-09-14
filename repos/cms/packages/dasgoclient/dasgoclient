@@ -1,0 +1,11 @@
+#!/bin/sh
+# VERSION:%{cmsplatf}/%{v}
+# Clean-up CMSSW environment
+if [ -f ${RPM_INSTALL_PREFIX}/common/scram ] ; then
+  eval `${RPM_INSTALL_PREFIX}/common/scram unsetenv -sh`
+fi
+# Sourcing dasclient environment
+SHARED_ARCH=`${RPM_INSTALL_PREFIX}/common/cmsos`
+LATEST_VERSION=`cd ${RPM_INSTALL_PREFIX}; ls ${SHARED_ARCH}_*/dasgoclient/v*/bin/dasgoclient | sed 's|.*/dasgoclient/||' | sort | tail -1`
+DASGOCLIENT=`ls ${RPM_INSTALL_PREFIX}/${SHARED_ARCH}_*/dasgoclient/${LATEST_VERSION} | sort | tail -1`
+$DASGOCLIENT "$@"
