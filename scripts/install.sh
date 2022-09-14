@@ -23,13 +23,13 @@ spack config add "config:install_tree:root:${RPM_INSTALL_PREFIX}"
 
 SPACK_DEBUG_FLAG=""
 if [ ! -z ${SPACK_DEBUG+x} ]; then
-  SPACK_DEBUG_FLAG="-ddd --stacktrace"
+  SPACK_DEBUG_FLAG="-d --stacktrace"
 fi
 
 echo Start the installation
 mkdir -p "${RPM_INSTALL_PREFIX}"
 spack env activate ${SPACK_ENV_NAME}
-spack ${SPACK_DEBUG_FLAG} -e "${SPACK_ENV_NAME}" install -j"$CORES" --fail-fast --reuse
+spack ${SPACK_DEBUG_FLAG} -e "${SPACK_ENV_NAME}" install -j"$CORES" --fail-fast --reuse --cache-only
 exit_code=$?
 if [ ${exit_code} -eq 0 ]; then
     echo Installation complete
