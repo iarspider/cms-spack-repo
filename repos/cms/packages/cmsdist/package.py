@@ -39,12 +39,12 @@ class Cmsdist(Package):
         if self.spec.satisfies('@12.4.0.pre3'):
             add_toolfile('abseil-cpp')
             add_toolfile('c-ares')
-            add_toolfile('re2')
 
-            filter_file('</tool>', '  <use name="abseil-cpp"/>\n  <use name="c-ares"/>\n  <use name="re2"/>\n</tool>',
-                        join_path(prefix, 'scram-tools.file', 'tools',
-                                  'grpc', 'grpc.xml'),
-                        string=True)
+        add_toolfile('re2')
+        filter_file('</tool>', '  <use name="abseil-cpp"/>\n  <use name="c-ares"/>\n  <use name="re2"/>\n</tool>',
+                    join_path(prefix, 'scram-tools.file', 'tools',
+                              'grpc', 'grpc.xml'),
+                    string=True)
 
         add_toolfile('veccore')
         filter_file('</tool>', '  <use name="veccore"/>\n</tool>',
