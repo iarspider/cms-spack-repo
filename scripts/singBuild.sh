@@ -34,8 +34,7 @@ if [ -e ${WORKSPACE}/fail ]; then
 fi
 if [ ${UPLOAD_BUILDCACHE-x} = "true" ]; then
   echo Prepare mirror and buildcache
-  # TODO: create mirror and sync to s3
   # TODO: push gpg key to mirror (broken in 0.17, should be working in 0.18)
-  bin/spack -e ${SPACK_ENV_NAME} buildcache create -r -a --mirror-url s3://cms-spack/
+  bin/spack -e ${SPACK_ENV_NAME} buildcache create -r -a --mirror-url s3://cms-spack/${SCRAM_ARCH}/
 fi
 echo All done
