@@ -36,5 +36,6 @@ if [ ${exit_code} -eq 0 ]; then
 else
     echo "ERROR: Installation failed"
     touch $WORKSPACE/fail
+    exit ${exit_code}
 fi
-exit ${exit_code}
+${WORKSPACE}/cms-spack-repo/scripts/runpost.sh
