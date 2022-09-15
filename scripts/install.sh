@@ -38,4 +38,7 @@ else
     touch $WORKSPACE/fail
     exit ${exit_code}
 fi
+
+echo Executing postinstall scripts
 ${WORKSPACE}/cms-spack-repo/scripts/runpost.sh
+echo All done
