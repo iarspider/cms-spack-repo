@@ -171,8 +171,8 @@ class PyTensorflow(Package, CudaPackage):
 
     depends_on('protobuf')
 
-    # -- CMS: dependency type is build+link (default) dependency
-    depends_on('flatbuffers+python@1.12.0:1.12', when='@2.4.0:', type=('build', 'link', 'run'))
+    # -- CMS: dependency type is build+link (default) dependency; allow flatbuffers 2.x
+    depends_on('flatbuffers+python@1.12.0:3', when='@2.4.0:', type=('build', 'link', 'run'))
     # tensorboard
     # tensorflow-estimator
     depends_on('py-termcolor@1.1.0:1.1', type=('build', 'run'), when='@2.4.0:')

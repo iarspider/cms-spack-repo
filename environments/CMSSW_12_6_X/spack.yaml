@@ -619,7 +619,7 @@ spack:
   - xerces-c@3.1.3 netaccessor=none transcoder=none
   - xgboost@1.3.3~cuda # NB explicit ~cuda
   - xpmem@2.6.6-20220308~kernel-module
-  - xrdcl-recort@5.4.2
+  - xrdcl-record@5.4.2
   - xrootd@5.4.2.cms.1+http+readline+python+scitokens-cpp
   - xtensor@0.24.1~xsimd~tbb
   - xtl@0.7.4
