@@ -13,8 +13,9 @@ class Xrootd(BuiltinXrootd):
     depends_on('davix', type=('build', 'run'))
 
     def setup_build_environment(self, env):
-        # hack
-        env.set('USER_VERSION', str(self.spec.version).replace('.cms.1', ''))
+        # drop extra parts from the version; 'v' is REQUIRED
+        # see https://github.com/xrootd/xrootd/blob/v5.5.0/genversion.sh#L7
+        env.set('USER_VERSION', 'v' + str(v[:3].dotted))
 
     def patch(self):
         super().patch()
