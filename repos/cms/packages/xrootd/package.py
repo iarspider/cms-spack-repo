@@ -12,11 +12,6 @@ class Xrootd(BuiltinXrootd):
 
     depends_on('davix', type=('build', 'run'))
 
-    def setup_build_environment(self, env):
-        # drop extra parts from the version; 'v' is REQUIRED
-        # see https://github.com/xrootd/xrootd/blob/v5.5.0/genversion.sh#L7
-        env.set('USER_VERSION', 'v' + str(v[:3].dotted))
-
     def patch(self):
         super().patch()
         filter_file('UUID REQUIRED', 'UUID ', 'cmake/XRootDFindLibs.cmake')
@@ -29,4 +24,7 @@ class Xrootd(BuiltinXrootd):
         args.append('-DENABLE_FUSE=FALSE')
         args.append('-DENABLE_CRYPTO=TRUE')
         args.append('-DCMAKE_PREFIX_PATH=' + self.spec['davix'].prefix)
+        # drop extra parts from the version; 'v' is REQUIRED
+        # see https://github.com/xrootd/xrootd/blob/v5.5.0/genversion.sh#L7
+        args.append('-DUSER_VERSION=v' + str(self.spec.version[:3].dotted))
         return args
