@@ -136,10 +136,10 @@ class Cmsswdata(BundlePackage):
             v = str(dep.version)
             source = dep.prefix
             if os.environ.get('CMSSW_DATA_LINK', None) is None:
-                des_path = f'cms/{k}/{v}'
+                des_path = f'{k}/{v}'
             else:
                 hashed_v = self.spec[k.lower()].format('{version}-{hash}')
-                des_path = f'cms/{k}/{hashed_v}'
+                des_path = f'{k}/{hashed_v}'
             pkg_dir = '{1}/{2}'.format(*(k.split('-')))
             pkg_data = pkg_dir.split('/', 1)[0]
             lines.append(f'if [ ! -e $RPM_INSTALL_PREFIX/share/{des_path}/{pkg_dir} ] ; then')
