@@ -19,11 +19,11 @@ source share/spack/setup-env.sh
 #echo Add signing key
 #spack buildcache keys --force --install --trust
 echo Set install root
-spack config add "config:install_tree:root:${RPM_INSTALL_PREFIX}"
+spack config add "config:install_tree:root:${RPM_INSTALL_PREFIX}/${SCRAM_ARCH}"
 
 SPACK_DEBUG_FLAG=""
 if [ ! -z ${SPACK_DEBUG+x} ]; then
-  SPACK_DEBUG_FLAG="-ddd --stacktrace"
+  SPACK_DEBUG_FLAG="-d --stacktrace"
 fi
 
 echo Start the installation

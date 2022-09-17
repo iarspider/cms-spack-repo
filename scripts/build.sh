@@ -64,7 +64,7 @@ fi
 
 SPACK_DEBUG_FLAG=""
 if [ ! -z ${SPACK_DEBUG+x} ]; then
-  SPACK_DEBUG_FLAG="-ddd --stacktrace"
+  SPACK_DEBUG_FLAG="-d --stacktrace"
 fi
 
 echo Setup spack
