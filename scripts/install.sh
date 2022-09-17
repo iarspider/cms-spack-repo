@@ -29,7 +29,10 @@ fi
 echo Start the installation
 mkdir -p "${RPM_INSTALL_PREFIX}"
 spack env activate ${SPACK_ENV_NAME}
-spack ${SPACK_DEBUG_FLAG} -e "${SPACK_ENV_NAME}" install -j"$CORES" --fail-fast --reuse --cache-only
+spack config add "modules:default:roots:tcl::${BASEDIR}/spack/modules"
+spack config add "modules:default:tcl:all:autoload::all"
+# spack config add "modules:default:tcl:hash_length::0"
+spack ${SPACK_DEBUG_FLAG} install -j"$CORES" --fail-fast --reuse --cache-only
 exit_code=$?
 if [ ${exit_code} -eq 0 ]; then
     echo Installation complete
@@ -38,6 +41,9 @@ else
     touch $WORKSPACE/fail
     exit ${exit_code}
 fi
+
+echo Regenerating tcl modules
+spack ${SPACK_DEBUG_FLAG} module tcl refresh --delete-tree
 
 echo Executing postinstall scripts
 ${WORKSPACE}/cms-spack-repo/scripts/runpost.sh
