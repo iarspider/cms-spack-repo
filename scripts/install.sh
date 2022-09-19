@@ -29,7 +29,7 @@ fi
 echo Start the installation
 mkdir -p "${RPM_INSTALL_PREFIX}"
 spack env activate ${SPACK_ENV_NAME}
-spack config add "modules:default:roots:tcl::${BASEDIR}/spack/modules"
+spack config add "modules:default:roots:tcl::${RPM_INSTALL_PREFIX}/modules"
 spack config add "modules:default:tcl:all:autoload::all"
 # spack config add "modules:default:tcl:hash_length::0"
 spack ${SPACK_DEBUG_FLAG} install -j"$CORES" --fail-fast --reuse --cache-only
