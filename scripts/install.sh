@@ -43,7 +43,7 @@ else
 fi
 
 echo Regenerating tcl modules
-spack ${SPACK_DEBUG_FLAG} module tcl refresh --delete-tree
+spack ${SPACK_DEBUG_FLAG} module tcl refresh -y --delete-tree
 
 echo Executing postinstall scripts
 ${WORKSPACE}/cms-spack-repo/scripts/runpost.sh
