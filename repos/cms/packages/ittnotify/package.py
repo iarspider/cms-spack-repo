@@ -18,7 +18,6 @@ class Ittnotify(CMakePackage):
     keep_archives = True
 
     patch("aarch64-ppc64le.patch", when="target=aarch64:")
-    patch("aarch64-ppc64le.patch", when="target=pcc64le:")
 
     def cmake_args(self):
         args = [self.define('ARCH_64', 1)]
