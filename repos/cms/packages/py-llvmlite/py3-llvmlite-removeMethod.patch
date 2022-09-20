@@ -1,6 +1,8 @@
---- ffi/targets.cpp.orig	2022-08-26 11:57:53.978762396 +0200
-+++ ffi/targets.cpp	2022-08-26 11:58:08.574695976 +0200
-@@ -233,7 +233,6 @@
+diff --git a/ffi/targets.cpp b/ffi/targets.cpp
+index 3b5abf5..49cef60 100644
+--- a/ffi/targets.cpp
++++ b/ffi/targets.cpp
+@@ -204,7 +204,6 @@ LLVMPY_CreateTargetMachine(LLVMTargetRef T, const char *Triple, const char *CPU,
          rm = Reloc::DynamicNoPIC;
  
      TargetOptions opt;
