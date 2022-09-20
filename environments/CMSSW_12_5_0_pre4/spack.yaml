@@ -220,7 +220,6 @@ spack:
   - hydjet@1.9.1
   - hydjet2@2.4.3
   - hwloc@2.8.0+cuda+nvml+libxml2~cairo~netloc+pci~rocm libs=static,shared # Temp without rocm
-  - igprof@5.9.16
   - intel-tbb@2021.5
   - intel-vtune@2022
   - isl@0.24
@@ -609,7 +608,7 @@ spack:
   - valgrind@3.17.0~mpi~boost libs=shared
   - vdt@0.4.3+preload
   - veccore@0.8.0
-  - vecgeom@1.1.18 ~root~geant4~cuda vector=sse3 # NB explicit ~cuda
+  - vecgeom@1.1.18 ~root~geant4~cuda #vector=sse3 # NB explicit ~cuda
   - xerces-c@3.1.3 netaccessor=none transcoder=none
   - xgboost@1.3.3~cuda # NB explicit ~cuda
   - xpmem@2.6.6-20220308~kernel-module
