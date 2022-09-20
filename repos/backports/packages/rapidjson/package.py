@@ -35,3 +35,9 @@ class Rapidjson(CMakePackage):
         args = []
         args.append(self.define_from_variant("RAPIDJSON_BUILD_DOC", "doc"))
         return args
+
+    def flag_handler(self, name, flags):
+        if spec.satisfies("target=ppc64le:"):
+            if name.lower() == "cxxflags":
+                flags.extend(["-Wno-error=class-memaccess", "-Wno-error=implicit-fallthrough"])
+        return (flags, None, None)
