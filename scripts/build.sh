@@ -30,6 +30,8 @@ function retry {
   echo $output
 }
 
+SSH_OPTS="-o StrictHostKeyChecking=no -o GSSAPIAuthentication=yes -o GSSAPIDelegateCredentials=yes"
+
 [ -z ${WORKSPACE+x} ] && (echo 'ERROR: WORKSPACE not set, quitting'; exit 1)
 [ -z ${RPM_INSTALL_PREFIX+x} ] && (echo 'ERROR: RPM_INSTALL_PREFIX not set, quitting'; exit 2)
 [ -z ${SPACK_ENV_NAME+x} ] && (echo 'ERROR: SPACK_ENV_NAME not set, quitting'; exit 3)
@@ -74,9 +76,26 @@ ${WORKSPACE}/spack/bin/spack ${SPACK_DEBUG_FLAG} -e ${SPACK_ENV_NAME} config add
 ${WORKSPACE}/spack/bin/spack ${SPACK_DEBUG_FLAG} -e ${SPACK_ENV_NAME} config add "config:install_tree:padded_length:128"
 echo Start the installation
 ${WORKSPACE}/spack/bin/spack ${SPACK_DEBUG_FLAG} -e ${SPACK_ENV_NAME} concretize --fresh
+if [ $? -ne 0 ]; then
+    echo Concretization failed
+    touch $WORKSPACE/fail
+    exit 1
+fi
+
 ${WORKSPACE}/spack/bin/spack ${SPACK_DEBUG_FLAG} -e ${SPACK_ENV_NAME} install --fresh --show-log-on-error -j$CORES --fail-fast
 exit_code=$?
 if [ ${exit_code} -ne 0 ]; then
+    echo Build failed, uploading logs
+    ssh $SSH_OPTS lxplus rm -rf /eos/user/r/razumov/www/CMS/logs/${SPACK_ENV_NAME}-${SCRAM_ARCH}
+    ssh $SSH_OPTS lxplus mkdir /eos/user/r/razumov/www/CMS/logs/${SPACK_ENV_NAME}-${SCRAM_ARCH}
+    pushd ${WORKSPACE}/spack/stage
+    find . -maxdepth 1 -type d -name 'spack-stage-*' -print0 | while read -d $'\0' dirn
+    do
+        ssh $SSH_OPTS lxplus mkdir /eos/user/r/razumov/www/CMS/logs/${SPACK_ENV_NAME}-${SCRAM_ARCH}/$dirn
+        scp $SSH_OPTS $d/*.txt lxplus:/eos/user/r/razumov/www/CMS/logs/${SPACK_ENV_NAME}-${SCRAM_ARCH}/$dirn
+    done
+    popd
+    scp $SSH_OPTS ${WORKSPACE}/spack/var/spack/environments/${SPACK_ENV_NAME}/spack.lock lxplus:/eos/user/r/razumov/www/CMS/logs/${SPACK_ENV_NAME}-${SCRAM_ARCH}/
     touch $WORKSPACE/fail
     exit ${exit_code}
 fi
@@ -86,5 +105,6 @@ if [ ${UPLOAD_BUILDCACHE-x} = "true" ]; then
   echo Prepare mirror and buildcache
   # TODO: push gpg key to mirror (broken in 0.17, should be working in 0.18)
   ${WORKSPACE}/spack/bin/spack -e ${SPACK_ENV_NAME} buildcache create -r -a --mirror-url s3://cms-spack/${SCRAM_ARCH}/
+  scp ${WORKSPACE}/spack/var/spack/environments/${SPACK_ENV_NAME}/spack.lock lxplus:/eos/user/r/razumov/www/CMS/environment/spack-${SPACK_ENV_NAME}-${SCRAM_ARCH}.lock
 fi
 echo build.sh done
