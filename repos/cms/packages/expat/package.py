@@ -13,6 +13,7 @@ class Expat(AutotoolsPackage):
     homepage = "https://libexpat.github.io/"
     url      = "https://github.com/libexpat/libexpat/releases/download/R_2_2_9/expat-2.2.9.tar.bz2"
 
+    version('2.4.8', sha256='a247a7f6bbb21cf2ca81ea4cbb916bfb9717ca523631675f99b3d4a5678dcd16')
     version('2.3.0', sha256='f122a20eada303f904d5e0513326c5b821248f2d4d2afbf5c6f1339e511c0586')
     version('2.2.10', sha256='b2c160f1b60e92da69de8e12333096aeb0c3bf692d41c60794de278af72135a5')
     version('2.2.9', sha256='f1063084dc4302a427dabcca499c8312b3a32a29b7d2506653ecc8f950a9a237')

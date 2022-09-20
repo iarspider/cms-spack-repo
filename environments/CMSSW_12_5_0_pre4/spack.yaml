@@ -168,7 +168,7 @@ spack:
   - eigen@82dd3710dac619448f50331c1d6a35da673f764a
   - elfutils@0.186~nls
   - evtgen@02.00.00+pythia8+tauola+photos
-  - expat@2.1.0~libbsd
+  - expat@2.4.8~libbsd
   - fasthadd@2.3
   - fastjet@3.4.0~atlas+python thread-safety=limited plugins=allcxx
   - fftjet@1.5.0
