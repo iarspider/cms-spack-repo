@@ -164,7 +164,6 @@ spack:
   - davix@0.8.1
   - dd4hep@1.19x+xercesc+geant4units~edm4hep
   - dip@c8693f00cc422b4a15858fcd84249acaeb07b6316
-  - dmtcp@3.0.0-dev                          # CMS: +geant4 is set internally to build static version of ddg4
   - dwz@0.14-20220401
   - eigen@82dd3710dac619448f50331c1d6a35da673f764a
   - elfutils@0.186~nls
@@ -269,7 +268,7 @@ spack:
   - openloops@2.1.2                   # 2.6.0 requires OpenSSL 1.1.1
   - openloops-process@2.1.2
   - openmpi@4.1.4+cuda+cxx+cxx_exceptions~internal-hwloc~java~static fabrics=ucx
-  - oracle-instant-client@19.11.0.0.0
+  - oracle-instant-client@19.10.0.0.0
   - oracleocci-abi-hack-cms
   - pacparser@1.4.0
   - pcre@8.43~jit~multibyte+utf
