@@ -64,7 +64,7 @@ fi
 
 SPACK_DEBUG_FLAG=""
 if [ ! -z ${SPACK_DEBUG+x} ]; then
-  SPACK_DEBUG_FLAG="-ddd --stacktrace"
+  SPACK_DEBUG_FLAG="-d --stacktrace"
 fi
 
 echo Setup spack
@@ -74,13 +74,17 @@ ${WORKSPACE}/spack/bin/spack ${SPACK_DEBUG_FLAG} -e ${SPACK_ENV_NAME} config add
 ${WORKSPACE}/spack/bin/spack ${SPACK_DEBUG_FLAG} -e ${SPACK_ENV_NAME} config add "config:install_tree:padded_length:128"
 echo Start the installation
 ${WORKSPACE}/spack/bin/spack ${SPACK_DEBUG_FLAG} -e ${SPACK_ENV_NAME} concretize --fresh
-if [$? -ne 0 ]; then
-  exit 1
-fi
 ${WORKSPACE}/spack/bin/spack ${SPACK_DEBUG_FLAG} -e ${SPACK_ENV_NAME} install --fresh --show-log-on-error -j$CORES --fail-fast
 exit_code=$?
 if [ ${exit_code} -ne 0 ]; then
     touch $WORKSPACE/fail
     exit ${exit_code}
+fi
+
+echo Create and upload buildcache
+if [ ${UPLOAD_BUILDCACHE-x} = "true" ]; then
+  echo Prepare mirror and buildcache
+  # TODO: push gpg key to mirror (broken in 0.17, should be working in 0.18)
+  ${WORKSPACE}/spack/bin/spack -e ${SPACK_ENV_NAME} buildcache create -r -a --mirror-url s3://cms-spack/${SCRAM_ARCH}/
 fi
 echo build.sh done
