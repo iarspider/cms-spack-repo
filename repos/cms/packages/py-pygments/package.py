@@ -7,7 +7,7 @@ from spack import *
 from spack.pkg.builtin.py_pygments import PyPygments as BuiltinPyPygments
 
 
-class PyPygments(PythonPackage):
+class PyPygments(BuiltinPyPygments):
     __doc__ = BuiltinPyPygments.__doc__
 
     patch("Pygments-cpp-extension-fix.patch")
