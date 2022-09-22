@@ -3,17 +3,19 @@
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
-from spack import *
+from spack.package import *
 
 
 class Cepgen(CMakePackage):
     """A generic central exclusive processes event generator"""
 
     homepage = "https://cepgen.hepforge.org/"
-    url      = "https://github.com/cepgen/cepgen/archive/refs/tags/1.0.2patch1.tar.gz"
+    url = "https://github.com/cepgen/cepgen/archive/refs/tags/1.0.2patch1.tar.gz"
     generator = "Ninja"
 
-    version("1.0.2patch1", sha256="333bba0cb1965a98dec127e00c150eab1a515cd348a90f7b1d66d5cd8d206d21")
+    version(
+        "1.0.2patch1", sha256="333bba0cb1965a98dec127e00c150eab1a515cd348a90f7b1d66d5cd8d206d21"
+    )
 
     depends_on("gsl")
     depends_on("openblas")
