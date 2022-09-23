@@ -264,7 +264,6 @@ spack:
   - openblas@0.3.15
   - opencv@4.6.0+eigen+python3~vtk
   - openldap@2.4.49+client_only~sasl
-  - openloops@2.1.2                   # 2.6.0 requires OpenSSL 1.1.1
   - openloops-process@2.1.2
   - openmpi@4.1.4+cuda+cxx+cxx_exceptions~internal-hwloc~java~static fabrics=ucx
   - oracle-instant-client@19.3.0.0.0
@@ -591,7 +590,7 @@ spack:
   - scitokens-cpp@0.7.0
   - scons@4.3.0
   - scram@V3_00_48
-  - sherpa@2.2.12+analysis+fastjet+hepmc2+rivet+lhapdf+blackhat+python+ufo+openloops+mpi+cms~hepmc3
+  - sherpa@2.2.12+analysis+fastjet+hepmc2+rivet+lhapdf+blackhat+python+ufo+mpi+cms~hepmc3
   - sigcpp@3.2.0~doc
   - sloccount@2.26
   - sqlite@3.36.0~fts
@@ -599,7 +598,6 @@ spack:
   - swig@4.0.2
   - tauola@1.1.8 +hepmc+lhapdf+pythia8
   - thepeg@2.2.2 hepmc=2
-  - tkonlinesw@4.2.0-1_gcc7
   - triton-inference-client@2.11.0+cuda
   - ucx@1.12.1 libs=shared +openmp+ucg+cma+thread_multiple+pic~java+cuda~rocm+gdrcopy+rc+ud+dc+mlx5_dv+ib_hw_tm+dm+rdmacm~knem+xpmem~examples
     opt=3
