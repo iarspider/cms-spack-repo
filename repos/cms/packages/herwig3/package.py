@@ -45,6 +45,7 @@ class Herwig3(AutotoolsPackage):
 
     patch('herwig_Matchbox_mg_py3.patch')
     patch('herwig7-fxfx-fix.patch')
+    patch('herwig-helpstring.patch')
 
     force_autoreconf = True
 
@@ -71,7 +72,6 @@ class Herwig3(AutotoolsPackage):
                 '--with-fastjet=' + self.spec['fastjet'].prefix, #
                 '--with-boost=' + self.spec['boost'].prefix, #
                 '--with-madgraph=' + self.spec['madgraph5amc'].prefix, #
-                '--with-openloops=' + self.spec['openloops'].prefix, #
                 '--with-gosam=' + self.spec['py-gosam'].prefix, #
                 '--with-gosam-contrib=' + self.spec['gosam-contrib'].prefix, #
                 # '--with-njet=' + self.spec['njet'].prefix,
