@@ -14,7 +14,7 @@ _versions = {
     # cuDNN 8.3.3
     '8.3.3.40-11.5': {
         'Linux-x86_64': 'eabe96c75cf03ea4f5379894d914f1f8ae14ceab121989e84b0836d927fb7731',
-        'Linux-ppc64le': '2b99d47454366c5d21fec2cbb9a6541153b7c8f34d369d2a2c74733d6453034c',
+        'Linux-ppc64le': 'eaedc8dea675767f9445c11d96e6b472110d2fed728db4179153ca7da6503083',
         'Linux-aarch64': 'c96415fd06db25ed7c966757157670ba7c9bc423994f1dcbf64b33e91407eef4'},
 
     # cuDNN 8.3.2
