@@ -22,7 +22,7 @@ class OpenloopsProcess(Package):
     git      = "https://github.com/cms-externals/openloops.git"
 
 #    version('2.1.2', branch='cms/v2.1.2')
-    version('2.1.2', url='https://cmsrep.cern.ch/cmssw/repos/cms/SOURCES/slc7_amd64_gcc10/external/openloops-process/2.1.2/process_src.tgz',
+    version('2.1.2.cms', url='https://cmsrep.cern.ch/cmssw/repos/cms/SOURCES/slc7_amd64_gcc10/external/openloops-process/2.1.2/process_src.tgz',
             sha256='c12bfe172cfd0ef55d14ef4b9f6f40410eccdbc592de29e6c0da17e65a589569')
 #    patch('openloops-urlopen2curl.patch')
 

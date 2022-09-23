@@ -21,7 +21,7 @@ class Openloops(Package):
 
     tags = ['hep']
 
-    version('2.1.2', branch='cms/v2.1.2')
+    version('2.1.2.cms', branch='cms/v2.1.2')
 
     variant('compile_extra', default=False,
             description='Compile real radiation tree amplitudes')
@@ -32,6 +32,8 @@ class Openloops(Package):
 
     # NOTICE: update this line when openloops updates
     depends_on('openloops-process@2.1.2', when='@2.1.2')
+
+    patch("cmodel.patch", when='target=aarch64')
 
     phases = ['configure', 'build', 'install']
 
