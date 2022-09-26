@@ -5,7 +5,7 @@
 [ -z ${SCRAM_ARCH+x} ] && (echo 'ERROR: SCRAM_ARCH not set, quitting'; exit 4)
 
 export USE_SINGULARITY=true
-export SSH_OPTS="-o StrictHostKeyChecking=no -o GSSAPIAuthentication=yes -o GSSAPIDelegateCredentials=yes"
+export SSH_OPTS="-o StrictHostKeyChecking=no -o GSSAPIAuthentication=yes -o GSSAPIDelegateCredentials=yes -vvv"
 export WORKDIR=${WORKSPACE}
 
 if [ x$DOCKER_IMG == "x" ]; then
@@ -18,6 +18,8 @@ if [ x$DOCKER_IMG == "x" ]; then
     fi
 fi
 export DOCKER_IMG
+
+klist
 
 rm -f ${WORKSPACE}/fail
 #rm -f ${WORKSPACE}/spack/var/spack/environments/${SPACK_ENV_NAME}/spack.lock
