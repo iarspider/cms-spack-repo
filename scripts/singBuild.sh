@@ -5,7 +5,9 @@
 [ -z ${SCRAM_ARCH+x} ] && (echo 'ERROR: SCRAM_ARCH not set, quitting'; exit 4)
 
 export USE_SINGULARITY=true
+export SSH_OPTS="-o StrictHostKeyChecking=no -o GSSAPIAuthentication=yes -o GSSAPIDelegateCredentials=yes"
 export WORKDIR=${WORKSPACE}
+
 if [ x$DOCKER_IMG == "x" ]; then
     arch="$(echo $SCRAM_ARCH | cut -d_ -f2)"
     os=$(echo $SCRAM_ARCH | cut -d_ -f1 | sed 's|slc7|cc7|')
@@ -24,7 +26,7 @@ rm -f ${WORKSPACE}/fail
 [ ! -e ${WORKSPACE}/spack ] && bash -xe ${WORKSPACE}/cms-spack-repo/bootstrap.sh
 
 ${WORKSPACE}/cms-bot/docker_launcher.sh ${WORKSPACE}/cms-spack-repo/scripts/build.sh
-if [ ${exit_code} -ne 0 ]; then
+if [ $? -ne 0 ]; then
     echo Build failed, uploading logs
     ssh $SSH_OPTS lxplus rm -rf /eos/user/r/razumov/www/CMS/logs/${SPACK_ENV_NAME}-${SCRAM_ARCH}
     ssh $SSH_OPTS lxplus mkdir /eos/user/r/razumov/www/CMS/logs/${SPACK_ENV_NAME}-${SCRAM_ARCH}
@@ -45,6 +47,6 @@ if [ ${UPLOAD_BUILDCACHE-x} = "true" ]; then
   echo Prepare mirror and buildcache
   # TODO: push gpg key to mirror (broken in 0.17, should be working in 0.18)
   ${WORKSPACE}/spack/bin/spack -e ${SPACK_ENV_NAME} buildcache create -r -a -f --mirror-url s3://cms-spack/${SCRAM_ARCH}/
-  scp ${WORKSPACE}/spack/var/spack/environments/${SPACK_ENV_NAME}/spack.lock lxplus:/eos/user/r/razumov/www/CMS/environment/spack-${SPACK_ENV_NAME}-${SCRAM_ARCH}.lock
+  scp $SSH_OPTS  ${WORKSPACE}/spack/var/spack/environments/${SPACK_ENV_NAME}/spack.lock lxplus:/eos/user/r/razumov/www/CMS/environment/spack-${SPACK_ENV_NAME}-${SCRAM_ARCH}.lock
 fi
 echo build.sh done
