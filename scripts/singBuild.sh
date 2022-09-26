@@ -5,7 +5,7 @@
 [ -z ${SCRAM_ARCH+x} ] && (echo 'ERROR: SCRAM_ARCH not set, quitting'; exit 4)
 
 export USE_SINGULARITY=true
-export SSH_OPTS="-o StrictHostKeyChecking=no -o GSSAPIAuthentication=yes -o GSSAPIDelegateCredentials=yes -vvv"
+export SSH_OPTS="-o StrictHostKeyChecking=no -o GSSAPIAuthentication=yes -o GSSAPIDelegateCredentials=yes"
 export WORKDIR=${WORKSPACE}
 
 if [ x$DOCKER_IMG == "x" ]; then
@@ -30,16 +30,16 @@ rm -f ${WORKSPACE}/fail
 ${WORKSPACE}/cms-bot/docker_launcher.sh ${WORKSPACE}/cms-spack-repo/scripts/build.sh
 if [ $? -ne 0 ]; then
     echo Build failed, uploading logs
-    ssh $SSH_OPTS lxplus rm -rf /eos/user/r/razumov/www/CMS/logs/${SPACK_ENV_NAME}-${SCRAM_ARCH}
-    ssh $SSH_OPTS lxplus mkdir /eos/user/r/razumov/www/CMS/logs/${SPACK_ENV_NAME}-${SCRAM_ARCH}
+    ssh $SSH_OPTS cmsbuild@lxplus rm -rf /eos/user/r/razumov/www/CMS/logs/${SPACK_ENV_NAME}-${SCRAM_ARCH}
+    ssh $SSH_OPTS cmsbuild@lxplus mkdir /eos/user/r/razumov/www/CMS/logs/${SPACK_ENV_NAME}-${SCRAM_ARCH}
     pushd ${WORKSPACE}/spack/stage
     find . -maxdepth 1 -type d -name 'spack-stage-*' -print0 | while read -d $'\0' dirn
     do
-        ssh $SSH_OPTS lxplus mkdir /eos/user/r/razumov/www/CMS/logs/${SPACK_ENV_NAME}-${SCRAM_ARCH}/$dirn
-        scp $SSH_OPTS $d/*.txt lxplus:/eos/user/r/razumov/www/CMS/logs/${SPACK_ENV_NAME}-${SCRAM_ARCH}/$dirn
+        ssh $SSH_OPTS cmsbuild@lxplus mkdir /eos/user/r/razumov/www/CMS/logs/${SPACK_ENV_NAME}-${SCRAM_ARCH}/$dirn
+        scp $SSH_OPTS $d/*.txt cmsbuild@lxplus:/eos/user/r/razumov/www/CMS/logs/${SPACK_ENV_NAME}-${SCRAM_ARCH}/$dirn
     done
     popd
-    scp $SSH_OPTS ${WORKSPACE}/spack/var/spack/environments/${SPACK_ENV_NAME}/spack.lock lxplus:/eos/user/r/razumov/www/CMS/logs/${SPACK_ENV_NAME}-${SCRAM_ARCH}/
+    scp $SSH_OPTS ${WORKSPACE}/spack/var/spack/environments/${SPACK_ENV_NAME}/spack.lock cmsbuild@lxplus:/eos/user/r/razumov/www/CMS/logs/${SPACK_ENV_NAME}-${SCRAM_ARCH}/
     touch $WORKSPACE/fail
     exit ${exit_code}
 fi
