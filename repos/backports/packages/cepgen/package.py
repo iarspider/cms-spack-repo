@@ -13,6 +13,8 @@ class Cepgen(CMakePackage):
     url = "https://github.com/cepgen/cepgen/archive/refs/tags/1.0.2patch1.tar.gz"
     generator = "Ninja"
 
+    tags = ["hep"]
+
     version(
         "1.0.2patch1", sha256="333bba0cb1965a98dec127e00c150eab1a515cd348a90f7b1d66d5cd8d206d21"
     )

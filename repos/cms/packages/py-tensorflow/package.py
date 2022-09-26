@@ -96,7 +96,7 @@ class PyTensorflow(Package, CudaPackage):
     depends_on('py-future', type='build', when='^python@:2')
 
     # Listed under REQUIRED_PACKAGES in tensorflow/tools/pip_package/setup.py
-    depends_on('py-absl-py@0.10:0', type=('build', 'run'), when='@2.4.0:')
+    depends_on('py-absl-py@0.10:', type=('build', 'run'), when='@2.4.0:') # CMS: remove upper limit
     depends_on('py-absl-py@0.7.0:', type=('build', 'run'), when='@1.12.1,1.14:2.3')
     depends_on('py-absl-py@0.1.6:', type=('build', 'run'), when='@1.5:1.11')
 
