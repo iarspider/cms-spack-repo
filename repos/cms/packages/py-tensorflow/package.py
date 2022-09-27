@@ -178,7 +178,8 @@ class PyTensorflow(Package, CudaPackage):
     depends_on('py-termcolor@1.1.0:1.1', type=('build', 'run'), when='@2.4.0:')
     depends_on('py-termcolor@1.1.0:', type=('build', 'run'), when='@1.6:2.3')
 
-    depends_on('py-wrapt@1.12.1:1.12', type=('build', 'run'), when='@2.4.0:')
+    # CMS: remove upper limit
+    # depends_on('py-wrapt@1.12.1:1.12', type=('build', 'run'), when='@2.4.0:')
     depends_on('py-wrapt@1.11.1:', type=('build', 'run'), when='@1.12.1,1.14:2.3')
 
     depends_on('py-wheel', type=('build', 'run'), when='@0.6:2.3')
@@ -197,7 +198,7 @@ class PyTensorflow(Package, CudaPackage):
     depends_on('py-scipy@1.4.1', type=('build', 'run'), when='@2.1.0:2.1.1,2.2.0,2.3.0 ^python@3:')
 
     # -- CMS: loosen py-typing-extensions requirement to match tf source code
-    depends_on('py-typing-extensions@3.7:3.10', type=('build',  'run'), when='@2.6.4:')
+    depends_on('py-typing-extensions@3.7:', type=('build',  'run'), when='@2.6.4:')  # CMS: remove upper limit
     depends_on('py-typing-extensions@3.7.4:3.7', type=('build', 'run'), when='@2.4.0:2.6.3')
     # depends_on('py-grpcio@1.8.6:', type=('build', 'run'), when='@1.6:1.7')
 

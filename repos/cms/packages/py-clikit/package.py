@@ -19,7 +19,7 @@ class PyClikit(PythonPackage):
     depends_on("py-poetry-core@1:", type="build")
     depends_on("py-pastel@0.2.0:0.2", type=("build", "run"))
     depends_on("py-pylev@1.3:1", type=("build", "run"))
-    depends_on("py-crashtest@0.3.0:", when="^python@3.6:3", type=("build", "run"))  # CMS: remove upper limit
+    depends_on("py-crashtest@0.3.0:", when="^python@3.6:3", type=("build", "run")) # CMS: remove upper limit
     depends_on("py-typing@3.6:3", when="^python@2.7,3.4", type=("build", "run"))
     depends_on("py-typing-extensions@3.6:3", when="^python@3.5.0:3.5.3", type=("build", "run"))
     depends_on("py-enum34@1.1:1", when="^python@2.7", type=("build", "run"))

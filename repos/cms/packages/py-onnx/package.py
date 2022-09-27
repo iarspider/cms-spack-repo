@@ -37,7 +37,7 @@ class PyOnnx(PythonPackage):
     # https://github.com/protocolbuffers/protobuf/issues/10051
     # https://github.com/onnx/onnx/issues/4222
     depends_on("protobuf@:3")
-    depends_on("py-protobuf@:3", type=("build", "run"))
+    # depends_on("py-protobuf@:3", type=("build", "run")) # CMS: remove upper limit
     depends_on("py-numpy", type=("build", "run"))
     depends_on("py-numpy@1.16.6:", type=("build", "run"), when="@1.8.1:")
     depends_on("py-six", type=("build", "run"))
