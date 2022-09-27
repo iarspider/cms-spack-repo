@@ -31,16 +31,9 @@ if [ -e ${WORKSPACE}/fail ]; then
     echo ${WORKSPACE}/spack/var/spack/environments/${SPACK_ENV_NAME}/spack.lock >> logs.txt
     echo Compressing $(wc -l logs.txt) files
     tar -zcf ${WORKSPACE}/logs.tar.gz -T log.txt
-#    tar -zcf ${WORKSPACE}/monitor.tar.gz ${WORKSPACE}/monitor
     scp ${WORKSPACE}/monitor.tar.gz cmsbuild@lxplus:/eos/user/r/razumov/www/CMS/mirror
     rm ${WORKSPACE}/monitor.tar.gz
     touch ${WORKSPACE}/fail
     exit 1
-fi
-if [ ${UPLOAD_BUILDCACHE-x} = "true" ]; then
-  echo Prepare mirror and buildcache
-  # TODO: create mirror and sync to s3
-  # TODO: push gpg key to mirror (broken in 0.17, should be working in 0.18)
-  ${WORKSPACE}/spack/bin/spack -e ${SPACK_ENV_NAME} buildcache create -r -a --mirror-url s3://cms-spack/$SCRAM_ARCH
 fi
 echo All done
