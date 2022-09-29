@@ -45,7 +45,6 @@ class Herwig3(AutotoolsPackage):
 
     patch('herwig_Matchbox_mg_py3.patch')
     patch('herwig7-fxfx-fix.patch')
-    patch('herwig-helpstring.patch')
 
     force_autoreconf = True
 
@@ -79,7 +78,7 @@ class Herwig3(AutotoolsPackage):
                 # '--with-gsl=' + self.spec['gsl'].prefix
                 ]
 
-        if not self.spec.satisfies('arch=ppc64le'):
+        if not self.spec.satisfies('target=ppc64le:'):
             args.append('--with-openloops=' + self.spec['openloops'].prefix)
 
         # -- CMS
@@ -94,12 +93,14 @@ class Herwig3(AutotoolsPackage):
             if self.spec.satisfies('%gcc@10:'):
                 flags.append('-fallow-argument-mismatch')
 
-            if not self.spec.satisfies('arch=x86_64'):
+            if not self.spec.satisfies('target=x86_64'):
                 flags.append('-fno-range-check')
 
             return (None, flags, None)
         elif name in ['cflags', 'cxxflags', 'cppflags']:
             flags.append(self.compiler.cc_pic_flag)
+            if not self.spec.satisfies('target=x86_64'):
+                flags.append('-fno-range-check')
             return (None, flags, None)
 
         return (flags, None, None)
