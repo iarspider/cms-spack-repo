@@ -598,6 +598,7 @@ spack:
   - swig@4.0.2
   - tauola@1.1.8 +hepmc+lhapdf+pythia8
   - thepeg@2.2.2 hepmc=2
+  - tkonlinesw@4.2.0-1_gcc7
   - triton-inference-client@2.11.0+cuda
   - ucx@1.12.1 libs=shared +openmp+ucg+cma+thread_multiple+pic~java+cuda~rocm+gdrcopy+rc+ud+dc+mlx5_dv+ib_hw_tm+dm+rdmacm~knem+xpmem~examples
     opt=3
