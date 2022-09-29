@@ -155,4 +155,4 @@ class Tkonlinesw(Package):
 
         # Option --prefix in configure is not working yet, using tar:
         install_tree('opt/trackerDAQ/include', prefix.include)
-        install_tree('opt/trackerDAQ/lib', prefix1.lib)
+        install_tree('opt/trackerDAQ/lib', prefix.lib)
