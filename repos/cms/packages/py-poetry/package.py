@@ -21,8 +21,9 @@ class PyPoetry(PythonPackage):
     depends_on("py-poetry-core@1.0.7:1.0", type=("build", "run"), when="@:1.1")
     depends_on("py-poetry-core@1.1.0", type=("build", "run"), when="@1.2.0:")
     depends_on("py-poetry-plugin-export@1.0.6:1", type=("build", "run"), when="@1.2.0:")
-    depends_on("py-cleo@0.8.1:0.8", type=("build", "run"), when="@:1.1")
-    depends_on("py-cleo@1.0.0a5:", type=("build", "run"), when="@1.2.0:")
+    depends_on("py-cleo@0.8.1:", type=("build", "run"))  # CMS: don't require 1.1.0a5 or newer
+    # depends_on("py-cleo@0.8.1:0.8", type=("build", "run"), when="@:1.1")
+    # depends_on("py-cleo@1.0.0a5:", type=("build", "run"), when="@1.2.0:")
     depends_on("py-clikit@0.6.2:0.6", type=("build", "run"))
     depends_on("py-crashtest@0.3.0:", when="^python@3.6:3", type=("build", "run")) # CMS: remove upper limit
     depends_on("py-requests@2.18:2", type=("build", "run"))
@@ -56,7 +57,8 @@ class PyPoetry(PythonPackage):
     depends_on("py-subprocess32@3.5:3", when="^python@2.7", type=("build", "run"))
     depends_on("py-importlib-metadata@1.6:1", when="@:1.1 ^python@:3.7", type=("build", "run"))
     depends_on("py-importlib-metadata@4.4:", when="@1.2: ^python@:3.9", type=("build", "run"))
-    depends_on("py-jsonschema@4.10.0:4", when="@1.2:", type=("build", "run"))
+    depends_on("py-jsonschema", when="@1.2:", type=("build", "run"))  # CMS: loosen requirements
+    # depends_on("py-jsonschema@4.10.0:4", when="@1.2:", type=("build", "run"))
     depends_on("py-platformdirs@2.5.2:2", when="@1.2:", type=("build", "run"))
     depends_on("py-xattr@0.9.7:0", when="platform=darwin @1.2:")
     depends_on("py-urllib3@1.26.0:1", when="@1.2:")
