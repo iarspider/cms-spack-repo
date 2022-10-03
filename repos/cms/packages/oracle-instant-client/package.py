@@ -21,6 +21,9 @@ def oracleclient_releases():
                 'sdk': ['https://download.oracle.com/otn_software/linux/instantclient/1911000/instantclient-sdk-linux.x64-19.11.0.0.0dbru.zip', 'e854e7f51e7ca2958153f6c8fee416afa5b3f3baecdfa88ed2ecea2daf012a4a'],
                 'jdbc': ['https://download.oracle.com/otn_software/linux/instantclient/1911000/instantclient-jdbc-linux.x64-19.11.0.0.0dbru.zip', '008e907449e7dc0dcf41f8a0d78658bb3dfbdcc996d69f8ddda635456ab3df21'],
                 'odbc': ['https://download.oracle.com/otn_software/linux/instantclient/1911000/instantclient-odbc-linux.x64-19.11.0.0.0dbru.zip', '0a16d0ccae54fccec830a1137c6566b4569448c655435b9e6b656fcae69e716b']
+            },
+            'Linux-ppc64le': {
+                'basic': ['https://github.com/cms-externals/oracle-fake/archive/6da7ab5b4643b54f57002f9c96c426355a960eb1.tar.gz', '8a69c6b49a0db80c86451d389aa824c2f503aa58f74956c67d7298d20e1882cb']
             }
         },
         {
@@ -91,10 +94,19 @@ class OracleInstantClient(Package):
     depends_on('libaio', type='link')
 
     def install(self, spec, prefix):
+
         mkdirp(prefix.bin)
         mkdirp(prefix.include)
         mkdirp(prefix.lib)
         mkdirp(prefix.doc)
+
+        if self.spec.satisfies('target=ppc64le:'):
+            copy_tree(join_path(self.stage.source_path, 'include'), prefix.include)
+            gcc = which("g++")
+            gcc("-shared", "-fPIC", "-o", "libocci.so", "occi.cc")
+            gcc("-shared", "-fPIC", "-o", "libclntsh.so", "clntsh.cc")
+            copy(self.stage.source_path + "/*.so", prefix.lib)
+            return
 
         for dirn, fns in {'.': ('adrci', 'genezi', 'uidrvci'),
                           'sqlplus': ('glogin.sql', 'sqlplus'),
