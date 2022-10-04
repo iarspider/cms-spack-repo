@@ -250,7 +250,6 @@ spack:
   - lz4@1.9.3  # NB: doesn't compile with our eigen: https://github.com/lwtnn/lwtnn/issues/161
   - m4@1.4.18~sigsegv
   - madgraph5amc@2.7.3.py3 +cms~ninja~collier+golem~syscalc nb_core=4
-  - mcfm@6.3
   - mctester@1.25.1
   - md5@1.0.0
   - meschach@1.2.pCMS1
@@ -268,7 +267,7 @@ spack:
   - openloops@2.1.2.cms                   # 2.6.0 requires OpenSSL 1.1.1
   - openloops-process@2.1.2.cms
   - openmpi@4.1.4+cuda+cxx+cxx_exceptions~internal-hwloc~java~static fabrics=ucx
-  - oracle-instant-client@19.10.0.0.0
+  - oracle-instant-client@19.11.0.0.0
   - oracleocci-abi-hack-cms
   - pacparser@1.4.0
   - pcre@8.43~jit~multibyte+utf
