@@ -94,12 +94,14 @@ class Herwig3(AutotoolsPackage):
             if self.spec.satisfies('%gcc@10:'):
                 flags.append('-fallow-argument-mismatch')
 
-            if not self.spec.satisfies('arch=x86_64'):
+            if not self.spec.satisfies('target=x86_64'):
                 flags.append('-fno-range-check')
 
             return (None, flags, None)
         elif name in ['cflags', 'cxxflags', 'cppflags']:
             flags.append(self.compiler.cc_pic_flag)
+            if not self.spec.satisfies('target=x86_64'):
+                flags.append('-fno-range-check')
             return (None, flags, None)
 
         return (flags, None, None)
