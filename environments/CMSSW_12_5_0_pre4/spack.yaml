@@ -265,7 +265,7 @@ spack:
   - openblas@0.3.15
   - opencv@4.6.0+eigen+python3~vtk
   - openldap@2.4.49+client_only~sasl
-  - openloops@2.1.2
+  - openloops@2.1.2 # 2.6.0 requires OpenSSL 1.1.1
   - openloops-process@2.1.2
   - openmpi@4.1.4+cuda+cxx+cxx_exceptions~internal-hwloc~java~static fabrics=ucx
   - oracle-instant-client@19.11.0.0.0
