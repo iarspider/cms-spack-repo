@@ -179,8 +179,8 @@ class CmsswToolConf(ScramToolfilePackage, CudaPackage):
     depends_on('openloops', when='platform=linux target=x86_64:')
     depends_on('openloops', when='platform=linux target=aarch64:')
 
-    depends_on('tkonlinesw', when='platform=linux target=x86_64:')
-    depends_on('oracle-instant-client', when='platform=linux target=x86_64:')
+    depends_on('tkonlinesw')
+    depends_on('oracle-instant-client')
     depends_on('intel-vtune', when='platform=linux target=x86_64:')
     depends_on('cmsmon-tools', when='platform=linux target=x86_64:')
     depends_on('dip', when='platform=linux target=x86_64:')

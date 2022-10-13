@@ -32,7 +32,7 @@ class Tkonlinesw(Package):
         key = "{0}-{1}".format(platform.system(), platform.machine())
         pkg = packages.get(key)
         if pkg:
-            version(ver, sha256=pkg[0], url=pkg[1], expand=False)
+            version(ver, sha256=pkg[0], url=pkg[1])
 
     depends_on('cmake', when='platform=darwin')
     depends_on('oracle-instant-client')
@@ -149,10 +149,18 @@ class Tkonlinesw(Package):
         if self.spec.satisfies('platform=darwin'):
             # Again, installing is actually done by make install on macosx.
             return
-        if not self.spec.satisfies('target=x86_64'):
+        if self.spec.satisfies('target=aarch64:'):
             # It is a fake package for non x86_64 archs.
+            mkdirp(self.spec.prefix.include)
+            mkdirp(self.spec.prefix.lib)
+            copy_tree(join_path(self.stage.source_path, 'include'), self.spec.prefix.include)
+            gcc = which("g++")
+            gcc("-shared", "-fPIC", "-o", "libDeviceDescriptions.so", "DeviceDescriptions.cc")
+            gcc("-shared", "-fPIC", "-o", "libFed9UDeviceFactory.so", "Fed9UDeviceFactory.cc")
+            gcc("-shared", "-fPIC", "-o", "libICUtils.so", "ICUtils.cc")
+            gcc("-shared", "-fPIC", "-o", "libFed9UUtils.so", "Fed9UUtils.cc")
+            copy(self.stage.source_path + "/*.so", self.spec.prefix.lib)
             return
-
         # Option --prefix in configure is not working yet, using tar:
         install_tree('opt/trackerDAQ/include', prefix.include)
         install_tree('opt/trackerDAQ/lib', prefix.lib)
