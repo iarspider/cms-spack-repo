@@ -459,7 +459,7 @@ spack:
   - py-oauthlib@3.2.1~extras
   - py-onnx@1.12.0
   - py-onnxmltools@1.11.0
-  - py-onnx-runtime@1.12.0+cuda
+  - py-onnx-runtime@1.10.0+cuda
   - py-onnxconverter-common@1.9.0
   - py-opt-einsum@3.3.0
   - py-packaging@21.3
@@ -644,7 +644,7 @@ spack:
   - yoda@1.9.6+root
   - zlib@1.2.11.cms+optimize
   - zstd@1.4.5+shared~static~programs~legacy
-  - cmsdist@12.5.0.pre4
+  - cmsdist@IB-CMSSW_12_6_X_2022-10-16-0000-el8_amd64_gcc11
   - data-l1trigger-csctriggerprimitives@V00-12-00
   - data-recomet-metpusubtraction@V01-02-00
   - data-recoegamma-photonidentification@V01-05-00

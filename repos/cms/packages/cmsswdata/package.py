@@ -106,7 +106,7 @@ class Cmsswdata(BundlePackage):
     depends_on("data-recohi-hijetalgos")
     depends_on("data-recoparticleflow-pftracking")
     depends_on("data-simtransport-hectorproducer")
-    
+
     def install(self, spec, prefix):
         searchpath_xml = StringIO("")
         mkdirp(prefix.etc.join('scram.d'))

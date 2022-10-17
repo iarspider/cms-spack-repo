@@ -27,9 +27,10 @@ class Root(CMakePackage):
     # Master branch
     version('master', branch='master')
 
-    version('6.22.08.patches_cms_18c440c',    commit='5b76eded10db8060c87698bc6f34be4a72eca938')
+    version('6.24.07.patches_cms_b5aa8fd', commit='556667e7d6bf2f279efc6f2a5ec85d2aba1b3768')
+    version('6.22.08.patches_cms_18c440c', commit='5b76eded10db8060c87698bc6f34be4a72eca938')
     version('6.22.08.patches_cms_abd79a9716', commit='32c9dc53cf8f6b70df032f56fc8958f9beffd75d')
-    version('6.24.00.patches_cms_3c21b04',    commit='594f3935b4ea8871ecbe02b57e737dc47d179002')
+    version('6.24.00.patches_cms_3c21b04', commit='594f3935b4ea8871ecbe02b57e737dc47d179002')
 
     # ###################### Variants ##########################
     # See README.md for specific notes about what ROOT configuration

@@ -16,9 +16,9 @@ class CrabDev(Package):
     url = "file://" + os.path.dirname(__file__) + '/junk.xml'
 
     # wmcore_version = '1.5.3'
-    crab_client_version = 'v3.220714'
+    crab_client_version = 'v3.221004'
     crab_client_revision = '00'
-    crab_server_version = 'v3.220713'
+    crab_server_version = 'v3.221003'
     dbs_version = '3.14.0'
     thisdir = os.path.dirname(__file__)
 

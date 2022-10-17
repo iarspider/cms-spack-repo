@@ -10,4 +10,5 @@ class DataCalibtrackerSipixelesproducers(CMSDataPackage):
     """FIXME: Put a proper description of your package here."""
     n = 'data-CalibTracker-SiPixelESProducers'
     git = "https://github.com/cms-data/{0}.git".format(n.replace('data-', ''))
+    version('V02-03-00', tag='V02-03-00')
     version('V02-02-00', tag='V02-02-00')

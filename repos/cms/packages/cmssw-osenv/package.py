@@ -13,6 +13,7 @@ class CmsswOsenv(Package):
     homepage = "https://www.example.com"
     git      = "https://github.com/cms-sw/cmssw-osenv.git"
 
+    version('221009.0', commit='a85902226d6107c61802d01ee1afac13a11a7eb4')
     version('220601.0', commit='ebed1aee4c08c158b4f3f33928eb52f32090710e')
     version('211125.0', commit='3a1d33d8dc9989257ec91e3543eda8250e5a3593')
 
