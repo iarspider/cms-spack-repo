@@ -11,7 +11,7 @@ spack:
   packages:
     all:
       buildable: true
-      compiler: [gcc@10.3.0]
+      compiler: [gcc@11.2.1]
       target:
       - core2
       version: []
@@ -22,7 +22,7 @@ spack:
       externals: [{spec: mesa-glu@9.0.0, prefix: /usr}]
       buildable: false
     binutils:
-      externals: [{spec: binutils@2.36.1, prefix: /cvmfs/cms.cern.ch/el8_ppc64le_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/}]
+      externals: [{spec: binutils@2.36.1, prefix: /scratch/avalenzu/compiler/BUILD/el8_ppc64le_gcc10/external/gcc/11.2.1-f478fee2760dbd22aaabb4e3a8fe1640/}]
       buildable: false
     openssl:
       externals: [{spec: openssl@1.1.1k-fips, prefix: /usr}]
