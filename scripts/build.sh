@@ -75,7 +75,7 @@ echo Add padding to install_tree
 ${WORKSPACE}/spack/bin/spack ${SPACK_DEBUG_FLAG} -e ${SPACK_ENV_NAME} config add "config:install_tree:root:${RPM_INSTALL_PREFIX}"
 ${WORKSPACE}/spack/bin/spack ${SPACK_DEBUG_FLAG} -e ${SPACK_ENV_NAME} config add "config:install_tree:padded_length:128"
 echo Start the installation
-${WORKSPACE}/spack/bin/spack ${SPACK_DEBUG_FLAG} -e ${SPACK_ENV_NAME} concretize --fresh
+${WORKSPACE}/spack/bin/spack ${SPACK_DEBUG_FLAG} -e ${SPACK_ENV_NAME} concretize --fresh -f
 if [ $? -ne 0 ]; then
     echo Concretization failed
     touch $WORKSPACE/fail
@@ -92,7 +92,7 @@ if [ ${exit_code} -ne 0 ]; then
     find . -maxdepth 1 -type d -name 'spack-stage-*' -print0 | while read -d $'\0' dirn
     do
         ssh $SSH_OPTS lxplus mkdir /eos/user/r/razumov/www/CMS/logs/${SPACK_ENV_NAME}-${SCRAM_ARCH}/$dirn
-        scp $SSH_OPTS $d/*.txt lxplus:/eos/user/r/razumov/www/CMS/logs/${SPACK_ENV_NAME}-${SCRAM_ARCH}/$dirn
+        scp $SSH_OPTS $dirn/*.txt lxplus:/eos/user/r/razumov/www/CMS/logs/${SPACK_ENV_NAME}-${SCRAM_ARCH}/$dirn
     done
     popd
     scp $SSH_OPTS ${WORKSPACE}/spack/var/spack/environments/${SPACK_ENV_NAME}/spack.lock lxplus:/eos/user/r/razumov/www/CMS/logs/${SPACK_ENV_NAME}-${SCRAM_ARCH}/

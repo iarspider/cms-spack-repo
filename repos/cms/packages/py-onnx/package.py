@@ -28,7 +28,7 @@ class PyOnnx(PythonPackage):
 
     depends_on("py-setuptools", type="build")
     depends_on("protobuf")
-    depends_on("py-protobuf+cpp", type=("build", "run"))
+    depends_on("py-protobuf", type=("build", "run"))  # CMS: try without explicit +cpp
     # Protobuf version limit is due to removal of SetTotalBytesLimit in
     # https://github.com/protocolbuffers/protobuf/pull/8794, fixed in
     # https://github.com/onnx/onnx/pull/3112

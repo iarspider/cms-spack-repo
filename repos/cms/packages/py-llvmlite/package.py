@@ -47,7 +47,7 @@ class PyLlvmlite(PythonPackage):
 
     # -- begin CMS: patches
     patch("py3-llvmlite-fpic-flag.patch", when='@0.37.0:')
-    patch("py3-llvmlite-removeMethod.patch", when='@0.37.0:', level=0)
+    patch("py3-llvmlite-removeMethod.patch", when='@0.37.0:')
     patch("py3-llvmlite-version.patch", when='@0.37.0:')
     # -- end CMS
 
