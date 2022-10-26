@@ -24,6 +24,7 @@ class Scram(Package):
 
     # TODO: generate scram_arch
     scram_arch = os.environ.get('SCRAM_ARCH', 'slc7_amd64_gcc900')
+    install_path = os.environ.get('RPM_INSTALL_PREFIX')
     if sys.platform == 'darwin':
         scram_arch = 'osx10_amd64_clang'
 
@@ -38,13 +39,13 @@ class Scram(Package):
             f.write("SCRAMV1_VERSION='{0}'\n".format(str(self.spec.version)))
 
         # %build
-        filter_file('@CMS_PATH@', prefix,
+        filter_file('@CMS_PATH@', install_path,
                     join_path(self.stage.source_path, 'SCRAM', '__init__.py'))
 
         filter_file('@SCRAM_VERSION@', str(self.spec.version),
                     join_path(self.stage.source_path, 'SCRAM', '__init__.py'))
 
-        filter_file('BASEPATH = .*', 'BASEPATH = "' + prefix + '"',
+        filter_file('BASEPATH = .*', 'BASEPATH = "' + install_path + '"',
                     join_path(self.stage.source_path, 'SCRAM', '__init__.py'))
         # %install
         mkdirp(prefix.docs)
