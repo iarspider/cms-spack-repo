@@ -14,7 +14,7 @@ if [ -z ${SCRAM_ARCH+x} ]; then
   exit 1
 fi
 
-if [ -z ${WORKSPACE+} ]; then
+if [ -z ${WORKSPACE+x} ]; then
   echo "WORKSPACE not set"
   exit 1
 fi
