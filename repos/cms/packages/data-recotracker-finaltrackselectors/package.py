@@ -10,4 +10,6 @@ class DataRecotrackerFinaltrackselectors(CMSDataPackage):
     """FIXME: Put a proper description of your package here."""
     n = 'data-RecoTracker-FinalTrackSelectors'
     git = "https://github.com/cms-data/{0}.git".format(n.replace('data-', ''))
+
+    version('V01-04-00', tag='V01-04-00')
     version('V01-03-00', tag='V01-03-00')

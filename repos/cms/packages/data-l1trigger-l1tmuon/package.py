@@ -11,5 +11,6 @@ class DataL1triggerL1tmuon(CMSDataPackage):
     n = 'data-L1Trigger-L1TMuon'
     git = "https://github.com/cms-data/{0}.git".format(n.replace('data-', ''))
 
+    version('V01-07-00', tag='V01-07-00')
     version('V01-06-00', tag='V01-06-00')
     version('V01-05-00', tag='V01-05-00')
