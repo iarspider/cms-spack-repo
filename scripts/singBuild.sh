@@ -33,6 +33,12 @@ rm -f ${WORKSPACE}/fail
 
 [ ! -e ${WORKSPACE}/spack ] && bash -xe ${WORKSPACE}/cms-spack-repo/bootstrap.sh
 
+if [ ! -z ${1+x} ]; then
+  echo Setting CMSSW version to $1
+  sed -i -e 's/#!# //' ${WORKSPACE}/cms-spack-repo/repos/cms/packages/cmssw/package.py
+  sed -i -e 's/#VERSION#/$1/g' ${WORKSPACE}/cms-spack-repo/repos/cms/packages/cmssw/package.py
+fi
+
 ${WORKSPACE}/cms-bot/docker_launcher.sh ${WORKSPACE}/cms-spack-repo/scripts/build.sh
 if [ -e ${WORKSPACE}/fail ]; then
 #    echo Build falied, uploading monitor data
