@@ -1,8 +1,18 @@
 #!/bin/bash -xe
 [ -z ${WORKSPACE+x} ] && (echo 'ERROR: WORKSPACE not set, quitting'; exit 1)
 [ -z ${RPM_INSTALL_PREFIX+x} ] && (echo 'ERROR: RPM_INSTALL_PREFIX not set, quitting'; exit 2)
-[ -z ${SPACK_ENV_NAME+x} ] && (echo 'ERROR: SPACK_ENV_NAME not set, quitting'; exit 3)
-[ -z ${SCRAM_ARCH+x} ] && (echo 'ERROR: SCRAM_ARCH not set, quitting'; exit 4)
+
+export SPACK_ENV_NAME=${SPACK_ENV_NAME:=$RELEASE_QUEUE}
+if [ -z ${SPACK_ENV_NAME+x} ]; then
+  echo 'ERROR: SPACK_ENV_NAME or/and RELEASE_QUEUE not set, quitting'
+  exit 3
+fi
+
+export SCRAM_ARCH=${SCRAM_ARCH:=$ARCHITECTURE}
+if [ -z ${SCRAM_ARCH+x} ]; then
+  echo 'ERROR: SCRAM_ARCH or/and ARCHITECTURE not set, quitting'
+  exit 4
+fi
 
 export USE_SINGULARITY=true
 export WORKDIR=${WORKSPACE}
@@ -32,9 +42,9 @@ if [ -e ${WORKSPACE}/fail ]; then
     touch ${WORKSPACE}/fail
     exit 1
 fi
-if [ ${UPLOAD_BUILDCACHE-x} = "true" ]; then
-  echo Prepare mirror and buildcache
+#if [ ${UPLOAD_BUILDCACHE-x} = "true" ]; then
+#  echo Prepare mirror and buildcache
   # TODO: push gpg key to mirror (broken in 0.17, should be working in 0.18)
-  bin/spack -e ${SPACK_ENV_NAME} buildcache create -r -a --mirror-url s3://cms-spack/${SCRAM_ARCH}/
-fi
+#  bin/spack -e ${SPACK_ENV_NAME} buildcache create -r -a --mirror-url s3://cms-spack/${SCRAM_ARCH}/
+#fi
 echo All done
