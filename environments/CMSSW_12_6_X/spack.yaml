@@ -15,7 +15,7 @@ spack:
       target:
       - core2
       version: []
-      variants: [cxxstd=17, build_type=Release, +cms, 'cuda_arch=60,70,75', 'cxxflags=-msse3']
+      variants: [cxxstd=17, build_type=Release, +cms, 'cuda_arch=60,70,75']
       providers:
         iconv: [libc]
     mesa-glu:
