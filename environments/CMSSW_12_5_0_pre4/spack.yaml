@@ -129,7 +129,7 @@ spack:
   - automake@1.16.3
   - bazel@3.7.2
   - berkeley-db@6.2.32
-  - benchmark@develop
+  - benchmark@20211215
   - bison@3.7.6
   - blackhat@0.9.9
   - boost@1.78.0.cms+atomic~icu~container~context~coroutine+exception+graph+locale+log+math+random+wave+shared+multithreaded~debug+mpi+python+iostreams
