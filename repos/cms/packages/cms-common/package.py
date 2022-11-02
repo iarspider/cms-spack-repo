@@ -3,10 +3,11 @@
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
-from spack import *
-import spack
 import os
 import shutil
+
+import spack
+from spack import *
 
 
 class CmsCommon(Package):

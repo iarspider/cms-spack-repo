@@ -1,14 +1,13 @@
-from spack import *
-
 import fnmatch
 import os
 import re
 import shutil
-import spack.user_environment as uenv
-
-from glob import glob
 from collections import Counter, defaultdict
-from  spack.util.environment import *
+from glob import glob
+
+import spack.user_environment as uenv
+from spack import *
+from spack.util.environment import *
 
 
 class CoralToolConf(ScramToolfilePackage, CudaPackage):

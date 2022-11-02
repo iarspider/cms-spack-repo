@@ -1,7 +1,9 @@
-from spack import *
-from collections import defaultdict
 import os
 import shutil
+from collections import defaultdict
+
+from spack import *
+
 
 def local_file(fn):
     return join_path(os.path.dirname(__file__), fn)

@@ -1,43 +1,23 @@
-# Copyright 2013-2021 Lawrence Livermore National Security, LLC and other
-# Spack Project Developers. See the top-level COPYRIGHT file for details.
-#
-# SPDX-License-Identifier: (Apache-2.0 OR MIT)
-import glob
-import os
+import copy
+
+from spack import *
+from spack.pkg.builtin.hepmc import Hepmc as BuiltinHepmc
 
 
-class Hepmc(CMakePackage):
-    """The HepMC package is an object oriented, C++ event record for
-       High Energy Physics Monte Carlo generators and simulation."""
+class Hepmc(BuiltinHepmc):
+    __doc__ = BuiltinHepmc.__doc__
 
-    homepage = "https://hepmc.web.cern.ch/hepmc/"
-    url      = "https://hepmc.web.cern.ch/hepmc/releases/hepmc2.06.11.tgz"
-    git      = "https://github.com/cms-externals/hepmc.git"
+   keep_archives = True
+   drop_files = ["share"]
 
-    tags = ['hep']
-    keep_archives = True
+   def flag_handler(self, name, flags):
+       if name == "cxxflags":
+           flags.append(self.compiler.cxx_pic_flag)
 
-    version('2.06.10.cms', commit='91c4c217572ac25669e9ad8fdc0111d1d5c82289')
+       return (None, None, flags)
 
-    variant('length', default='MM', values=('CM', 'MM'), multi=False,
-            description='Unit of length')
-    variant('momentum', default='GEV', values=('GEV', 'MEV'), multi=False,
-            description='Unit of momentum')
-
-    depends_on('cmake@2.8.9:', type='build')
-
-    drop_files = ['share']
-
-    def cmake_args(self):
-        return [
-            self.define_from_variant('momentum'),
-            self.define_from_variant('length'),
-            '-DCMAKE_CXX_FLAGS=-fPIC'
-        ]
-
-
-    @run_after('install')
+    @run_after("install")
     def post_install(self):
         prefix = self.prefix
-        for fn in glob.glob(join_path(prefix.lib, '*.so')):
+        for fn in glob.glob(join_path(prefix.lib, "*.so")):
             os.remove(fn)

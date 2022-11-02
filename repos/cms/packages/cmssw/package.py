@@ -1,10 +1,12 @@
-from spack import *
+import fnmatch
+import re
+import shutil
 from glob import glob
 from string import Template
-import re
-import fnmatch
-import shutil
+
+from spack import *
 from spack.util.executable import Executable
+
 # import sys,os
 # sys.path.append(os.path.join(os.path.dirname(__file__), '../ToolfilePackage'))
 # from scrampackage import relrelink

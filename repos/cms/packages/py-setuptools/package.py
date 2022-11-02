@@ -22,4 +22,3 @@ class PySetuptools(BuiltinPySetuptools):
         # Ref: https://github.com/spack/spack/issues/32922
         python = which("python")
         python(*args)
-

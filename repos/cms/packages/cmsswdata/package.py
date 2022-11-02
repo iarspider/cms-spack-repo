@@ -3,10 +3,11 @@
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
-from spack import *
-from string import Template
-from io import StringIO
 import os
+from io import StringIO
+from string import Template
+
+from spack import *
 
 cmsswdata_xml = Template("""<tool name="cmsswdata" version="$v">
     <client>

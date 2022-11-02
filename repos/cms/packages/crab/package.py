@@ -3,10 +3,11 @@
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
+import glob
+import os
+
 from spack import *
 
-import os
-import glob
 
 def local_file(fn):
     return join_path(os.path.dirname(__file__), fn)

@@ -3,9 +3,11 @@
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
-from spack import *
 import os
 import shutil
+
+from spack import *
+
 
 class CmsswOsenv(Package):
     """FIXME: Put a proper description of your package here."""

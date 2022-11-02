@@ -1,11 +1,12 @@
-from spack import *
+import fnmatch
+import os
+import re
+import shutil
+import sys
 from glob import glob
 from string import Template
-import re
-import os
-import fnmatch
-import sys
-import shutil
+
+from spack import *
 
 
 class CmsswCmake(Package):

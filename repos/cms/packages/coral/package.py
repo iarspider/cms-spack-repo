@@ -1,11 +1,12 @@
-from spack import *
+import fnmatch
+import os
+import re
+import shutil
+import sys
 from glob import glob
 from string import Template
-import re
-import fnmatch
-import shutil
-import sys, os
 
+from spack import *
 
 # sys.path.append(os.path.join(os.path.dirname(__file__), '../ToolfilePackage'))
 # from scrampackage import relrelink, write_scram_toolfile

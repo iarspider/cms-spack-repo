@@ -3,8 +3,8 @@
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 import os
-from urllib.request import urlopen
 from json import loads
+from urllib.request import urlopen
 
 from spack import *
 
