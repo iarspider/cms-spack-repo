@@ -1,5 +1,3 @@
-import copy
-
 from spack import *
 from spack.pkg.builtin.fjcontrib import Fjcontrib as BuiltinFjcontrib
 

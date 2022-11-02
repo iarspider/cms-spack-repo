@@ -1,5 +1,3 @@
-import copy
-
 from spack import *
 from spack.pkg.builtin.libxml2 import Libxml2 as BuiltinLibxml2
 

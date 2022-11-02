@@ -1,5 +1,3 @@
-import copy
-
 from spack import *
 from spack.pkg.builtin.pkg_config import PkgConfig as BuiltinPkgConfig
 

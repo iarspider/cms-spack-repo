@@ -1,5 +1,3 @@
-import copy
-
 from spack import *
 from spack.pkg.builtin.re2c import Re2c as BuiltinRe2c
 

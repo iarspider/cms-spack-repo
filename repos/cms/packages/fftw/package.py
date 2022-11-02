@@ -1,5 +1,3 @@
-import copy
-
 from spack import *
 from spack.pkg.builtin.fftw import Fftw as BuiltinFftw
 

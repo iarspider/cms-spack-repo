@@ -1,5 +1,3 @@
-import copy
-
 from spack import *
 from spack.pkg.builtin.heppdt import Heppdt as BuiltinHeppdt
 

@@ -1,5 +1,3 @@
-import copy
-
 from spack import *
 from spack.pkg.builtin.gdb import Gdb as BuiltinGdb
 

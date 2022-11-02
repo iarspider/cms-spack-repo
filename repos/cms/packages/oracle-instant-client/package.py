@@ -1,5 +1,3 @@
-import copy
-
 from spack import *
 from spack.pkg.builtin.oracle_instant_client import OracleInstantClient as BuiltinOracleInstantClient
 

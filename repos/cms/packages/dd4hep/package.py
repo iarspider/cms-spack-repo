@@ -1,5 +1,3 @@
-import copy
-
 from spack import *
 from spack.pkg.builtin.dd4hep import Dd4hep as BuiltinDd4hep
 
