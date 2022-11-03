@@ -38,6 +38,13 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+# Check for possible prefix conflicts
+${WORKSPACE}/cms-spack-repo/scripts/clean-db.py
+if [ $? -ne 0 ]; then
+    echo "ERROR: db cleanup failed"
+    exit 1
+fi
+
 spack ${SPACK_DEBUG_FLAG} install -j"$CORES" --fail-fast --reuse --cache-only
 exit_code=$?
 if [ ${exit_code} -eq 0 ]; then
