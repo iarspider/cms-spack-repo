@@ -1,6 +1,7 @@
 #!/bin/bash
 if [ -z ${SPACK_VERSION+x} ]; then
-  echo "SPACK_VERSION not set"
+  export SPACK_VERSION=v0.18.1
+  echo "WARNING: using default spack version ${SPACK_VERSION}"
   exit 1
 fi
 
