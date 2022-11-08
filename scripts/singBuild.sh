@@ -31,7 +31,9 @@ rm -f ${WORKSPACE}/fail
 #rm -f ${WORKSPACE}/spack/var/spack/environments/${SPACK_ENV_NAME}/spack.lock
 #rm -rf ${WORKSPACE}/spack/var/spack/environments/${SPACK_ENV_NAME}/.spack-env/
 
-[ ! -e ${WORKSPACE}/spack ] && bash -xe ${WORKSPACE}/cms-spack-repo/bootstrap.sh
+if [ ! -e ${WORKSPACE}/spack ]; then 
+  bash -xe ${WORKSPACE}/cms-spack-repo/bootstrap.sh || (echo Bootstrap failed; exit 1)
+fi
 
 if [ ! -z ${1+x} ]; then
   echo Setting CMSSW version to $1
