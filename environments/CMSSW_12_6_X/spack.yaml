@@ -627,7 +627,7 @@ spack:
   - rust@1.57.0+rustfmt~analysis~clippy~src # rustfmt neede by tensorboard-data-server
   - scitokens-cpp@0.7.0
   - scons@4.3.0
-  - scram@V3_00_53
+  - scram@V3_00_54
   - sherpa@2.2.12+analysis+fastjet+hepmc2+rivet+lhapdf+blackhat+python+ufo+openloops+mpi+cms~hepmc3
   - sigcpp@3.2.0~doc
   - sloccount@2.26
@@ -660,7 +660,7 @@ spack:
   - cmsdist
   - data-l1trigger-csctriggerprimitives@V00-12-00
   - data-recomet-metpusubtraction@V01-02-00
-  - data-recoegamma-photonidentification@V01-05-00
+  - data-recoegamma-photonidentification@V01-06-00
   - data-recobtag-combined@V01-14-00
   - data-magneticfield-interpolation@V01-02-00
   - data-recoecal-egammaclusterproducers@V00-02-00

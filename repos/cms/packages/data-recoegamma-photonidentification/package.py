@@ -10,5 +10,6 @@ class DataRecoegammaPhotonidentification(CMSDataPackage):
     n = "data-RecoEgamma-PhotonIdentification"
     git = "https://github.com/cms-data/{0}.git".format(n.replace('data-', ''))
 
+    version('V01-06-00', tag='V01-06-00')
     version('V01-05-00', tag='V01-05-00')
     version('V01-04-00', tag='V01-04-00')
