@@ -29,17 +29,17 @@ export DOCKER_IMG
 
 rm -f ${WORKSPACE}/fail
 
-if [ ! -e ${WORKSPACE}/spack ]; then 
-  bash -xe ${WORKSPACE}/cms-spack-repo/bootstrap.sh || (echo Bootstrap failed; exit 1)
+if [ ! -e ${WORKSPACE}/spack ]; then
+  bash -xe ${WORKSPACE}/cms-spack-repo/bootstrap.sh $1 || (echo Bootstrap failed; exit 1)
 fi
 
-if [ ! -z ${1+x} ]; then
-  echo Setting CMSSW version to $1
-  VERSION=$(echo $1 | sed -e 's#/#_#g'
-  sed -i -e "s/#!# //" ${WORKSPACE}/cms-spack-repo/repos/cms/packages/cmssw/package.py
-  sed -i -e "s/#VERSION#/$VERSION/g" ${WORKSPACE}/cms-spack-repo/repos/cms/packages/cmssw/package.py
-  sed -i -e "s/#TAG#/$1/g" ${WORKSPACE}/cms-spack-repo/repos/cms/packages/cmssw/package.py
-fi
+#if [ ! -z ${1+x} ]; then
+#  echo Setting CMSSW version to $1
+#  VERSION=$(echo $1 | sed -e 's#/#_#g'
+#  sed -i -e "s/#!# //" ${WORKSPACE}/cms-spack-repo/repos/cms/packages/cmssw/package.py
+#  sed -i -e "s/#VERSION#/$VERSION/g" ${WORKSPACE}/cms-spack-repo/repos/cms/packages/cmssw/package.py
+#  sed -i -e "s/#TAG#/$1/g" ${WORKSPACE}/cms-spack-repo/repos/cms/packages/cmssw/package.py
+#fi
 
 ${WORKSPACE}/cms-bot/docker_launcher.sh ${WORKSPACE}/cms-spack-repo/scripts/build.sh
 if [ -e ${WORKSPACE}/fail ]; then
