@@ -23,17 +23,16 @@ class Scram(Package):
     version('V3_00_29', commit='4489bd56104394c247b7cfcb64376257772e23c3')
     version('V3_00_23', commit='9794c2f7b7f2690687c41eb67778023d5c2a6e1b')
 
-    # TODO: generate scram_arch
-    scram_arch = os.environ.get('SCRAM_ARCH', 'slc7_amd64_gcc900')
-    install_path = os.environ.get('RPM_INSTALL_PREFIX')
-    if sys.platform == 'darwin':
-        scram_arch = 'osx10_amd64_clang'
-
     def patch(self):
         filter_file('/cms/cms-common', '/cms-common', 'SCRAM/Core/ProjectDB.py')
 
 
     def install(self, spec, prefix):
+        scram_arch = os.environ.get('SCRAM_ARCH', 'slc7_amd64_gcc900')
+        install_path = os.environ.get('RPM_INSTALL_PREFIX')
+        if sys.platform == 'darwin':
+            scram_arch = 'osx10_amd64_clang'
+
         mkdirp(join_path(prefix.etc, 'profile.d'))
         with open(join_path(prefix.etc, 'profile.d', 'init.sh'), 'w') as f:
             f.write("SCRAMV1_ROOT='{0}'\n".format(prefix))
