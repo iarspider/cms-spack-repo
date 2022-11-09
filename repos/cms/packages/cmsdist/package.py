@@ -19,7 +19,7 @@ class Cmsdist(Package):
     homepage = "https://www.example.com"
     git      = "https://github.com/cms-sw/cmsdist.git"
 
-    version("IB/CMSSW_12_6_X/g11", branch="IB/CMSSW_12_6_X/g11")
+    version("IB-CMSSW_12_6_X-g11", branch="IB/CMSSW_12_6_X/g11")
 
     def patch(self):
         def add_toolfile(name, dirname=None):
