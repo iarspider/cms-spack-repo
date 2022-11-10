@@ -1,7 +1,7 @@
 #!/bin/bash
 if [ -z ${SPACK_VERSION+x} ]; then
-  echo "SPACK_VERSION not set"
-  exit 1
+  export SPACK_VERSION=v0.18.1
+  echo "INFO: using default spack version ${SPACK_VERSION}"
 fi
 
 if [ -z ${SPACK_ENV_NAME+x} ]; then
@@ -14,7 +14,7 @@ if [ -z ${SCRAM_ARCH+x} ]; then
   exit 1
 fi
 
-if [ -z ${WORKSPACE+} ]; then
+if [ -z ${WORKSPACE+x} ]; then
   echo "WORKSPACE not set"
   exit 1
 fi
@@ -77,9 +77,9 @@ bin/spack repo add --scope=site ${WORKSPACE}/cms-spack-repo/repos/cms
 echo Adding CMS mirror
 bin/spack mirror add --scope=site cms https://test-cms-spack.webtest.cern.ch/test-cms-spack/CMS/mirror/
 echo Adding CMS buildcache
-bin/spack mirror add --scope=site cms-s3 s3://cms-spack
+bin/spack mirror add --scope=site cms-s3 s3://cms-spack/${SCRAM_ARCH}/${SPACK_ENV_NAME}
 echo Adding CMS Spack signing key to trusted list
-#bin/spack buildcache keys --install --trust
+# bin/spack buildcache keys --install --trust
 # Temporary workaround until `spack gpg publish` works!
 wget https://test-cms-spack.web.cern.ch/test-cms-spack/CMS/mirror/build_cache/_pgp/A9541E16BC04DEA9624B99B43E5E5DB6F48CB63F.pub -O ${WORKSPACE}/cms-spack.pub
 bin/spack gpg trust ${WORKSPACE}/cms-spack.pub
@@ -93,6 +93,13 @@ else
 fi
 echo Set install directory
 bin/spack config add "config:install_tree:root:${RPM_INSTALL_PREFIX}"
+
+if [ ! -z ${1+x} ]; then
+  echo Setting CMSSW version to $1
+  sed -i -e "s/#!# //" ${WORKSPACE}/cms-spack-repo/repos/cms/packages/cmssw/package.py
+  sed -i -e "s/#VERSION#/$1/g" ${WORKSPACE}/cms-spack-repo/repos/cms/packages/cmssw/package.py
+fi
+
 echo Creating environment ${SPACK_ENV_NAME}
 bin/spack env create ${SPACK_ENV_NAME} ${WORKSPACE}/cms-spack-repo/environments/${SPACK_ENV_NAME}/spack.yaml
 echo Done

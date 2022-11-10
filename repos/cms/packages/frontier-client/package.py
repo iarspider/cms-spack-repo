@@ -43,3 +43,9 @@ class FrontierClient(MakefilePackage):
              'dist'
              )
         install_tree('python', prefix + '/python')
+
+    def setup_dependent_build_environment(self, env, spec):
+        env.prepend_path("PYTHONPATH", os.path.join(self.prefix, "python", "lib"))
+
+    def setup_dependent_run_environment(self, env, spec):
+        env.prepend_path("PYTHONPATH", os.path.join(self.prefix, "python", "lib"))
