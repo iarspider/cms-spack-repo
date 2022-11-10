@@ -1,0 +1,181 @@
+diff --git a/lib/spack/spack/directives.py b/lib/spack/spack/directives.py
+index 7c49158c791d..4111b06986c7 100644
+--- a/lib/spack/spack/directives.py
++++ b/lib/spack/spack/directives.py
+@@ -20,6 +20,9 @@ class OpenMpi(Package):
+   * ``build_system``
+   * ``conflicts``
+   * ``depends_on``
++  * ``drop_conflict``
++  * ``drop_dependency``
++  * ``drop_patch``
+   * ``extends``
+   * ``patch``
+   * ``provides``
+@@ -28,6 +31,7 @@ class OpenMpi(Package):
+   * ``version``
+ 
+ """
++import copy
+ import functools
+ import os.path
+ import re
+@@ -60,6 +64,9 @@ class OpenMpi(Package):
+     "patch",
+     "variant",
+     "resource",
++    "drop_dependency",
++    "drop_patch",
++    "drop_conflict",
+     "build_system",
+ ]
+ 
+@@ -761,6 +768,52 @@ def _execute_resource(pkg):
+     return _execute_resource
+ 
+ 
++@directive("dependencies")
++def drop_dependency(name):
++    """Completely remove dependency on a given package"""
++
++    def _execute_remove_dep(pkg):
++        del pkg.dependencies[name]
++
++    return _execute_remove_dep
++
++
++@directive("conflicts")
++def drop_conflict(name):
++    """Completely remove conflict with a given name (first argument to `conflicts`)"""
++
++    def _execute_drop_conflict(pkg):
++        del pkg.conflicts[name]
++
++    return _execute_drop_conflict
++
++
++@directive("patches")
++def drop_patch(name):
++    """Completely remove a patch with a given filename or URL"""
++
++    def _execute_drop_patch(pkg):
++        def filter_func(p):
++            if isinstance(p, spack.patch.FilePatch):
++                return p.relative_path == name
++            elif isinstance(p, spack.patch.UrlPatch):
++                return p.url == name
++            else:
++                # Future-proofing
++                raise RuntimeError("Unknown patch type: " + str(type(p)))
++
++        old_patches = copy.deepcopy(pkg.patches)
++        new_patches = {}
++        for spec, patches in old_patches.items():
++            filtered_patches = [p for p in patches if not filter_func(p)]
++            if filtered_patches:
++                new_patches[spec] = filtered_patches
++
++        pkg.patches = new_patches
++
++    return _execute_drop_patch
++
++
+ def build_system(*values, **kwargs):
+     default = kwargs.get("default", None) or values[0]
+     return variant(
+diff --git a/lib/spack/spack/test/directives.py b/lib/spack/spack/test/directives.py
+index 616d7ef5ee88..1384bfcad61b 100644
+--- a/lib/spack/spack/test/directives.py
++++ b/lib/spack/spack/test/directives.py
+@@ -4,6 +4,7 @@
+ # SPDX-License-Identifier: (Apache-2.0 OR MIT)
+ import pytest
+ 
++import spack.patch
+ import spack.repo
+ import spack.spec
+ 
+@@ -60,3 +61,32 @@ def test_extends_spec(config, mock_packages):
+ 
+     assert extender.dependencies
+     assert extender.package.extends(extendee)
++
++
++def test_replace_dependency(mock_packages):
++    def find_patch(name):
++        def filter_func(p):
++            if isinstance(p, spack.patch.FilePatch):
++                return p.relative_path == name
++            elif isinstance(p, spack.patch.UrlPatch):
++                return p.url == name
++            else:
++                raise RuntimeError("Unknown package type: " + str(type(p)))
++
++        res = []
++        for patches in pkg_cls.patches.values():
++            res.extend([p for p in patches if filter_func(p)])
++
++        return res
++
++    pkg_cls = spack.repo.path.get_pkg_class("remove-replace-dependency")
++
++    assert pkg_cls.dependencies
++    assert "things" not in pkg_cls.dependencies
++    assert spack.spec.Spec() in pkg_cls.dependencies["stuff"]
++
++    assert not pkg_cls.conflicts
++    assert find_patch("bar.patch")
++    assert not find_patch("foo.patch")
++    assert find_patch("http://example.com/bing.patch")
++    assert not find_patch("http://example.com/baz.patch")
+diff --git a/var/spack/repos/builtin.mock/packages/remove-replace-dependency/bar.patch b/var/spack/repos/builtin.mock/packages/remove-replace-dependency/bar.patch
+new file mode 100644
+index 000000000000..e69de29bb2d1
+diff --git a/var/spack/repos/builtin.mock/packages/remove-replace-dependency/foo.patch b/var/spack/repos/builtin.mock/packages/remove-replace-dependency/foo.patch
+new file mode 100644
+index 000000000000..e69de29bb2d1
+diff --git a/var/spack/repos/builtin.mock/packages/remove-replace-dependency/package.py b/var/spack/repos/builtin.mock/packages/remove-replace-dependency/package.py
+new file mode 100644
+index 000000000000..850972325642
+--- /dev/null
++++ b/var/spack/repos/builtin.mock/packages/remove-replace-dependency/package.py
+@@ -0,0 +1,39 @@
++# Copyright 2013-2022 Lawrence Livermore National Security, LLC and other
++# Spack Project Developers. See the top-level COPYRIGHT file for details.
++#
++# SPDX-License-Identifier: (Apache-2.0 OR MIT)
++
++from spack.package import *
++
++
++class RemoveReplaceDependency(Package):
++    """Test removing and replacing dependencies,
++    dropping conflicts and patches"""
++
++    homepage = "http://www.example.com"
++    url = "http://www.example.com/a-1.0.tar.gz"
++
++    version("2.0", "abcdef0123456789abcdef0123456789")
++
++    depends_on("things@1.0:")
++    drop_dependency("things")
++
++    depends_on("stuff@1.0:")
++    drop_dependency("stuff")
++    depends_on("stuff")
++
++    conflicts("%gcc")
++    drop_conflict("%gcc")
++
++    patch("foo.patch")
++    patch("bar.patch")
++    patch(
++        "http://example.com/baz.patch",
++        sha256="ea8fac7c65fb589b0d53560f5251f74f9e9b243478dcb6b3ea79b5e36449c8d9",
++    )
++    patch(
++        "http://example.com/bing.patch",
++        sha256="ea8fac7c65fb589b0d53560f5251f74f9e9b243478dcb6b3ea79b5e36449c8d9",
++    )
++    drop_patch("foo.patch")
++    drop_patch("http://example.com/baz.patch")
