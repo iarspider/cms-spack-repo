@@ -22,7 +22,7 @@ spack:
       externals: [{spec: mesa-glu@9.0.0, prefix: /usr}]
       buildable: false
     binutils:
-      externals: [{spec: binutils@2.36.1, prefix: /cvmfs/cms.cern.ch/el8_amd64_gcc11/external/gcc/11.2.1-f9b9dfdd886f71cd63f5538223d8f161/}]
+      externals: [{spec: binutils+gold+ld+plugins@2.36.1, prefix: /cvmfs/cms.cern.ch/el8_amd64_gcc11/external/gcc/11.2.1-f9b9dfdd886f71cd63f5538223d8f161/}]
       buildable: false
     openssl:
       externals: [{spec: openssl@1.1.1k-fips, prefix: /usr}]
@@ -125,8 +125,6 @@ spack:
     mesa:
       externals: [{spec: mesa@22.0.2~llvm, prefix: /usr}]
       buildable: false
-    llvm:
-      variants: [~gold]
     gdk-pixbuf:
       variants: [~x11]
     libarchive:
@@ -210,7 +208,7 @@ spack:
   - gdb@10.2+python+xz~doc
   - gdbm@1.10
   - geant4@10.7.2+threads+vecgeom~opengl~x11~qt~python~motif
-  - geant4data@10.0
+  - cms-geant4data@10.0
   - geant4-parfullcms@2014.01.27
   - gettext@0.21~bzip2~xz~curses~libxml2~libunistring
   - giflib@5.2.0
@@ -261,9 +259,9 @@ spack:
   - libxslt@1.1.33~crypto~python
   - libzmq@4.3.4~docs~libbsd
   - log4cplus@2.0.7
-  - llvm@12.0.1.cms~cuda build_type=Release
+  - "llvm@12.0.1.cms+gold+cuda~lldb+clang~omp_as_runtime+lld+compiler_rt~lldb~flang~libcxx~mlir~internal_unwind~polly+llvm_dylib+link_llvm_dylib build_type=Release targets=aarch64,powerpc,x86,nvptx"
   - lwtnn@2.13
-  - lz4@1.9.3  # NB: doesn't compile with our eigen: https://github.com/lwtnn/lwtnn/issues/161
+  - lz4@1.9.3
   - m4@1.4.18~sigsegv
   - madgraph5amc@2.7.3.py3 +cms~ninja~collier+golem~syscalc nb_core=4
   - mcfm@6.3
