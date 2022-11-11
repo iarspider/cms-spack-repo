@@ -12,7 +12,10 @@ class PyConan(PythonPackage):
     homepage = "https://conan.io/"
     pypi = "conan/conan-1.52.0.tar.gz"
 
-    version("1.52.0", sha256="184761f16d00fde17615e60125d2f14fca692ffba7666cc7d6d834fc3858cf82")
+    version(
+        "1.52.0",
+        sha256="184761f16d00fde17615e60125d2f14fca692ffba7666cc7d6d834fc3858cf82",
+    )
 
     depends_on("python@3.6:", type=("build", "run"))
     depends_on("py-setuptools", type="build")
@@ -23,8 +26,12 @@ class PyConan(PythonPackage):
     depends_on("py-patch-ng@1.17.4:1.17", type=("build", "run"))
     depends_on("py-fasteners@0.14.1:", type=("build", "run"))
     depends_on("py-six@1.10.0:1.16.0", type=("build", "run"))
-    depends_on("py-node-semver@0.6.1:", type=("build", "run"))  # CMS: remove upper limit
-    depends_on("py-distro@1.0.2:", type=("build", "run"), when="platform=linux")  # CMS: remove upper limit
+    depends_on(
+        "py-node-semver@0.6.1:", type=("build", "run")
+    )  # CMS: remove upper limit
+    depends_on(
+        "py-distro@1.0.2:", type=("build", "run"), when="platform=linux"
+    )  # CMS: remove upper limit
     depends_on("py-pygments@2.0:2", type=("build", "run"))
     depends_on("py-tqdm@4.28.1:4", type=("build", "run"))
     depends_on("py-jinja2@2.9:2", type=("build", "run"), when="^python@:2.7")

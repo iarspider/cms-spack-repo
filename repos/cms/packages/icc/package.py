@@ -12,7 +12,10 @@ class Icc(BundlePackage):
     # FIXME: Add a proper url for your package's homepage here.
     homepage = "https://www.example.com"
 
-    version('2020')
+    version("2020")
 
     def install(self, spec, prefix):
-        force_symlink('/cvmfs/projects.cern.ch/intelsw/oneAPI/linux/x86_64/2022/compiler/latest/linux/', prefix.installation)
+        force_symlink(
+            "/cvmfs/projects.cern.ch/intelsw/oneAPI/linux/x86_64/2022/compiler/latest/linux/",
+            prefix.installation,
+        )

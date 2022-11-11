@@ -6,17 +6,21 @@ from spack.pkg.builtin.rdma_core import RdmaCore as BuiltinRdmaCore
 
 class RdmaCore(BuiltinRdmaCore):
     __doc__ = BuiltinRdmaCore.__doc__
-    generator = 'Ninja'
-    depends_on('ninja', type='build')
+    generator = "Ninja"
+    depends_on("ninja", type="build")
 
     def cmake_args(self):
         args = super().cmake_args()
-        args.extend(['-DENABLE_RESOLVE_NEIGH=FALSE',
-                     '-DENABLE_STATIC=FALSE',
-                     '-DNO_MAN_PAGES=TRUE'])
+        args.extend(
+            [
+                "-DENABLE_RESOLVE_NEIGH=FALSE",
+                "-DENABLE_STATIC=FALSE",
+                "-DNO_MAN_PAGES=TRUE",
+            ]
+        )
         return args
 
-    @run_after('install')
+    @run_after("install")
     def post_install(self):
         prefix = self.spec.prefix
         for dir in ("bin", "etc", "lib", "libexec", "sbin", "share"):

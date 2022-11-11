@@ -8,10 +8,14 @@ from spack import *
 
 class DataDqmDtmonitorclient(CMSDataPackage):
     """FIXME: Put a proper description of your package here."""
-    n = 'data-DQM-DTMonitorClient'
-    url = 'https://github.com/cms-data/DQM-DTMonitorClient/archive/V00-01-00.tar.gz'
-    version('V00-01-00', sha256='7f0c0c2078d084ae2abd5b3549410526259a114d9f95fa0afed474fb1aa31e46')
-    
+
+    n = "data-DQM-DTMonitorClient"
+    url = "https://github.com/cms-data/DQM-DTMonitorClient/archive/V00-01-00.tar.gz"
+    version(
+        "V00-01-00",
+        sha256="7f0c0c2078d084ae2abd5b3549410526259a114d9f95fa0afed474fb1aa31e46",
+    )
+
     def url_for_version(self, version):
-        url = self.url.rsplit('/', 1)[0]
-        return url + '/' + str(version) + '.tar.gz'
+        url = self.url.rsplit("/", 1)[0]
+        return url + "/" + str(version) + ".tar.gz"

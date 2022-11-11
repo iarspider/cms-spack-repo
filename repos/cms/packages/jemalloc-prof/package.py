@@ -7,5 +7,5 @@ class JemallocProf(CMSJemalloc):
 
     def configure_args(self):
         args = super().configure_args()
-        args.extend(('--enable-prof', '--enable-prof-libunwind'))
+        args.extend(("--enable-prof", "--enable-prof-libunwind"))
         return args

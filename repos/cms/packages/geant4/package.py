@@ -27,15 +27,18 @@ class Geant4(BuiltinGeant4):
         for i in del_options:
             new_options.pop(i)
 
-        new_options.extend(("-DGEANT4_INSTALL_EXAMPLES=OFF",
-                            "-DBUILD_SHARED_LIBS=ON",
-                            "-DBUILD_STATIC_LIBS=ON",
-                            "-DGEANT4_BUILD_BUILTIN_BACKTRACE=OFF",
-                            "-DGEANT4_BUILD_VERBOSE_CODE=OFF",
-                            "-DGEANT4_ENABLE_TESTING=OFF",
-                            "-DGEANT4_BUILD_TLS_MODEL:STRING=\"global-dynamic\"",
-                            "-DCMAKE_AR=" + str(which("gcc-ar")),
-                            "-DCMAKE_RANLIB=" + str(which("gcc-ranlib"))
-                            ))
+        new_options.extend(
+            (
+                "-DGEANT4_INSTALL_EXAMPLES=OFF",
+                "-DBUILD_SHARED_LIBS=ON",
+                "-DBUILD_STATIC_LIBS=ON",
+                "-DGEANT4_BUILD_BUILTIN_BACKTRACE=OFF",
+                "-DGEANT4_BUILD_VERBOSE_CODE=OFF",
+                "-DGEANT4_ENABLE_TESTING=OFF",
+                '-DGEANT4_BUILD_TLS_MODEL:STRING="global-dynamic"',
+                "-DCMAKE_AR=" + str(which("gcc-ar")),
+                "-DCMAKE_RANLIB=" + str(which("gcc-ranlib")),
+            )
+        )
 
         return new_options

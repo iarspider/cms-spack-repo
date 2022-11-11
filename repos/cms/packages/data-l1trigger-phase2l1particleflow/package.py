@@ -8,7 +8,8 @@ from spack import *
 
 class DataL1triggerPhase2l1particleflow(CMSDataPackage):
     """FIXME: Put a proper description of your package here."""
-    n = 'data-L1Trigger-Phase2L1ParticleFlow'
-    git = "https://github.com/cms-data/{0}.git".format(n.replace('data-', ''))
-    version('V00-04-00', tag='V00-04-00')
-    version('V00-03-00', tag='V00-03-00')
+
+    n = "data-L1Trigger-Phase2L1ParticleFlow"
+    git = "https://github.com/cms-data/{0}.git".format(n.replace("data-", ""))
+    version("V00-04-00", tag="V00-04-00")
+    version("V00-03-00", tag="V00-03-00")

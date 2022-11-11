@@ -8,6 +8,7 @@ from spack import *
 
 class DataGeneratorinterfaceReggegribovpartonmcinterface(CMSDataPackage):
     """FIXME: Put a proper description of your package here."""
-    n = 'data-GeneratorInterface-ReggeGribovPartonMCInterface'
-    git = "https://github.com/cms-data/{0}.git".format(n.replace('data-', ''))
-    version('V00-00-02', tag='V00-00-02')
+
+    n = "data-GeneratorInterface-ReggeGribovPartonMCInterface"
+    git = "https://github.com/cms-data/{0}.git".format(n.replace("data-", ""))
+    version("V00-00-02", tag="V00-00-02")

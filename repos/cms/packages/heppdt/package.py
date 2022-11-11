@@ -5,7 +5,7 @@ from spack.pkg.builtin.heppdt import Heppdt as BuiltinHeppdt
 class Heppdt(BuiltinHeppdt):
     __doc__ = BuiltinHeppdt.__doc__
 
-    git      = "https://github.com/cms-externals/heppdt.git"
+    git = "https://github.com/cms-externals/heppdt.git"
     keep_archives = True
 
     version("3.04.01.cms", commit="2b499cfb4302d48d1fd91911fddec88e94219a44")

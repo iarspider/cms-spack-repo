@@ -6,4 +6,4 @@ class BerkeleyDb(BuiltinBerkeleyDb):
     __doc__ = BuiltinBerkeleyDb.__doc__
 
     # -- CMS hook
-    strip_files = 'lib'
+    strip_files = "lib"

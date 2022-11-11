@@ -9,11 +9,13 @@ from string import Template
 
 from spack import *
 
-cmsswdata_xml = Template("""<tool name="cmsswdata" version="$v">
+cmsswdata_xml = Template(
+    """<tool name="cmsswdata" version="$v">
     <client>
       <environment name="CMSSWDATA_BASE" default="${prefix}"/>
       <environment name="CMSSW_DATA_PATH" default="$$CMSSWDATA_BASE"/>
-      """)
+      """
+)
 
 
 class Cmsswdata(BundlePackage):
@@ -21,9 +23,9 @@ class Cmsswdata(BundlePackage):
 
     # FIXME: Add a proper url for your package's homepage here.
     homepage = "https://www.example.com"
-    phases = ['install']
+    phases = ["install"]
 
-    version('40.0')
+    version("40.0")
 
     depends_on("data-l1trigger-csctriggerprimitives")
     depends_on("data-recomet-metpusubtraction")
@@ -110,52 +112,72 @@ class Cmsswdata(BundlePackage):
 
     def install(self, spec, prefix):
         searchpath_xml = StringIO("")
-        mkdirp(prefix.etc.join('scram.d'))
+        mkdirp(prefix.etc.join("scram.d"))
 
-        with open(join_path(prefix.etc.join('scram.d'), 'cmsswdata.xml'), 'w') as f:
-            f.write(cmsswdata_xml.substitute({'v': str(spec.version), 'prefix': prefix}))
+        with open(join_path(prefix.etc.join("scram.d"), "cmsswdata.xml"), "w") as f:
+            f.write(
+                cmsswdata_xml.substitute({"v": str(spec.version), "prefix": prefix})
+            )
 
             searchpath_xml.write("    </client>\n")
-            searchpath_xml.write('    <runtime name="CMSSW_DATA_PATH" value="$CMSSWDATA_BASE" type="path"/>\n')
+            searchpath_xml.write(
+                '    <runtime name="CMSSW_DATA_PATH" value="$CMSSWDATA_BASE" type="path"/>\n'
+            )
 
             for dep in spec.dependencies():
                 pkg = dep.package.n
                 pkgver = str(dep.version)
-                pack = pkg.replace('data-', '').replace('-', '/')
-                f.write(f"      <flags CMSSW_DATA_PACKAGE=\"{pack}/{pkgver}\"/>\n")
-                searchpath_xml.write(f"    <runtime name=\"CMSSW_SEARCH_PATH\" default=\"{dep.prefix}\" type=\"path\"/>\n")
+                pack = pkg.replace("data-", "").replace("-", "/")
+                f.write(f'      <flags CMSSW_DATA_PACKAGE="{pack}/{pkgver}"/>\n')
+                searchpath_xml.write(
+                    f'    <runtime name="CMSSW_SEARCH_PATH" default="{dep.prefix}" type="path"/>\n'
+                )
 
             f.write(searchpath_xml.getvalue())
             searchpath_xml.close()
             f.write("  </tool>\n")
 
-        install(join_path(os.path.dirname(__file__), 'cmspost.sh'), prefix)
-        filter_file('BaseTool=""', 'BaseTool="CMSSW_DATA"', prefix.join('cmspost.sh'), backup=False, stop_at='## END CONFIG')
+        install(join_path(os.path.dirname(__file__), "cmspost.sh"), prefix)
+        filter_file(
+            'BaseTool=""',
+            'BaseTool="CMSSW_DATA"',
+            prefix.join("cmspost.sh"),
+            backup=False,
+            stop_at="## END CONFIG",
+        )
         lines = []
         for dep in spec.dependencies():
             k = dep.package.n
             v = str(dep.version)
             source = dep.prefix
-            if os.environ.get('CMSSW_DATA_LINK', None) is None:
-                des_path = f'{k}/{v}'
+            if os.environ.get("CMSSW_DATA_LINK", None) is None:
+                des_path = f"{k}/{v}"
             else:
-                hashed_v = self.spec[k.lower()].format('{version}-{hash}')
-                des_path = f'{k}/{hashed_v}'
-            pkg_dir = '{1}/{2}'.format(*(k.split('-')))
-            pkg_data = pkg_dir.split('/', 1)[0]
-            lines.append(f'if [ ! -e $RPM_INSTALL_PREFIX/share/{des_path}/{pkg_dir} ] ; then')
-            lines.append(f'  rm -rf $RPM_INSTALL_PREFIX/share/{des_path}')
-            lines.append(f'  mkdir -p $RPM_INSTALL_PREFIX/share/{des_path}')
-            lines.append(f'  if [ -L {source}/{pkg_data} ]; then')
-            lines.append(f'    ln -fs {source}/{pkg_data} $RPM_INSTALL_PREFIX/share/{des_path}/{pkg_dir}')
-            lines.append(f'  else')
-            lines.append(f'    echo Moving cms/{k}/{v} to share')
-            lines.append(f'    rsync -aq --no-t --size-only {source}/{pkg_data}/ $RPM_INSTALL_PREFIX/share/{des_path}/{pkg_data}')
-            lines.append(f'  fi')
-            lines.append(f'fi')
-            lines.append(f'if [ ! -L {source}/{pkg_data} ] ; then')
-            lines.append(f'  rm -rf {source}/{pkg_data} && ln -fs $RPM_INSTALL_PREFIX/share/{des_path}/{pkg_data} {source}/{pkg_data}')
-            lines.append(f'fi')
+                hashed_v = self.spec[k.lower()].format("{version}-{hash}")
+                des_path = f"{k}/{hashed_v}"
+            pkg_dir = "{1}/{2}".format(*(k.split("-")))
+            pkg_data = pkg_dir.split("/", 1)[0]
+            lines.append(
+                f"if [ ! -e $RPM_INSTALL_PREFIX/share/{des_path}/{pkg_dir} ] ; then"
+            )
+            lines.append(f"  rm -rf $RPM_INSTALL_PREFIX/share/{des_path}")
+            lines.append(f"  mkdir -p $RPM_INSTALL_PREFIX/share/{des_path}")
+            lines.append(f"  if [ -L {source}/{pkg_data} ]; then")
+            lines.append(
+                f"    ln -fs {source}/{pkg_data} $RPM_INSTALL_PREFIX/share/{des_path}/{pkg_dir}"
+            )
+            lines.append(f"  else")
+            lines.append(f"    echo Moving cms/{k}/{v} to share")
+            lines.append(
+                f"    rsync -aq --no-t --size-only {source}/{pkg_data}/ $RPM_INSTALL_PREFIX/share/{des_path}/{pkg_data}"
+            )
+            lines.append(f"  fi")
+            lines.append(f"fi")
+            lines.append(f"if [ ! -L {source}/{pkg_data} ] ; then")
+            lines.append(
+                f"  rm -rf {source}/{pkg_data} && ln -fs $RPM_INSTALL_PREFIX/share/{des_path}/{pkg_data} {source}/{pkg_data}"
+            )
+            lines.append(f"fi")
 
-        with open(join_path(prefix, 'cmspost.sh'), 'a') as f:
-            f.write('\n'.join(lines))
+        with open(join_path(prefix, "cmspost.sh"), "a") as f:
+            f.write("\n".join(lines))

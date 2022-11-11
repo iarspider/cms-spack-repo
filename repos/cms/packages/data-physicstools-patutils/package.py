@@ -8,6 +8,7 @@ from spack import *
 
 class DataPhysicstoolsPatutils(CMSDataPackage):
     """FIXME: Put a proper description of your package here."""
-    n = 'data-PhysicsTools-PatUtils'
-    git = "https://github.com/cms-data/{0}.git".format(n.replace('data-', ''))
-    version('V00-05-00', tag='V00-05-00')
+
+    n = "data-PhysicsTools-PatUtils"
+    git = "https://github.com/cms-data/{0}.git".format(n.replace("data-", ""))
+    version("V00-05-00", tag="V00-05-00")

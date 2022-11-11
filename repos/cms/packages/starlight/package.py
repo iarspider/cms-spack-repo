@@ -8,10 +8,10 @@ from spack import *
 
 class Starlight(CMakePackage):
     """STARlight is a Monte Carlo that simulates two-photon
-        and photon-Pomeron interactions between relativistic nuclei and protons."""
+    and photon-Pomeron interactions between relativistic nuclei and protons."""
 
     homepage = "https://www.example.com"
-    git      = "https://github.com/cms-externals/starlight.git"
+    git = "https://github.com/cms-externals/starlight.git"
 
     version("r193", commit="689c0da91bacd5591d85d71db0fc7cc6fec0b919")
 
@@ -28,7 +28,9 @@ class Starlight(CMakePackage):
         if self.spec.satisfies("%gcc@9:"):
             cxxflags.append("-Wno-error=deprecated-copy")
 
-        args = [define("ENABLE_CLHEP", "ON"),
-                define("CPP11", "ON"),
-                define("CMAKE_CXX_FLAGS", " ".join(cxxflags))]
+        args = [
+            define("ENABLE_CLHEP", "ON"),
+            define("CPP11", "ON"),
+            define("CMAKE_CXX_FLAGS", " ".join(cxxflags)),
+        ]
         return args

@@ -7,5 +7,5 @@ class Evtgen(BuiltinEvtgen):
 
     def cmake_args(self):
         args = super().cmake_args()
-        args.append('-DCMAKE_INSTALL_LIBDIR=lib')
+        args.append("-DCMAKE_INSTALL_LIBDIR=lib")
         return args

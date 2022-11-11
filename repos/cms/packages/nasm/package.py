@@ -6,4 +6,4 @@ class Nasm(BuiltinNasm):
     __doc__ = BuiltinNasm.__doc__
 
     # -- CMS hook
-    drop_files = ['share']
+    drop_files = ["share"]

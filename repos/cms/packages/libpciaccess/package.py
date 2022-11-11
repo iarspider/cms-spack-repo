@@ -9,5 +9,14 @@ class Libpciaccess(BuiltinLibpciaccess):
 
     def configure_args(self):
         args = super().configure_args()
-        args.extend(("--disable-dependency-tracking", "--enable-shared", "--disable-static", "--with-pic", "--with-gnu-ld", "--with-zlib"))
+        args.extend(
+            (
+                "--disable-dependency-tracking",
+                "--enable-shared",
+                "--disable-static",
+                "--with-pic",
+                "--with-gnu-ld",
+                "--with-zlib",
+            )
+        )
         return args

@@ -8,9 +8,9 @@ from spack import *
 
 class Csctrackfinderemulation(MakefilePackage):
     homepage = "https://www.example.com"
-    git      = "https://github.com/cms-externals/CSCTrackFinderEmulation.git"
+    git = "https://github.com/cms-externals/CSCTrackFinderEmulation.git"
 
-    version('1.2', commit='8c0287fde4739d96fd3fd4a03e5ce5e6b986052e')
+    version("1.2", commit="8c0287fde4739d96fd3fd4a03e5ce5e6b986052e")
 
     def edit(self, spec, prefix):
-        filter_file('INSTALL_DIR:=.*', 'INSTALL_DIR:={0}'.format(prefix), 'makefile')
+        filter_file("INSTALL_DIR:=.*", "INSTALL_DIR:={0}".format(prefix), "makefile")

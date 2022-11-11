@@ -6,4 +6,4 @@ class Gmake(BuiltinGmake):
     __doc__ = BuiltinGmake.__doc__
 
     # -- CMS
-    drop_files = ['man', 'info']
+    drop_files = ["man", "info"]

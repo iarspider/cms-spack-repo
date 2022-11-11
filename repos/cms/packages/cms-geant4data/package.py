@@ -4,8 +4,8 @@
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 import os
 
-from spack import *
 import spack.user_environment as uenv
+from spack import *
 from spack.util.environment import *
 
 
@@ -14,9 +14,9 @@ class Geant4data(BundlePackage):
 
     homepage = "https://www.example.com"
     # There is no URL since there is no code to download.
-    phases = ['install']
+    phases = ["install"]
 
-    version('10.0')
+    version("10.0")
 
     depends_on("g4ndl")
     depends_on("g4emlow")
@@ -31,7 +31,7 @@ class Geant4data(BundlePackage):
 
     def get_g4_environment(self, spec):
         with spack.store.db.read_transaction():
-            specs = [dep for dep in spec.traverse(order='post')]
+            specs = [dep for dep in spec.traverse(order="post")]
 
         env_mod = spack.util.environment.EnvironmentModifications()
 
@@ -44,45 +44,45 @@ class Geant4data(BundlePackage):
         env_set_not_prepend = {}
 
         for name, actions in sorted(modifications.items()):
-            if not name.startswith('G4'):
+            if not name.startswith("G4"):
                 continue
             env_set_not_prepend[name] = False
             for x in actions:
-                env_set_not_prepend[name] = env_set_not_prepend[name] or isinstance(x, (SetPath, SetEnv))
+                env_set_not_prepend[name] = env_set_not_prepend[name] or isinstance(
+                    x, (SetPath, SetEnv)
+                )
                 # set a dictionary with the environment variables
                 x.execute(new_env)
             if env_set_not_prepend[name] and len(actions) > 1:
-                tty.warn("Var " + name + "is set multiple times!" )
-
+                tty.warn("Var " + name + "is set multiple times!")
 
         return new_env
 
-
     def install(self, spec, prefix):
-        mkdirp(prefix.etc.join('scram.d'))
-        with open(prefix.etc.join(join_path('scram.d', 'geant4data.xml')), 'w') as f:
+        mkdirp(prefix.etc.join("scram.d"))
+        with open(prefix.etc.join(join_path("scram.d", "geant4data.xml")), "w") as f:
             f.write(f'<tool name="geant4data" version="{spec.version}">\n')
-            f.write(' <client>\n')
+            f.write(" <client>\n")
             f.write(f'    <environment name="GEANT4DATA_BASE" default="{prefix}"/>\n')
-            f.write(' </client>\n')
+            f.write(" </client>\n")
 
             g4env = self.get_g4_environment(spec)
 
             for k, v in g4env.items():
                 f.write(f'  <runtime name="{k}" value="{v}" type="path"/>\n')
 
-            f.write('</tool>')
+            f.write("</tool>")
 
-        mkdirp(prefix.etc.join('profile.d'))
+        mkdirp(prefix.etc.join("profile.d"))
 
-        with open(prefix.etc.join(join_path('profile.d', 'init.sh')), 'w') as f:
-            f.write(f'GEANT4DATA_ROOT={prefix}\n')
-            f.write(f'GEANT4DATA_VERSION={spec.version}\n')
+        with open(prefix.etc.join(join_path("profile.d", "init.sh")), "w") as f:
+            f.write(f"GEANT4DATA_ROOT={prefix}\n")
+            f.write(f"GEANT4DATA_VERSION={spec.version}\n")
 
-        with open(prefix.etc.join(join_path('profile.d', 'init.csh')), 'w') as f:
-            f.write(f'set GEANT4DATA_ROOT {prefix}\n')
-            f.write(f'set GEANT4DATA_VERSION {spec.version}\n')
+        with open(prefix.etc.join(join_path("profile.d", "init.csh")), "w") as f:
+            f.write(f"set GEANT4DATA_ROOT {prefix}\n")
+            f.write(f"set GEANT4DATA_VERSION {spec.version}\n")
 
     def setup_run_environment(self, env):
-        env.set('GEANT4DATA_ROOT', str(self.spec.prefix))
-        env.set('GEANT4DATA_VERSION', str(self.spec.version))
+        env.set("GEANT4DATA_ROOT", str(self.spec.prefix))
+        env.set("GEANT4DATA_VERSION", str(self.spec.version))

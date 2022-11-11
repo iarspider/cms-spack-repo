@@ -19,33 +19,37 @@ class PyTensorflowEstimator(PythonPackage):
     maintainers = ["aweits"]
 
     # CMS: use wheel
-    version("2.10.0", sha256="f324ea17cd57f16e33bf188711d5077e6b2e5f5a12c328d6e01a07b23888edcd", expand=False)
+    version(
+        "2.10.0",
+        sha256="f324ea17cd57f16e33bf188711d5077e6b2e5f5a12c328d6e01a07b23888edcd",
+        expand=False,
+    )
 
     extends("python")
 
     depends_on("python@3.7:", when="@2.9:", type=("build", "run"))
 
-# CMS: no restrictions
+    # CMS: no restrictions
     depends_on("py-keras", type=("build", "run"))
-#    for ver in ["2.10", "2.9", "2.8", "2.7", "2.6"]:
-#        depends_on("py-keras@" + ver, when="@" + ver, type=("build", "run"))
+    #    for ver in ["2.10", "2.9", "2.8", "2.7", "2.6"]:
+    #        depends_on("py-keras@" + ver, when="@" + ver, type=("build", "run"))
 
-#    for ver in [
-#        "2.10",
-#        "2.9",
-#        "2.8",
-#        "2.7",
-#        "2.6",
-#        "2.5",
-#        "2.4",
-#        "2.3",
-#        "2.2",
-#        "2.1",
-#        "2.0",
-#        "1.13",
-#    ]:
-#        depends_on("py-tensorflow@" + ver, when="@" + ver, type=("build", "run"))
-# CMS: no restrictions
+    #    for ver in [
+    #        "2.10",
+    #        "2.9",
+    #        "2.8",
+    #        "2.7",
+    #        "2.6",
+    #        "2.5",
+    #        "2.4",
+    #        "2.3",
+    #        "2.2",
+    #        "2.1",
+    #        "2.0",
+    #        "1.13",
+    #    ]:
+    #        depends_on("py-tensorflow@" + ver, when="@" + ver, type=("build", "run"))
+    # CMS: no restrictions
     depends_on("py-tensorflow", type=("build", "run"))
 
     depends_on("bazel@0.19.0:", type="build")

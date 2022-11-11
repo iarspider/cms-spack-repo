@@ -8,6 +8,7 @@ from spack import *
 
 class DataGeneratorinterfaceEvtgeninterface(CMSDataPackage):
     """FIXME: Put a proper description of your package here."""
-    n = 'data-GeneratorInterface-EvtGenInterface'
-    git = "https://github.com/cms-data/{0}.git".format(n.replace('data-', ''))
-    version('V02-06-00', tag='V02-06-00')
+
+    n = "data-GeneratorInterface-EvtGenInterface"
+    git = "https://github.com/cms-data/{0}.git".format(n.replace("data-", ""))
+    version("V02-06-00", tag="V02-06-00")

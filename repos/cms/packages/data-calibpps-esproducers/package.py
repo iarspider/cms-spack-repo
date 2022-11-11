@@ -8,6 +8,7 @@ from spack import *
 
 class DataCalibppsEsproducers(CMSDataPackage):
     """FIXME: Put a proper description of your package here."""
-    n = 'data-CalibPPS-ESProducers'
-    git = "https://github.com/cms-data/{0}.git".format(n.replace('data-', ''))
-    version('V01-04-00', tag='V01-04-00')
+
+    n = "data-CalibPPS-ESProducers"
+    git = "https://github.com/cms-data/{0}.git".format(n.replace("data-", ""))
+    version("V01-04-00", tag="V01-04-00")

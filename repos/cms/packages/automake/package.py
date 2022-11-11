@@ -6,4 +6,4 @@ class Automake(BuiltinAutomake):
     __doc__ = BuiltinAutomake.__doc__
 
     # -- CMS hook
-    drop_files = ['share/man', 'share/doc', 'share/info']
+    drop_files = ["share/man", "share/doc", "share/info"]

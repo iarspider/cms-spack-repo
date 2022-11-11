@@ -8,5 +8,4 @@ class Bazel(BuiltinBazel):
     def setup_build_environment(self, env):
         super().setup_build_environment(env)
         # -- CMS: fix building with external Java
-        env.set('JAVA_HOME', '/usr/lib/jvm/java')
-
+        env.set("JAVA_HOME", "/usr/lib/jvm/java")

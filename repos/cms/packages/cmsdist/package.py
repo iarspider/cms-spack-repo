@@ -12,14 +12,16 @@ from spack import *
 def local_file(fn):
     return join_path(os.path.dirname(__file__), fn)
 
+
 def local_file_url(fn):
-    return 'file://' + local_file(fn)
+    return "file://" + local_file(fn)
+
 
 class Cmsdist(Package):
     """Toolfile scripts from CMSDIST repo"""
 
     homepage = "https://www.example.com"
-    git      = "https://github.com/cms-sw/cmsdist.git"
+    git = "https://github.com/cms-sw/cmsdist.git"
 
     version("IB-CMSSW_12_6_X-g11", branch="IB/CMSSW_12_6_X/g11")
 
@@ -28,35 +30,45 @@ class Cmsdist(Package):
             if dirname is None:
                 dirname = name
 
-            mkdirp(join_path(prefix, 'scram-tools.file', 'tools', dirname))
-            install(local_file(name+'.xml'), join_path(prefix, 'scram-tools.file', 'tools', dirname))
+            mkdirp(join_path(prefix, "scram-tools.file", "tools", dirname))
+            install(
+                local_file(name + ".xml"),
+                join_path(prefix, "scram-tools.file", "tools", dirname),
+            )
 
         prefix = self.stage.source_path
-        filter_file('export GCC_ROOT=.*',
-                    'export GCC_ROOT=' + os.path.dirname(os.path.dirname(self.compiler.cc)),
-                    join_path(prefix, 'scram-tools.file', 'tools', 'llvm', 'env.sh'))
+        filter_file(
+            "export GCC_ROOT=.*",
+            "export GCC_ROOT=" + os.path.dirname(os.path.dirname(self.compiler.cc)),
+            join_path(prefix, "scram-tools.file", "tools", "llvm", "env.sh"),
+        )
 
-        if self.spec.satisfies('@12.4.0.pre3'):
-            add_toolfile('abseil-cpp')
-            add_toolfile('c-ares')
+        if self.spec.satisfies("@12.4.0.pre3"):
+            add_toolfile("abseil-cpp")
+            add_toolfile("c-ares")
 
-        add_toolfile('re2')
-        filter_file('</tool>', '  <use name="abseil-cpp"/>\n  <use name="c-ares"/>\n  <use name="re2"/>\n</tool>',
-                    join_path(prefix, 'scram-tools.file', 'tools',
-                              'grpc', 'grpc.xml'),
-                    string=True)
+        add_toolfile("re2")
+        filter_file(
+            "</tool>",
+            '  <use name="abseil-cpp"/>\n  <use name="c-ares"/>\n  <use name="re2"/>\n</tool>',
+            join_path(prefix, "scram-tools.file", "tools", "grpc", "grpc.xml"),
+            string=True,
+        )
 
-        add_toolfile('veccore')
-        filter_file('</tool>', '  <use name="veccore"/>\n</tool>',
-                    join_path(prefix, 'scram-tools.file', 'tools',
-                              'vecgeom', 'vecgeom.xml'))
+        add_toolfile("veccore")
+        filter_file(
+            "</tool>",
+            '  <use name="veccore"/>\n</tool>',
+            join_path(prefix, "scram-tools.file", "tools", "vecgeom", "vecgeom.xml"),
+        )
 
-        filter_file('if grep VECGEOM_ROOT ${TOOL_ROOT}/etc/profile.d/dependencies-setup.sh >/dev/null 2>&1  ; then',
-                    'if [ "x$GEANT4_HAS_VECGEOM" != "x" ]; then',
-                    join_path(prefix, 'scram-tools.file', 'tools', 'geant4', 'env.sh'),
-                    string=True)
-
+        filter_file(
+            "if grep VECGEOM_ROOT ${TOOL_ROOT}/etc/profile.d/dependencies-setup.sh >/dev/null 2>&1  ; then",
+            'if [ "x$GEANT4_HAS_VECGEOM" != "x" ]; then',
+            join_path(prefix, "scram-tools.file", "tools", "geant4", "env.sh"),
+            string=True,
+        )
 
     def install(self, spec, prefix):
-        mkdir(prefix.join('scram-tools.file'))
-        install_tree('scram-tools.file', prefix.join('scram-tools.file'))
+        mkdir(prefix.join("scram-tools.file"))
+        install_tree("scram-tools.file", prefix.join("scram-tools.file"))

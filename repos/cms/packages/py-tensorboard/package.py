@@ -80,11 +80,15 @@ class PyTensorboard(PythonPackage):
     depends_on("py-grpcio@1.23.3:", type=("build", "run"), when="@2.2")
     depends_on("py-google-auth@1.6.3:1", type=("build", "run"), when="@:2.6")
     depends_on("py-google-auth@1.6.3:2", type=("build", "run"), when="@2.7:")
-    depends_on("py-google-auth-oauthlib@0.4.1:", type=("build", "run")) #  CMS: remove upper limit
+    depends_on(
+        "py-google-auth-oauthlib@0.4.1:", type=("build", "run")
+    )  #  CMS: remove upper limit
     depends_on("py-markdown@2.6.8:", type=("build", "run"))
     depends_on("py-numpy@1.12.0:", type=("build", "run"))
     depends_on("py-protobuf@3.6.0:3.19", type=("build", "run"), when="@:2.8")
-    depends_on("py-protobuf", type=("build", "run"), when="@2.9:")  # CMS: any version will do
+    depends_on(
+        "py-protobuf", type=("build", "run"), when="@2.9:"
+    )  # CMS: any version will do
     depends_on("py-requests@2.21.0:2", type=("build", "run"))
     depends_on("py-setuptools@41.0.0:", type=("build", "run"))
     depends_on("py-tensorboard-data-server@0.6", type=("build", "run"), when="@2.5:")

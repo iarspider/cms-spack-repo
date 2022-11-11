@@ -16,7 +16,6 @@ class Tauola(BuiltinTauola):
             return
         filter_file("-shared", "-dynamiclib -undefined dynamic_lookup", "make.inc")
 
-
     def configure_args(self):
         args = super().configure_args()
         args.extend(self.with_or_without("pythia8", "prefix"))

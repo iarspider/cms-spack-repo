@@ -9,6 +9,6 @@ from spack import *
 class DataRecoparticleflowPfproducer(CMSDataPackage):
     """FIXME: Put a proper description of your package here."""
 
-    n = 'data-RecoParticleFlow-PFProducer'
-    git = "https://github.com/cms-data/{0}.git".format(n.replace('data-', ''))
-    version('V16-02-00', tag='V16-02-00')
+    n = "data-RecoParticleFlow-PFProducer"
+    git = "https://github.com/cms-data/{0}.git".format(n.replace("data-", ""))
+    version("V16-02-00", tag="V16-02-00")

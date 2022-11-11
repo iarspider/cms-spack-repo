@@ -7,5 +7,5 @@ class JemallocDebug(CMSJemalloc):
 
     def configure_args(self):
         args = super().configure_args()
-        args.extend(('--enable-debug', '--enable-fill'))
+        args.extend(("--enable-debug", "--enable-fill"))
         return args

@@ -8,6 +8,7 @@ from spack import *
 
 class DataL1triggerRpctrigger(CMSDataPackage):
     """FIXME: Put a proper description of your package here."""
-    n = 'data-L1Trigger-RPCTrigger'
-    git = "https://github.com/cms-data/{0}.git".format(n.replace('data-', ''))
-    version('V00-15-00', tag='V00-15-00')
+
+    n = "data-L1Trigger-RPCTrigger"
+    git = "https://github.com/cms-data/{0}.git".format(n.replace("data-", ""))
+    version("V00-15-00", tag="V00-15-00")

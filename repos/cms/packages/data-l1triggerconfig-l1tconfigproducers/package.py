@@ -9,7 +9,7 @@ from spack import *
 class DataL1triggerconfigL1tconfigproducers(CMSDataPackage):
     """FIXME: Put a proper description of your package here."""
 
-    n = 'data-L1TriggerConfig-L1TConfigProducers'
-    git = "https://github.com/cms-data/{0}.git".format(n.replace('data-', ''))
+    n = "data-L1TriggerConfig-L1TConfigProducers"
+    git = "https://github.com/cms-data/{0}.git".format(n.replace("data-", ""))
 
-    version('V00-01-00', tag='V00-01-00')
+    version("V00-01-00", tag="V00-01-00")

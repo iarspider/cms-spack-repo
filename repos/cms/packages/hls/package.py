@@ -3,8 +3,9 @@
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
-from spack import *
 import shutil
+
+from spack import *
 
 
 class Hls(Package):
@@ -13,17 +14,17 @@ class Hls(Package):
     homepage = "https://www.example.com"
     git = "https://github.com/Xilinx/HLS_arbitrary_Precision_Types.git"
 
-    version('2019.08', commit='200a9aecaadf471592558540dc5a88256cbf880f')
+    version("2019.08", commit="200a9aecaadf471592558540dc5a88256cbf880f")
 
     def install(self, spec, prefix):
-        with working_dir('examples/ap_fixed'):
+        with working_dir("examples/ap_fixed"):
             make()
-            shutil.move('a.out', '../ap_fixed.exe')
-        shutil.rmtree('examples/ap_fixed')
+            shutil.move("a.out", "../ap_fixed.exe")
+        shutil.rmtree("examples/ap_fixed")
 
-        with working_dir('examples/ap_int'):
+        with working_dir("examples/ap_int"):
             make()
-            shutil.move('a.out', '../ap_int.exe')
-        shutil.rmtree('examples/ap_int')
+            shutil.move("a.out", "../ap_int.exe")
+        shutil.rmtree("examples/ap_int")
 
-        install_tree('.', prefix)
+        install_tree(".", prefix)

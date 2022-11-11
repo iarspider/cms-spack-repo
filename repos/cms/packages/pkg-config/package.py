@@ -6,9 +6,9 @@ class PkgConfig(BuiltinPkgConfig):
     __doc__ = BuiltinPkgConfig.__doc__
 
     # -- CMS hook
-    drop_files = ['share/man', 'share/doc', 'share/info']
+    drop_files = ["share/man", "share/doc", "share/info"]
 
     def configure_args(self):
-        args = ['--disable-shared']
+        args = ["--disable-shared"]
         args.extend(super().configure_args())
         return args

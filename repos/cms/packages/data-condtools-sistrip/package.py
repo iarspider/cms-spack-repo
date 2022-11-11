@@ -8,6 +8,7 @@ from spack import *
 
 class DataCondtoolsSistrip(CMSDataPackage):
     """FIXME: Put a proper description of your package here."""
-    n = 'data-CondTools-SiStrip'
-    git = 'https://github.com/cms-data/CondTools-SiStrip.git'
-    version('V00-02-00', tag='V00-02-00')
+
+    n = "data-CondTools-SiStrip"
+    git = "https://github.com/cms-data/CondTools-SiStrip.git"
+    version("V00-02-00", tag="V00-02-00")

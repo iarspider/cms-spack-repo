@@ -9,5 +9,12 @@ class Libffi(BuiltinLibffi):
 
     def configure_args(self):
         args = super().configure_args()
-        args.extend(("--enable-portable-binary", "--disable-static", "--disable-dependency-tracking", "--disable-docs"))
+        args.extend(
+            (
+                "--enable-portable-binary",
+                "--disable-static",
+                "--disable-dependency-tracking",
+                "--disable-docs",
+            )
+        )
         return args

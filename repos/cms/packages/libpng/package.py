@@ -6,5 +6,5 @@ class Libpng(BuiltinLibpng):
     __doc__ = BuiltinLibpng.__doc__
 
     # -- CMS hook
-    strip_files = ['lib']
-    drop_files = ['share']
+    strip_files = ["lib"]
+    drop_files = ["share"]

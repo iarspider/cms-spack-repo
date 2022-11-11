@@ -9,8 +9,12 @@ class Log4cplus(BuiltinLog4cplus):
 
     def cmake_args(self):
         args = super().cmake_args()
-        args.extend(['-DBUILD_SHARED_LIBS:BOOL=OFF',
-                     '-DLOG4CPLUS_BUILD_TESTING=OFF',
-                     '-DLOG4CPLUS_BUILD_LOGGINGSERVER=OFF'])
+        args.extend(
+            [
+                "-DBUILD_SHARED_LIBS:BOOL=OFF",
+                "-DLOG4CPLUS_BUILD_TESTING=OFF",
+                "-DLOG4CPLUS_BUILD_LOGGINGSERVER=OFF",
+            ]
+        )
 
         return args

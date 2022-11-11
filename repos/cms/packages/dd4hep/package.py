@@ -7,13 +7,13 @@ class Dd4hep(BuiltinDd4hep):
     cms_stage = 1
 
     # -- CMS: build static version of DDG4
-    @run_after('install')
+    @run_after("install")
     def install_static(self):
         spec = self.spec
         prefix = self.spec.prefix
         self.cms_stage = 2
-        self.spec.variants['shared'].value = False
-        self.spec.variants['geant4'].value = True
+        self.spec.variants["shared"].value = False
+        self.spec.variants["geant4"].value = True
 
         # cmake stage: Runs ``cmake`` in the build directory
         options = self.std_cmake_args
@@ -24,22 +24,25 @@ class Dd4hep(BuiltinDd4hep):
 
         # build stage: Make the build targets
         with working_dir(self.build_directory):
-            if self.generator == 'Unix Makefiles':
+            if self.generator == "Unix Makefiles":
                 inspect.getmodule(self).make(*self.build_targets)
-            elif self.generator == 'Ninja':
+            elif self.generator == "Ninja":
                 self.build_targets.append("-v")
                 inspect.getmodule(self).ninja(*self.build_targets)
 
         # custom install stage
-        for fn in glob.glob(join_path(self.build_directory, 'lib', 'libDDG4*.a')):
+        for fn in glob.glob(join_path(self.build_directory, "lib", "libDDG4*.a")):
             libname = os.path.basename(fn)
-            install(fn, join_path(prefix, 'lib', libname[:-2] + '-static.a'))
+            install(fn, join_path(prefix, "lib", libname[:-2] + "-static.a"))
 
-        install_tree(join_path(self.stage.source_path, 'DDG4', 'include', 'DDG4'), prefix.include.DDG4)
+        install_tree(
+            join_path(self.stage.source_path, "DDG4", "include", "DDG4"),
+            prefix.include.DDG4,
+        )
 
     @property
     def build_dirname(self):
         """Returns the directory name to use when building the package
         :return: name of the subdirectory for building the package
         """
-        return 'spack-build-%s' % self.spec.dag_hash(7)  + str(self.cms_stage)
+        return "spack-build-%s" % self.spec.dag_hash(7) + str(self.cms_stage)

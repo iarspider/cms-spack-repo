@@ -8,7 +8,8 @@ from spack import *
 
 class DataDqmEcalmonitorclient(CMSDataPackage):
     """FIXME: Put a proper description of your package here."""
-    n = 'data-DQM-EcalMonitorClient'
-    git = "https://github.com/cms-data/{0}.git".format(n.replace('data-', ''))
-    version('V00-02-00', tag='V00-02-00')
-    version('V00-01-00', tag='V00-01-00')
+
+    n = "data-DQM-EcalMonitorClient"
+    git = "https://github.com/cms-data/{0}.git".format(n.replace("data-", ""))
+    version("V00-02-00", tag="V00-02-00")
+    version("V00-01-00", tag="V00-01-00")

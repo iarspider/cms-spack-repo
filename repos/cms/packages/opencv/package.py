@@ -7,5 +7,10 @@ class Opencv(BuiltinOpencv):
 
     def cmake_args(self):
         args = super().cmake_args()
-        args += [self.define('CMAKE_INSTALL_LIBDIR', 'lib'), '-DWITH_QT=OFF', '-DWITH_GTK=OFF', '-DBUILD_EXAMPLES=OFF']
+        args += [
+            self.define("CMAKE_INSTALL_LIBDIR", "lib"),
+            "-DWITH_QT=OFF",
+            "-DWITH_GTK=OFF",
+            "-DBUILD_EXAMPLES=OFF",
+        ]
         return args

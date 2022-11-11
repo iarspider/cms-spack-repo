@@ -7,6 +7,6 @@ class Mpfr(BuiltinMpfr):
 
     keep_archives = True
 
-    @run_after('configure')
+    @run_after("configure")
     def nodoc(self):
-        touch(join_path('doc', 'mpfr.info'))
+        touch(join_path("doc", "mpfr.info"))

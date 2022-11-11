@@ -10,5 +10,5 @@ class DataL1triggerL1thgcal(CMSDataPackage):
     """FIXME: Put a proper description of your package here."""
 
     n = "data-L1Trigger-L1THGCal"
-    git = "https://github.com/cms-data/{0}.git".format(n.replace('data-', ''))
-    version('V01-07-00', tag='V01-07-00')
+    git = "https://github.com/cms-data/{0}.git".format(n.replace("data-", ""))
+    version("V01-07-00", tag="V01-07-00")

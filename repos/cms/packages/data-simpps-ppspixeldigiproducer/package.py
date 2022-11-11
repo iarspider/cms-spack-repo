@@ -8,6 +8,7 @@ from spack import *
 
 class DataSimppsPpspixeldigiproducer(CMSDataPackage):
     """FIXME: Put a proper description of your package here."""
-    n = 'data-SimPPS-PPSPixelDigiProducer'
-    git = "https://github.com/cms-data/{0}.git".format(n.replace('data-', ''))
-    version('V00-00-02', tag='V00-00-02')
+
+    n = "data-SimPPS-PPSPixelDigiProducer"
+    git = "https://github.com/cms-data/{0}.git".format(n.replace("data-", ""))
+    version("V00-00-02", tag="V00-00-02")

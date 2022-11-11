@@ -15,6 +15,9 @@ class Cmake(BuiltinCmake):
 
     # -- CMS
     def patch(self):
-        if (getattr(super(), 'patch', None) is not None):
+        if getattr(super(), "patch", None) is not None:
             super().patch()
-        shutil.copy(join_path(os.path.dirname(__file__), 'build-flags.cmake'), 'build-flags.cmake')
+        shutil.copy(
+            join_path(os.path.dirname(__file__), "build-flags.cmake"),
+            "build-flags.cmake",
+        )

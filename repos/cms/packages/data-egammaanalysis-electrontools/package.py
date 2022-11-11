@@ -8,6 +8,7 @@ from spack import *
 
 class DataEgammaanalysisElectrontools(CMSDataPackage):
     """FIXME: Put a proper description of your package here."""
-    n = 'data-EgammaAnalysis-ElectronTools'
-    git = "https://github.com/cms-data/{0}.git".format(n.replace('data-', ''))
-    version('V00-03-01', tag='V00-03-01')
+
+    n = "data-EgammaAnalysis-ElectronTools"
+    git = "https://github.com/cms-data/{0}.git".format(n.replace("data-", ""))
+    version("V00-03-01", tag="V00-03-01")

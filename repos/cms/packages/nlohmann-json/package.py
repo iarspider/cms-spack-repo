@@ -13,5 +13,5 @@ class NlohmannJson(BuiltinNlohmannJson):
 
     def install(self, spec, prefix):
         mkdirp(prefix.include.nlohmann)
-        install('include/nlohmann/json_fwd.hpp', prefix.include.nlohmann)
-        install('single_include/nlohmann/json.hpp', prefix.include.nlohmann)
+        install("include/nlohmann/json_fwd.hpp", prefix.include.nlohmann)
+        install("single_include/nlohmann/json.hpp", prefix.include.nlohmann)

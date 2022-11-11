@@ -7,5 +7,5 @@ class PyOnnxRuntime(BuiltinPyOnnxRuntime):
 
     def cmake_args(self):
         args = super().cmake_args()
-        args.append(self.define('CMAKE_INSTALL_LIBDIR', 'lib'))
+        args.append(self.define("CMAKE_INSTALL_LIBDIR", "lib"))
         return args
