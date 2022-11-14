@@ -86,8 +86,8 @@ ${WORKSPACE}/spack/bin/spack ${SPACK_DEBUG_FLAG} -e ${SPACK_ENV_NAME} install --
 exit_code=$?
 if [ ${exit_code} -ne 0 ]; then
     echo Build failed, uploading logs
-    ssh $SSH_OPTS lxplus rm -rf /eos/user/r/razumov/www/CMS/logs/${SPACK_ENV_NAME}-${SCRAM_ARCH}
-    ssh $SSH_OPTS lxplus mkdir /eos/user/r/razumov/www/CMS/logs/${SPACK_ENV_NAME}-${SCRAM_ARCH}
+    ssh $SSH_OPTS cmsbuild@lxplus rm -rf /eos/user/r/razumov/www/CMS/logs/${SPACK_ENV_NAME}-${SCRAM_ARCH}
+    ssh $SSH_OPTS cmsbuild@lxplus mkdir /eos/user/r/razumov/www/CMS/logs/${SPACK_ENV_NAME}-${SCRAM_ARCH}
     pushd ${WORKSPACE}/spack/stage
     find . -maxdepth 1 -type d -name 'spack-stage-*' -print0 | while read -d $'\0' dirn
     do
