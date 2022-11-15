@@ -1,104 +1,84 @@
 diff --git a/lib/spack/spack/binary_distribution.py b/lib/spack/spack/binary_distribution.py
-index c329287de8fa..b968e291b26a 100644
+index a0b0e75b83..8856f1c41f 100644
 --- a/lib/spack/spack/binary_distribution.py
 +++ b/lib/spack/spack/binary_distribution.py
-@@ -6,6 +6,7 @@
- import codecs
- import collections
- import hashlib
-+import io
- import json
- import os
- import shutil
-@@ -638,6 +639,9 @@ def get_buildfile_manifest(spec):
+@@ -41,6 +41,7 @@
+ import spack.util.url as url_util
+ import spack.util.web as web_util
+ from spack.caches import misc_cache_location
++from spack.relocate import utf8_path_to_binary_regex
+ from spack.spec import Spec
+ from spack.stage import Stage
  
-     exclude_list = (".spack", "man")
+@@ -613,6 +614,15 @@ def read_buildinfo_file(prefix):
+     return buildinfo
  
-+    prefixes = [d.prefix for d in spec.traverse(root=False, deptype="all")]
-+    prefixes.append(spec.prefix)
+ 
++def file_matches_any_binary_regex(path, regexes):
++    with open(path, "rb") as f:
++        contents = f.read()
++    for regex in regexes:
++        if regex.search(contents):
++            return True
++    return False
++
++
+ def get_buildfile_manifest(spec):
+     """
+     Return a data structure with information about a build, including
+@@ -628,6 +638,11 @@ def get_buildfile_manifest(spec):
+ 
+     blacklist = (".spack", "man")
+ 
++    prefixes = [d.prefix for d in spec.traverse(root=True, deptype="all") if not d.external]
++    prefixes.append(spack.hooks.sbang.sbang_install_path())
++    prefixes.append(str(spack.store.layout.root))
++    compiled_prefixes = [utf8_path_to_binary_regex(prefix) for prefix in prefixes]
 +
      # Do this at during tarball creation to save time when tarball unpacked.
      # Used by make_package_relative to determine binaries to change.
      for root, dirs, files in os.walk(spec.prefix, topdown=True):
-@@ -680,8 +684,18 @@ def get_buildfile_manifest(spec):
+@@ -666,9 +681,9 @@ def get_buildfile_manifest(spec):
+                     data['binary_to_relocate_fullpath'].append(path_name)
                      added = True
  
-             if relocate.needs_text_relocation(m_type, m_subtype):
--                data["text_to_relocate"].append(rel_path_name)
+-            if relocate.needs_text_relocation(m_type, m_subtype):
+-                data['text_to_relocate'].append(rel_path_name)
 -                added = True
-+                contents = ""
-+                with io.open(path_name, "r", errors="ignore") as f:
-+                    contents = f.readline()
-+                    if contents.startswith("#!"):
-+                        contents = ""
-+                    contents += f.read()
-+
-+                for prefix in prefixes:
-+                    if prefix in contents:
-+                        data["text_to_relocate"].append(rel_path_name)
-+                        added = True
-+                        break
++            if relocate.needs_text_relocation(m_type, m_subtype) and file_matches_any_binary_regex(abs_path, compiled_prefixes):
++                data["text_to_relocate"].append(rel_path_name)
++                continue
  
              if not added:
-                 data["other"].append(path_name)
-diff --git a/lib/spack/spack/test/binary_distribution.py b/lib/spack/spack/test/binary_distribution.py
-new file mode 100644
-index 000000000000..9b3e3112af7c
---- /dev/null
-+++ b/lib/spack/spack/test/binary_distribution.py
-@@ -0,0 +1,22 @@
-+# Copyright 2013-2022 Lawrence Livermore National Security, LLC and other
-+# Spack Project Developers. See the top-level COPYRIGHT file for details.
-+#
-+# SPDX-License-Identifier: (Apache-2.0 OR MIT)
+                 data['other'].append(path_name)
+diff --git a/lib/spack/spack/relocate.py b/lib/spack/spack/relocate.py
+index bbb5e8025a..d55940b4e4 100644
+--- a/lib/spack/spack/relocate.py
++++ b/lib/spack/spack/relocate.py
+@@ -776,6 +776,14 @@ def relocate_links(links, orig_layout_root,
+             tty.warn(msg.format(link_target, abs_link, new_install_prefix))
+ 
+ 
++def utf8_path_to_binary_regex(prefix):
++    """Create a (binary) regex that matches the input path in utf8"""
++    prefix_bytes = re.escape(prefix).encode("utf-8")
++    prefix_rexp = re.compile(b"(?<![\\w\\-_/])([\\w\\-_]*?)%s([\\w\\-_/]*)" % prefix_bytes)
 +
-+from llnl.util.filesystem import join_path
-+
-+from spack.binary_distribution import get_buildfile_manifest
-+from spack.main import SpackCommand
-+from spack.spec import Spec
-+
-+install = SpackCommand("install")
++    return prefix_rexp
 +
 +
-+def test_text_relocate_if_needed(install_mockery, mock_fetch, monkeypatch, capfd):
-+    spec = Spec("needs-text-relocation").concretized()
-+    install(str(spec))
-+
-+    manifest = get_buildfile_manifest(spec)
-+    assert join_path("bin", "exe") in manifest["text_to_relocate"]
-+    assert join_path("bin", "otherexe") not in manifest["text_to_relocate"]
-+    assert join_path("bin", "secretexe") not in manifest["text_to_relocate"]
-diff --git a/var/spack/repos/builtin.mock/packages/needs-text-relocation/package.py b/var/spack/repos/builtin.mock/packages/needs-text-relocation/package.py
-new file mode 100644
-index 000000000000..9b2654dd8343
---- /dev/null
-+++ b/var/spack/repos/builtin.mock/packages/needs-text-relocation/package.py
-@@ -0,0 +1,27 @@
-+# Copyright 2013-2022 Lawrence Livermore National Security, LLC and other
-+# Spack Project Developers. See the top-level COPYRIGHT file for details.
-+#
-+# SPDX-License-Identifier: (Apache-2.0 OR MIT)
-+from spack.package import *
-+
-+
-+class NeedsTextRelocation(Package):
-+    """A dumy package that encodes its prefix."""
-+
-+    homepage = "https://www.cmake.org"
-+    url = "https://cmake.org/files/v3.4/cmake-3.4.3.tar.gz"
-+
-+    version("0.0.0", "12345678qwertyuiasdfghjkzxcvbnm0")
-+
-+    def install(self, spec, prefix):
-+        mkdirp(prefix.bin)
-+
-+        exe = join_path(prefix.bin, "exe")
-+        with open(exe, "w") as f:
-+            f.write(prefix)
-+        set_executable(exe)
-+
-+        otherexe = join_path(prefix.bin, "otherexe")
-+        with open(otherexe, "w") as f:
-+            f.write("Lorem Ipsum")
-+        set_executable(otherexe)
+ def relocate_text(files, prefixes, concurrency=32):
+     """Relocate text file from the original installation prefix to the
+      new prefix.
+@@ -797,9 +805,8 @@ def relocate_text(files, prefixes, concurrency=32):
+     for orig_prefix, new_prefix in prefixes.items():
+         if orig_prefix != new_prefix:
+             orig_bytes = orig_prefix.encode('utf-8')
+-            orig_prefix_rexp = re.compile(
+-                b'(?<![\\w\\-_/])([\\w\\-_]*?)%s([\\w\\-_/]*)' % orig_bytes)
+-            new_bytes = b'\\1%s\\2' % new_prefix.encode('utf-8')
++            orig_prefix_rexp = utf8_path_to_binary_regex(orig_prefix)
++            new_bytes = b"\\1%s\\2" % new_prefix.replace("\\", r"\\").encode("utf-8")
+             compiled_prefixes[orig_prefix_rexp] = new_bytes
+ 
+     # Do relocations on text that refers to the install tree
