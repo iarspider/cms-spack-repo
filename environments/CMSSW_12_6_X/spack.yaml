@@ -176,7 +176,6 @@ spack:
   - davix@0.8.1
   - dd4hep@1.19x+xercesc+geant4units~edm4hep
   - dip@c8693f00cc422b4a15858fcd84249acaeb07b6316
-  - dmtcp@3.0.0-dev                          # CMS: +geant4 is set internally to build static version of ddg4
   - dqmgui@1.0.1
   - dwz@0.14-20220401
   - eigen@82dd3710dac619448f50331c1d6a35da673f764a
