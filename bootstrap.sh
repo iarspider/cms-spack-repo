@@ -91,7 +91,7 @@ else
   echo Add padding to install_tree
   bin/spack config --scope=site add "config:install_tree:padded_length:128"
 fi
-echo Increasing download timeout (from 10s to 5m)
+echo Increasing download timeout from 10s to 5m
 bin/spack config --scope=site add "config:connect_timeout:300"
 
 echo Set install directory
