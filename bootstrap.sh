@@ -89,8 +89,11 @@ if [ ! -z ${SPACK_DEVELOP} ]; then
   bin/spack config --scope=site add "config:extensions:${WORKSPACE}/cms-spack-repo/spack-scripting"
 else
   echo Add padding to install_tree
-  bin/spack config add "config:install_tree:padded_length:128"
+  bin/spack config --scope=site add "config:install_tree:padded_length:128"
 fi
+echo Increasing download timeout (from 10s to 5m)
+bin/spack config --scope=site add "config:connect_timeout:300"
+
 echo Set install directory
 bin/spack config add "config:install_tree:root:${RPM_INSTALL_PREFIX}"
 
