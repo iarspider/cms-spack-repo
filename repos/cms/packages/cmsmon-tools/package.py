@@ -19,7 +19,7 @@ class CmsmonTools(Package):
     promv = "2.31.1"
     amver = "0.23.0"
     heyver = "0.0.2"
-    sternv = "1.11.0"
+    sternv = "1.22.0"
     apsver = "0.2.15"
     k8s_info_ver = "0.0.1"
     trivyver = "0.21.1"
@@ -55,12 +55,11 @@ class CmsmonTools(Package):
     )
     resource(
         name="stern",
-        url="https://github.com/wercker/stern/releases/download/{0}/stern_linux_amd64".format(
+        url="https://github.com/stermn/stern/releases/download/v{0}/stern_{0}_linux_amd64".format(
             sternv
         ),
-        expand=False,
-        sha256="e0b39dc26f3a0c7596b2408e4fb8da533352b76aaffdc18c7ad28c833c9eb7db",
-        placement="stern",
+        destination="stern",
+        sha256="0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5",
     )
     resource(
         name="auth-proxy-server",

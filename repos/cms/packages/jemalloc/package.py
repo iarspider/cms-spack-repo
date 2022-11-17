@@ -34,5 +34,8 @@ class Jemalloc(BuiltinJemalloc):
             if opt.endswith("documentation"):
                 options[i] = opt.replace("documentation", "doc")
 
+        if self.spec.satisfies("target=aarch64:"):
+            options.append("--with-lg-hugepage=24")
+
         with working_dir(self.build_directory, create=True):
             which("bash")(*options)
