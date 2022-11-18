@@ -20,10 +20,10 @@ class CMSDataBuilder(BaseBuilder):
     phases = ("install",)
 
     def install(self, pkg, spec, prefix):
-        data = getattr(self, "data", None) or "data"
-        n = self.n
-        data_repo = getattr(self, "data_repo", n.replace("data-", ""))
-        data_dir = getattr(self, "data_dir", None)
+        data = getattr(pkg, "data", None) or "data"
+        n = pkg.n
+        data_repo = getattr(pkg, "data_repo", n.replace("data-", ""))
+        data_dir = getattr(pkg, "data_dir", None)
         data_dir = data_dir or fs.join_path(data_repo.replace("-", "/"), data)
 
         install_root = prefix
