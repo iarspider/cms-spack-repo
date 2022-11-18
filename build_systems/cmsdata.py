@@ -19,7 +19,7 @@ class CMSDataPackage(spack.package_base.PackageBase):
 class CMSDataBuilder(BaseBuilder):
     phases = ("install",)
 
-    def install(self, spec, prefix):
+    def install(self, pkg, spec, prefix):
         data = getattr(self, "data", None) or "data"
         n = self.n
         data_repo = getattr(self, "data_repo", n.replace("data-", ""))
