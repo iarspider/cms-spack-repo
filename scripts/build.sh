@@ -97,7 +97,7 @@ if [ ${exit_code} -ne 0 ]; then
     popd
     scp $SSH_OPTS ${WORKSPACE}/spack/var/spack/environments/${SPACK_ENV_NAME}/spack.lock cmsbuild@lxplus:/eos/user/r/razumov/www/CMS/logs/${SPACK_ENV_NAME}-${SCRAM_ARCH}/
     touch $WORKSPACE/fail
-    exit ${exit_code}
+#    exit ${exit_code}
 fi
 
 echo Create and upload buildcache
@@ -108,3 +108,4 @@ if [ ${UPLOAD_BUILDCACHE-x} = "true" ]; then
   scp ${WORKSPACE}/spack/var/spack/environments/${SPACK_ENV_NAME}/spack.lock lxplus:/eos/user/r/razumov/www/CMS/environment/spack-${SPACK_ENV_NAME}-${SCRAM_ARCH}.lock
 fi
 echo build.sh done
+exit ${exit_code}

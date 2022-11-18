@@ -1,6 +1,6 @@
 #!/bin/bash
 if [ -z ${SPACK_VERSION+x} ]; then
-  export SPACK_VERSION=v0.18.1
+  export SPACK_VERSION=v0.19.0
   echo "INFO: using default spack version ${SPACK_VERSION}"
 fi
 
