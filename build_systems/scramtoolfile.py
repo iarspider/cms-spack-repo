@@ -145,8 +145,8 @@ class ScramToolfilePackage(BundlePackage):
                 f.write(pkg + "\n")
 
         with open(join_path(prefix.tools.selected, "python-paths.xml"), "a") as f:
-            f.write("<tool name="python-paths" version="1.0">\n")
-            f.write("  <runtime name="PYTHON3PATH"  value="" + join_path(prefix, self.site_packages_dir, "site-packages")  + "" type="path"/>\n")
+            f.write("<tool name="\python-paths\" version=\"1.0\">\n")
+            f.write("  <runtime name=\"PYTHON3PATH\"  value=\"" + join_path(prefix, self.site_packages_dir, "site-packages")  + "\" type=\"path\"/>\n")
             f.write("</tool>\n")
 
 
