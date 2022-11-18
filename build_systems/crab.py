@@ -69,11 +69,11 @@ class CrabBuilder(BaseBuilder):
 
     phases = ("install",)
 
-    def install(self, spec, prefix):
+    def install(self, pkg, spec, prefix):
         crab_type = os.path.basename(os.path.dirname(__file__)).replace("crab-", "")
         #Copy CRABClient
         install_tree(join_path("CRABClient", "src", "python"), prefix.lib)
-        filter_file("\"development\"", "\"{0}\"".format(self.spec.version), prefix.lib.CRABClient.join("__init__.py"))
+        filter_file("\"development\"", "\"{0}\"".format(spec.version), prefix.lib.CRABClient.join("__init__.py"))
         install_tree(join_path("CRABClient", "bin"), prefix.bin)
         install_tree(join_path("CRABClient", "etc"), prefix.etc)
 
