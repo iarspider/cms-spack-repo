@@ -73,7 +73,7 @@ class CrabBuilder(BaseBuilder):
         crab_type = os.path.basename(os.path.dirname(__file__)).replace("crab-", "")
         #Copy CRABClient
         install_tree(join_path("CRABClient", "src", "python"), prefix.lib)
-        filter_file(""development"", ""{0}"".format(self.spec.version), prefix.lib.CRABClient.join("__init__.py"))
+        filter_file("\"development\"", "\"{0}\"".format(self.spec.version), prefix.lib.CRABClient.join("__init__.py"))
         install_tree(join_path("CRABClient", "bin"), prefix.bin)
         install_tree(join_path("CRABClient", "etc"), prefix.etc)
 
@@ -129,3 +129,4 @@ class CrabBuilder(BaseBuilder):
 
     # On macOS, force rpaths for shared library IDs and remove duplicate rpaths
     spack.builder.run_after("install", when="platform=darwin")(apply_macos_rpath_fixups)
+
