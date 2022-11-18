@@ -5,14 +5,14 @@
 
 from llnl.util.filesystem import *
 
-from spack.package import PackageBase
+import spack.package_base
 from spack.directives import resource, version
 
 import glob
 import os
 import re
 
-class CrabPackage(PackageBase):
+class CrabPackage(spack.package_base.PackageBase):
     """crab-prod"""
 
     homepage = "https://www.example.com"

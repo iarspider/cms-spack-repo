@@ -1,6 +1,6 @@
 from llnl.util.filesystem import *
 
-from spack.package import PackageBase, run_after
+import spack.package_base, run_after
 from spack.directives import depends_on, resource
 from spack.util.executable import which, Executable
 
@@ -9,7 +9,7 @@ import os
 import shutil
 
 
-class ScramPackage(PackageBase):
+class ScramPackage(spack.package_base.PackageBase):
     phases = ['edit', 'build', 'install']
 
     depends_on('scram', type='build')

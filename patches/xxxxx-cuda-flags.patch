@@ -1,5 +1,5 @@
---- lib/spack/spack/build_systems/cuda.py.orig	2022-11-18 09:14:40.504388168 +0100
-+++ lib/spack/spack/build_systems/cuda.py	2022-11-18 10:12:36.892567253 +0100
+--- a/lib/spack/spack/build_systems/cuda.py	2022-11-18 09:14:40.504388168 +0100
++++ b/lib/spack/spack/build_systems/cuda.py	2022-11-18 10:12:36.892567253 +0100
 @@ -58,17 +58,40 @@
          when="+cuda",
      )

@@ -3,10 +3,9 @@ import shutil
 
 from llnl.util.filesystem import *
 
-from spack.package import PackageBase
+import spack.package_base
 
-
-class CMSDataPackage(PackageBase):
+class CMSDataPackage(spack.package_base.PackageBase):
     build_system_class = 'CMSDataPackage'
     phases = ['install']
 
