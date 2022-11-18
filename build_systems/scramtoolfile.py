@@ -175,7 +175,7 @@ class ScramToolfilePackage(BundlePackage):
                         all_py_binpkg[b] += [dep_name]
 
                     f.write("  <client>\n")
-                    f.write(f"    <environment name=\"${uctool}_BASE\" default=\"{dep["prefix"]}\"/>\n")
+                    f.write("    <environment name=\"${uctool}_BASE\" default=\"" + dep["prefix"] + "\"/>\n")
                     f.write("  </client>\n")
                     f.write(f"  <runtime name=\"PATH\" value=\"${uctool}_BASE/bin\" type=\"path\"/>\n")
                 f.write("</tool>\n")
