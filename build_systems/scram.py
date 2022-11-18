@@ -1,6 +1,6 @@
 from llnl.util.filesystem import *
 
-import spack.package_base, run_after
+import spack.package_base
 from spack.directives import depends_on, resource
 from spack.util.executable import which, Executable
 
@@ -374,8 +374,3 @@ class ScramPackage(spack.package_base.PackageBase):
         python = which('python')
         python(join_path(self.stage.path, 'config', 'SCRAM', 'projectAreaRename.py'), self.stage.path, prefix, self.cmsplatf, join_path(self.stage.path, str(self.spec.version)) )
         return
-
-    run_after('build')(PackageBase._run_default_build_time_test_callbacks)
-
-    # Check that self.prefix is there after installation
-    run_after('install')(PackageBase.sanity_check_prefix)
