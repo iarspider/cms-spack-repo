@@ -846,33 +846,3 @@ spack:
         scram: '{name}/{version}'
         all: '{name}/{version}-{hash}'
       root: /build/razumov/nightly-spack/install/el8_amd64_gcc11
-      padded_length: 128
-    allow_sgid: false
-    shared_linking: runpath
-    'build_stage:': $spack/stage
-    'test_stage:': $spack/test_stage
-    'misc_cache:': $spack/cache
-    extensions:
-    - /build/razumov/nightly-spack/cms-spack-repo/spack-scripting
-    template_dirs:
-    - $spack/share/spack/templates
-
-  # Directory where licenses should be located
-    license_dir: $spack/etc/spack/licenses
-    source_cache: $spack/var/spack/cache
-    connect_timeout: 10
-    verify_ssl: true
-    suppress_gpg_warnings: false
-    install_missing_compilers: false
-    checksum: true
-    deprecated: false
-    dirty: false
-    build_language: C
-    locks: true
-    url_fetch_method: urllib
-    ccache: false
-    concretizer: clingo
-    db_lock_timeout: 3
-    package_lock_timeout: null
-    terminal_title: false
-    debug: false

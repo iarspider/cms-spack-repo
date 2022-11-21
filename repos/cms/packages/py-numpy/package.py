@@ -6,6 +6,8 @@ class PyNumpy(BuiltinPyNumpy):
     __doc__ = BuiltinPyNumpy.__doc__
 
     keep_archives = True
+    drop_dependency("py-setuptools")
+    depends_on("py-setuptools", type=("build", "run"))
 
     @run_after('install')
     def symlink_c_api(self):
