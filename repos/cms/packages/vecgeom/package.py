@@ -92,7 +92,7 @@ class Vecgeom(CMakePackage, CudaPackage):
         else:
             target_instructions = self.spec.variants['vector'].value.replace('_', '=')
 
-        define = CMakePackage.define
+        define = self.define
         options = [
             define('BACKEND', 'Scalar'),
             define('BUILTIN_VECCORE', False),
