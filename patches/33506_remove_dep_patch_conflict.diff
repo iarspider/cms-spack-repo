@@ -1,9 +1,9 @@
 diff --git a/lib/spack/spack/directives.py b/lib/spack/spack/directives.py
-index 7c49158c791d..4111b06986c7 100644
+index 7c49158c791d..315bee305589 100644
 --- a/lib/spack/spack/directives.py
 +++ b/lib/spack/spack/directives.py
-@@ -19,6 +19,9 @@
-
+@@ -20,6 +20,9 @@ class OpenMpi(Package):
+   * ``build_system``
    * ``conflicts``
    * ``depends_on``
 +  * ``drop_conflict``
@@ -12,29 +12,20 @@ index 7c49158c791d..4111b06986c7 100644
    * ``extends``
    * ``patch``
    * ``provides``
-@@ -27,6 +30,7 @@
-   * ``version``
-
- """
-+import copy
- import functools
- import os.path
- import re
-@@ -49,7 +53,9 @@
- from spack.version import Version, VersionChecksumError
-
- __all__ = ['DirectiveError', 'DirectiveMeta', 'version', 'conflicts', 'depends_on',
--           'extends', 'provides', 'patch', 'variant', 'resource']
-+           'extends', 'provides', 'patch', 'variant', 'resource',
-+           "drop_dependency", "drop_patch", "drop_conflict"
-+]
-
- #: These are variant names used by Spack internally; packages can't use them
- reserved_names = ['patches', 'dev_path']
-@@ -717,6 +723,52 @@
+@@ -60,6 +63,9 @@ class OpenMpi(Package):
+     "patch",
+     "variant",
+     "resource",
++    "drop_dependency",
++    "drop_patch",
++    "drop_conflict",
+     "build_system",
+ ]
+ 
+@@ -761,6 +767,52 @@ def _execute_resource(pkg):
      return _execute_resource
-
-
+ 
+ 
 +@directive("dependencies")
 +def drop_dependency(name):
 +    """Completely remove dependency on a given package"""
@@ -67,9 +58,9 @@ index 7c49158c791d..4111b06986c7 100644
 +                return p.url == name
 +            else:
 +                # Future-proofing
-+                raise DirectiveError("Unknown patch type: " + str(type(p)))
++                raise RuntimeError("Unknown patch type: " + str(type(p)))
 +
-+        old_patches = copy.deepcopy(pkg.patches)
++        old_patches = pkg.patches
 +        new_patches = {}
 +        for spec, patches in old_patches.items():
 +            filtered_patches = [p for p in patches if not filter_func(p)]
@@ -81,5 +72,6 @@ index 7c49158c791d..4111b06986c7 100644
 +    return _execute_drop_patch
 +
 +
- class DirectiveError(spack.error.SpackError):
-     """This is raised when something is wrong with a package directive."""
+ def build_system(*values, **kwargs):
+     default = kwargs.get("default", None) or values[0]
+     return variant(
