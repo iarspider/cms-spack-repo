@@ -53,29 +53,29 @@ echo Adding CMS hooks
 cp ${WORKSPACE}/cms-spack-repo/hook/* lib/spack/spack/hooks/
 echo Adding SCRAM build system support
 cp ${WORKSPACE}/cms-spack-repo/build_systems/scram.py lib/spack/spack/build_systems/
-echo "from spack.build_systems.scram import ScramPackage" >> lib/spack/spack/pkgkit.py
+echo "from spack.build_systems.scram import ScramPackage" >> lib/spack/spack/package.py
 echo Adding SCRAM toolfile package class
 cp ${WORKSPACE}/cms-spack-repo/build_systems/scramtoolfile.py lib/spack/spack/build_systems/
-echo "from spack.build_systems.scramtoolfile import ScramToolfilePackage" >> lib/spack/spack/pkgkit.py
+echo "from spack.build_systems.scramtoolfile import ScramToolfilePackage" >> lib/spack/spack/package.py
 echo Adding Crab package type
 cp ${WORKSPACE}/cms-spack-repo/build_systems/crab.py lib/spack/spack/build_systems/
-echo "from spack.build_systems.crab import CrabPackage" >> lib/spack/spack/pkgkit.py
+echo "from spack.build_systems.crab import CrabPackage" >> lib/spack/spack/package.py
 echo Adding CMSData package type
 cp ${WORKSPACE}/cms-spack-repo/build_systems/cmsdata.py lib/spack/spack/build_systems/
-echo "from spack.build_systems.cmsdata import CMSDataPackage" >> lib/spack/spack/pkgkit.py
+echo "from spack.build_systems.cmsdata import CMSDataPackage" >> lib/spack/spack/package.py
 echo Copying backported recipes
 find ${WORKSPACE}/cms-spack-repo/repos/backports/packages -maxdepth 1 -type 'd' -exec cp -r -f {} ${WORKSPACE}/spack/var/spack/repos/builtin/packages \;
-echo Copying backported PythonPackage class
-cp ${WORKSPACE}/cms-spack-repo/build_systems/python.py lib/spack/spack/build_systems/
-cp ${WORKSPACE}/cms-spack-repo/develop/build_environment.py lib/spack/spack/build_environment.py
-echo Copying patched CudaPackage class
-cp ${WORKSPACE}/cms-spack-repo/build_systems/cuda.py lib/spack/spack/build_systems/
+#echo Copying backported PythonPackage class
+#cp ${WORKSPACE}/cms-spack-repo/build_systems/python.py lib/spack/spack/build_systems/
+#cp ${WORKSPACE}/cms-spack-repo/develop/build_environment.py lib/spack/spack/build_environment.py
+#echo Copying patched CudaPackage class
+#cp ${WORKSPACE}/cms-spack-repo/build_systems/cuda.py lib/spack/spack/build_systems/
 echo Patching spack
 find ${WORKSPACE}/cms-spack-repo/patches/ -type 'f' -exec patch -s -p1 -i {} \;
 echo Adding CMS repository
 bin/spack repo add --scope=site ${WORKSPACE}/cms-spack-repo/repos/cms
 echo Adding CMS mirror
-bin/spack mirror add --scope=site cms https://test-cms-spack.webtest.cern.ch/test-cms-spack/CMS/mirror/
+bin/spack mirror add --scope=site cms s3://cms-spack/SOURCES
 echo Adding CMS buildcache
 bin/spack mirror add --scope=site cms-s3 s3://cms-spack/${SCRAM_ARCH}/${SPACK_ENV_NAME}
 echo Adding CMS Spack signing key to trusted list
@@ -83,14 +83,17 @@ echo Adding CMS Spack signing key to trusted list
 # Temporary workaround until `spack gpg publish` works!
 wget https://test-cms-spack.web.cern.ch/test-cms-spack/CMS/mirror/build_cache/_pgp/A9541E16BC04DEA9624B99B43E5E5DB6F48CB63F.pub -O ${WORKSPACE}/cms-spack.pub
 bin/spack gpg trust ${WORKSPACE}/cms-spack.pub
-(bin/spack gpg list --trusted | grep -e "4096R/F48CB63F") || exit 1
+#(bin/spack gpg list --trusted | grep -e "4096R/F48CB63F") || exit 1
 if [ ! -z ${SPACK_DEVELOP} ]; then
   echo Adding spack augment command
   bin/spack config --scope=site add "config:extensions:${WORKSPACE}/cms-spack-repo/spack-scripting"
 else
   echo Add padding to install_tree
-  bin/spack config add "config:install_tree:padded_length:128"
+  bin/spack config --scope=site add "config:install_tree:padded_length:128"
 fi
+echo Increasing download timeout from 10s to 5m
+bin/spack config --scope=site add "config:connect_timeout:300"
+
 echo Set install directory
 bin/spack config add "config:install_tree:root:${RPM_INSTALL_PREFIX}"
 
