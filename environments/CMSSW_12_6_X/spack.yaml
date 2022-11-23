@@ -22,7 +22,7 @@ spack:
       externals: [{spec: mesa-glu@9.0.0, prefix: /usr}]
       buildable: false
     binutils:
-      externals: [{spec: binutils+gold+ld+plugins@2.36.1, prefix: /cvmfs/cms.cern.ch/el8_amd64_gcc11/external/gcc/11.2.1-f9b9dfdd886f71cd63f5538223d8f161/}]
+      externals: [{spec: binutils@2.36.1, prefix: /cvmfs/cms.cern.ch/el8_amd64_gcc11/external/gcc/11.2.1-f9b9dfdd886f71cd63f5538223d8f161/}]
       buildable: false
     openssl:
       externals: [{spec: openssl@1.1.1k-fips, prefix: /usr}]
@@ -125,6 +125,8 @@ spack:
     mesa:
       externals: [{spec: mesa@22.0.2~llvm, prefix: /usr}]
       buildable: false
+    llvm:
+      variants: [~gold]
     gdk-pixbuf:
       variants: [~x11]
     libarchive:
@@ -176,6 +178,7 @@ spack:
   - davix@0.8.1
   - dd4hep@1.19x+xercesc+geant4units~edm4hep
   - dip@c8693f00cc422b4a15858fcd84249acaeb07b6316
+  - dmtcp@3.0.0-dev                          # CMS: +geant4 is set internally to build static version of ddg4
   - dqmgui@1.0.1
   - dwz@0.14-20220401
   - eigen@82dd3710dac619448f50331c1d6a35da673f764a
@@ -207,7 +210,7 @@ spack:
   - gdb@10.2+python+xz~doc
   - gdbm@1.10
   - geant4@10.7.2+threads+vecgeom~opengl~x11~qt~python~motif
-  - cms-geant4data@10.0
+  - geant4data@10.0
   - geant4-parfullcms@2014.01.27
   - gettext@0.21~bzip2~xz~curses~libxml2~libunistring
   - giflib@5.2.0
@@ -258,7 +261,7 @@ spack:
   - libxslt@1.1.33~crypto~python
   - libzmq@4.3.4~docs~libbsd
   - log4cplus@2.0.7
-  - "llvm@12.0.1.cms+gold+cuda~lldb+clang~omp_as_runtime+lld+compiler_rt~lldb~flang~libcxx~mlir~internal_unwind~polly+llvm_dylib+link_llvm_dylib build_type=Release targets=aarch64,powerpc,x86,nvptx"
+  - llvm@12.0.1.cms+cuda build_type=Release
   - lwtnn@2.13
   - lz4@1.9.3
   - m4@1.4.18~sigsegv
@@ -278,7 +281,7 @@ spack:
   - openblas@0.3.15
   - opencv@4.6.0+eigen+python3~vtk
   - openldap@2.4.49+client_only~sasl
-  - openloops@2.1.2                   # 2.6.0 requires OpenSSL 1.1.1
+  - openloops@2.1.2
   - openloops-process@2.1.2
   - openmpi@4.1.4+cuda+cxx+cxx_exceptions~internal-hwloc~java~static fabrics=ucx
   - oracle-instant-client@19.11.0.0.0
@@ -466,7 +469,7 @@ spack:
   - py-numba@0.56.2
   - py-numexpr@2.8.3
   - py-numpy@1.22.4
-  - py-oauthlib@3.2.1~extras
+  - py-oauthlib@3.2.1
   - py-onnx@1.12.0
   - py-onnxmltools@1.11.0
   - py-onnx-runtime@1.10.0+cuda
@@ -843,33 +846,3 @@ spack:
         scram: '{name}/{version}'
         all: '{name}/{version}-{hash}'
       root: /build/razumov/nightly-spack/install/el8_amd64_gcc11
-      padded_length: 128
-    allow_sgid: false
-    shared_linking: runpath
-    'build_stage:': $spack/stage
-    'test_stage:': $spack/test_stage
-    'misc_cache:': $spack/cache
-    extensions:
-    - /build/razumov/nightly-spack/cms-spack-repo/spack-scripting
-    template_dirs:
-    - $spack/share/spack/templates
-
-  # Directory where licenses should be located
-    license_dir: $spack/etc/spack/licenses
-    source_cache: $spack/var/spack/cache
-    connect_timeout: 10
-    verify_ssl: true
-    suppress_gpg_warnings: false
-    install_missing_compilers: false
-    checksum: true
-    deprecated: false
-    dirty: false
-    build_language: C
-    locks: true
-    url_fetch_method: urllib
-    ccache: false
-    concretizer: clingo
-    db_lock_timeout: 3
-    package_lock_timeout: null
-    terminal_title: false
-    debug: false
