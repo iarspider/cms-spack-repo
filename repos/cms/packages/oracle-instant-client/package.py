@@ -3,6 +3,8 @@ from spack.pkg.builtin.oracle_instant_client import (
     OracleInstantClient as BuiltinOracleInstantClient,
 )
 
+import platform
+
 
 class OracleInstantClient(BuiltinOracleInstantClient):
     __doc__ = BuiltinOracleInstantClient.__doc__

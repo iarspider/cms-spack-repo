@@ -9,7 +9,7 @@ from spack import *
 from spack.util.environment import *
 
 
-class Geant4data(BundlePackage):
+class CmsGeant4data(BundlePackage):
     """FIXME: Put a proper description of your package here."""
 
     homepage = "https://www.example.com"
