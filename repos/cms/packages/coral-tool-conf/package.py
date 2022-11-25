@@ -11,7 +11,10 @@ from spack.util.environment import *
 
 
 class CoralToolConf(ScramToolfilePackage, CudaPackage):
-    version("10.0")
+    """SCRAM toolfile for CORAL"""
+
+    homepage = "https://github.com/cms-sw/cmsdist"
+    version('10.0')
 
     depends_on("pcre")
     depends_on("python")

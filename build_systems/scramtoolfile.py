@@ -13,7 +13,7 @@ import os
 import re
 import shutil
 
-class ScramToolfilePackage(BundlePackage):
+class ScramToolfilePackage(BundlePackage, CudaPackage):
     build_system_class = "ScramToolfilePackage"
     phases = ["install"]
 
@@ -84,8 +84,8 @@ class ScramToolfilePackage(BundlePackage):
         env.set("ORACLE_ENV_ROOT", "")
 
         # TODO: remember, the list is different for arm vs. everything else
-        if "cuda" in self.spec:
-            env.set("CUDA_FLAGS", " ".join(""" + x + """ for x in CudaPackage.cuda_flags(self.spec.variants["cuda_arch"].value)))
+        if "+cuda" in self.spec:
+            env.set("CUDA_FLAGS", " ".join("\"" + x + "\"" for x in self.cuda_flags(self.spec.variants["cuda_arch"].value)))
             env.set("CUDA_HOST_CXXFLAGS", CudaPackage.nvcc_stdcxx)
 
         # Technical variables

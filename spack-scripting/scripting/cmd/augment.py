@@ -50,7 +50,7 @@ def augment(parser, args):
         mkdirp(os.path.dirname(target_path))
         with open(target_path, "w") as pkg_file:
             pkg_file.write(PACKAGE_TEMPLATE.format(
-                module=spec.package_class.fullname.replace('-', '_'),
+                module=spec.package.fullname.replace('-', '_'),
                 namespace=repo.namespace.capitalize(),
                 cls=mod_to_class(name)))
     if args.split:

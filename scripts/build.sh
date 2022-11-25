@@ -86,25 +86,26 @@ ${WORKSPACE}/spack/bin/spack ${SPACK_DEBUG_FLAG} -e ${SPACK_ENV_NAME} install --
 exit_code=$?
 if [ ${exit_code} -ne 0 ]; then
     echo Build failed, uploading logs
-    ssh $SSH_OPTS lxplus rm -rf /eos/user/r/razumov/www/CMS/logs/${SPACK_ENV_NAME}-${SCRAM_ARCH}
-    ssh $SSH_OPTS lxplus mkdir /eos/user/r/razumov/www/CMS/logs/${SPACK_ENV_NAME}-${SCRAM_ARCH}
+    ssh $SSH_OPTS cmsbuild@lxplus rm -rf /eos/user/r/razumov/www/CMS/logs/${SPACK_ENV_NAME}-${SCRAM_ARCH}
+    ssh $SSH_OPTS cmsbuild@lxplus mkdir /eos/user/r/razumov/www/CMS/logs/${SPACK_ENV_NAME}-${SCRAM_ARCH}
     pushd ${WORKSPACE}/spack/stage
     find . -maxdepth 1 -type d -name 'spack-stage-*' -print0 | while read -d $'\0' dirn
     do
-        ssh $SSH_OPTS lxplus mkdir /eos/user/r/razumov/www/CMS/logs/${SPACK_ENV_NAME}-${SCRAM_ARCH}/$dirn
-        scp $SSH_OPTS $dirn/*.txt lxplus:/eos/user/r/razumov/www/CMS/logs/${SPACK_ENV_NAME}-${SCRAM_ARCH}/$dirn
+        ssh $SSH_OPTS cmsbuild@lxplus mkdir /eos/user/r/razumov/www/CMS/logs/${SPACK_ENV_NAME}-${SCRAM_ARCH}/$dirn
+        scp $SSH_OPTS $dirn/*.txt cmsbuild@lxplus:/eos/user/r/razumov/www/CMS/logs/${SPACK_ENV_NAME}-${SCRAM_ARCH}/$dirn
     done
     popd
-    scp $SSH_OPTS ${WORKSPACE}/spack/var/spack/environments/${SPACK_ENV_NAME}/spack.lock lxplus:/eos/user/r/razumov/www/CMS/logs/${SPACK_ENV_NAME}-${SCRAM_ARCH}/
+    scp $SSH_OPTS ${WORKSPACE}/spack/var/spack/environments/${SPACK_ENV_NAME}/spack.lock cmsbuild@lxplus:/eos/user/r/razumov/www/CMS/logs/${SPACK_ENV_NAME}-${SCRAM_ARCH}/
     touch $WORKSPACE/fail
-    exit ${exit_code}
+#    exit ${exit_code}
 fi
 
 echo Create and upload buildcache
 if [ ${UPLOAD_BUILDCACHE-x} = "true" ]; then
   echo Prepare mirror and buildcache
   # TODO: push gpg key to mirror (broken in 0.17, should be working in 0.18)
-  ${WORKSPACE}/spack/bin/spack -e ${SPACK_ENV_NAME} buildcache create -r -a -f --mirror-url s3://cms-spack/${SCRAM_ARCH}/
+  ${WORKSPACE}/spack/bin/spack -e ${SPACK_ENV_NAME} buildcache create -r -a --mirror-url s3://cms-spack/${SCRAM_ARCH}/${SPACK_ENV_NAME}
   scp ${WORKSPACE}/spack/var/spack/environments/${SPACK_ENV_NAME}/spack.lock lxplus:/eos/user/r/razumov/www/CMS/environment/spack-${SPACK_ENV_NAME}-${SCRAM_ARCH}.lock
 fi
 echo build.sh done
+exit ${exit_code}

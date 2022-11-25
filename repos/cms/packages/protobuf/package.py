@@ -9,5 +9,5 @@ class Protobuf(BuiltinProtobuf):
 
     def cmake_args(self):
         args = super().cmake_args()
-        args += [CMakePackage.define("CMAKE_INSTALL_LIBDIR", "lib")]
+        args += [self.define('CMAKE_INSTALL_LIBDIR', 'lib')]
         return args
