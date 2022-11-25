@@ -1,3 +1,5 @@
+import platform
+
 from spack import *
 from spack.pkg.builtin.zlib import Zlib as BuiltinZlib
 from spack.pkg.builtin.zlib import SetupEnvironment as BuiltinSetupEnvironment
