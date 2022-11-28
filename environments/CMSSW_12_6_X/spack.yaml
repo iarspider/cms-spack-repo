@@ -7,7 +7,7 @@
 # py-packaging: limited by py-poetry
 spack:
   concretizer:
-    unify: true
+    unify: when_possible
   packages:
     all:
       buildable: true
@@ -159,7 +159,7 @@ spack:
   - cmsswdata@40.0
   - coral@CORAL_2_3_21
   - coral-tool-conf@10.0
-  - cppunit@1.15.x
+  - cppunit@1.15_20220904 libs=shared
   - cpu-features@0.7.0
   - crab@1.0
   - crab-dev # NB: version set inside the recipe
@@ -176,7 +176,7 @@ spack:
   - davix@0.8.1
   - dd4hep@1.19x+xercesc+geant4units~edm4hep
   - dip@c8693f00cc422b4a15858fcd84249acaeb07b6316
-  - dmtcp@3.0.0-dev                          # CMS: +geant4 is set internally to build static version of ddg4
+  - dmtcp@master                          # CMS: +geant4 is set internally to build static version of ddg4
   - dqmgui@1.0.1
   - dwz@0.14-20220401
   - eigen@82dd3710dac619448f50331c1d6a35da673f764a
@@ -739,6 +739,7 @@ spack:
   - data-recoparticleflow-pftracking@V13-01-00
   - data-simtransport-hectorproducer@V01-00-01
   config:
+    build_jobs: 16
     install_tree:
       projections:
         cmslhetoeosmanager: '{name}/{version}'
@@ -842,3 +843,36 @@ spack:
         lcov: '{name}/{version}'
         scram: '{name}/{version}'
         all: '{name}/{version}-{hash}'
+      root: /build/razumov/nightly-spack/install/el8_amd64_gcc11
+    allow_sgid: false
+    shared_linking:
+      type: runpath
+      bind: true
+    'build_stage:': $spack/stage
+    'test_stage:': $spack/test_stage
+    'misc_cache:': $spack/cache
+    extensions:
+    - /build/razumov/nightly-spack/cms-spack-repo/spack-scripting
+    connect_timeout: 300
+    template_dirs:
+    - $spack/share/spack/templates
+
+  # Directory where licenses should be located
+    license_dir: $spack/etc/spack/licenses
+    source_cache: $spack/var/spack/cache
+    verify_ssl: true
+    suppress_gpg_warnings: false
+    install_missing_compilers: false
+    checksum: true
+    deprecated: false
+    dirty: false
+    build_language: C
+    locks: true
+    url_fetch_method: urllib
+    ccache: false
+    concretizer: clingo
+    db_lock_timeout: 3
+    package_lock_timeout: null
+    terminal_title: false
+    binary_index_ttl: 600
+    debug: false
