@@ -14,7 +14,7 @@ class CMSDataPackage(spack.package_base.PackageBase):
     build_system_class = "CMSDataPackage"
     build_system("cmsdata")
 
-               
+
 @spack.builder.builder("cmsdata")
 class CMSDataBuilder(BaseBuilder):
     phases = ("install",)
@@ -28,6 +28,6 @@ class CMSDataBuilder(BaseBuilder):
 
         install_root = prefix
 
-        mkdirp(join_path(install_root, data_dir))
+        mkdirp(fs.join_path(install_root, data_dir))
         install_tree(".", fs.join_path(install_root, data_dir), ignore=lambda x: ".git" in x)
 

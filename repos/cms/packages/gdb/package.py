@@ -5,6 +5,8 @@ from spack.pkg.builtin.gdb import Gdb as BuiltinGdb
 class Gdb(BuiltinGdb):
     __doc__ = BuiltinGdb.__doc__
 
+    patch("gdb-disable-makeinfo.patch")
+
     depends_on("expat")  # -- CMS
     depends_on("zlib")  # -- CMS
 

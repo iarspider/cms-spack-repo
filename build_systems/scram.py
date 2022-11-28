@@ -20,6 +20,8 @@ class ScramPackage(spack.package_base.PackageBase):
     resource(name='cmssw-config', git='https://github.com/cms-sw/cmssw-config.git',
              tag='V07-03-05')
 
+    legacy_buildsystem = "generic"
+
     def __init__(self, spec):
         super().__init__(spec)
         self.toolname = ''

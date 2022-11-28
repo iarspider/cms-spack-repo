@@ -48,7 +48,7 @@ class CmsswToolConf(ScramToolfilePackage, CudaPackage):
     # depends_on('gcc')
     depends_on("gdbm")
     depends_on("geant4")
-    depends_on("geant4data")
+    depends_on("cms-geant4data")
     depends_on("glimpse")
     depends_on("gmake")
     depends_on("gsl")

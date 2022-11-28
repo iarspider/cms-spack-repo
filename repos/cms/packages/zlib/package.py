@@ -3,6 +3,7 @@ import platform
 from spack import *
 from spack.pkg.builtin.zlib import Zlib as BuiltinZlib
 from spack.pkg.builtin.zlib import SetupEnvironment as BuiltinSetupEnvironment
+from spack.pkg.builtin.zlib import MakefileBuilder as BuiltinMakefileBuilder
 
 
 class Zlib(BuiltinZlib):
@@ -27,5 +28,5 @@ class SetupEnvironment(BuiltinSetupEnvironment):
             env.append_flags("CFLAGS", "-msse3")
 
 
-class MakefileBuilder(spack.build_systems.makefile.MakefileBuilder, SetupEnvironment):
+class MakefileBuilder(BuiltinMakefileBuilder, SetupEnvironment):
     pass

@@ -18,7 +18,7 @@ class Geant4Parfullcms(CMakePackage):
     )
 
     depends_on("geant4")
-    depends_on("geant4data")
+    depends_on("cms-geant4data")
 
     def cmake_args(self):
         args = [

@@ -55,11 +55,12 @@ class CmsmonTools(Package):
     )
     resource(
         name="stern",
-        url="https://github.com/stermn/stern/releases/download/v{0}/stern_{0}_linux_amd64".format(
+        url="https://github.com/stern/stern/releases/download/v{0}/stern_{0}_linux_amd64.tar.gz".format(
             sternv
         ),
-        destination="stern",
-        sha256="0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5",
+        destination="",
+        placement="stern",
+        sha256="6eff028d104b53c8a53c3af752a52292ddb2024b469ce5ab05aee2f0954bde72",
     )
     resource(
         name="auth-proxy-server",
@@ -140,7 +141,7 @@ class CmsmonTools(Package):
         set_executable(join_path(prefix, "hey"))
 
         # install stern
-        install(join_path("stern", "stern_linux_amd64"), join_path(prefix, "stern"))
+        install(join_path("stern", "stern"), join_path(prefix, "stern"))
         set_executable(join_path(prefix, "stern"))
 
         # install token-manager

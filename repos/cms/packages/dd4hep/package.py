@@ -6,6 +6,8 @@ class Dd4hep(BuiltinDd4hep):
     __doc__ = BuiltinDd4hep.__doc__
     cms_stage = 1
 
+    version("1.19x", commit="cc335b34e9eb2825ab18e20c531be813a92d141f")
+
     # -- CMS: build static version of DDG4
     @run_after("install")
     def install_static(self):

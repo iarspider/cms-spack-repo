@@ -125,8 +125,6 @@ spack:
     mesa:
       externals: [{spec: mesa@22.0.2~llvm, prefix: /usr}]
       buildable: false
-    llvm:
-      variants: [~gold]
     gdk-pixbuf:
       variants: [~x11]
     libarchive:
@@ -207,10 +205,10 @@ spack:
   - g4realsurface@2.2
   - g4saiddata@2.0
   - gbl@V02-04-01~root
-  - gdb@10.2+python+xz~doc
+  - gdb@10.2+python+xz
   - gdbm@1.10
   - geant4@10.7.2+threads+vecgeom~opengl~x11~qt~python~motif
-  - geant4data@10.0
+  - cms-geant4data@10.0
   - geant4-parfullcms@2014.01.27
   - gettext@0.21~bzip2~xz~curses~libxml2~libunistring
   - giflib@5.2.0
@@ -261,7 +259,7 @@ spack:
   - libxslt@1.1.33~crypto~python
   - libzmq@4.3.4~docs~libbsd
   - log4cplus@2.0.7
-  - llvm@12.0.1.cms+cuda build_type=Release
+  - llvm@12.0.1.cms+cuda~gold build_type=Release
   - lwtnn@2.13
   - lz4@1.9.3
   - m4@1.4.18~sigsegv
@@ -656,7 +654,7 @@ spack:
   - xz@5.2.5 libs=shared
   - yoda@1.9.6+root
   - zlib@1.2.11.cms+optimize
-  - zstd@1.4.5+shared~static~programs~legacy
+  - zstd@1.4.5 libs=shared ~programs
   - cmsdist
   - data-l1trigger-csctriggerprimitives@V00-12-00
   - data-recomet-metpusubtraction@V01-02-00
@@ -741,7 +739,6 @@ spack:
   - data-recoparticleflow-pftracking@V13-01-00
   - data-simtransport-hectorproducer@V01-00-01
   config:
-    build_jobs: 16
     install_tree:
       projections:
         cmslhetoeosmanager: '{name}/{version}'
@@ -830,7 +827,7 @@ spack:
         data-slhcupgradesimulations-geometry: '{name}/{version}'
         data-validation-geometry: '{name}/{version}'
         data-validation-hgcalvalidation: '{name}/{version}'
-        geant4data: '{name}/{version}'
+        cms-geant4data: '{name}/{version}'
         g4abla: '{name}/{version}'
         g4emlow: '{name}/{version}'
         g4ensdfstate: '{name}/{version}'
@@ -845,4 +842,3 @@ spack:
         lcov: '{name}/{version}'
         scram: '{name}/{version}'
         all: '{name}/{version}-{hash}'
-      root: /build/razumov/nightly-spack/install/el8_amd64_gcc11
