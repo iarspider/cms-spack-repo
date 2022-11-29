@@ -1,3 +1,6 @@
+import glob
+import shutil
+
 from spack import *
 from spack.pkg.builtin.gsl import Gsl as BuiltinGsl
 

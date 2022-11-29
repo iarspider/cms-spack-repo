@@ -6,6 +6,54 @@ from spack.pkg.builtin.oracle_instant_client import (
 import platform
 
 
+def oracleclient_releases():
+    releases = [
+        {
+            'version': '19.11.0.0.0',
+            'Linux-x86_64': {
+                'basic': ['https://download.oracle.com/otn_software/linux/instantclient/1911000/instantclient-basic-linux.x64-19.11.0.0.0dbru.zip', 'd3b477b9618ee06ccbc983557597c98fd3085856ccdbe091e86dd9d6b9dcfd2b'],
+                'sqlplus': ['https://download.oracle.com/otn_software/linux/instantclient/1911000/instantclient-sqlplus-linux.x64-19.11.0.0.0dbru.zip', '84e528530ede8c00fd24266a51a9a3593e4ca9e87cb86808c99685766e5b10ab'],
+                'tools': ['https://download.oracle.com/otn_software/linux/instantclient/1911000/instantclient-tools-linux.x64-19.11.0.0.0dbru.zip', '6a1c4a71b23da3ffb6c93e2ea07e28ecd67790c4b4446cf90524911b9beb2dc2'],
+                'sdk': ['https://download.oracle.com/otn_software/linux/instantclient/1911000/instantclient-sdk-linux.x64-19.11.0.0.0dbru.zip', 'e854e7f51e7ca2958153f6c8fee416afa5b3f3baecdfa88ed2ecea2daf012a4a'],
+                'jdbc': ['https://download.oracle.com/otn_software/linux/instantclient/1911000/instantclient-jdbc-linux.x64-19.11.0.0.0dbru.zip', '008e907449e7dc0dcf41f8a0d78658bb3dfbdcc996d69f8ddda635456ab3df21'],
+                'odbc': ['https://download.oracle.com/otn_software/linux/instantclient/1911000/instantclient-odbc-linux.x64-19.11.0.0.0dbru.zip', '0a16d0ccae54fccec830a1137c6566b4569448c655435b9e6b656fcae69e716b']
+            }
+        },
+        {
+            'version': '19.10.0.0.0',
+            'Linux-x86_64': {
+                'basic': ['https://download.oracle.com/otn_software/linux/instantclient/191000/instantclient-basic-linux.x64-19.10.0.0.0dbru.zip', 'c2eeea093d70f5416f8a8560f9fa5b57707a76ac9775906dbc4aaa778fdee84f'],
+                'sqlplus': ['https://download.oracle.com/otn_software/linux/instantclient/191000/instantclient-sqlplus-linux.x64-19.10.0.0.0dbru.zip', 'eee44825f348966796166beb8c0d8cc8f61929bae05229b65b34794e0f05659a'],
+                'tools': ['https://download.oracle.com/otn_software/linux/instantclient/191000/instantclient-tools-linux.x64-19.10.0.0.0dbru.zip', '93bf58d2e15bb3ca98f8e5f579a93760571a37e0d9312187f6a5f228d492c863'],
+                'sdk': ['https://download.oracle.com/otn_software/linux/instantclient/191000/instantclient-sdk-linux.x64-19.10.0.0.0dbru.zip', '2c4ae1b77fe32f3d3bf86a4ef560dc3a5dcbf5d11d742b4afeca414e5388ff2f'],
+                'jdbc': ['https://download.oracle.com/otn_software/linux/instantclient/191000/instantclient-jdbc-linux.x64-19.10.0.0.0dbru.zip', '3fabbc4a86b8c5b4b29c4d76524c7d7e5bfab33cdbfa73f1199fc5582ed25df6'],
+                'odbc': ['https://download.oracle.com/otn_software/linux/instantclient/191000/instantclient-odbc-linux.x64-19.10.0.0.0dbru.zip', '1c7ae3ea5913af9647ae68e2053cdaf9154ef6c9aa07e8b7d91e1ead9d5e675a']
+            },
+            'Linux-aarch64': {
+                'basic': ['https://download.oracle.com/otn_software/linux/instantclient/191000/instantclient-basic-linux.arm64-19.10.0.0.0dbru.zip', '0cd9ed1f6d01026a3990ecfbb84816d8d5da35fc1dbc9f25f28327a79d013ac6'],
+                'sqlplus': ['https://download.oracle.com/otn_software/linux/instantclient/191000/instantclient-sqlplus-linux.arm64-19.10.0.0.0dbru.zip', '8877328a31e102f8ec02a37d47e471a36478ee4f78d15bcf6d271cd8c5989f44'],
+                'tools': ['https://download.oracle.com/otn_software/linux/instantclient/191000/instantclient-tools-linux.arm64-19.10.0.0.0dbru.zip', 'e1063413072772dc0f9ba6460d92ee74e14ce14c9c2c5991225b8a1975704743'],
+                'sdk': ['https://download.oracle.com/otn_software/linux/instantclient/191000/instantclient-sdk-linux.arm64-19.10.0.0.0dbru.zip', 'f15a643722f214c51f4306d9a520d5fc207de51a177da32bf30e7c711b7fb32c'],
+                'jdbc': ['https://download.oracle.com/otn_software/linux/instantclient/191000/instantclient-jdbc-linux.arm64-19.10.0.0.0dbru.zip', 'ce16c3cc75ed7c5da13248912d51b7b8fc5a6f90d8b0b52c4bd3c19058264ede'],
+                'odbc': ['https://download.oracle.com/otn_software/linux/instantclient/191000/instantclient-odbc-linux.arm64-19.10.0.0.0dbru.zip', '4fe44820acd9f71120fc4ef6a5fb39c6a1f3d96b8858ac7fa117c3ad06f0de6b']
+            }
+        },
+        {
+            'version': '19.3.0.0.0',
+            'Linux-ppc64le': {
+                'basic': ['https://download.oracle.com/otn_software/linux/instantclient/193/instantclient-basic-linux.leppc64.c64-19.3.0.0.0dbru.zip', '4345cea0f6f4c9d7a1f8fca78941d6e3e3b3fdb877928d34f3951d49a2fdda6e'],
+                'sqlplus': ['https://download.oracle.com/otn_software/linux/instantclient/193/instantclient-sqlplus-linux.leppc64.c64-19.3.0.0.0dbru.zip', 'd55daa12fdc00666f507e530188909d637f46a12ae7f82c93afe12d270e359e5'],
+                'tools': ['https://download.oracle.com/otn_software/linux/instantclient/193/instantclient-tools-linux.leppc64.c64-19.3.0.0.0dbru.zip', 'ae15a1143ff0630e80e2eee38fbb69918f5dc999abf8e811242823eed46bb5aa'],
+                'sdk': ['https://download.oracle.com/otn_software/linux/instantclient/193/instantclient-sdk-linux.leppc64.c64-19.3.0.0.0dbru.zip', 'b09277005d2a17e98b78606e8d5fa57463528a46273f392b4ecede49ebc65ecf'],
+                'jdbc': ['https://download.oracle.com/otn_software/linux/instantclient/193/instantclient-jdbc-linux.leppc64.c64-19.3.0.0.0dbru.zip', 'bb05492d5d1c06b74c115f351f543206428ff47f0b9d381c838d54e43db05a73'],
+                'odbc': ['https://download.oracle.com/otn_software/linux/instantclient/193/instantclient-odbc-linux.leppc64.c64-19.3.0.0.0dbru.zip', 'b7edd85888ea5b0da2e93b8b1ac80c220749b6b014776fcb29936a098ad478f4']
+            }
+        }
+    ]
+
+    return releases
+
+
 class OracleInstantClient(BuiltinOracleInstantClient):
     __doc__ = BuiltinOracleInstantClient.__doc__
 

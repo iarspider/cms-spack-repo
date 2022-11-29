@@ -1,3 +1,5 @@
+import os
+
 from spack import *
 from spack.pkg.builtin.flex import Flex as BuiltinFlex
 

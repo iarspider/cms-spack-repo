@@ -72,6 +72,9 @@ spack:
     perl:
       externals: [{spec: perl@5.16.3~cpanm+shared+threads, prefix: /usr}]
       buildable: false
+    perl-data-dumper:
+      externals: [{spec: perl-data-dumper@2.173, prefix: /usr}]
+      buildable: false
     readline:
       externals: [{spec: readline@6.2, prefix: /usr}]
       buildable: false
@@ -187,7 +190,7 @@ spack:
   - fastjet@3.4.0~atlas+python thread-safety=limited plugins=allcxx
   - fftjet@1.5.0
   - fftw@3.3.8~mpi~openmp precision=double
-  - fjcontrib@1.044.cms
+  - fjcontrib@1.044+cms
   - flatbuffers@2.0.0
   - flex@2.6.4
   - fmt@8.0.1+shared

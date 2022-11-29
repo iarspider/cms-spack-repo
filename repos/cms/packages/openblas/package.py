@@ -24,3 +24,6 @@ class Openblas(BuiltinOpenblas):
         else:
             # Fallback to Spack behaviour
             make_defs += super()._microarch_target_args()
+
+
+        return make_defs
