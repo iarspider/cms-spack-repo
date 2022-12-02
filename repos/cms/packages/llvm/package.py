@@ -7,6 +7,9 @@ from spack.pkg.builtin.llvm import Llvm as BuiltinLlvm
 class Llvm(BuiltinLlvm):
     __doc__ = BuiltinLlvm.__doc__
 
+    drop_dependency("libelf")
+    depends_on("elf", when="+cuda")
+
     def cmake_args(self):
         args = super().cmake_args()
         args.append(self.define("LLVM_LIBDIR_SUFFIX", "64"))

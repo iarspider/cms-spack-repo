@@ -11,3 +11,5 @@ class PyPoetry(BuiltinPyPoetry):
     depends_on("py-crashtest@0.3.0:", when="^python@3.6:3", type=("build", "run"))
     drop_dependency("py-jsonschema")
     depends_on("py-jsonschema", when="@1.2:", type=("build", "run"))
+    drop_dependency("py-platformdirs")
+    depends_on("py-platformdirs", type=("build", "run"))

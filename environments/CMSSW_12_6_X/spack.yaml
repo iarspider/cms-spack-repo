@@ -146,20 +146,20 @@ spack:
   - benchmark@20211215
   - bison@3.7.6
   - blackhat@0.9.9
-  - boost@1.78.0.cms+atomic~icu~container~context~coroutine+exception+graph+locale+log+math+random+wave+shared+multithreaded~debug+mpi+python+iostreams
+  - boost@1.80.0.cms+atomic~icu~container~context~coroutine+exception+graph+locale+log+math+random+wave+shared+multithreaded~debug+mpi+python+iostreams
   - bzip2@1.0.6
-  - catch2@2.13.7
+  - catch2@2.13.6
   - classlib@3.1.3
   - clhep@2.4.5.1.cms
-  - cmake@3.21.4~ownlibs~ncurses
+  - cmake@3.18.2~ownlibs~ncurses
   - cms-common@1.0
-  - cms-git-tools@220325.0
+  - cms-git-tools@221013.0
   - cmslhetoeosmanager  # NB: version detected automatically
   - cmsmon-tools@0.5.35
-  - cmssw-osenv@220601.0
+  - cmssw-osenv@221027.0
   - cmssw-tool-conf@52.0
   - cmssw-wm-tools@211210
-  - cmsswdata@40.0
+  - cmsswdata@41.0
   - coral@CORAL_2_3_21
   - coral-tool-conf@10.0
   - cppunit@1.15_20220904 libs=shared
@@ -175,15 +175,15 @@ spack:
   - curl@7.79.0~libssh2+gssapi~libidn2 tls=openssl
   - dablooms@0.9.1
   - das-client@v03.01.00
-  - dasgoclient@v02.04.49
+  - dasgoclient@v02.04.49.rev1
   - davix@0.8.1
-  - dd4hep@1.19x+xercesc+geant4units~edm4hep
+  - dd4hep@1.23x+xercesc+geant4units~edm4hep
   - dip@c8693f00cc422b4a15858fcd84249acaeb07b6316
   - dmtcp@master                          # CMS: +geant4 is set internally to build static version of ddg4
   - dqmgui@1.0.1
   - dwz@0.14-20220401
   - eigen@82dd3710dac619448f50331c1d6a35da673f764a
-  - elfutils@0.186~nls
+  - elfutils@0.183~nls
   - evtgen@02.00.00+pythia8+tauola+photos
   - expat@2.1.0~libbsd
   - fasthadd@2.3
@@ -191,7 +191,7 @@ spack:
   - fftjet@1.5.0
   - fftw@3.3.8~mpi~openmp precision=double
   - fjcontrib@1.044+cms
-  - flatbuffers@2.0.0
+  - flatbuffers@1.12.0
   - flex@2.6.4
   - fmt@8.0.1+shared
   - form@4.2.1~gmp
@@ -211,7 +211,7 @@ spack:
   - gdb@10.2+python+xz
   - gdbm@1.10
   - geant4@10.7.2+threads+vecgeom~opengl~x11~qt~python~motif
-  - cms-geant4data@10.0
+  - cms-geant4data@11.0
   - geant4-parfullcms@2014.01.27
   - gettext@0.21~bzip2~xz~curses~libxml2~libunistring
   - giflib@5.2.0
@@ -221,7 +221,7 @@ spack:
   - gmp@6.2.1 libs=static
   - gnuplot@5.2.8~cairo~X~wx~gd~pbm~libcerf
   - go@1.16
-  - py-gosam@2.1.1
+  - py-gosam@2.1.0
   - gosam-contrib@2.0 libs=shared,static
   - gperftools@2.9.1+libunwind+sized_delete+dynamic_sized_delete_support~debugalloc
   - grpc@1.35.0+shared
@@ -234,7 +234,7 @@ spack:
   - herwig3@7.2.2
   - highfive@2.3.1
   - hls@2019.08
-  - hydjet@1.9.1
+  - hydjet@1.9.3
   - hydjet2@2.4.3
   - hwloc@2.8.0+cuda+nvml+libxml2~cairo~netloc+pci~rocm libs=static,shared # temporary ~rocm
   - igprof@5.9.16
@@ -245,7 +245,7 @@ spack:
   - jemalloc@5.3.0.cms~documentation+stats~debug libs=shared
   - jemalloc-debug@5.3.0.cms~documentation+stats+debug libs=shared
   - ktjet@1.06
-  - lcov@1.15
+  - lcov@1.9
   - lhapdf@6.4.0
   - libffi@3.4.2
   - libgit2@1.1.1
@@ -259,12 +259,12 @@ spack:
   - libungif@4.1.4
   - libunwind@1.6.2-master.0 +zlib~block_signals~docs
   - libxml2@2.9.10~python
-  - libxslt@1.1.33~crypto~python
+  - libxslt@1.1.28~crypto~python
   - libzmq@4.3.4~docs~libbsd
   - log4cplus@2.0.7
   - llvm@12.0.1.cms+cuda~gold build_type=Release
   - lwtnn@2.13
-  - lz4@1.9.3
+  - lz4@1.9.2
   - m4@1.4.18~sigsegv
   - madgraph5amc@2.7.3.py3 +cms~ninja~collier+golem~syscalc nb_core=4
   - mcfm@6.3
@@ -280,8 +280,8 @@ spack:
   - nlohmann-json@3.10.2
   - numactl@2.0.14
   - openblas@0.3.15
-  - opencv@4.6.0+eigen+python3~vtk
-  - openldap@2.4.49+client_only~sasl
+  - opencv@4.5.5+eigen+python3~vtk
+  - openldap@2.4.45+client_only~sasl
   - openloops@2.1.2
   - openloops-process@2.1.2
   - openmpi@4.1.4+cuda+cxx+cxx_exceptions~internal-hwloc~java~static fabrics=ucx
@@ -332,7 +332,7 @@ spack:
   - py-certifi@2022.9.14
   - py-cffi@1.15.1
   - py-chardet@5.0.0
-  - py-charset-normalizer@2.0.7
+  - py-charset-normalizer@2.1.1
   - py-click@8.1.3
   - py-clikit@0.6.2
   - py-climate@0.1.0
@@ -392,6 +392,7 @@ spack:
   - py-grpcio@1.48.1
   - py-grpcio-tools@1.48.1
   - py-h5py@3.7.0
+  - py-hatchling@1.8.1
   - py-hepdata-lib@0.10.1
   - py-hepdata-validator@0.3.3
   - py-hep-ml@0.7.1
@@ -422,13 +423,14 @@ spack:
   - py-jupyter-client@7.3.5
   - py-jupyter-console@6.4.4
   - py-jupyter-core@4.11.1
-  - py-jupyter-packaging11 # py-jupyter-packaging@0.10.6
+  - py-jupyter-packaging11@0.12.3 # py-jupyter-packaging@0.10.6
   - py-jupyter-packaging7  # hack (here and above)
   - py-jupyter-server@1.18.1
   - py-jupyter-server-mathjax@0.2.6
   - py-jupyterlab-pygments@0.2.2
   - py-jupyterlab-widgets@3.0.3
   - py-pyjwt@2.4.0
+  - py-keras@2.6.0
   - py-keras2onnx@1.7.0
   - py-keras-applications@1.0.8
   - py-keras-preprocessing@1.1.2
@@ -472,7 +474,7 @@ spack:
   - py-numpy@1.22.4
   - py-oauthlib@3.2.1
   - py-onnx@1.12.0
-  - py-onnxmltools@1.11.0
+  - py-onnxmltools@1.11.1
   - py-onnx-runtime@1.10.0+cuda
   - py-onnxconverter-common@1.9.0
   - py-opt-einsum@3.3.0
@@ -493,14 +495,14 @@ spack:
   - py-ply@3.11
   - py-pillow@9.2.0
   - py-pip@22.2.2
-  - py-platformdirs@2.5.2
+  - py-platformdirs@2.3.0
   - py-pluggy@1.0.0
   - py-poetry@1.2.0
   - py-poetry-core@1.1.0
   - py-poetry-plugin-export@1.0.7
   - py-prettytable@3.4.1
   - py-prompt-toolkit@3.0.31
-  - py-prometheus-client@0.12.0
+  - py-prometheus-client@0.14.1
   - py-protobuf@4.21.7~cpp
   - py-prwlock@0.4.1
   - py-psutil@5.9.2
@@ -534,7 +536,7 @@ spack:
   - py-python-daemon@2.3.1
   - py-python-ldap@3.4.2
   - py-python-rapidjson@1.8
-  - py-pythran@0.11.0 # NB: py-scipy
+  - py-pythran@0.11.0
   - py-pytoml@0.1.21
   - py-pytools@2022.1.12
   - py-pytz@2022.2.1
@@ -553,7 +555,7 @@ spack:
   - py-scikit-build@0.15.0
   - py-scikit-learn@1.1.2
   - py-scinum@1.4.3
-  - py-scipy@1.8.1
+  - py-scipy@1.7.1
   - py-semantic-version@2.10.0
   - py-send2trash@1.8.0
   - py-seaborn@0.12.0
@@ -564,7 +566,7 @@ spack:
   - py-shellingham@1.5.0
   - py-simplegeneric@0.8.1
   - py-singledispatch@3.7.0
-  - py-six@1.15.0
+  - py-six@1.16.0
   - py-skl2onnx@1.12
   - py-smmap@5.0.0
   - py-sniffio@1.3.0
@@ -623,13 +625,13 @@ spack:
   - qgraf@3.4.2
   - rdma-core@39.1
   - re2c@0.13.5
-  - rivet@3.1.6 hepmc=2
+  - rivet@3.1.7 hepmc=2
   - root+davix+fftw~fits~graphviz+gsl+math+minuit+mlp~mysql+opengl~postgres~pythia6~pythia8+python~qt4+root7+roofit~sqlite+ssl+tmva+tbb~vdt~veccore+x+xrootd+spectrum # NB: version defined inside recipe
   - rust@1.57.0+rustfmt~analysis~clippy~src # rustfmt neede by tensorboard-data-server
   - scitokens-cpp@0.7.0
   - scons@4.3.0
   - scram@V3_00_54
-  - sherpa@2.2.12+analysis+fastjet+hepmc2+rivet+lhapdf+blackhat+python+ufo+openloops+mpi+cms~hepmc3
+  - sherpa@2.2.12+analysis+fastjet+hepmc2~rivet+lhapdf+blackhat+python+ufo+openloops+mpi+cms~hepmc3
   - sigcpp@3.2.0~doc
   - sloccount@2.26
   - sqlite@3.36.0~fts
@@ -646,16 +648,16 @@ spack:
   - valgrind@3.17.0~mpi~boost libs=shared
   - vdt@0.4.3+preload
   - veccore@0.8.0
-  - vecgeom@1.1.18 ~root~geant4~cuda vector=sse3 # NB explicit ~cuda
+  - vecgeom@1.1.17 ~root~geant4~cuda vector=sse3 # NB explicit ~cuda
   - xerces-c@3.1.3 netaccessor=none transcoder=none
   - xgboost@1.6.2~cuda # NB explicit ~cuda
-  - xpmem@2.6.6-20220308~kernel-module
+  - xpmem@2.6.3-20220308~kernel-module
   - xrdcl-record@5.4.2
-  - xrootd@5.4.2.cms.1+http+readline+python+scitokens-cpp
+  - xrootd@5.5.1.cms+http+readline+python+scitokens-cpp
   - xtensor@0.24.1~xsimd~tbb
   - xtl@0.7.4
   - xz@5.2.5 libs=shared
-  - yoda@1.9.6+root
+  - yoda@1.9.7+root
   - zlib@1.2.11.cms+optimize
   - zstd@1.4.5 libs=shared ~programs
   - cmsdist
@@ -694,7 +696,7 @@ spack:
   - data-physicstools-nanoaod@V01-02-00
   - data-calibpps-esproducers@V01-04-00
   - data-dataformats-patcandidates@V01-01-00
-  - data-l1trigger-trackfindingtracklet@V00-02-00
+  - data-l1trigger-trackfindingtracklet@V00-03-00
   - data-generatorinterface-evtgeninterface@V02-06-00
   - data-detectordescription-schema@V02-03-00
   - data-physicstools-patutils@V00-05-00

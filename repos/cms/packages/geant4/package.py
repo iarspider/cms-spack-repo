@@ -11,6 +11,8 @@ class Geant4(BuiltinGeant4):
     version("11.0.1.cms", commit="271d2ffb2bd0a2aa26c4d15bc5e99e50f49cd232")
 
     drop_dependency("geant4-data")
+    drop_dependency("xerces-c")
+    depends_on("xerces-c", type=("build", "run"))
 
     @BuiltinGeant4.datadir.getter
     def datadir(self):

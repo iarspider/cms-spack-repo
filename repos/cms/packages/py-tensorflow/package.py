@@ -230,7 +230,7 @@ class PyTensorflow(Package, CudaPackage):
 
     depends_on("py-functools32@3.2.3:", type=("build", "run"), when="@1.15: ^python@:2")
 
-    depends_on("py-six@1.15.0:1.15", type=("build", "run"), when="@2.4.0:")
+    depends_on("py-six@1.15.0:", type=("build", "run"), when="@2.4.0:") # CMS: remove upper limit
     depends_on("py-six@1.12.0:", type=("build", "run"), when="@2.1:2.3")
     depends_on("py-six@1.10.0:", type=("build", "run"), when="@:2.0")
 

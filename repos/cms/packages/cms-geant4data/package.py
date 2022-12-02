@@ -16,7 +16,7 @@ class CmsGeant4data(BundlePackage):
     # There is no URL since there is no code to download.
     phases = ["install"]
 
-    version("10.0")
+    version("11.0")
 
     depends_on("g4ndl")
     depends_on("g4emlow")

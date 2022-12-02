@@ -5,6 +5,10 @@ from spack.pkg.builtin.hepmc import Hepmc as BuiltinHepmc
 class Hepmc(BuiltinHepmc):
     __doc__ = BuiltinHepmc.__doc__
 
+    git = "https://github.com/cms-externals/hepmc.git"
+
+    version('2.06.10.cms', commit='91c4c217572ac25669e9ad8fdc0111d1d5c82289')
+
     keep_archives = True
     drop_files = ["share"]
 

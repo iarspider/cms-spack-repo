@@ -1,3 +1,5 @@
+import os
+
 from spack import *
 from spack.pkg.builtin.lhapdf import Lhapdf as BuiltinLhapdf
 

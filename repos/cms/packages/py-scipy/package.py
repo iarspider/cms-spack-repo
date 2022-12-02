@@ -6,6 +6,8 @@ class PyScipy(BuiltinPyScipy):
     __doc__ = BuiltinPyScipy.__doc__
 
     drop_dependency("py-setuptools")
-    depends_on("py-setuptools", when="@1.8:", type=("build", "run"))
+    depends_on("py-setuptools", type=("build", "run"))
     drop_dependency("py-pybind11")
-    depends_on("py-pybind11@2.4.3:", when="@1.8:", type=("build", "link"))
+    depends_on("py-pybind11", type=("build", "link"))
+    drop_dependency("py-pythran")
+    depends_on("py-pythran", type=("build", "link"))

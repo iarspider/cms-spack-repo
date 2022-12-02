@@ -9,7 +9,7 @@ import platform
 from spack import *
 
 _versions = {
-    "v02.04.49": {
+    "v02.04.49.rev01": {
         "Linux-aarch64": (
             "a02c788ea3f6a24a09a2a439488d942b2437a2ba9be1f94df59fe2f7e7137367",
             "https://github.com/dmwm/dasgoclient/releases/download/v02.04.49/dasgoclient_aarch64",

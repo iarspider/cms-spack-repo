@@ -1,9 +1,15 @@
-from spack import *
-from spack.pkg.builtin.oracle_instant_client import (
-    OracleInstantClient as BuiltinOracleInstantClient,
-)
+# Copyright 2013-2021 Lawrence Livermore National Security, LLC and other
+# Spack Project Developers. See the top-level COPYRIGHT file for details.
+#
+# SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
+from spack import *
+import glob
 import platform
+import os
+import shutil
+
+# Notice: can't use inheritance due to how we define versions/resources
 
 
 def oracleclient_releases():
@@ -54,24 +60,88 @@ def oracleclient_releases():
     return releases
 
 
-class OracleInstantClient(BuiltinOracleInstantClient):
-    __doc__ = BuiltinOracleInstantClient.__doc__
+class OracleInstantClient(Package):
+    """Oracle instant client"""
 
-    if platform.machine() == "x86_64":
-        # -- CMS: OCCI lib with new C++ ABI (GCC 5 and above)
-        resource(
-            name="occi_lib",
-            url="http://cmsrep.cern.ch/cmssw/download/oracle-mirror/x64/libocci.so.19.1.zip",
-            sha256="f5c9031944a12543f2c61e0f65b00a4cb2b62cd152579679d37c780b93653718",
-            when="@19.3.0.0:19.11.9.9",
-            placement="occi_lib",
-        )
+    homepage = "https://www.oracle.com/database/technologies/instant-client.html"
+    url      = "https://download.oracle.com/otn_software/linux/instantclient/211000/instantclient-basic-linux.x64-21.1.0.0.0.zip"
 
-    @run_after("install")
-    def install_libocci_abi(self):
+    releases = oracleclient_releases()
+    key = "{0}-{1}".format(platform.system(), platform.machine()) 
+    for release in releases:
+        oracle_version = release['version']
+        packages = release.get(key, None)
+        if packages is None:
+            continue
+            
+        main_pkg = release[key]['basic']
+        url, sha256 = main_pkg
+        version(oracle_version, sha256=sha256, url=url)
+        for rname, atts in release[key].items():
+            if rname == 'basic':
+                continue
+            url, sha256 = atts
+            condition = "@{0}".format(oracle_version)
+            resource(name=rname, url=url, sha256=sha256, when=condition, placement=rname)
+            
+        if platform.machine() == 'x86_64':
+            # -- CMS: OCCI lib with new C++ ABI (GCC 5 and above)
+            resource(name='occi_lib', url='http://cmsrep.cern.ch/cmssw/download/oracle-mirror/x64/libocci.so.19.1.zip', 
+                     sha256='f5c9031944a12543f2c61e0f65b00a4cb2b62cd152579679d37c780b93653718',
+                     when='@19.3.0.0:19.11.9.9 ', placement='occi_lib')
+
+    depends_on('libaio', type='link')
+
+    def install(self, spec, prefix):
+        mkdirp(prefix.bin)
+        mkdirp(prefix.include)
+        mkdirp(prefix.lib)
+        mkdirp(prefix.doc)
+
+        for dirn, fns in {'.': ('adrci', 'genezi', 'uidrvci'),
+                          'sqlplus': ('glogin.sql', 'sqlplus'),
+                          'odbc': ('odbc_update_ini.sh', ),
+                          'tools': ('exp', 'expdp', 'imp', 'impdp', 'sqlldr', 'wrc')
+                          }.items():
+            for fn in fns:
+                install(join_path(dirn, fn), prefix.bin)
+
+        for fn in glob.glob(join_path(self.stage.source_path, '*.so*')):
+            install(fn, prefix.lib)
+
+        for fn in glob.glob(join_path(self.stage.source_path, '*.jar')):
+            install(fn, prefix.lib)
+
+        for fn in glob.glob(join_path(self.stage.source_path, 'sqlplus', '*.so*')):
+            install(fn, prefix.lib)
+
+        for fn in glob.glob(join_path(self.stage.source_path, 'jdbc', '*.so*')):
+            install(fn, prefix.lib)
+
+        for fn in glob.glob(join_path(self.stage.source_path, 'odbc', '*.so*')):
+            install(fn, prefix.lib)
+
+        for fn in glob.glob(join_path(self.stage.source_path, 'tools', '*.so*')):
+            install(fn, prefix.lib)
+
+        for fn in glob.glob(join_path(self.stage.source_path, 'jdbc', '*.jar')):
+            install(fn, prefix.lib)
+
+        install_tree('network', prefix.lib)
+
+        for dirn, fns in {'.': ('BASIC_LICENSE', 'BASIC_README'),
+                          'sqlplus': ('SQLPLUS_LICENSE', 'SQLPLUS_README'),
+                          'jdbc': ('JDBC_LICENSE', 'JDBC_README'),
+                          'odbc': ('ODBC_LICENSE', 'ODBC_README'),
+                          'sdk': ('SDK_LICENSE', 'SDK_README'),
+                          'tools': ('TOOLS_LICENSE', 'TOOLS_README')
+                          }.items():
+            for fn in fns:
+                install(join_path(dirn, fn), prefix.doc)
+
+        install_tree(join_path('odbc', 'help'), prefix.doc)
+        install_tree(join_path('sdk', 'sdk', 'include'), prefix.include)
+        
         # -- CMS
-        if os.path.exists(join_path(prefix.lib, "libocci_gcc53.so.19.1")):
-            shutil.move(
-                join_path(prefix.lib, "libocci_gcc53.so.19.1"),
-                join_path(prefix.lib, "libocci.so.19.1"),
-            )
+        if os.path.exists(join_path(prefix.lib, 'libocci_gcc53.so.19.1')):
+            shutil.move(join_path(prefix.lib, 'libocci_gcc53.so.19.1'), join_path(prefix.lib, 'libocci.so.19.1'))

@@ -10,6 +10,11 @@ class PyTensorboard(BuiltinPyTensorboard):
         "py-google-auth-oauthlib@0.4.1:", type=("build", "run")
     )  #  CMS: remove upper limit
 
+    drop_dependency("py-google-auth")
+    depends_on(
+        "py-google-auth", type=("build", "run")
+    )  #  CMS: remove limit
+
     drop_dependency("py-protobuf")
     depends_on(
         "py-protobuf", type=("build", "run"), when="@2.9:"
