@@ -1,3 +1,6 @@
+import glob
+import os
+
 from spack import *
 from spack.pkg.builtin.hepmc import Hepmc as BuiltinHepmc
 
