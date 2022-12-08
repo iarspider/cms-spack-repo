@@ -1,0 +1,78 @@
+# This is a Spack Environment file.
+#
+# It describes a set of packages to be installed, along with
+# configuration settings.
+spack:
+  # add package specs to the `specs` list
+  specs: [gmp@6.2.1 libs=shared, mpfr@4.1.0 libs=shared, mpc@1.2.1 libs=shared, zlib@1.2.11~shared,
+    bison@3.7.6, binutils@2.36.1 libs=shared ~nls +lto +gold +ld, elfutils@0.183 ~bzip2
+      ~debuginfod ~xz ~zstd ~nls, m4@1.4.19 ~sigsegv, flex@2.6.4 ~nls, isl@0.24, gcc@11.2.1
+      build_type=Release]
+  view: false
+  concretizer:
+    unify: true
+  compilers:
+  - compiler:
+      spec: gcc@8.5.0
+      paths:
+        cc: /usr/bin/gcc
+        cxx: /usr/bin/g++
+        f77: null
+        fc: null
+      flags: {}
+      operating_system: almalinux8
+      target: x86_64
+      modules: []
+      environment: {}
+      extra_rpaths: []
+  packages:
+    gawk:
+      externals:
+      - spec: gawk@4.2.1
+        prefix: /usr
+    gettext:
+      externals:
+      - spec: gettext@0.19.8.1
+        prefix: /usr
+    all:
+      target:
+      - core2
+      compiler: [gcc@8.5.0]
+      providers:
+        iconv: [libc]
+    texinfo:
+      externals:
+      - spec: texinfo@6.5
+        prefix: /usr
+    ncurses:
+      externals:
+      - spec: ncurses@6.1.20180224+termlib abi=6
+        prefix: /usr
+    tar:
+      externals:
+      - spec: tar@1.30
+        prefix: /usr
+    automake:
+      externals:
+      - spec: automake@1.16.1
+        prefix: /usr
+    autoconf:
+      externals:
+      - spec: autoconf@2.69
+        prefix: /usr
+    libtool:
+      externals:
+      - spec: libtool@2.4.6
+        prefix: /usr
+    findutils:
+      externals:
+      - spec: findutils@4.6.0
+        prefix: /usr
+    diffutils:
+      externals:
+      - spec: diffutils@3.6
+        prefix: /usr
+    perl:
+      externals:
+      - spec: perl@5.26.3~cpanm+shared+threads
+        prefix: /usr
