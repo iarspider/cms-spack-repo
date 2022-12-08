@@ -1,3 +1,5 @@
+import os
+
 from spack import *
 from spack.pkg.builtin.giflib import Giflib as BuiltinGiflib
 
@@ -10,3 +12,6 @@ class Giflib(BuiltinGiflib):
         libgif_so = join_path(self.spec.prefix.lib, "libgif.so")
         if os.path.islink(libgif_so) and not os.path.exists(libgif_so):
             raise InstallError("libgif.so symlink is broken")
+
+    def edit(self, spec, prefix):
+        pass

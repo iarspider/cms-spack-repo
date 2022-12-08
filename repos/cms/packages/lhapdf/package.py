@@ -7,6 +7,8 @@ from spack.pkg.builtin.lhapdf import Lhapdf as BuiltinLhapdf
 class Lhapdf(BuiltinLhapdf):
     __doc__ = BuiltinLhapdf.__doc__
 
+    setsversion = "6.4.0e"
+
     resource(
         name="MSTW2008nlo68cl",
         url="https://lhapdfsets.web.cern.ch/current/MSTW2008nlo68cl.tar.gz",

@@ -1,3 +1,7 @@
+import glob
+import inspect
+import os
+
 from spack import *
 from spack.pkg.builtin.dd4hep import Dd4hep as BuiltinDd4hep
 
@@ -9,6 +13,13 @@ class Dd4hep(BuiltinDd4hep):
     version("1.23x", commit="5c3b494f047ee025b2e32303c16ad854bfbb342d")
     version("1.19x", commit="cc335b34e9eb2825ab18e20c531be813a92d141f")
 
+    variant("shared", default=True)
+
+    def cmake_args(self):
+        args = super().cmake_args()
+        args.extend(self.define_from_variant("BUILD_SHARED_LIBS", "shared"))
+        return args
+
     # -- CMS: build static version of DDG4
     @run_after("install")
     def install_static(self):
@@ -16,7 +27,7 @@ class Dd4hep(BuiltinDd4hep):
         prefix = self.spec.prefix
         self.cms_stage = 2
         self.spec.variants["shared"].value = False
-        self.spec.variants["geant4"].value = True
+        self.spec.variants["ddg4"].value = True
 
         # cmake stage: Runs ``cmake`` in the build directory
         options = self.std_cmake_args

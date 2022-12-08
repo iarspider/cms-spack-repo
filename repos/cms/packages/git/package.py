@@ -1,4 +1,5 @@
-import copy
+import os
+import shutil
 
 from spack import *
 from spack.pkg.builtin.git import Git as BuiltinGit
@@ -31,7 +32,7 @@ class Git(BuiltinGit):
 
     def configure_args(self):
         args = super().configure_args()
-        args.append("--with-python={0}".format(spec["python"].prefix))
+        args.append("--with-python={0}".format(self.spec["python"].prefix))
         return args
 
     def build(self, spec, prefix):

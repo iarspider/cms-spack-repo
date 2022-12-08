@@ -1,3 +1,6 @@
+import os
+import shutil
+
 from spack import *
 from spack.pkg.builtin.herwig3 import Herwig3 as BuiltinHerwig3
 
@@ -49,7 +52,7 @@ class Herwig3(BuiltinHerwig3):
                 "--with-boost=" + self.spec["boost"].prefix,
                 "--with-madgraph=" + self.spec["madgraph5amc"].prefix,
                 "--with-gosam-contrib=" + self.spec["gosam-contrib"].prefix,
-                "--with-gosam=" + self.spec["gosam"].prefix,
+                "--with-gosam=" + self.spec["py-gosam"].prefix,
                 "--with-hepmc=" + self.spec["hepmc"].prefix]
 
         if self.spec.satisfies("^openloops"):

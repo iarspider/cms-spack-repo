@@ -517,16 +517,16 @@ class Root(CMakePackage):
         env.prepend_path("PYTHONPATH", self.prefix.lib)
         env.prepend_path("PATH", self.prefix.bin)
         env.append_path("CMAKE_MODULE_PATH", self.prefix.cmake)
-        if "+rpath" not in self.spec:
-            env.prepend_path("LD_LIBRARY_PATH", self.prefix.lib)
+        # if "+rpath" not in self.spec:
+        env.prepend_path("LD_LIBRARY_PATH", self.prefix.lib)
 
     def setup_dependent_run_environment(self, env, dependent_spec):
         env.set("ROOTSYS", self.prefix)
         env.set("ROOT_VERSION", "v{0}".format(self.version.up_to(1)))
         env.prepend_path("PYTHONPATH", self.prefix.lib)
         env.prepend_path("PATH", self.prefix.bin)
-        if "+rpath" not in self.spec:
-            env.prepend_path("LD_LIBRARY_PATH", self.prefix.lib)
+        # if "+rpath" not in self.spec:
+        env.prepend_path("LD_LIBRARY_PATH", self.prefix.lib)
 
     def flag_handler(self, name, flags):
         if name in ["cflags", "cxxflags", "cppflags"]:

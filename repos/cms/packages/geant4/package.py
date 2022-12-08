@@ -37,7 +37,7 @@ class Geant4(BuiltinGeant4):
                 "-DGEANT4_BUILD_BUILTIN_BACKTRACE=OFF",
                 "-DGEANT4_BUILD_VERBOSE_CODE=OFF",
                 "-DGEANT4_ENABLE_TESTING=OFF",
-                '-DGEANT4_BUILD_TLS_MODEL:STRING="global-dynamic"',
+                '-DGEANT4_BUILD_TLS_MODEL:STRING=global-dynamic',
                 "-DCMAKE_AR=" + str(which("gcc-ar")),
                 "-DCMAKE_RANLIB=" + str(which("gcc-ranlib")),
             )
