@@ -8,6 +8,7 @@ from spack import *
 
 class DataCalibcalorimetryCalomiscalibtools(CMSDataPackage):
     """FIXME: Put a proper description of your package here."""
-    n = 'data-CalibCalorimetry-CaloMiscalibTools'
-    git = "https://github.com/cms-data/{0}.git".format(n.replace('data-', ''))
-    version('V01-00-00', tag='V01-00-00')
+
+    n = "data-CalibCalorimetry-CaloMiscalibTools"
+    git = "https://github.com/cms-data/{0}.git".format(n.replace("data-", ""))
+    version("V01-00-00", tag="V01-00-00")

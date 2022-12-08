@@ -7,9 +7,9 @@ from spack import *
 
 
 class DataRecoegammaEgammaphotonproducers(CMSDataPackage):
-    """ foo """
+    """foo"""
 
-    n = 'data-RecoEgamma-EgammaPhotonProducers'
-    git = "https://github.com/cms-data/{0}.git".format(n.replace('data-', ''))
+    n = "data-RecoEgamma-EgammaPhotonProducers"
+    git = "https://github.com/cms-data/{0}.git".format(n.replace("data-", ""))
 
-    version('V00-01-00', tag='V00-01-00')
+    version("V00-01-00", tag="V00-01-00")

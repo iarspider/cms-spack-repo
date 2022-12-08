@@ -13,4 +13,4 @@ class Catch2(BuiltinCatch2):
 
     def install(self, spec, prefix):
         mkdirp(prefix.include)
-        install('single_include/catch2/catch.hpp', prefix.include)
+        install("single_include/catch2/catch.hpp", prefix.include)

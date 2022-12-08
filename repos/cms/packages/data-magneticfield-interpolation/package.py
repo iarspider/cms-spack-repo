@@ -8,8 +8,9 @@ from spack import *
 
 class DataMagneticfieldInterpolation(CMSDataPackage):
     """FIXME: Put a proper description of your package here."""
-    n = 'data-MagneticField-Interpolation'
-    git = "https://github.com/cms-data/{0}.git".format(n.replace('data-', ''))
 
-    version('V01-02-00', tag='V01-02-00')
-    version('V01-01-00', tag='V01-01-00')
+    n = "data-MagneticField-Interpolation"
+    git = "https://github.com/cms-data/{0}.git".format(n.replace("data-", ""))
+
+    version("V01-02-00", tag="V01-02-00")
+    version("V01-01-00", tag="V01-01-00")

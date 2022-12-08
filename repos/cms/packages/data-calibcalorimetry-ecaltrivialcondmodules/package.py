@@ -8,6 +8,7 @@ from spack import *
 
 class DataCalibcalorimetryEcaltrivialcondmodules(CMSDataPackage):
     """FIXME: Put a proper description of your package here."""
-    n = 'data-CalibCalorimetry-EcalTrivialCondModules'
-    git = "https://github.com/cms-data/{0}.git".format(n.replace('data-', ''))
-    version('V00-03-00', tag='V00-03-00')
+
+    n = "data-CalibCalorimetry-EcalTrivialCondModules"
+    git = "https://github.com/cms-data/{0}.git".format(n.replace("data-", ""))
+    version("V00-03-00", tag="V00-03-00")

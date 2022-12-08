@@ -8,6 +8,7 @@ from spack import *
 
 class DataRecojetsJetproducers(CMSDataPackage):
     """FIXME: Put a proper description of your package here."""
-    n = 'data-RecoJets-JetProducers'
-    git = "https://github.com/cms-data/{0}.git".format(n.replace('data-', ''))
-    version('V05-14-00', tag='V05-14-00')
+
+    n = "data-RecoJets-JetProducers"
+    git = "https://github.com/cms-data/{0}.git".format(n.replace("data-", ""))
+    version("V05-14-00", tag="V05-14-00")

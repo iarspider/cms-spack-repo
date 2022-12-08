@@ -1,0 +1,83 @@
+diff --git a/JetCleanser/JetCleanser.cc b/JetCleanser/JetCleanser.cc
+index 20f39c3..cacac3f 100644
+--- a/JetCleanser/JetCleanser.cc
++++ b/JetCleanser/JetCleanser.cc
+@@ -30,7 +30,10 @@ FASTJET_BEGIN_NAMESPACE      // defined in fastjet/internal/base.hh
+ namespace contrib{
+ 
+   // Modification to satisfy C++11 (thanks to Gavin Salam)
++#if __cplusplus >= 201103L
++#else
+   const double JetCleanser::jc_zero = 1.0e-6;
++#endif 
+ 
+   /////////////////////////////
+   // constructor
+diff --git a/JetCleanser/JetCleanser.hh b/JetCleanser/JetCleanser.hh
+index ac5f3cd..2c8cc5f 100644
+--- a/JetCleanser/JetCleanser.hh
++++ b/JetCleanser/JetCleanser.hh
+@@ -105,7 +105,13 @@ public:
+ private:
+   // Modification to satisfy C++11 (thanks to Gavin Salam)
+   //static const double jc_zero = 1.0e-6;
++//CMS change:
++// Change not endorsed by fastjet collaboration
++#if __cplusplus >= 201103L
++  static constexpr double jc_zero = 1.0e-6;
++#else
+   static const double jc_zero;
++#endif 
+ 
+   double _rsub;
+   double _fcut;
+diff --git a/Nsubjettiness/MeasureDefinition.cc b/Nsubjettiness/MeasureDefinition.cc
+index c9b649a..7bc234c 100644
+--- a/Nsubjettiness/MeasureDefinition.cc
++++ b/Nsubjettiness/MeasureDefinition.cc
+@@ -384,8 +384,8 @@ std::vector<LightLikeAxis> DefaultMeasure::UpdateAxesFast(const std::vector <Lig
+    assert(old_axes.size() == N);
+    
+    // some storage, declared static to save allocation/re-allocation costs
+-   static LightLikeAxis new_axes[N];
+-   static fastjet::PseudoJet new_jets[N];
++   LightLikeAxis new_axes[N];
++   fastjet::PseudoJet new_jets[N];
+    for (int n = 0; n < N; ++n) {
+       new_axes[n].reset(0.0,0.0,0.0,0.0);
+       new_jets[n].reset_momentum(0.0,0.0,0.0,0.0);
+diff --git a/RecursiveTools/RecursiveSymmetryCutBase.cc b/RecursiveTools/RecursiveSymmetryCutBase.cc
+index abd676f..17b93fd 100644
+--- a/RecursiveTools/RecursiveSymmetryCutBase.cc
++++ b/RecursiveTools/RecursiveSymmetryCutBase.cc
+@@ -37,7 +37,7 @@ LimitedWarning RecursiveSymmetryCutBase::_mu2_gt1_warning;
+ //LimitedWarning RecursiveSymmetryCutBase::_nonca_warning;
+ LimitedWarning RecursiveSymmetryCutBase::_explicit_ghost_warning;
+ 
+-bool RecursiveSymmetryCutBase::_verbose = false;
++std::atomic<bool> RecursiveSymmetryCutBase::_verbose {false};
+ 
+ //----------------------------------------------------------------------
+ PseudoJet RecursiveSymmetryCutBase::result(const PseudoJet & jet) const {
+diff --git a/RecursiveTools/RecursiveSymmetryCutBase.hh b/RecursiveTools/RecursiveSymmetryCutBase.hh
+index 639b5c0..aa474b7 100644
+--- a/RecursiveTools/RecursiveSymmetryCutBase.hh
++++ b/RecursiveTools/RecursiveSymmetryCutBase.hh
+@@ -37,6 +37,8 @@
+ #else
+ #include "Recluster.hh"
+ #endif
++#include <atomic>
++
+ 
+ /** \mainpage RecursiveTools contrib 
+ 
+@@ -215,7 +217,7 @@ public:
+   class StructureType;
+ 
+   /// for testing 
+-  static bool _verbose;
++  static std::atomic<bool> _verbose;
+ 
+ protected:
+   // the methods below have to be defined by deerived classes

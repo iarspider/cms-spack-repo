@@ -3,6 +3,9 @@ from llnl.util.filesystem import join_path, find
 
 def post_install(spec):
     pkg = spec.package
+    if spec.external:
+        return
+
     keep_archive = getattr(pkg, 'keep_archives', False)
     if keep_archive:
         return

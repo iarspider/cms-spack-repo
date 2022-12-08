@@ -11,7 +11,7 @@ class PythonTools(BundlePackage):
 
     homepage = "https://github.com/cms-sw/cmsdist"
 
-    version('3.0')
+    version("3.0")
 
     depends_on("root+python")
     depends_on("curl")

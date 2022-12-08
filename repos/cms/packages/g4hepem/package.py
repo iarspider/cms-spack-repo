@@ -10,12 +10,12 @@ from spack import *
 
 class G4hepem(CMakePackage):
     """The G4HepEm R&D project was initiated by the Electromagnetic Physics
-       Working Group of the Geant4 collaboration as part of looking for
-       solutions to reduce the computing performance bottleneck experienced
-       by the High Energy Physics (HEP) detector simulation applications."""
+    Working Group of the Geant4 collaboration as part of looking for
+    solutions to reduce the computing performance bottleneck experienced
+    by the High Energy Physics (HEP) detector simulation applications."""
 
     homepage = "https://github.com/mnovak42/g4hepem"
-    git      = "https://github.com/mnovak42/g4hepem.git"
+    git = "https://github.com/mnovak42/g4hepem.git"
 
     version("20221014", tag="20221014")
 

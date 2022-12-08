@@ -9,6 +9,8 @@ import platform
 import os
 import shutil
 
+# Notice: can't use inheritance due to how we define versions/resources
+
 
 def oracleclient_releases():
     releases = [

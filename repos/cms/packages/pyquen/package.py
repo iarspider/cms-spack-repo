@@ -10,14 +10,17 @@ class Pyquen(CMakePackage):
     """FIXME: Put a proper description of your package here."""
 
     homepage = "https://www.example.com"
-    url      = "http://lokhtin.web.cern.ch/lokhtin/pyquen/pyquen-1.5.4.tar.gz"
+    url = "http://lokhtin.web.cern.ch/lokhtin/pyquen/pyquen-1.5.4.tar.gz"
 
-    version('1.5.4', sha256='85a5539ae4df17700b1ff0d794a3f97a12c69477574bdd3fad7b43d036bfd037')
+    version(
+        "1.5.4",
+        sha256="85a5539ae4df17700b1ff0d794a3f97a12c69477574bdd3fad7b43d036bfd037",
+    )
 
-    depends_on('pythia6')
-    depends_on('lhapdf')
+    depends_on("pythia6")
+    depends_on("lhapdf")
 
     def cmake_args(self):
         args = []
-        args += [self.define('PYTHIA6_DIR', self.spec['pythia6'].prefix)]
+        args += [self.define("PYTHIA6_DIR", self.spec["pythia6"].prefix)]
         return args

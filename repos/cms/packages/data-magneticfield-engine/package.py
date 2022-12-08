@@ -8,6 +8,7 @@ from spack import *
 
 class DataMagneticfieldEngine(CMSDataPackage):
     """FIXME: Put a proper description of your package here."""
-    n = 'data-MagneticField-Engine'
-    git = "https://github.com/cms-data/{0}.git".format(n.replace('data-', ''))
-    version('V00-01-00', tag='V00-01-00')
+
+    n = "data-MagneticField-Engine"
+    git = "https://github.com/cms-data/{0}.git".format(n.replace("data-", ""))
+    version("V00-01-00", tag="V00-01-00")

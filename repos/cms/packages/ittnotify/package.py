@@ -11,14 +11,17 @@ class Ittnotify(CMakePackage):
 
     # FIXME: Add a proper url for your package's homepage here.
     homepage = "https://www.example.com"
-    url      = "https://github.com/01org/IntelSEAPI/archive/16.06.18.tar.gz"
+    url = "https://github.com/01org/IntelSEAPI/archive/16.06.18.tar.gz"
 
-    version('16.06.18', sha256='5e339c1c3d95c3d5ae20e16ac9bf79140c863044a8aa1566bc3be90a8c736d8c')
+    version(
+        "16.06.18",
+        sha256="5e339c1c3d95c3d5ae20e16ac9bf79140c863044a8aa1566bc3be90a8c736d8c",
+    )
 
     keep_archives = True
 
     def cmake_args(self):
-        args = [self.define('ARCH_64', 1)]
+        args = [self.define("ARCH_64", 1)]
         return args
 
     def install(self, spec, prefix):

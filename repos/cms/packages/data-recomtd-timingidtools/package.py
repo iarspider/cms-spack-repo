@@ -8,6 +8,7 @@ from spack import *
 
 class DataRecomtdTimingidtools(CMSDataPackage):
     """FIXME: Put a proper description of your package here."""
-    n = 'data-RecoMTD-TimingIDTools'
-    git = "https://github.com/cms-data/{0}.git".format(n.replace('data-', ''))
-    version('V00-01-00', tag='V00-01-00')
+
+    n = "data-RecoMTD-TimingIDTools"
+    git = "https://github.com/cms-data/{0}.git".format(n.replace("data-", ""))
+    version("V00-01-00", tag="V00-01-00")

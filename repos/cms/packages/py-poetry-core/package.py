@@ -6,4 +6,4 @@ class PyPoetryCore(BuiltinPyPoetryCore):
     __doc__ = BuiltinPyPoetryCore.__doc__
 
     # DUMMY DEPENDENCY - https://github.com/python-poetry/poetry/issues/6242
-    depends_on('git', type='run')
+    depends_on("git", type="run")

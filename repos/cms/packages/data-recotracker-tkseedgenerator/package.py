@@ -8,6 +8,7 @@ from spack import *
 
 class DataRecotrackerTkseedgenerator(CMSDataPackage):
     """FIXME: Put a proper description of your package here."""
-    n = 'data-RecoTracker-TkSeedGenerator'
-    git = "https://github.com/cms-data/{0}.git".format(n.replace('data-', ''))
-    version('V00-02-00', tag='V00-02-00')
+
+    n = "data-RecoTracker-TkSeedGenerator"
+    git = "https://github.com/cms-data/{0}.git".format(n.replace("data-", ""))
+    version("V00-02-00", tag="V00-02-00")

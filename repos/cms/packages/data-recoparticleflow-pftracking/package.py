@@ -8,10 +8,14 @@ from spack import *
 
 class DataRecoparticleflowPftracking(CMSDataPackage):
     """FIXME: Put a proper description of your package here."""
-    n = 'data-RecoParticleFlow-PFTracking'
-    url = 'https://github.com/cms-data/RecoParticleFlow-PFTracking/archive/V13-01-00.tar.gz'
-    version('V13-01-00', sha256='03d37944268bdfe971ea8489eed3fdb23f00e5464294fa24f56c7b0310bddf2e')
-    
+
+    n = "data-RecoParticleFlow-PFTracking"
+    url = "https://github.com/cms-data/RecoParticleFlow-PFTracking/archive/V13-01-00.tar.gz"
+    version(
+        "V13-01-00",
+        sha256="03d37944268bdfe971ea8489eed3fdb23f00e5464294fa24f56c7b0310bddf2e",
+    )
+
     def url_for_version(self, version):
-        url = self.url.rsplit('/', 1)[0]
-        return url + '/' + str(version) + '.tar.gz'
+        url = self.url.rsplit("/", 1)[0]
+        return url + "/" + str(version) + ".tar.gz"
