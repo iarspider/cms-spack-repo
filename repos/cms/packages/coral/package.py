@@ -46,12 +46,8 @@ class Coral(ScramPackage):
         if self.spec.satisfies("platform=darwin"):
             filter_file("(<classpath.*/tests\\+.*>)", "", "config/BuildFile.xml")
 
-        if (
-            self.spec.satisfies("target=aarch64:")
-            or self.spec.satisfies("target=ppc64")
-            or self.spec.satisfies("target=ppc64le")
-        ):
-            shutil.rmtree(join_path(self.stage.source_path, "src", "OracleAccess"))
+        if self.spec.satisfies('target=aarch64:') or self.spec.satisfies('target=ppc64le:'):
+            shutil.rmtree(join_path(self.stage.source_path, 'OracleAccess'))
 
     def install(self, spec, prefix):
         super().install(self, prefix)
