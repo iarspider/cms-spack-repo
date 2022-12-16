@@ -76,6 +76,8 @@ class Cmssw(ScramPackage):
         if '_CXXMODULE_X' in str(spec.version):
             shutil.copy(join_path(os.path.dirname(__file__), 'CXXModules.mk'), 'config/SCRAM/GMake/CXXModules.mk')
 
+        open('rebuild', 'w').close()
+
     @run_after('install')
     def cleanup_extra_data_dirs(self):
         for dirname in glob(join_path(self.spec.prefix, 'external', self.cmsplatf, 'data?*')):

@@ -8,6 +8,9 @@ cd ${WORKSPACE}
 export PYTHONPATH=/cvmfs/cms-ib.cern.ch/share/python3/lib/python3.6/site-packages:$PYTHONPATH
 export S3_ENDPOINT_URL=https://s3.cern.ch
 
+mkdir -p $WORKSPACE/spack-tmp
+export TMPDIR=$WORKSPACE/spack-tmp
+
 echo This script will install Spack and configure it for CMS needs
 if [ -d ${WORKSPACE}/spack ]; then
   echo Skipping bootstrap

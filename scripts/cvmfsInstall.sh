@@ -27,10 +27,10 @@ fi
 # Use dockerrun since we may need to use qemu
 source ${WORKSPACE}/cms-bot/dockerrun.sh ; dockerrun ${WORKSPACE}/cms-spack-repo/scripts/install.sh
 exit_code=$?
-if [ -e ${WORKSPACE}/fail -o ${exit_code} -ne 0 ]; then 
+if [ -e ${WORKSPACE}/fail -o ${exit_code} -ne 0 ]; then
   echo "Aborting transaction"
   ${WORKSPACE}/cms-bot/cvmfs_deployment/abort_transaction.sh
-else 
+else
   ${WORKSPACE}/cms-bot/cvmfs/cms-ib.cern.ch/cvmfsdirtab.sh
   ${WORKSPACE}/cms-bot/cvmfs_deployment/publish_transaction.sh
 fi
