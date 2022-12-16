@@ -22,7 +22,7 @@ spack:
       externals: [{spec: mesa-glu@9.0.0, prefix: /usr}]
       buildable: false
     binutils:
-      externals: [{spec: binutils@2.36.1, prefix: /data/cmsbuild/avalenzu/compiler/BUILD/el8_aarch64_gcc10/external/gcc/11.2.1-f478fee2760dbd22aaabb4e3a8fe1640/}]
+      externals: [{spec: binutils@2.36.1, prefix: /cvmfs/cms.cern.ch/el8_amd64_gcc11/external/gcc/11.2.1-f9b9dfdd886f71cd63f5538223d8f161/}]
       buildable: false
     openssl:
       externals: [{spec: openssl@1.1.1k-fips, prefix: /usr}]

@@ -64,7 +64,7 @@ fi
 
 SPACK_DEBUG_FLAG=""
 if [ ! -z ${SPACK_DEBUG+x} ]; then
-  SPACK_DEBUG_FLAG="-d --stacktrace"
+  SPACK_DEBUG_FLAG="-ddd --stacktrace"
 fi
 
 echo Setup spack
@@ -72,8 +72,8 @@ echo Setup spack
 echo Configure install_tree
 ${WORKSPACE}/spack/bin/spack ${SPACK_DEBUG_FLAG} -e ${SPACK_ENV_NAME} config add "config:install_tree:root:${RPM_INSTALL_PREFIX}"
 echo Start the installation
-${WORKSPACE}/spack/bin/spack ${SPACK_DEBUG_FLAG} -e ${SPACK_ENV_NAME} concretize -f --fresh
-${WORKSPACE}/spack/bin/spack ${SPACK_DEBUG_FLAG} -e ${SPACK_ENV_NAME} install --fresh --show-log-on-error -j24 --fail-fast
+${WORKSPACE}/spack/bin/spack ${SPACK_DEBUG_FLAG} -e ${SPACK_ENV_NAME} concretize --fresh
+${WORKSPACE}/spack/bin/spack ${SPACK_DEBUG_FLAG} -e ${SPACK_ENV_NAME} install --fresh --show-log-on-error -j$CORES --fail-fast
 exit_code=$?
 if [ ${exit_code} -ne 0 ]; then
     touch $WORKSPACE/fail
