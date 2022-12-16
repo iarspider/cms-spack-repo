@@ -123,9 +123,9 @@ class Geant4(CMakePackage):
     def flag_handler(self, name, flags):
         arch_build_flags = []
         if self.spec.satisfies('target=aarch64:'):
-            arch_build_flags = 'march=armv8-a -mno-outline-atomics'.split()
+            arch_build_flags = '-march=armv8-a -mno-outline-atomics'.split()
         elif self.spec.satisfies('target=ppc64le:'):
-            arch_build_flags = '-mcpu=power8 -mtune=power8 --param=l1-cache-size=64 --param=l1-cache-line-size=128 --param=l2-cache-size=512'
+            arch_build_flags = '-mcpu=power8 -mtune=power8 --param=l1-cache-size=64 --param=l1-cache-line-size=128 --param=l2-cache-size=512'.split()
 
         if name in ('cflags', 'cxxflags'):
             flags.append('-fPIC')

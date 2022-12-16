@@ -32,6 +32,7 @@ class Scram(Package):
 
 
     def install(self, spec, prefix):
+        install_path = os.environ.get('RPM_INSTALL_PREFIX')
         mkdirp(join_path(prefix.etc, 'profile.d'))
         with open(join_path(prefix.etc, 'profile.d', 'init.sh'), 'w') as f:
             f.write("SCRAMV1_ROOT='{0}'\n".format(prefix))

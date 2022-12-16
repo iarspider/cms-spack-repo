@@ -21,7 +21,7 @@ class Openloops(Package):
 
     tags = ['hep']
 
-    version('2.1.2', branch='cms/v2.1.2')
+    version('2.1.2.cms', branch='cms/v2.1.2')
 
     variant('compile_extra', default=False,
             description='Compile real radiation tree amplitudes')
@@ -33,9 +33,12 @@ class Openloops(Package):
     # NOTICE: update this line when openloops updates
     depends_on('openloops-process@2.1.2', when='@2.1.2')
 
+    patch("cmodel.patch", when='target=aarch64')
+
     phases = ['configure', 'build', 'install']
 
     def configure(self, spec, prefix):
+        if self.spec.satisfies("target=ppc64le:"): return
         spack_env = ('PATH LD_LIBRARY_PATH CPATH C_INCLUDE_PATH' +
                      'CPLUS_INCLUDE_PATH INTEL_LICENSE_FILE').split()
         for k in env.keys():
@@ -74,6 +77,7 @@ class Openloops(Package):
         copy(join_path(os.path.dirname(__file__), 'download_dummy.py'), 'download_dummy.py')
 
     def build(self, spec, prefix):
+        if self.spec.satisfies("target=ppc64le:"): return
         ol = Executable('./openloops')
         ol('update', '--processes', 'generator=0')
 
@@ -93,6 +97,7 @@ class Openloops(Package):
         ol('libinstall', ce, self.coll_file)
 
     def install(self, spec, prefix):
+        if self.spec.satisfies("target=ppc64le:"): return
         install_tree('lib', self.prefix.lib)
         mkdirp(self.prefix.proclib)
         for file in os.listdir('proclib'):

@@ -71,7 +71,6 @@ class Herwig3(AutotoolsPackage):
                 '--with-fastjet=' + self.spec['fastjet'].prefix, #
                 '--with-boost=' + self.spec['boost'].prefix, #
                 '--with-madgraph=' + self.spec['madgraph5amc'].prefix, #
-                '--with-openloops=' + self.spec['openloops'].prefix, #
                 '--with-gosam=' + self.spec['py-gosam'].prefix, #
                 '--with-gosam-contrib=' + self.spec['gosam-contrib'].prefix, #
                 # '--with-njet=' + self.spec['njet'].prefix,
@@ -79,7 +78,7 @@ class Herwig3(AutotoolsPackage):
                 # '--with-gsl=' + self.spec['gsl'].prefix
                 ]
 
-        if not self.spec.satisfies('arch=ppc64le'):
+        if not self.spec.satisfies('target=ppc64le:'):
             args.append('--with-openloops=' + self.spec['openloops'].prefix)
 
         # -- CMS
@@ -94,12 +93,14 @@ class Herwig3(AutotoolsPackage):
             if self.spec.satisfies('%gcc@10:'):
                 flags.append('-fallow-argument-mismatch')
 
-            if not self.spec.satisfies('arch=x86_64'):
+            if not self.spec.satisfies('target=x86_64'):
                 flags.append('-fno-range-check')
 
             return (None, flags, None)
         elif name in ['cflags', 'cxxflags', 'cppflags']:
             flags.append(self.compiler.cc_pic_flag)
+            if not self.spec.satisfies('target=x86_64'):
+                flags.append('-fno-range-check')
             return (None, flags, None)
 
         return (flags, None, None)
