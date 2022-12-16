@@ -69,7 +69,7 @@ fi
 
 echo Setup spack
 . share/spack/setup-env.sh
-echo Add padding to install_tree
+echo Configure install_tree
 ${WORKSPACE}/spack/bin/spack ${SPACK_DEBUG_FLAG} -e ${SPACK_ENV_NAME} config add "config:install_tree:root:${RPM_INSTALL_PREFIX}"
 echo Start the installation
 ${WORKSPACE}/spack/bin/spack ${SPACK_DEBUG_FLAG} -e ${SPACK_ENV_NAME} concretize -f --fresh

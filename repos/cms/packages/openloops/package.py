@@ -38,6 +38,7 @@ class Openloops(Package):
     phases = ['configure', 'build', 'install']
 
     def configure(self, spec, prefix):
+        if self.spec.satisfies("target=ppc64le:"): return
         spack_env = ('PATH LD_LIBRARY_PATH CPATH C_INCLUDE_PATH' +
                      'CPLUS_INCLUDE_PATH INTEL_LICENSE_FILE').split()
         for k in env.keys():
@@ -76,6 +77,7 @@ class Openloops(Package):
         copy(join_path(os.path.dirname(__file__), 'download_dummy.py'), 'download_dummy.py')
 
     def build(self, spec, prefix):
+        if self.spec.satisfies("target=ppc64le:"): return
         ol = Executable('./openloops')
         ol('update', '--processes', 'generator=0')
 
@@ -95,6 +97,7 @@ class Openloops(Package):
         ol('libinstall', ce, self.coll_file)
 
     def install(self, spec, prefix):
+        if self.spec.satisfies("target=ppc64le:"): return
         install_tree('lib', self.prefix.lib)
         mkdirp(self.prefix.proclib)
         for file in os.listdir('proclib'):

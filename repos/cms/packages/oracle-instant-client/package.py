@@ -24,6 +24,9 @@ def oracleclient_releases():
             },
             'Linux-aarch64': {
                 'basic': ['https://github.com/cms-externals/oracle-fake/archive/6da7ab5b4643b54f57002f9c96c426355a960eb1.tar.gz', '8a69c6b49a0db80c86451d389aa824c2f503aa58f74956c67d7298d20e1882cb']
+            },
+            'Linux-ppc64le': {
+                'basic': ['https://github.com/cms-externals/oracle-fake/archive/6da7ab5b4643b54f57002f9c96c426355a960eb1.tar.gz', '8a69c6b49a0db80c86451d389aa824c2f503aa58f74956c67d7298d20e1882cb']
             }
         },
         {
@@ -94,12 +97,13 @@ class OracleInstantClient(Package):
     depends_on('libaio', type='link')
 
     def install(self, spec, prefix):
+
         mkdirp(prefix.bin)
         mkdirp(prefix.include)
         mkdirp(prefix.lib)
         mkdirp(prefix.doc)
 
-        if self.spec.satisfies('target=aarch64:'):
+        if self.spec.satisfies('target=ppc64le:') or self.spec.satisfies('target=aarch64:'):
             # It is a fake package for non x86_64 archs.
             copy_tree(join_path(self.stage.source_path, 'include'), prefix.include)
             gcc = which("g++")

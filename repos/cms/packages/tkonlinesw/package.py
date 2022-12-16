@@ -149,7 +149,7 @@ class Tkonlinesw(Package):
         if self.spec.satisfies('platform=darwin'):
             # Again, installing is actually done by make install on macosx.
             return
-        if self.spec.satisfies('target=aarch64:'):
+        if self.spec.satisfies('target=ppc64le:') or self.spec.satisfies('target=aarch64:'):
             # It is a fake package for non x86_64 archs.
             mkdirp(self.spec.prefix.include)
             mkdirp(self.spec.prefix.lib)
@@ -161,6 +161,7 @@ class Tkonlinesw(Package):
             gcc("-shared", "-fPIC", "-o", "libFed9UUtils.so", "Fed9UUtils.cc")
             copy(self.stage.source_path + "/*.so", self.spec.prefix.lib)
             return
+
         # Option --prefix in configure is not working yet, using tar:
         install_tree('opt/trackerDAQ/include', prefix.include)
         install_tree('opt/trackerDAQ/lib', prefix.lib)

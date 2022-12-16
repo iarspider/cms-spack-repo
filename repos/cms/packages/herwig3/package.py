@@ -71,7 +71,6 @@ class Herwig3(AutotoolsPackage):
                 '--with-fastjet=' + self.spec['fastjet'].prefix, #
                 '--with-boost=' + self.spec['boost'].prefix, #
                 '--with-madgraph=' + self.spec['madgraph5amc'].prefix, #
-                '--with-openloops=' + self.spec['openloops'].prefix, #
                 '--with-gosam=' + self.spec['py-gosam'].prefix, #
                 '--with-gosam-contrib=' + self.spec['gosam-contrib'].prefix, #
                 # '--with-njet=' + self.spec['njet'].prefix,
@@ -79,7 +78,7 @@ class Herwig3(AutotoolsPackage):
                 # '--with-gsl=' + self.spec['gsl'].prefix
                 ]
 
-        if not self.spec.satisfies('arch=ppc64le'):
+        if not self.spec.satisfies('target=ppc64le:'):
             args.append('--with-openloops=' + self.spec['openloops'].prefix)
 
         # -- CMS

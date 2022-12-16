@@ -591,7 +591,7 @@ spack:
   - scitokens-cpp@0.7.0
   - scons@4.3.0
   - scram@V3_00_48
-  - sherpa@2.2.12+analysis+fastjet+hepmc2+rivet+lhapdf+blackhat+python+ufo+openloops+mpi+cms~hepmc3
+  - sherpa@2.2.12+analysis+fastjet+hepmc2+rivet+lhapdf+blackhat+python+ufo+mpi+cms~hepmc3
   - sigcpp@3.2.0~doc
   - sloccount@2.26
   - sqlite@3.36.0~fts

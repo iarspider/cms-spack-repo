@@ -32,3 +32,9 @@ class Igprof(CMakePackage):
         if name == 'cxxflags':
             flags.extend(('-Wno-unused-variable', '-Wno-error=unused-result'))
         return (None, None, flags)
+
+    def build(self, spec, prefix):
+        if self.spec.satisfies("target=ppc64le:"): return
+
+    def install(self, spec, prefix):
+        if self.spec.satisfies("target=ppc64le:"): return
