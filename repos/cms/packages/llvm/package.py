@@ -15,6 +15,11 @@ class Llvm(BuiltinLlvm):
     def libs(self):
         return LibraryList([])
 
+    def setup_run_environment(self, env):
+        super().setup_run_environment(env)
+        env.prepend_path('PYTHONPATH', python_platlib.replace('/lib/', '/lib64/'))
+        env.prepend_path('PYTHON3PATH', python_platlib.replace('/lib/', '/lib64/'))
+
     def cmake_args(self):
         args = super().cmake_args()
         args.append(self.define("LLVM_LIBDIR_SUFFIX", "64"))
