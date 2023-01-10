@@ -43,7 +43,7 @@ class OpenloopsProcess(Package):
     resource(
         name="tiny.coll",
         url=local_file_url("tiny.coll"),
-        sha256="eb0f24cc30fb10d75f828d60abe686fc0485d274f9832d26414f40e9a78dcd78",
+        sha256="aad91817040d29202ca87c829aa12e4129d8b28c8dee5ebfff4ef415192e7163",
         when="+tiny",
         expand=False,
         placement={"tiny.coll": "tiny.coll"},
@@ -67,4 +67,7 @@ class OpenloopsProcess(Package):
         # downloader(coll_file)
         install_tree("process_src", self.prefix.process_src)
         install_tree("proclib", self.prefix.proclib)
-        install("cms.coll", self.prefix)
+        if self.spec.satisfies("~tiny"):
+            install(local_file("cms.coll"), self.prefix)
+        else:
+            install(local_file("tiny.coll"), self.prefix)

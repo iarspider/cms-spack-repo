@@ -157,13 +157,13 @@ spack:
   - cmslhetoeosmanager  # NB: version detected automatically
   - cmsmon-tools@0.5.35
   - cmssw-osenv@221027.0
-  - cmssw-tool-conf@52.0
+  - cmssw-tool-conf@52.0+cuda
   - cmssw-wm-tools@211210
   - cmsswdata@41.0
   - coral@CORAL_2_3_21
   - coral-tool-conf@10.0
   - cppunit@1.15_20220904 libs=shared
-  - cpu-features@0.7.0
+  - cpu-features@0.7.0+shared
   - crab@1.0
   - crab-dev # NB: version set inside the recipe
   - crab-pre # -"-
@@ -200,6 +200,7 @@ spack:
   - g4abla@3.1
   - g4emlow@7.13
   - g4ensdfstate@2.3
+  - g4hepem@20221014
   - g4incl@1.0
   - g4ndl@4.6
   - g4particlexs@3.1.1
@@ -283,7 +284,7 @@ spack:
   - opencv@4.5.5+eigen+python3~vtk
   - openldap@2.4.45+client_only~sasl
   - openloops@2.1.2
-  - openloops-process@2.1.2
+  - openloops-process@2.1.2+tiny
   - openmpi@4.1.4+cuda+cxx+cxx_exceptions~internal-hwloc~java~static fabrics=ucx
   - oracle-instant-client@19.11.0.0.0
   - oracleocci-abi-hack-cms
@@ -848,7 +849,8 @@ spack:
         lcov: '{name}/{version}'
         scram: '{name}/{version}'
         all: '{name}/{version}-{hash}'
-      root: /build/razumov/nightly-spack/install/el8_amd64_gcc11
+      root: /build/razumov/nightly-spack-2/install/el8_amd64_gcc11
+      padded_length: 128
     allow_sgid: false
     shared_linking:
       type: runpath

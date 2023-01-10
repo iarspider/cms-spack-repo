@@ -159,6 +159,7 @@ class CmsswToolConf(ScramToolfilePackage, CudaPackage):
     depends_on("dasgoclient")
     depends_on("mxnet-predict")
     depends_on("dablooms")
+    depends_on("g4hepem")
 
     depends_on("openldap", when="platform=linux")
     depends_on("gperftools", when="platform=linux")

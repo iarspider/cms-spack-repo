@@ -15,9 +15,16 @@ class Dd4hep(BuiltinDd4hep):
 
     variant("shared", default=True)
 
+    keep_archives = True
+
+    def flag_handler(self, name, flags):
+        if name == "cxxflags":
+            flags.append("-fPIC")
+        return (None, None, flags)
+
     def cmake_args(self):
         args = super().cmake_args()
-        args.extend(self.define_from_variant("BUILD_SHARED_LIBS", "shared"))
+        args.append(self.define_from_variant("BUILD_SHARED_LIBS", "shared"))
         return args
 
     # -- CMS: build static version of DDG4

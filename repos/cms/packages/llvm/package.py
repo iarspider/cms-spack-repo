@@ -1,3 +1,4 @@
+import glob
 from os.path import dirname, join
 
 from spack import *
@@ -30,3 +31,17 @@ class Llvm(BuiltinLlvm):
         args.append(self.define("LLVM_HOST_TRIPLE", llvm_triple))
         args = [x for x in args if "LLVM_REQUIRES_RTTI" not in x]
         return args
+
+    @run_after('install')
+    def post_inst(self):
+        BINDINGS_PATH = python_platlib.replace('/lib/', '/lib64/')
+        PYTHONVERSION = self.spec['python'].version.up_to(2)
+
+        mkdirp(BINDINGS_PATH)
+        install_tree("clang/bindings/python/clang", join_path(BINDINGS_PATH, 'clang'))
+        # symlink(python_platlib, BINDINGS_PATH)
+        with open(join_path(python_platlib, 'clang-{0}-py{1}.egg-info'.format(self.spec.version, PYTHONVERSION)), 'w') as f:
+            f.write('Metadata-Version: 1.1\nName: clang\nVersion: ' + str(self.spec.version))
+
+        for fn in glob.glob(join_path(self.build_directory, 'clang', 'tools', 'scan-build', 'set-xcode*')):
+            force_remove(fn)
