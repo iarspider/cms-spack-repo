@@ -284,7 +284,7 @@ spack:
   - opencv@4.5.5+eigen+python3~vtk
   - openldap@2.4.45+client_only~sasl
   - openloops@2.1.2
-  - openloops-process@2.1.2+tiny
+  - openloops-process@2.1.2
   - openmpi@4.1.4+cuda+cxx+cxx_exceptions~internal-hwloc~java~static fabrics=ucx
   - oracle-instant-client@19.11.0.0.0
   - oracleocci-abi-hack-cms
