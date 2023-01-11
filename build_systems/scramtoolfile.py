@@ -30,7 +30,7 @@ class ScramToolfilePackage(BundlePackage, CudaPackage):
                "herwig6": "herwig", "herwig3": "herwig7", "csctrackfinderemulation": "CSCTrackFinderEmulation",
                "nlohmann-json": "json", "openblas": "OpenBLAS", "python-tools": "python_tools", "tauola": "tauolapp",
                "tauola-f": "tauola", "intel-tbb": "tbb", "py-tensorflow": "tensorflow", "photos-f": "photos",
-               "photos": "photospp"}
+               "photos": "photospp", "cpu-features": "cpu_features"}
 
     def get_all_deps(self, spec):
         res = {}
@@ -85,7 +85,7 @@ class ScramToolfilePackage(BundlePackage, CudaPackage):
 
         # TODO: remember, the list is different for arm vs. everything else
         if "+cuda" in self.spec:
-            env.set("CUDA_FLAGS", " ".join("\"" + x + "\"" for x in self.cuda_flags(self.spec.variants["cuda_arch"].value)))
+            env.set("CUDA_FLAGS", " ".join(str(x) for x in self.cuda_flags(self.spec.variants["cuda_arch"].value)))
             env.set("CUDA_HOST_CXXFLAGS", CudaPackage.nvcc_stdcxx)
 
         # Technical variables
