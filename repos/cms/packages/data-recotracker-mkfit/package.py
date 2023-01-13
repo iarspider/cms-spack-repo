@@ -12,5 +12,6 @@ class DataRecotrackerMkfit(CMSDataPackage):
     n = "data-RecoTracker-MkFit"
     git = "https://github.com/cms-data/{0}.git".format(n.replace("data-", ""))
 
+    version("V00-10-00", tag="V00-10-00")
     version("V00-09-00", tag="V00-09-00")
     version("V00-08-00", tag="V00-08-00")

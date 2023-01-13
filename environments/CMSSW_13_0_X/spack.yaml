@@ -237,9 +237,9 @@ spack:
   - hls@2019.08
   - hydjet@1.9.3
   - hydjet2@2.4.3
-  - hwloc@2.8.0+cuda+nvml+libxml2~cairo~netloc+pci~rocm libs=static,shared # temporary ~rocm
+  - hwloc@2.9.0+cuda+nvml+libxml2~cairo~netloc+pci~rocm libs=static,shared # temporary ~rocm
   - igprof@5.9.16
-  - intel-tbb@2021.5
+  - intel-tbb@2021.8.0-rc1
   - intel-vtune@2022
   - isl@0.24
   - ittnotify@16.06.18
@@ -284,7 +284,7 @@ spack:
   - opencv@4.5.5+eigen+python3~vtk
   - openldap@2.4.45+client_only~sasl
   - openloops@2.1.2
-  - openloops-process@2.1.2
+  - openloops-process@2.1.2+tiny
   - openmpi@4.1.4+cuda+cxx+cxx_exceptions~internal-hwloc~java~static fabrics=ucx
   - oracle-instant-client@19.11.0.0.0
   - oracleocci-abi-hack-cms
@@ -660,7 +660,7 @@ spack:
   - xz@5.2.5 libs=shared
   - yoda@1.9.7+root
   - zlib@1.2.11.cms+optimize
-  - zstd@1.4.5 libs=shared ~programs
+  - zstd@1.5.2 libs=shared ~programs
   - cmsdist
   - data-l1trigger-csctriggerprimitives@V00-12-00
   - data-recomet-metpusubtraction@V01-02-00
@@ -731,7 +731,7 @@ spack:
   - data-simg4cms-forward@V02-04-00
   - data-generatorinterface-reggegribovpartonmcinterface@V00-00-02
   - data-calibration-tools@V01-00-00
-  - data-calibtracker-sistripdcs@V01-00-00
+  - data-calibtracker-sistripdcs@V01-01-00
   - data-condformats-jetmetobjects@V01-00-03
   - data-dqm-dtmonitorclient@V00-01-00
   - data-dqm-physicshww@V01-00-00
