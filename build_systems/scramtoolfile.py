@@ -77,7 +77,7 @@ class ScramToolfilePackage(BundlePackage, CudaPackage):
         if self.spec.satisfies("target=x86_64:"):
             env.set("COMPILER_CXXFLAGS", "-msse3")
         elif self.spec.satisfies("target=aarch64:"):
-            env.set("COMPILER_CXXFLAGS", "-mtarget=armv8-a -mno-outline-atomics")
+            env.set("COMPILER_CXXFLAGS", "-march=armv8-a -mno-outline-atomics")
         elif self.spec.satisfies("target=ppc64le:"):
             env.set("COMPILER_CXXFLAGS", "-mcpu=power8 -mtune=power8 --param=l1-cache-size=64 --param=l1-cache-line-size=128 --param=l2-cache-size=512")
 

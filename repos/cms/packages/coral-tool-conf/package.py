@@ -26,7 +26,7 @@ class CoralToolConf(ScramToolfilePackage, CudaPackage):
     depends_on("zlib")
     depends_on("bzip2")
     depends_on("xerces-c")
-    depends_on("oracle-instant-client", when="target=x86_64:")
+    depends_on("oracle-instant-client")
 
     depends_on("scram", type="build")
 
