@@ -1,0 +1,13 @@
+diff --git a/pyol/config/default.cfg b/pyol/config/default.cfg
+index bb3e57c..eb4bff3 100644
+--- a/pyol/config/default.cfg
++++ b/pyol/config/default.cfg
+@@ -45,7 +45,7 @@ ifort_f90_flags =
+ ifort_f_flags =
+ ccflags = -Wall
+ cxxflags = -std=c++11 -Wextra -fext-numeric-literals
+-cmodel = medium
++cmodel = small
+ 
+ # generator: 0:off, 1:on, 2:download
+ generator = 2

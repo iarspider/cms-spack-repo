@@ -179,13 +179,12 @@ spack:
   - davix@0.8.1
   - dd4hep@1.23x+xercesc+geant4units~edm4hep
   - dip@c8693f00cc422b4a15858fcd84249acaeb07b6316
-  - dmtcp@master                          # CMS: +geant4 is set internally to build static version of ddg4
   - dqmgui@1.0.1
   - dwz@0.14-20220401
   - eigen@82dd3710dac619448f50331c1d6a35da673f764a
   - elfutils@0.183~nls
   - evtgen@02.00.00+pythia8+tauola+photos
-  - expat@2.1.0~libbsd
+  - expat@2.4.8~libbsd
   - fasthadd@2.3
   - fastjet@3.4.0~atlas+python thread-safety=limited plugins=allcxx
   - fftjet@1.5.0
@@ -268,7 +267,6 @@ spack:
   - lz4@1.9.2
   - m4@1.4.18~sigsegv
   - madgraph5amc@2.7.3.py3 +cms~ninja~collier+golem~syscalc nb_core=4
-  - mcfm@6.3
   - mctester@1.25.1
   - md5@1.0.0
   - meschach@1.2.pCMS1
@@ -283,8 +281,8 @@ spack:
   - openblas@0.3.15
   - opencv@4.5.5+eigen+python3~vtk
   - openldap@2.4.45+client_only~sasl
-  - openloops@2.1.2
-  - openloops-process@2.1.2+tiny
+  - openloops@2.1.2.cms
+  - openloops-process@2.1.2.cms
   - openmpi@4.1.4+cuda+cxx+cxx_exceptions~internal-hwloc~java~static fabrics=ucx
   - oracle-instant-client@19.11.0.0.0
   - oracleocci-abi-hack-cms
@@ -632,7 +630,7 @@ spack:
   - scitokens-cpp@0.7.0
   - scons@4.3.0
   - scram@V3_00_54
-  - sherpa@2.2.12+analysis+fastjet+hepmc2~rivet+lhapdf+blackhat+python+ufo+openloops+mpi+cms~hepmc3
+  - sherpa@2.2.12+analysis+fastjet+hepmc2~rivet+lhapdf+blackhat+python+ufo+mpi+cms~hepmc3
   - sigcpp@3.2.0~doc
   - sloccount@2.26
   - sqlite@3.36.0~fts
@@ -649,7 +647,7 @@ spack:
   - valgrind@3.17.0~mpi~boost libs=shared
   - vdt@0.4.3+preload
   - veccore@0.8.0
-  - vecgeom@1.1.17 ~root~geant4~cuda vector=sse3 # NB explicit ~cuda
+  - vecgeom@1.1.17 ~root~geant4~cuda #vector=sse3 # NB explicit ~cuda
   - xerces-c@3.1.3 netaccessor=none transcoder=none
   - xgboost@1.6.2~cuda # NB explicit ~cuda
   - xpmem@2.6.6-20220308~kernel-module
