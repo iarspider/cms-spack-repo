@@ -4,6 +4,7 @@
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
 import os
+import platform
 import shutil
 
 from spack import *
@@ -42,8 +43,10 @@ class Tkonlinesw(Package):
     depends_on("root")
     depends_on("gmake")
 
-    patch("tkonlinesw-4.0-clang-hash_map.patch", when='target=x86_64')
-    patch("tkonlinesw-bring-pvf.patch",  when='target=x86_64')
+    provides("tkonline", when="target=x86_64:")
+
+    patch("tkonlinesw-4.0-clang-hash_map.patch", when='target=x86_64:')
+    patch("tkonlinesw-bring-pvf.patch",  when='target=x86_64:')
     patch("tkonlinesw-2.7.0-macosx.patch", when="platform=darwin")
 
     resource(
