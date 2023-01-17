@@ -279,7 +279,7 @@ spack:
   - nlohmann-json@3.10.2
   - numactl@2.0.14
   - openblas@0.3.15
-  - opencv@4.5.5+eigen+python3~vtk
+  - opencv@4.5.5+eigen+python3~vtk~contrib
   - openldap@2.4.45+client_only~sasl
   - openloops@2.1.2.cms
   - openloops-process@2.1.2.cms
