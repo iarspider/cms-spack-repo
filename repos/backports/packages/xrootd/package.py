@@ -12,7 +12,7 @@ class Xrootd(CMakePackage):
     tolerant access to data repositories of many kinds."""
 
     homepage = "http://xrootd.org"
-    url = "http://xrootd.org/download/v5.3.1/xrootd-5.3.1.tar.gz"
+    url = "https://xrootd.slac.stanford.edu/download/v5.5.1/xrootd-5.5.1.tar.gz"
     list_url = "https://xrootd.slac.stanford.edu/dload.html"
 
     version("5.5.1", sha256="3556d5afcae20ed9a12c89229d515492f6c6f94f829a3d537f5880fcd2fa77e4")
@@ -84,8 +84,8 @@ class Xrootd(CMakePackage):
     patch("python-support.patch", level=1, when="@:4.8+python")
     # https://github.com/xrootd/xrootd/pull/1805
     patch(
-        "https://patch-diff.githubusercontent.com/raw/xrootd/xrootd/pull/1805.patch",
-        sha256="dc27f5cc1791430a1877afe75808a1110cb3b979b5f4ce0fe60c72443d38eb45",
+        "https://patch-diff.githubusercontent.com/raw/xrootd/xrootd/pull/1805.patch?full_index=1",
+        sha256="2655e2d609d80bf9c9ab58557f4f6940408a1af9c686e7aa214ac0348c89c8fa",
         when="@5.5.1",
     )
 
@@ -135,3 +135,4 @@ class Xrootd(CMakePackage):
 
         if cxxstdflag:
             env.append_flags("CXXFLAGS", cxxstdflag)
+

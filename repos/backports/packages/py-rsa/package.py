@@ -22,3 +22,4 @@ class PyRsa(PythonPackage):
     depends_on("py-pyasn1@0.1.3:", type=("build", "run"))
     depends_on("python@3.5:3", when="@4.7.2:", type=("build", "run"))
     depends_on("python@3.6:3", when="@4.9:", type=("build", "run"))
+
