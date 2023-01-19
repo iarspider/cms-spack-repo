@@ -215,7 +215,7 @@ class Madgraph5amc(Package):
         for fn in glob.glob(join_path(prefix, "HEPTools/collier/COLLIER-*/build")):
             os.remove(fn)
 
-        os.remove(join_path(prefix, "HEPTools/collier/collier_install.log"))
+        force_remove(join_path(prefix, "HEPTools/collier/collier_install.log"))
 
     @when("~cms")
     def install(self, spec, prefix):
