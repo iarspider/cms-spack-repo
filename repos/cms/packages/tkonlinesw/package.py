@@ -43,10 +43,8 @@ class Tkonlinesw(Package):
     depends_on("root")
     depends_on("gmake")
 
-    provides("tkonline", when="target=x86_64:")
-
-    patch("tkonlinesw-4.0-clang-hash_map.patch", when='target=x86_64:')
-    patch("tkonlinesw-bring-pvf.patch",  when='target=x86_64:')
+    patch("tkonlinesw-4.0-clang-hash_map.patch", when='target=x86_64')
+    patch("tkonlinesw-bring-pvf.patch",  when='target=x86_64')
     patch("tkonlinesw-2.7.0-macosx.patch", when="platform=darwin")
 
     resource(
