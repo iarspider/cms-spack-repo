@@ -24,6 +24,7 @@ class CmsmonTools(Package):
     k8s_info_ver = "0.0.1"
     trivyver = "0.21.1"
     gocurlver = "0.0.4"
+    murrever = "0.0.4"
 
     version(
         "0.5.35",
@@ -94,6 +95,15 @@ class CmsmonTools(Package):
         sha256="00aba5b67574fc1fdb11c5b5a6e1a0bb2486323d167f50eb8ac11b4b6a6da960",
         destination="gocurl",
     )
+    resource(
+        name="murre",
+        url="https://github.com/groundcover-com/murre/releases/download/v{0}/murre_{0}_linux_amd64.tar.gz".format(
+            murrever
+        ),
+        sha256="fc7fe421e7ce6a92cf429a40a7937196c2ed6714b3c535ae523bceed9bf86344",
+        placement="murre",
+    )
+
 
     def setup_build_environment(self, env):
         env.set("CGO_ENABLED", "0")
@@ -172,6 +182,10 @@ class CmsmonTools(Package):
         # install stern
         install(join_path("trivy", "trivy"), prefix)
         set_executable(join_path(prefix, "trivy"))
+
+        # install murre
+        install(join_path("murre", "murre"), prefix)
+        set_executable(join_path(prefix, "murre"))
 
         # install gocurl
         install(

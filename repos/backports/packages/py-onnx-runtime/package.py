@@ -27,6 +27,7 @@ class PyOnnxRuntime(CMakePackage, PythonExtension):
     depends_on("cmake@3.1:", type="build")
     depends_on("ninja", type="build")
     depends_on("python", type=("build", "run"))
+    depends_on("py-pip", type="build")
     depends_on("protobuf")
     # https://github.com/microsoft/onnxruntime/pull/11639
     depends_on("protobuf@:3.19", when="@:1.11")
@@ -54,6 +55,7 @@ class PyOnnxRuntime(CMakePackage, PythonExtension):
     # https://github.com/cms-externals/onnxruntime/compare/0d9030e...7a6355a
     patch("cms_1_10.patch", whe="@1.10")
     # https://github.com/microsoft/onnxruntime/issues/4234#issuecomment-698077636
+    # only needed when iconv is provided by libiconv
     patch("libiconv.patch", level=0, when="@1.7.2 ^libiconv")
     patch("libiconv-1.10.patch", level=0, when="@1.10.0 ^libiconv")
     # https://github.com/microsoft/onnxruntime/commit/de4089f8cbe0baffe56a363cc3a41595cc8f0809.patch
@@ -126,9 +128,8 @@ class PyOnnxRuntime(CMakePackage, PythonExtension):
 
     @run_after("install")
     def install_python(self):
-        platlib = self.spec["python"].package.platlib
+        """Install everything from build directory."""
+        args = std_pip_args + ["--prefix=" + prefix, "."]
         with working_dir(self.build_directory):
-            py = which("python")
-            py("setup.py", "build")
-            mkdirp(join_path(self.spec.prefix, platlib))
-            install_tree(join_path("build", "lib", "onnxruntime"), platlib)
+            pip(*args)
+

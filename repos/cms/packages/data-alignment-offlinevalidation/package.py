@@ -12,4 +12,5 @@ class DataAlignmentOfflinevalidation(CMSDataPackage):
     n = "data-Alignment-Offlinevalidation"
     git = "https://github.com/cms-data/{0}.git".format(n.replace("data-", ""))
 
+    version("V00-03-00", tag="V00-03-00")
     version("V00-02-00", tag="V00-02-00")

@@ -18,6 +18,9 @@ spack:
       variants: [cxxstd=17, build_type=Release, +cms, 'cuda_arch=60,70,75']
       providers:
         iconv: [libc]
+    vecgeom:
+      require:
+      - oneOf: [vector=sse3, 'target=aarch64:', 'target=ppc64le:']
     mesa-glu:
       externals: [{spec: mesa-glu@9.0.0, prefix: /usr}]
       buildable: false
@@ -236,9 +239,9 @@ spack:
   - hls@2019.08
   - hydjet@1.9.3
   - hydjet2@2.4.3
-  - hwloc@2.8.0+cuda+nvml+libxml2~cairo~netloc+pci~rocm libs=static,shared # temporary ~rocm
+  - hwloc@2.9.0+cuda+nvml+libxml2~cairo~netloc+pci~rocm libs=static,shared # temporary ~rocm
   - igprof@5.9.16
-  - intel-tbb@2021.5
+  - intel-tbb@2021.8.0-rc1
   - intel-vtune@2022
   - isl@0.24
   - ittnotify@16.06.18
@@ -279,7 +282,7 @@ spack:
   - nlohmann-json@3.10.2
   - numactl@2.0.14
   - openblas@0.3.15
-  - opencv@4.5.5+eigen+python3~vtk
+  - opencv@4.5.5+eigen+python3~vtk~contrib
   - openldap@2.4.45+client_only~sasl
   - openloops@2.1.2.cms
   - openloops-process@2.1.2.cms
@@ -658,7 +661,7 @@ spack:
   - xz@5.2.5 libs=shared
   - yoda@1.9.7+root
   - zlib@1.2.11.cms+optimize
-  - zstd@1.4.5 libs=shared ~programs
+  - zstd@1.5.2 libs=shared ~programs
   - cmsdist
   - data-l1trigger-csctriggerprimitives@V00-12-00
   - data-recomet-metpusubtraction@V01-02-00
@@ -729,7 +732,7 @@ spack:
   - data-simg4cms-forward@V02-04-00
   - data-generatorinterface-reggegribovpartonmcinterface@V00-00-02
   - data-calibration-tools@V01-00-00
-  - data-calibtracker-sistripdcs@V01-00-00
+  - data-calibtracker-sistripdcs@V01-01-00
   - data-condformats-jetmetobjects@V01-00-03
   - data-dqm-dtmonitorclient@V00-01-00
   - data-dqm-physicshww@V01-00-00
@@ -847,37 +850,3 @@ spack:
         lcov: '{name}/{version}'
         scram: '{name}/{version}'
         all: '{name}/{version}-{hash}'
-      root: /build/razumov/nightly-spack-2/install/el8_amd64_gcc11
-      padded_length: 128
-    allow_sgid: false
-    shared_linking:
-      type: runpath
-      bind: true
-    'build_stage:': $spack/stage
-    'test_stage:': $spack/test_stage
-    'misc_cache:': $spack/cache
-    extensions:
-    - /build/razumov/nightly-spack/cms-spack-repo/spack-scripting
-    connect_timeout: 300
-    template_dirs:
-    - $spack/share/spack/templates
-
-  # Directory where licenses should be located
-    license_dir: $spack/etc/spack/licenses
-    source_cache: $spack/var/spack/cache
-    verify_ssl: true
-    suppress_gpg_warnings: false
-    install_missing_compilers: false
-    checksum: true
-    deprecated: false
-    dirty: false
-    build_language: C
-    locks: true
-    url_fetch_method: urllib
-    ccache: false
-    concretizer: clingo
-    db_lock_timeout: 3
-    package_lock_timeout: null
-    terminal_title: false
-    binary_index_ttl: 600
-    debug: false

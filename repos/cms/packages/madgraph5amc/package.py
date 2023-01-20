@@ -207,7 +207,15 @@ class Madgraph5amc(Package):
         for fn in glob.glob(join_path(prefix, "**", "*.tgz")):
             os.remove(fn)
 
+        for fn in ("HEPTools/ninja/Ninja HEPTools/ninja/ninja_install.log", "ME5_debug", "basiceventgeneration/run*debug.log", "basiceventgeneration/Source/StdHEP/log.mcfio.*"):
+            for gn in glob.glob(join_path(prefix, fn)):
+                os.remove(fn)
+
         install_tree(".", prefix)
+        for fn in glob.glob(join_path(prefix, "HEPTools/collier/COLLIER-*/build")):
+            os.remove(fn)
+
+        force_remove(join_path(prefix, "HEPTools/collier/collier_install.log"))
 
     @when("~cms")
     def install(self, spec, prefix):
