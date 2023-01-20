@@ -141,7 +141,7 @@ class Tkonlinesw(Package):
         ################################################################################
         # Configure
         ################################################################################
-        if not self.spec.satisfies('target=x86_64'):
+        if not self.spec.satisfies('target=x86_64:'):
             # It is a fake package for non x86_64 archs.
             return
         bash = which("bash")
