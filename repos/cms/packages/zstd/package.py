@@ -1,5 +1,5 @@
 from spack import *
-from spack.pkg.builtin.zstd import CMakeBuilder as BuiltinZstdCMakeBuilder, Zstd as BuiltinZstd
+from spack.pkg.builtin.zstd import CMakeBuilder as BuiltinZstdCMakeBuilder, MakefileBuilder as BuiltinMakefileBuilder, Zstd as BuiltinZstd
 
 class Zstd(BuiltinZstd):
     __doc__ = BuiltinZstd.__doc__
@@ -16,3 +16,6 @@ class CMakeBuilder(BuiltinZstdCMakeBuilder):
         ]
 
         return args
+
+class MakefileBuilder(BuiltinMakefileBuilder):
+    pass

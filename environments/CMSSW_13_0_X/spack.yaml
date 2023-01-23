@@ -661,7 +661,7 @@ spack:
   - xz@5.2.5 libs=shared
   - yoda@1.9.7+root
   - zlib@1.2.11.cms+optimize
-  - zstd@1.5.2 libs=shared ~programs
+  - zstd@1.5.2 libs=shared ~programs build_system=cmake
   - cmsdist
   - data-l1trigger-csctriggerprimitives@V00-12-00
   - data-recomet-metpusubtraction@V01-02-00
