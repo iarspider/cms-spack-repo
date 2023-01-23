@@ -678,7 +678,7 @@ spack:
   - data-recoegamma-egammaphotonproducers@V00-01-00
   - data-l1triggerconfig-l1tconfigproducers@V00-01-00
   - data-dqm-integration@V00-02-00
-  - data-recotracker-mkfit@V00-09-00
+  - data-recotracker-mkfit@V00-11-00
   - data-recomuon-trackerseedgenerator@V00-04-00
   - data-recomuon-muonidentification@V01-14-00
   - data-dqm-ecalmonitorclient@V00-02-00

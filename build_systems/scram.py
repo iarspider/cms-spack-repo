@@ -15,10 +15,10 @@ class ScramPackage(spack.package_base.PackageBase):
     depends_on('scram', type='build')
     depends_on('dwz', type='build')
 
-    configtag = 'V07-03-05'
+    configtag = 'V07-03-16'
 
     resource(name='cmssw-config', git='https://github.com/cms-sw/cmssw-config.git',
-             tag='V07-03-05')
+             tag='V07-03-16')
 
     legacy_buildsystem = "generic"
 
@@ -87,9 +87,6 @@ class ScramPackage(spack.package_base.PackageBase):
 
         #if self.usercxxflags is not None:
         #    self.extraOptions = "USER_CXXFLAGS='%s'" % (self.usercxxflags + debugflags)
-
-        if self.configtag is None:
-            self.configtag = 'V07-06-00'
 
         if self.cvssrc is None:
             self.cvssrc = self.toolname.replace('-patch', '').upper()
@@ -376,3 +373,4 @@ class ScramPackage(spack.package_base.PackageBase):
         python = which('python')
         python(join_path(self.stage.path, 'config', 'SCRAM', 'projectAreaRename.py'), self.stage.path, prefix, self.cmsplatf, join_path(self.stage.path, str(self.spec.version)) )
         return
+
