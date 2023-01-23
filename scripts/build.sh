@@ -85,12 +85,22 @@ fi
 ${WORKSPACE}/spack/bin/spack ${SPACK_DEBUG_FLAG} -e ${SPACK_ENV_NAME} install --fresh --show-log-on-error -j$CORES --fail-fast
 exit_code=$?
 if [ ${exit_code} -ne 0 ]; then
-   exit ${exit_code}
+    echo Build failed, uploading logs
+    ssh $SSH_OPTS cmsbuild@lxplus rm -rf /eos/user/r/razumov/www/CMS/logs/${SPACK_ENV_NAME}-${SCRAM_ARCH}
+    ssh $SSH_OPTS cmsbuild@lxplus mkdir /eos/user/r/razumov/www/CMS/logs/${SPACK_ENV_NAME}-${SCRAM_ARCH}
+    pushd ${WORKSPACE}/spack/stage
+    find . -maxdepth 1 -type d -name 'spack-stage-*' -print0 | while read -d $'\0' dirn
+    do
+        ssh $SSH_OPTS cmsbuild@lxplus mkdir /eos/user/r/razumov/www/CMS/logs/${SPACK_ENV_NAME}-${SCRAM_ARCH}/$dirn
+        scp $SSH_OPTS $dirn/*.txt cmsbuild@lxplus:/eos/user/r/razumov/www/CMS/logs/${SPACK_ENV_NAME}-${SCRAM_ARCH}/$dirn
+    done
+    popd
+    scp $SSH_OPTS ${WORKSPACE}/spack/var/spack/environments/${SPACK_ENV_NAME}/spack.lock cmsbuild@lxplus:/eos/user/r/razumov/www/CMS/logs/${SPACK_ENV_NAME}-${SCRAM_ARCH}/
+    touch $WORKSPACE/fail
 fi
 
 echo Create and upload buildcache
 if [ ${UPLOAD_BUILDCACHE-x} = "true" ]; then
-  echo Prepare mirror and buildcache
   # TODO: push gpg key to mirror (broken in 0.17, should be working in 0.18)
   ${WORKSPACE}/spack/bin/spack -e ${SPACK_ENV_NAME} buildcache create -r -a --mirror-url s3://cms-spack/${SCRAM_ARCH}/${SPACK_ENV_NAME}
   scp ${WORKSPACE}/spack/var/spack/environments/${SPACK_ENV_NAME}/spack.lock lxplus:/eos/user/r/razumov/www/CMS/environment/spack-${SPACK_ENV_NAME}-${SCRAM_ARCH}.lock
