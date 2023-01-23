@@ -1,10 +1,10 @@
 from spack import *
-from spack.pkg.builtin.zstd import Zstd as BuiltinZstd
-
+from spack.pkg.builtin.zstd import CMakeBuilder as BuiltinZstdCMakeBuilder, Zstd as BuiltinZstd
 
 class Zstd(BuiltinZstd):
     __doc__ = BuiltinZstd.__doc__
 
+class CMakeBuilder(BuiltinZstdCMakeBuilder):
     def cmake_args(self):
         args = super().cmake_args()
         args += [
