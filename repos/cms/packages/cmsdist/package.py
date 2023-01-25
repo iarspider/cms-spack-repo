@@ -4,7 +4,6 @@
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
 import os
-import shutil
 
 from spack import *
 
@@ -41,7 +40,29 @@ class Cmsdist(Package):
             "export GCC_ROOT=.*",
             "export GCC_ROOT=" + os.path.dirname(os.path.dirname(self.compiler.cc)),
             join_path(prefix, "scram-tools.file", "tools", "llvm", "env.sh"),
+            string=True,
         )
+
+#        filter_file(
+#            '<environment name="CXX" value="$GCC_CXXCOMPILER_BASE/bin/c++@COMPILER_NAME_SUFFIX@"/>',
+#            '<environment name="CXX" value="' + spack_cxx + '"/>',
+#            join_path(prefix, "scram-tools.file", "tools", "gcc", "gcc-cxxcompiler.xml"),
+#            string=True,
+#        )
+#
+#        filter_file(
+#            '<environment name="CC" value="$GCC_CCOMPILER_BASE/bin/gcc@COMPILER_NAME_SUFFIX@"/>',
+#            '<environment name="CC" value="' + spack_cc + '"/>',
+#            join_path(prefix, "scram-tools.file", "tools", "gcc", "gcc-ccompiler.xml"),
+#            string=True,
+#        )
+#
+#        filter_file(
+#            '<environment name="FC" default="$GCC_F77COMPILER_BASE/bin/gfortran"/>',
+#            '<environment name="FC" default="' + spack_fc + '"/>',
+#            join_path(prefix, "scram-tools.file", "tools", "gcc", "gcc-f77compiler.xml"),
+#            string=True,
+#        )
 
         if self.spec.satisfies("@12.4.0.pre3"):
             add_toolfile("abseil-cpp")

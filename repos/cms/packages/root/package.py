@@ -25,6 +25,7 @@ class Root(CMakePackage):
 
     # ###################### Versions ##########################
 
+    version("6.26.00.patches", branch="cms/v6-26-00-patches/26247b6")
     version(
         "6.24.07.patches_cms_b5aa8fd", commit="556667e7d6bf2f279efc6f2a5ec85d2aba1b3768"
     )
@@ -309,7 +310,7 @@ class Root(CMakePackage):
             define_from_variant("rpath"),
             define("runtime_cxxmodules", False),
             define("shared", True),
-            define("soversion", True),
+            # define("soversion", True), -- CMS
             define("testing", self.run_tests),
             define_from_variant("thread", "threads"),
             # The following option makes sure that Cling will call the compiler
@@ -335,9 +336,10 @@ class Root(CMakePackage):
             define("builtin_lzma", False),
             define("builtin_nlohmannjson", True),  # -- CMS
             define("builtin_openssl", False),
+            define("builtin_openui5", True),
             define("builtin_pcre", False),
             define("builtin_tbb", False),
-            define("builtin_unuran", True),  # -- CMS
+            define("builtin_unuran", False),
             define("builtin_vc", False),
             define("builtin_vdt", False),
             define("builtin_veccore", False),
@@ -358,6 +360,7 @@ class Root(CMakePackage):
             define("castor", False),
             define("ccache", False),
             define("chirp", False),
+            define("clad", True), # -- CMS
             define("cling", True),
             define_from_variant("cocoa", "aqua"),
             define("dataframe", True),
@@ -373,7 +376,7 @@ class Root(CMakePackage):
             define_from_variant("gl2ps", "opengl"),
             define("glite", False),
             define("globus", False),
-            define_from_variant("gsl_shared", "gsl"),
+            define("gsl_shared", False), # CMS
             define_from_variant("gviz", "graphviz"),
             define("hdfs", False),
             define_from_variant("http"),  # See conflicts
@@ -402,6 +405,7 @@ class Root(CMakePackage):
             define_from_variant("roofit"),
             define_from_variant("root7"),  # See conflicts
             define("ruby", False),
+            define("runtime_cxxmodules", True), # -- CMS
             define("sapdb", False),
             define_from_variant("shadowpw", "shadow"),
             define_from_variant("spectrum"),
@@ -412,16 +416,18 @@ class Root(CMakePackage):
             define_from_variant("tbb"),
             define("tcmalloc", False),
             define_from_variant("tmva"),
+            define("tmva-cpu", True),
             define_from_variant("unuran"),
             define_from_variant("vc"),
             define_from_variant("vdt"),
             define_from_variant("veccore"),
             define_from_variant("vmc"),
-            define_from_variant("webui", "root7"),  # requires root7
+            define_from_variant("webgui", "root7"),  # requires root7
             define_from_variant("x11", "x"),
             define_from_variant("xft", "x"),
             define_from_variant("xml"),
             define_from_variant("xrootd"),
+            define("tmva-cpu", True), # -- CMS
             # -- CMS
             define("tmva-pymva", True),
             define("GSL_CBLAS_LIBRARY", spec["blas"].libs.joined()),

@@ -18,7 +18,7 @@ class ScramPackage(spack.package_base.PackageBase):
     configtag = 'V07-03-16'
 
     resource(name='cmssw-config', git='https://github.com/cms-sw/cmssw-config.git',
-             tag='V07-03-16')
+             tag=configtag)
 
     legacy_buildsystem = "generic"
 
