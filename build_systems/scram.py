@@ -15,7 +15,7 @@ class ScramPackage(spack.package_base.PackageBase):
     depends_on('scram', type='build')
     depends_on('dwz', type='build')
 
-    configtag = 'V07-03-16'
+    configtag = 'V07-03-17'
 
     resource(name='cmssw-config', git='https://github.com/cms-sw/cmssw-config.git',
              tag=configtag)
@@ -33,7 +33,7 @@ class ScramPackage(spack.package_base.PackageBase):
         self.cvstag = None  # at buildtime
         self.scram_compiler = 'gcc'  # at buildtime
         self.usercxxflags = ''
-        self.configtag = None
+        # self.configtag = None
         self.nolibchecks = False
         self.prebuildtarget = None
         self.saveDeps = False

@@ -632,7 +632,7 @@ spack:
   - rust@1.57.0+rustfmt~analysis~clippy~src # rustfmt neede by tensorboard-data-server
   - scitokens-cpp@0.7.0
   - scons@4.3.0
-  - scram@V3_00_54
+  - scram@V3_00_55
   - sherpa@2.2.12+analysis+fastjet+hepmc2~rivet+lhapdf+blackhat+python+ufo+mpi+cms~hepmc3
   - sigcpp@3.2.0~doc
   - sloccount@2.26
