@@ -628,7 +628,7 @@ spack:
   - rdma-core@39.1
   - re2c@0.13.5
   - rivet@3.1.7 hepmc=2
-  - root+davix+fftw~fits~graphviz+gsl+math+minuit+mlp~mysql+opengl~postgres~pythia6~pythia8+python~qt4+root7+roofit~sqlite+ssl+tmva+tbb~vdt~veccore+x+xrootd+spectrum # NB: version defined inside recipe
+  - root+davix+fftw~fits~graphviz+gsl+math+minuit+mlp~mysql+opengl~postgres~pythia6~pythia8+python~qt4+root7+roofit~sqlite+ssl+tmva+tbb~vdt~veccore+x+xrootd+spectrum~unuran # NB: version defined inside recipe
   - rust@1.57.0+rustfmt~analysis~clippy~src # rustfmt neede by tensorboard-data-server
   - scitokens-cpp@0.7.0
   - scons@4.3.0
