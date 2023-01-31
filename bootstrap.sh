@@ -77,7 +77,7 @@ bin/spack repo add --scope=site ${WORKSPACE}/cms-spack-repo/repos/cms
 echo Adding CMS mirror
 bin/spack mirror add --scope=site cms s3://cms-spack/SOURCES
 echo Adding CMS buildcache
-bin/spack mirror add --scope=site cms-s3 s3://cms-spack/${SCRAM_ARCH}/${SPACK_ENV_NAME}
+bin/spack mirror add --scope=site cmsrep https://cmsrep.cern.ch/spack/
 echo Adding CMS Spack signing key to trusted list
 # bin/spack buildcache keys --install --trust
 # Temporary workaround until `spack gpg publish` works!
