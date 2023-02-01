@@ -131,6 +131,18 @@ spack:
     mesa:
       externals: [{spec: mesa@22.0.2~llvm, prefix: /usr}]
       buildable: false
+    rocm-smi-lib:
+      externals: [{spec: rocm-smi-lib@5.4.2, prefix: /cvmfs/patatrack.cern.ch/externals/x86_64/rhel8/amd/rocm-5.4.2/rocm_smi}]
+      buildable: false
+    hip:
+      externals: [{spec: hip@5.4.2, prefix: /cvmfs/patatrack.cern.ch/externals/x86_64/rhel8/amd/rocm-5.4.2/hip}]
+      buildable: false
+    llvm-amdgpu:
+      externals: [{spec: llvm-amdgpu@5.4.2, prefix: /cvmfs/patatrack.cern.ch/externals/x86_64/rhel8/amd/rocm-5.4.2/llvm}]
+      buildable: false
+    hsa-rocr-dev:
+      externals: [{spec: hsa-rocr-dev@5.4.2, prefix: /cvmfs/patatrack.cern.ch/externals/x86_64/rhel8/amd/rocm-5.4.2/hsa-amd-aqlprofile}]
+      buildable: false
     gdk-pixbuf:
       variants: [~x11]
     libarchive:
@@ -239,7 +251,7 @@ spack:
   - hls@2019.08
   - hydjet@1.9.3
   - hydjet2@2.4.3
-  - hwloc@2.9.0+cuda+nvml+libxml2~cairo~netloc+pci~rocm libs=static,shared # temporary ~rocm
+  - hwloc@2.9.0+cuda+nvml+libxml2~cairo~netloc+pci+rocm libs=static,shared
   - igprof@5.9.16
   - intel-tbb@2021.8.0-rc1
   - intel-vtune@2022
