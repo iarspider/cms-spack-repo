@@ -5,6 +5,7 @@ from spack.pkg.builtin.intel_tbb import IntelTbb as BuiltinIntelTbb
 class IntelTbb(BuiltinIntelTbb):
     __doc__ = BuiltinIntelTbb.__doc__
 
+    version("2021.8.0", tag="v2021.8.0")
     version("2021.8.0-rc1", sha256="4ee1bc8e0baed84ee189987d81d51f89f52692cadb5472c1bdabc12097f78d31")
 
     version(

@@ -22,7 +22,8 @@ class Cmssw(ScramPackage):
     # variant('queue', default='', values=('', 'COVERAGE', 'EXPERIMENTAL', 'DBG', 'CMSDEPRECATED', 'FORTIFIED', 'UBSAN', 'ICC', 'CLANG', 'CXXMODULE'))
 
     #!# version("#VERSION#", tag="#VERSION#", preferred=True)
-    version("CMSSW_13_0_X_2023-01-18-2300", tag="CMSSW_13_0_X_2023-01-18-2300")
+    version("CMSSW_13_1_X_2023-02-13-2300", tag="CMSSW_13_1_X_2023-02-13-2300")
+    version("CMSSW_13_0_X_2023-02-06-2300", tag="CMSSW_13_0_X_2023-02-06-2300")
 
     depends_on("scram")
     depends_on("cmssw-tool-conf")

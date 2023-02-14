@@ -12,5 +12,6 @@ class DataRecotautagTrainingfiles(CMSDataPackage):
     n = "data-RecoTauTag-TrainingFiles"
     git = "https://github.com/cms-data/{0}.git".format(n.replace("data-", ""))
 
+    version("V00-07-00", tag="V00-07-00")
     version("V00-06-00", tag="V00-06-00")
     version("V00-03-00", tag="V00-03-00")

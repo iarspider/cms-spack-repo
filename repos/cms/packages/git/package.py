@@ -8,7 +8,15 @@ from spack.pkg.builtin.git import Git as BuiltinGit
 class Git(BuiltinGit):
     __doc__ = BuiltinGit.__doc__
 
+    version("2.38.1", sha256="620ed3df572a34e782a2be4c7d958d443469b2665eac4ae33f27da554d88b270")
     version("2.35.3", sha256="cad708072d5c0b390c71651f5edb44143f00b357766973470bf9adebc0944c03")
+    resource(
+        name="git-manpages",
+        url="https://www.kernel.org/pub/software/scm/git/git-manpages-2.38.1.tar.gz",
+        sha256="fcb27484406b64419a9f9890e95ef29af08e1f911d9d368546eddc59a18e245d",
+        placement="git-manpages",
+        when="@2.38.1 +man",
+    )
     resource(
         name="git-manpages",
         url="https://www.kernel.org/pub/software/scm/git/git-manpages-2.35.3.tar.gz",

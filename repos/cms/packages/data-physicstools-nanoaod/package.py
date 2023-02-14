@@ -11,4 +11,5 @@ class DataPhysicstoolsNanoaod(CMSDataPackage):
 
     n = "data-PhysicsTools-NanoAOD"
     git = "https://github.com/cms-data/{0}.git".format(n.replace("data-", ""))
+    version("V01-03-00", tag="V01-03-00")
     version("V01-02-00", tag="V01-02-00")

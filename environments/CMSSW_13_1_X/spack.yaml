@@ -5,6 +5,7 @@
 # NOTICE: intel-tbb should not be replaced with intel-oneapi-tbb, the latter one is pre-built and not configurable
 # py-numpy: limited by py-numba
 # py-packaging: limited by py-poetry
+# ? expat
 spack:
   concretizer:
     unify: true
@@ -187,7 +188,7 @@ spack:
   - eigen@82dd3710dac619448f50331c1d6a35da673f764a
   - elfutils@0.183~nls
   - evtgen@02.00.00+pythia8+tauola+photos
-  - expat@2.4.8~libbsd
+  - expat@2.1.0~libbsd
   - fasthadd@2.3
   - fastjet@3.4.0~atlas+python thread-safety=limited plugins=allcxx
   - fftjet@1.5.0
@@ -218,7 +219,7 @@ spack:
   - geant4-parfullcms@2014.01.27
   - gettext@0.21~bzip2~xz~curses~libxml2~libunistring
   - giflib@5.2.0
-  - git@2.35.3~man~nls
+  - git@2.38.1~man~nls
   - glimpse@4.18.7-6
   - gmake@4.3~nls
   - gmp@6.2.1 libs=static
@@ -632,7 +633,7 @@ spack:
   - rust@1.57.0+rustfmt~analysis~clippy~src # rustfmt neede by tensorboard-data-server
   - scitokens-cpp@0.7.0
   - scons@4.3.0
-  - scram@V3_00_55
+  - scram@V3_00_59
   - sherpa@2.2.12+analysis+fastjet+hepmc2~rivet+lhapdf+blackhat+python+ufo+mpi+cms~hepmc3
   - sigcpp@3.2.0~doc
   - sloccount@2.26
@@ -670,32 +671,32 @@ spack:
   - data-magneticfield-interpolation@V01-02-00
   - data-recoecal-egammaclusterproducers@V00-02-00
   - data-l1trigger-tracktrigger@V00-02-00
-  - data-recoegamma-electronidentification@V01-11-00
-  - data-l1trigger-l1tglobal@V00-03-00
-  - data-recotautag-trainingfiles@V00-06-00
+  - data-recoegamma-electronidentification@V01-12-00
+  - data-l1trigger-l1tglobal@V00-04-00
+  - data-recotautag-trainingfiles@V00-07-00
   - data-validation-hgcalvalidation@V00-05-00
-  - data-l1trigger-l1tmuon@V01-06-00
+  - data-l1trigger-l1tmuon@V01-07-00
   - data-recoegamma-egammaphotonproducers@V00-01-00
   - data-l1triggerconfig-l1tconfigproducers@V00-01-00
   - data-dqm-integration@V00-02-00
-  - data-recotracker-mkfit@V00-11-00
+  - data-recotracker-mkfit@V00-12-00
   - data-recomuon-trackerseedgenerator@V00-04-00
   - data-recomuon-muonidentification@V01-14-00
   - data-dqm-ecalmonitorclient@V00-02-00
   - data-condtools-sistrip@V00-02-00
-  - data-alignment-offlinevalidation@V00-02-00
-  - data-geometry-testreference@V00-09-00
+  - data-alignment-offlinevalidation@V00-03-00
+  - data-geometry-testreference@V00-10-00
   - data-l1trigger-l1thgcal@V01-07-00
   - data-recoparticleflow-pfproducer@V16-02-00
   - data-condtools-siphase2tracker@V00-02-00
-  - data-recotracker-finaltrackselectors@V01-03-00
+  - data-recotracker-finaltrackselectors@V01-04-00
   - data-calibcalorimetry-calomiscalibtools@V01-00-00
   - data-fastsimulation-materialeffects@V05-00-00
   - data-l1trigger-rpctrigger@V00-15-00
   - data-recoparticleflow-pfblockproducer@V02-04-02
   - data-simg4cms-calo@V03-04-00
   - data-validation-geometry@V00-07-00
-  - data-physicstools-nanoaod@V01-02-00
+  - data-physicstools-nanoaod@V01-03-00
   - data-calibpps-esproducers@V01-04-00
   - data-dataformats-patcandidates@V01-01-00
   - data-l1trigger-trackfindingtracklet@V00-03-00
@@ -704,11 +705,11 @@ spack:
   - data-physicstools-patutils@V00-05-00
   - data-recojets-jetproducers@V05-14-00
   - data-l1trigger-dttriggerphase2@V00-02-00
-  - data-recohgcal-ticl@V00-02-01
+  - data-recohgcal-ticl@V00-03-00
   - data-egammaanalysis-electrontools@V00-03-01
   - data-heterogeneouscore-sonictriton@V00-01-00
   - data-recotracker-tkseedgenerator@V00-02-00
-  - data-calibtracker-sipixelesproducers@V02-02-00
+  - data-calibtracker-sipixelesproducers@V02-03-00
   - data-geometry-dtgeometrybuilder@V00-01-00
   - data-l1trigger-trackfindingtmtt@V00-02-00
   - data-l1trigger-phase2l1particleflow@V00-04-00
