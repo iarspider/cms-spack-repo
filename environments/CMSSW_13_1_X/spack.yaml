@@ -142,7 +142,7 @@ spack:
   - cmssw # NB: version set inside recipe
   - abseil-cpp@20210324.2
   - alpgen@2.1.4 recipe=cms
-  - alpaka@20220902
+  - alpaka@20230209
   - autoconf@2.71
   - automake@1.16.3
   - bazel@3.7.2
