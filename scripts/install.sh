@@ -32,7 +32,7 @@ spack env activate ${SPACK_ENV_NAME}
 spack config add "modules:default:roots:tcl::${RPM_INSTALL_PREFIX}/modules"
 spack config add "modules:default:tcl:all:autoload::all"
 # spack config add "modules:default:tcl:hash_length::0"
-wget -O ${WORKSPACE}/spack/var/spack/environment/${SPACK_ENV_NAME}/spack.lock https://test-razumov.web.cern.ch/test-razumov/CMS/environment/spack-${SPACK_ENV_NAME}-${SCRAM_ARCH}.lock
+wget -O ${WORKSPACE}/spack/var/spack/environments/${SPACK_ENV_NAME}/spack.lock https://test-razumov.web.cern.ch/test-razumov/CMS/environment/spack-${SPACK_ENV_NAME}-${SCRAM_ARCH}.lock
 if [ $? -ne 0 ]; then
     echo "ERROR: couldn't fetch spack.lock"
     exit 1
