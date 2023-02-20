@@ -22,6 +22,8 @@ class Cmsdist(Package):
     homepage = "https://www.example.com"
     git = "https://github.com/cms-sw/cmsdist.git"
 
+    version("IB-CMSSW_13_1_X-master", branch="IB/CMSSW_13_1_X/master")
+    version("IB-CMSSW_13_0_X-g11", branch="IB/CMSSW_13_0_X/g11")
     version("IB-CMSSW_12_6_X-g11", branch="IB/CMSSW_12_6_X/g11")
 
     def patch(self):
@@ -42,27 +44,6 @@ class Cmsdist(Package):
             join_path(prefix, "scram-tools.file", "tools", "llvm", "env.sh"),
             string=True,
         )
-
-#        filter_file(
-#            '<environment name="CXX" value="$GCC_CXXCOMPILER_BASE/bin/c++@COMPILER_NAME_SUFFIX@"/>',
-#            '<environment name="CXX" value="' + spack_cxx + '"/>',
-#            join_path(prefix, "scram-tools.file", "tools", "gcc", "gcc-cxxcompiler.xml"),
-#            string=True,
-#        )
-#
-#        filter_file(
-#            '<environment name="CC" value="$GCC_CCOMPILER_BASE/bin/gcc@COMPILER_NAME_SUFFIX@"/>',
-#            '<environment name="CC" value="' + spack_cc + '"/>',
-#            join_path(prefix, "scram-tools.file", "tools", "gcc", "gcc-ccompiler.xml"),
-#            string=True,
-#        )
-#
-#        filter_file(
-#            '<environment name="FC" default="$GCC_F77COMPILER_BASE/bin/gfortran"/>',
-#            '<environment name="FC" default="' + spack_fc + '"/>',
-#            join_path(prefix, "scram-tools.file", "tools", "gcc", "gcc-f77compiler.xml"),
-#            string=True,
-#        )
 
         if self.spec.satisfies("@12.4.0.pre3"):
             add_toolfile("abseil-cpp")

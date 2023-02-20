@@ -15,7 +15,7 @@ class ScramPackage(spack.package_base.PackageBase):
     depends_on('scram', type='build')
     depends_on('dwz', type='build')
 
-    configtag = 'V07-03-17'
+    configtag = 'V07-06-01'
 
     resource(name='cmssw-config', git='https://github.com/cms-sw/cmssw-config.git',
              tag=configtag)

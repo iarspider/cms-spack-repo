@@ -5,6 +5,8 @@ from spack.pkg.builtin.alpaka import Alpaka as BuiltinAlpaka
 class Alpaka(BuiltinAlpaka):
     __doc__ = BuiltinAlpaka.__doc__
 
+    git = "https://github.com/cms-patatrack/alpaka"
+
     version("20230209", commit="d1855b1b0d0a2877b06147eacf0ddda56e40d661")
     version("20230201", commit="a68c866cc6c3019748cf127b4eac61be38e7f687")
     version("20220902", commit="b518e8c943a816eba06c3e12c0a7e1b58c8faedc")

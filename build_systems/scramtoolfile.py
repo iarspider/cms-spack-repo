@@ -97,6 +97,11 @@ class ScramToolfilePackage(BundlePackage, CudaPackage):
             env.set("GCC_ROOT", os.path.dirname(os.path.dirname(self.compiler.cc)))
             env.set("GCC_VERSION", str(self.compiler.real_version))
 
+        WORKSPACE = os.getenv("WORKSPACE")
+        env.prepend_path("SCRAM_PREFIX_PATH", f"{WORKSPACE}/spack/lib/spack/env/gcc")
+        env.prepend_path("SCRAM_PREFIX_PATH", f"{WORKSPACE}/spack/lib/spack/env/case-insensitive")
+        env.prepend_path("SCRAM_PREFIX_PATH", f"{WORKSPACE}/spack/lib/spack/env")
+
     ## INCLUDE scram-tool-conf
     def install(self, spec, prefix):
         mkdirp(prefix.tools.selected)
@@ -120,6 +125,9 @@ class ScramToolfilePackage(BundlePackage, CudaPackage):
 
         gcc_dir = os.path.dirname(os.path.dirname(self.compiler.cc))
         get_tools(gcc_dir, str(self.compiler.real_version), prefix, "gcc")
+        for comp in [("gcc-cxxcompiler.xml","c++"), ("gcc-ccompiler.xml","gcc"), ("gcc-f77compiler.xml","gfortran")]:
+            filter_file(' (value|default)=".*?/%s"' % comp[1].replace("+","\\+"),   ' value="%s"' % comp[1], os.path.join(prefix.tools.selected,comp[0]))
+
         get_tools("", "system", prefix, "systemtools")
 
         # TODO: vectorization
