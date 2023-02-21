@@ -39,11 +39,12 @@ if [ $? -ne 0 ]; then
 fi
 
 # Check for possible prefix conflicts
-${WORKSPACE}/cms-spack-repo/scripts/clean-db.py
-if [ $? -ne 0 ]; then
-    echo "ERROR: db cleanup failed"
-    exit 1
-fi
+# TODO
+#${WORKSPACE}/cms-spack-repo/scripts/clean-db.py
+#if [ $? -ne 0 ]; then
+#    echo "ERROR: db cleanup failed"
+#    exit 1
+#fi
 
 #spack ${SPACK_DEBUG_FLAG} install -j"$CORES" --fail-fast --reuse --cache-only
 spack ${SPACK_DEBUG_FLAG} env depfile -o Makefile --use-buildcache only
