@@ -93,6 +93,7 @@ else
 fi
 echo Increasing download timeout from 10s to 5m
 bin/spack config --scope=site add "config:connect_timeout:300"
+bin/spack config --scope=site add "config:db_lock_timeout:60"
 
 echo Set install directory
 bin/spack config add "config:install_tree:root:${RPM_INSTALL_PREFIX}"
